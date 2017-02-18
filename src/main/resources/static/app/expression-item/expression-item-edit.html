@@ -1,0 +1,261 @@
+<style>
+    .wrap-dd-menu {
+        padding: 0px;
+    }
+
+    datalist option {
+        color: #00AA88;
+        font-weight: lighter;
+    }
+</style>
+<!--<div class="page-title">-->
+<!--<div class="title_left">-->
+<!--<h3>-->
+<!--Lesson Editing-->
+<!--</h3>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="clearfix"></div>-->
+<!--<div class="ln_solid"></div>-->
+<div class="row">
+    <div class="col-md-2">
+        <a href="" ng-click="lessonEditService.constructNewLesson()"><i class="fa fa-file-text"></i> New Lesson</a>
+    </div>
+
+    <div class="col-md-2">
+        <a href='' title=''
+           dropdown-menu="lessonEditService.menu.items"
+           dropdown-model="lessonEditService.menu.selectedItem"
+           dropdown-item-label="text">
+            <i class="fa fa-folder-open"></i> Recent Lessons
+        </a>
+    </div>
+    <div class="col-md-2">
+        <a href="#!/expression-item-test?lessonId={{lessonEditService.lesson.id}}"><i class="fa fa-tasks"></i> Test this Lesson</a>
+    </div>
+    <div class="col-md-2">
+        <a href="" ng-show="lessonEditService.lesson.id" ng-click="lessonEditService.removeLesson()"><i class="fa fa-close text-red"></i> Remove Lesson</a>
+    </div>
+</div>
+<div class="ln_solid" style="margin: 10px 0px;"></div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2 style="width: 100%">
+                    <input ng-model="lessonEditService.lesson.name" type="text" placeholder="Lesson" class="input-as-text"/>
+                </h2>
+                <ul class="nav navbar-right panel_toolbox">
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!--Description-->
+                        <div ng-show="!lessonEditService.editingNote && !lessonEditService.lesson.noteAsHtml"
+                             ng-dblclick="lessonEditService.startEditingNote()"
+                             class="well well-sm">
+                            <p style="font-style: italic; color: #D1D1D1;">Lesson Description</p>
+                        </div>
+                        <div ng-show="!lessonEditService.editingNote && lessonEditService.lesson.noteAsHtml"
+                             ng-bind-html="lessonEditService.lesson.noteAsHtml"
+                             ng-dblclick="lessonEditService.startEditingNote()"
+                             class="well well-sm">
+                        </div>
+                        <div ng-show="lessonEditService.editingNote">
+                            <textarea ck-editor="lessonEditService.ckeditor.options" ng-model="lessonEditService.lesson.noteAsHtml" ready="lessonEditService.ckeditor.onReady()"></textarea>
+                            <br/>
+                            <button class="btn btn-success" ng-click="lessonEditService.stopEditingNote()">Preview</button>
+                        </div>
+                        <!--Expression Type-->
+                        <div>
+                            <label>Expression Type: </label>
+
+                            <input type="radio" ng-model="lessonEditService.lesson.defaultExpressionType" ng-change="lessonEditService.selectExpressionType()" value="word" name="optionsRadios"> Word
+                            <input type="radio" ng-model="lessonEditService.lesson.defaultExpressionType" ng-change="lessonEditService.selectExpressionType()" value="phrasal verb" name="optionsRadios"> Phrasal Verb
+                        </div>
+                    </div>
+                </div>
+                <div class="ln_solid"></div>
+                <div class="row">
+
+                    <div class="col-lg-11">
+                        <!--Topics-->
+                        <div ng-repeat="topic in lessonEditService.lesson.topics track by $index"
+                             class="col-md-2 wrap-dd-menu">
+
+                            <input type="text"
+                                   ng-model="topic.name"
+                                   ng-blur="lessonEditService.finishInputTopic(topic)"
+                                   placeholder="Topic" list="autocomplete_{{$index}}"
+                                   style="width: 100%"/>
+                            <datalist id="autocomplete_{{$index}}">
+                                <select ng-options="itopic as itopic.name for itopic in lessonEditService.topics track by itopic.name" ng-model="selected"></select>
+                            </datalist>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-1">
+                        <a class="close-link"><i class="fa fa-plus" ng-click="lessonEditService.addTopic()"></i></a>
+                    </div>
+                </div>
+                <div class="ln_solid"></div>
+                <!-- Expression Items Table -->
+                <div class="text-danger alert alert-danger"
+                     ng-show="userMessage">
+                    {{userMessage}}
+                </div>
+                <div class="table-responsive">
+                    <table class="table-input-as-text">
+                        <thead>
+                        <tr>
+                            <th colspan="4">
+                                Expression <a href=""><i class="fa fa-adjust" ng-click="lessonEditService.onOffExpression()"></i></a>
+                            </th>
+                            <th>
+                                Meaning <a href=""><i class="fa fa-adjust" ng-click="lessonEditService.onOffMeaning()"></i></a>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="expression-item-row" ng-repeat="expressionItem in lessonEditService.lesson.expressionItems">
+                            <td style="width: 25px; ">
+                                <span style="padding-left:5px; line-height: 24px;">{{$index + 1}}</span>
+                            </td>
+                            <td style="width: 20px">
+                                <a href=""
+                                   ng-class="lessonEditService.isShowExpression ? '': 'transparent'"
+                                   ng-click="lessonEditService.favourite(expressionItem)">
+                                    <span style="line-height: 24px;"><i class="fa " ng-class="expressionItem.userPoints[USER_ID].favourite == -1 ? 'fa-star favourite':'fa-star-o no-favourite'"></i></span>
+                                </a>
+                            </td>
+                            <td style="width: 30%">
+                                <input type="text"
+                                       ng-show="expressionItem.type !='phrasal verb'"
+                                       ng-class="lessonEditService.isShowExpression ? '': 'transparent'"
+                                       ng-model="expressionItem.expression"
+                                       ng-change="lessonEditService.addExpressionItemIfNecessary(expressionItem)"
+                                       ng-focus="lessonEditService.focusExpressionItem(expressionItem)"
+                                       ng-blur="lessonEditService.translateExpressionItem(expressionItem)"
+                                       placeholder="expression {{$index + 1}}" class="cell-input expression"/>
+
+                                <div ng-show="expressionItem.type =='phrasal verb'"
+                                     ng-class="lessonEditService.isShowExpression ? '': 'transparent'"
+                                     ng-repeat="word in expressionItem.phrasalVerbDetail.words track by $index"
+                                     class="col-md-4">
+                                    <input type="text"
+                                           ng-model="word.value"
+                                           ng-change="lessonEditService.changePhrasalVerb(expressionItem)"
+                                           ng-focus="lessonEditService.focusExpressionItem(expressionItem)"
+                                           ng-blur="lessonEditService.translateExpressionItem(expressionItem)"
+                                           placeholder="phrasal verb {{$index + 1}}" class="cell-input expression"/>
+                                    <input type="text"
+                                           ng-model="word.type"
+                                           ng-change="lessonEditService.addExpressionItemIfNecessary(expressionItem)"
+                                           ng-focus="lessonEditService.focusExpressionItem(expressionItem)"
+                                           ng-blur="lessonEditService.translateExpressionItem(expressionItem)"
+                                           placeholder="word type {{$index + 1}}" class="cell-input expression-type"/>
+
+                                </div>
+                            </td>
+                            <td>
+                                <a href=""
+                                   ng-class="lessonEditService.isShowExpression ? '': 'transparent'"
+                                   ng-click="lessonEditService.playSound(expressionItem)">
+                                    <i class="fa fa-volume-up"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <table width="100%" ng-class="lessonEditService.isShowMeaning? '': 'transparent'">
+                                    <tr ng-repeat="meaning in expressionItem.meanings">
+                                        <td style="width: 60px;">
+                                            <input type="text"
+                                                   class="part-of-speech"
+                                                   ng-model="meaning.wordType" capitalize
+                                                   ng-change="lessonEditService.addExpressionMeaningIfNecessary(expressionItem, meaning)"/>
+                                            <!--<angucomplete-alt
+                                                    placeholder="type"
+                                                    pause="100"
+                                                    selected-object="meaning.wordTypeObject"
+                                                    local-data="lessonEditService.wordTypes"
+                                                    search-fields="label"
+                                                    title-field="label"
+                                                    input-changed="lessonEditService.selectWordType"
+                                                    minlength="1"
+                                                    match-class="highlight"/>-->
+                                        </td>
+                                        <td>
+                                            <!-- Meaning Explanation -->
+                                            <textarea class="form-control"
+                                                      rows="{{meaning.explanationLinesLength || 1}}"
+                                                      ng-model="meaning.explanation"
+                                                      ng-change="lessonEditService.changeExpressionMeaning(this,expressionItem, meaning)"
+                                                      ng-focus="lessonEditService.changeExpressionMeaning(this,expressionItem, meaning)"
+                                                      ng-trim="true"
+                                                      placeholder="explanation {{$index + 1}}"></textarea>
+                                            <!-- Examples -->
+                                            <table style="width: 100%">
+                                                <tr ng-repeat="example in meaning.examples  track by $index">
+                                                    <td style="width: 50px">
+                                                        <label class="example {{meaning.explanation? 'active-meaning': 'inactive-meaning'}}  {{example? 'active-example': 'inactive-example'}}"
+                                                               ng-show="$index == 0">e.g. </label>
+                                                    </td>
+                                                    <td>
+                                                        <!--<textarea ck-editor="lessonEditService.ckeditor.options" ng-model="lessonEditService.lesson.noteAsHtml" ready="lessonEditService.ckeditor.onReady()"></textarea>-->
+
+                                                        <textarea class="form-control"
+                                                                  rows="2"
+                                                                  ng-model="meaning.examples[$index]"
+                                                                  ng-change="lessonEditService.addMeaningExampleIfNecessary(meaning, example,$index)"
+                                                                  ng-focus="lessonEditService.addMeaningExampleIfNecessary(meaning, example,$index)"
+
+                                                                  placeholder="example"></textarea>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <!-- Questions -->
+                                            <table style="width: 100%">
+                                                <tr ng-repeat="fillingQuestion in meaning.fillingQuestions track by $index">
+                                                    <td style="width: 50px">
+                                                        <label class="example {{meaning.explanation? 'active-meaning': 'inactive-meaning'}}  {{!lessonEditService.isWordsEmpty(fillingQuestion.words)? 'active-example': 'inactive-example'}}"
+                                                               ng-show="$index == 0">question </label>
+                                                    </td>
+                                                    <td ng-repeat="word in fillingQuestion.words">
+                                                        <textarea class="form-control"
+                                                                  rows="2"
+                                                                  ng-model="word.value"
+                                                                  ng-focus="lessonEditService.addExpressionMeaningQuestionIfNecessary(meaning)"
+                                                                  placeholder="phrase placeholder">
+                                                        </textarea>
+                                                        <input type="text"
+                                                               ng-model="word.type"
+                                                               class="cell-input expression-type"
+                                                               placeholder="word type {{$index + 1}}"/>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="ln_solid"></div>
+                <!--Save button-->
+                <div class="form-group">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <button ng-disabled="isRunning"
+                                ng-click="lessonEditService.saveLesson()"
+                                type="submit" class="btn btn-success"
+                                title="Ctrl+S, Command+S">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
