@@ -4,15 +4,15 @@ package tnmk.ln.app.dictionary.entity;
  * @author khoi.tran on 2/18/17.
  */
 public class LexicalEntry {
-    private String value;
+    private String text;
     private LexicalType type;
 
-    public String getValue() {
-        return value;
+    public String getText() {
+        return text;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public LexicalType getType() {

@@ -1,16 +1,20 @@
 package tnmk.ln.app.dictionary.entity;
 
+import org.neo4j.ogm.annotation.NodeEntity;
+import tnmk.ln.app.common.entity.BaseEntity;
+
 /**
  * @author khoi.tran on 2/18/17.
  */
-public class Example {
-    private String value;
+@NodeEntity
+public class Example extends BaseEntity {
+    private String text;
 
-    public String getValue() {
-        return value;
+    public String getText() {
+        return text;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setText(String text) {
+        this.text = text;
     }
 }
