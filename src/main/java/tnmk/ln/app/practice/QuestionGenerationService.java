@@ -5,5 +5,5 @@ package tnmk.ln.app.practice;
 /**
  * @author khoi.tran on 2/26/17.
  */
-public interface QuestionGenerationService {//extends GraphRepository<Question> {
+public class QuestionGenerationService {
 }
