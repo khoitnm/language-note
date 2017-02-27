@@ -1,6 +1,7 @@
 package tnmk.ln.app.note.entity;
 
-import tnmk.ln.app.common.entity.BaseEntity;
+import org.neo4j.ogm.annotation.NodeEntity;
+import tnmk.ln.app.common.entity.BaseNeo4jEntity;
 import tnmk.ln.app.dictionary.entity.Expression;
 import tnmk.ln.infrastructure.security.entity.User;
 
@@ -9,8 +10,8 @@ import java.util.Set;
 /**
  * @author khoi.tran on 2/25/17.
  */
-//@NodeEntity
-public class Note extends BaseEntity {
+@NodeEntity
+public class Note extends BaseNeo4jEntity {
     private User owner;
     private Set<Expression> expressions;
     private Set<Topic> topics;

@@ -1,10 +1,12 @@
 package tnmk.ln.app.practice.entity;
 
 //import org.neo4j.ogm.annotation.NodeEntity; import tnmk.ln.app.common.entity.BaseEntity;
-import tnmk.ln.app.common.entity.BaseEntity;
+
+import org.neo4j.ogm.annotation.NodeEntity;
+import tnmk.ln.app.common.entity.BaseNeo4jEntity;
 import tnmk.ln.app.dictionary.entity.Expression;
-import tnmk.ln.app.note.entity.Note;
 import tnmk.ln.app.dictionary.entity.Sense;
+import tnmk.ln.app.note.entity.Note;
 import tnmk.ln.app.note.entity.Topic;
 
 import java.util.Set;
@@ -12,9 +14,11 @@ import java.util.Set;
 /**
  * @author khoi.tran on 2/25/17.
  */
-//@NodeEntity
-public class Question extends BaseEntity {
+@NodeEntity
+public class Question extends BaseNeo4jEntity {
     private QuestionType questionType;
+
+
 
     private Set<Sense> relatedSenses;
     private Set<Note> relatedNotes;
@@ -55,5 +59,13 @@ public class Question extends BaseEntity {
 
     public void setRelatedTopics(Set<Topic> relatedTopics) {
         this.relatedTopics = relatedTopics;
+    }
+
+    public Set<Expression> getRelatedExpressions() {
+        return relatedExpressions;
+    }
+
+    public void setRelatedExpressions(Set<Expression> relatedExpressions) {
+        this.relatedExpressions = relatedExpressions;
     }
 }

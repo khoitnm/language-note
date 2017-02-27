@@ -4,7 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tnmk.ln.app.vocabulary.entity.Topic;
-import tnmk.ln.app.vocabulary.repository.TopicRepository;
+import tnmk.ln.app.vocabulary.repository.TopicMongoRepository;
 
 import java.util.HashSet;
 import java.util.List;
@@ -18,10 +18,10 @@ import java.util.stream.Collectors;
 public class TopicService {
 
     @Autowired
-    private TopicRepository topicRepository;
+    private TopicMongoRepository topicMongoRepository;
 
     public List<Topic> findAll() {
-        return topicRepository.findAll();
+        return topicMongoRepository.findAll();
     }
 
     public Set<Topic> saveTopics(Set<Topic> topics) {
@@ -32,14 +32,14 @@ public class TopicService {
         Set<Topic> existingTopics = new HashSet<>();
         Set<Topic> newTopics = new HashSet<>();
         for (Topic itopic : notBlankTopics) {
-            Topic existingTopic = topicRepository.findOneByName(itopic.getName());
+            Topic existingTopic = topicMongoRepository.findOneByName(itopic.getName());
             if (existingTopic != null) {
                 existingTopics.add(existingTopic);
             } else {
                 newTopics.add(itopic);
             }
         }
-        Set<Topic> result = topicRepository.save(newTopics).stream().collect(Collectors.toSet());
+        Set<Topic> result = topicMongoRepository.save(newTopics).stream().collect(Collectors.toSet());
         result.addAll(existingTopics);
         return result;
     }
