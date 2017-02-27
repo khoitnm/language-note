@@ -33,4 +33,12 @@ public class BaseNeo4jEntity {
     public void setCreatedDateTime(Date createdDateTime) {
         this.createdDateTime = createdDateTime;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

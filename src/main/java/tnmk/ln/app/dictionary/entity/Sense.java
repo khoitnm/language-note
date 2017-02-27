@@ -14,6 +14,7 @@ import java.util.List;
 @NodeEntity
 public class Sense extends BaseNeo4jEntity {
     private String explanation;
+    private LexicalType lexicalType;
     private List<FileItem> photos;
     private List<FileItem> audios;
     private List<FileItem> videos;
@@ -57,5 +58,13 @@ public class Sense extends BaseNeo4jEntity {
 
     public void setVideos(List<FileItem> videos) {
         this.videos = videos;
+    }
+
+    public LexicalType getLexicalType() {
+        return lexicalType;
+    }
+
+    public void setLexicalType(LexicalType lexicalType) {
+        this.lexicalType = lexicalType;
     }
 }
