@@ -2,6 +2,7 @@ package tnmk.ln.app.dictionary.entity;
 
 //import org.neo4j.ogm.annotation.NodeEntity;
 
+import org.neo4j.ogm.annotation.NodeEntity;
 import tnmk.ln.app.common.entity.BaseNeo4jEntity;
 import tnmk.ln.infrastructure.filestorage.entity.FileItem;
 
@@ -10,7 +11,7 @@ import java.util.List;
 /**
  * @author khoi.tran on 2/18/17.
  */
-//@NodeEntity
+@NodeEntity
 public class Sense extends BaseNeo4jEntity {
     private String explanation;
     private List<FileItem> photos;

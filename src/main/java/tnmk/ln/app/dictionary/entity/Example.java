@@ -1,12 +1,12 @@
 package tnmk.ln.app.dictionary.entity;
 
-import tnmk.ln.app.common.entity.BaseEntity;
+import org.neo4j.ogm.annotation.NodeEntity;
 import tnmk.ln.app.common.entity.BaseNeo4jEntity;
 
 /**
  * @author khoi.tran on 2/18/17.
  */
-//@NodeEntity
+@NodeEntity
 public class Example extends BaseNeo4jEntity {
     private String text;
 
