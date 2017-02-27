@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
+import tnmk.common.infrastructure.repositoriesfilter.MongoRepoScanInclude;
 import tnmk.ln.app.vocabulary.entity.ExpressionItem;
 import tnmk.ln.app.vocabulary.model.ExpressionFilter;
 
@@ -14,6 +15,7 @@ import java.util.List;
 
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 
+@MongoRepoScanInclude
 @Repository
 public class ExpressionItemFilterRepository {
     @Autowired

@@ -3,7 +3,7 @@ package tnmk.ln.infrastructure.tts.cache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tnmk.ln.infrastructure.filestorage.entity.FileItem;
-import tnmk.ln.infrastructure.filestorage.entity.FileItemService;
+import tnmk.ln.infrastructure.filestorage.FileItemService;
 
 /**
  * @author khoi.tran on 2/2/17.

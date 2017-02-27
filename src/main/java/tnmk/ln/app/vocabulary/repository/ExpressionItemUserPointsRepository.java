@@ -12,6 +12,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Repository;
+import tnmk.common.infrastructure.repositoriesfilter.MongoRepoScanInclude;
 import tnmk.ln.app.vocabulary.entity.ExpressionItem;
 import tnmk.ln.app.vocabulary.entity.UserPoint;
 
@@ -20,6 +21,7 @@ import java.util.List;
 
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 
+@MongoRepoScanInclude
 @Repository
 public class ExpressionItemUserPointsRepository {
     @Autowired

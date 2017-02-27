@@ -4,10 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
+import tnmk.common.infrastructure.repositoriesfilter.MongoRepoScanInclude;
 import tnmk.ln.app.vocabulary.entity.ExpressionItem;
 
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 
+@MongoRepoScanInclude
 @Repository
 public class ExpressionItemRemoveRepository {
     @Autowired
