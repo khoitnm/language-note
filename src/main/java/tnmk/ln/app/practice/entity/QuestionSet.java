@@ -1,6 +1,6 @@
 package tnmk.ln.app.practice.entity;
 
-import org.neo4j.ogm.annotation.NodeEntity;
+//import org.neo4j.ogm.annotation.NodeEntity; import tnmk.ln.app.common.entity.BaseEntity;
 import tnmk.ln.app.common.entity.BaseEntity;
 import tnmk.ln.infrastructure.security.entity.User;
 
@@ -9,7 +9,7 @@ import java.util.Set;
 /**
  * @author khoi.tran on 2/26/17.
  */
-@NodeEntity
+//@NodeEntity
 public class QuestionSet extends BaseEntity {
     private User owner;
     private String noteAsHtml;

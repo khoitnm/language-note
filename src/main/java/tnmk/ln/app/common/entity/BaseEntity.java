@@ -1,20 +1,18 @@
 package tnmk.ln.app.common.entity;
 
-import org.neo4j.ogm.annotation.GraphId;
 import org.springframework.data.annotation.Id;
+
+import java.time.Instant;
 
 /**
  * @author khoi.tran on 1/25/17.
  */
 public class BaseEntity {
     @Id
-    @GraphId
     private String id;
 
-//    @DateLong
-//    private Date createdDateTime;
-//    @DateLong
-//    private Date updatedDateTime;
+    private Instant createdDateTime;
+    private Instant updatedDateTime;
 
     public String getId() {
         return id;
@@ -24,19 +22,20 @@ public class BaseEntity {
         this.id = id;
     }
 
-//    public Date getCreatedDateTime() {
-//        return createdDateTime;
-//    }
-//
-//    public void setCreatedDateTime(Date createdDateTime) {
-//        this.createdDateTime = createdDateTime;
-//    }
-//
-//    public Date getUpdatedDateTime() {
-//        return updatedDateTime;
-//    }
-//
-//    public void setUpdatedDateTime(Date updatedDateTime) {
-//        this.updatedDateTime = updatedDateTime;
-//    }
+    public Instant getCreatedDateTime() {
+        return createdDateTime;
+    }
+
+    public void setCreatedDateTime(Instant createdDateTime) {
+        this.createdDateTime = createdDateTime;
+    }
+
+    public Instant getUpdatedDateTime() {
+        return updatedDateTime;
+    }
+
+    public void setUpdatedDateTime(Instant updatedDateTime) {
+        this.updatedDateTime = updatedDateTime;
+    }
+
 }

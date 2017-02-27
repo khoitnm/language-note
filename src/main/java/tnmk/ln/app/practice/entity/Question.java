@@ -1,6 +1,6 @@
 package tnmk.ln.app.practice.entity;
 
-import org.neo4j.ogm.annotation.NodeEntity;
+//import org.neo4j.ogm.annotation.NodeEntity; import tnmk.ln.app.common.entity.BaseEntity;
 import tnmk.ln.app.common.entity.BaseEntity;
 import tnmk.ln.app.dictionary.entity.Expression;
 import tnmk.ln.app.note.entity.Note;
@@ -12,7 +12,7 @@ import java.util.Set;
 /**
  * @author khoi.tran on 2/25/17.
  */
-@NodeEntity
+//@NodeEntity
 public class Question extends BaseEntity {
     private QuestionType questionType;
 

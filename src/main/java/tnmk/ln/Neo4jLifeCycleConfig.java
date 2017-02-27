@@ -3,7 +3,7 @@ package tnmk.ln;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListener;
 import org.springframework.data.mongodb.core.mapping.event.BeforeSaveEvent;
-import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
+//import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
 import tnmk.ln.app.common.entity.BaseEntity;
 
 import java.util.Date;
@@ -14,7 +14,7 @@ import java.util.Date;
  * @author khoi.tran on 2/19/17.
  */
 @Configuration
-@EnableNeo4jRepositories
+//@EnableNeo4jRepositories
 public class Neo4jLifeCycleConfig {
     //        extends Neo4jConfiguration {
     @EventListener

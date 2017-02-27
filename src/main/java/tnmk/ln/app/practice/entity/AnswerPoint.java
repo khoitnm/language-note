@@ -1,13 +1,12 @@
 package tnmk.ln.app.practice.entity;
 
-import org.neo4j.ogm.annotation.NodeEntity;
-import org.neo4j.ogm.annotation.Property;
+//import org.neo4j.ogm.annotation.NodeEntity; import org.neo4j.ogm.annotation.Property;
 import tnmk.ln.app.common.entity.BaseEntity;
 
 /**
  * @author khoi.tran on 2/26/17.
  */
-@NodeEntity
+//@NodeEntity
 public class AnswerPoint extends BaseEntity{
 
     private int maxPoints;
