@@ -1,6 +1,6 @@
 package tnmk.ln.app.dictionary.entity;
 
-import tnmk.ln.app.common.entity.BaseEntity;
+import tnmk.ln.app.common.entity.BaseNeo4jEntity;
 import tnmk.ln.infrastructure.filestorage.entity.FileItem;
 
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
  * @author khoi.tran on 2/18/17.
  */
 //@NodeEntity
-public class Expression extends BaseEntity {
+public class Expression extends BaseNeo4jEntity {
     private String text;
     private ExpressionType expressionType;
     /**

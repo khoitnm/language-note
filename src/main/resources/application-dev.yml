@@ -6,10 +6,10 @@ spring:
             database: englishlearning
             username: englishlearningadmin
             password: password
-#        neo4j:
-#            uri: http://localhost:7474/
-#            username: neo4j
-#            password: password
+        neo4j:
+            uri: http://localhost:7474/
+            username: neo4j
+            password: password
 google:
     api:
         key: AIzaSyA6yFgxn-ZedxCghH1X4xwuLLcltaUlK3c
