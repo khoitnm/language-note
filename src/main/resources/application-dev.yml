@@ -7,8 +7,8 @@ spring:
             username: englishlearningadmin
             password: password
         neo4j:
-            uri: bolt://localhost
-            username: languagenote
+            uri: http://localhost:7474/
+            username: neo4j
             password: password
 google:
     api:

@@ -1,13 +1,15 @@
 package tnmk.ln.app.dictionary.entity;
 
+import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
-import tnmk.ln.app.common.entity.BaseEntity;
 
 /**
- * @author khoi.tran on 2/18/17.
+ * @author khoi.tran on 2/26/17.
  */
 @NodeEntity
-public class Example extends BaseEntity {
+public class Simple {
+    @GraphId
+    private Long id;
     private String text;
 
     public String getText() {
@@ -16,5 +18,13 @@ public class Example extends BaseEntity {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

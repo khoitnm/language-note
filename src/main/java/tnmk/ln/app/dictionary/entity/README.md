@@ -1,1 +1,0 @@
-https://dzone.com/articles/neo4j-applied-modeling-sdn
