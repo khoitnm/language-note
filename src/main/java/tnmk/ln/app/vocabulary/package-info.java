@@ -4,5 +4,4 @@
  * @author khoi.tran on 2/25/17.
  * @deprecated Only used for migration.
  */
-@Deprecated
 package tnmk.ln.app.vocabulary;
