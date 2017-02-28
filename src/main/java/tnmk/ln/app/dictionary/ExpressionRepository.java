@@ -1,7 +1,7 @@
 package tnmk.ln.app.dictionary;
 
 import org.springframework.data.neo4j.repository.GraphRepository;
-import tnmk.common.infrastructure.repositoriesfilter.Neo4jRepoScanInclude;
+import tnmk.common.infrastructure.data.neo4j.repository.Neo4jRepoScanInclude;
 import tnmk.ln.app.dictionary.entity.Expression;
 
 /**

@@ -4,9 +4,7 @@ import org.neo4j.ogm.session.SessionFactory;
 import org.neo4j.ogm.session.event.Event;
 import org.neo4j.ogm.session.event.EventListenerAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.neo4j.transaction.Neo4jTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import tnmk.ln.app.common.entity.BaseNeo4jEntity;
 
@@ -25,11 +23,11 @@ public class Neo4jLifeCycleConfig {
     @Autowired
     private SessionFactory sessionFactory;
 
-    @Bean
-    public Neo4jTransactionManager transactionManager() throws Exception {
-        sessionFactory.register(new PreSaveListener());
-        return new Neo4jTransactionManager(sessionFactory);
-    }
+//    @Bean
+//    public Neo4jTransactionManager transactionManager() throws Exception {
+//        sessionFactory.register(new PreSaveListener());
+//        return new Neo4jTransactionManager(sessionFactory);
+//    }
 
     public static class PreSaveListener extends EventListenerAdapter {
         @Override

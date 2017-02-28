@@ -1,4 +1,4 @@
-package tnmk.common.infrastructure.repositoriesfilter;
+package tnmk.common.infrastructure.data.mongo.repository;
 
 import org.springframework.stereotype.Component;
 

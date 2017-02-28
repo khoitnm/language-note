@@ -6,8 +6,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import tnmk.common.infrastructure.repositoriesfilter.MongoRepoScanInclude;
-import tnmk.common.infrastructure.repositoriesfilter.Neo4jRepoScanInclude;
+import tnmk.common.infrastructure.data.mongo.repository.MongoRepoScanInclude;
+import tnmk.common.infrastructure.data.neo4j.repository.Neo4jRepoScanInclude;
 
 @SpringBootApplication
 @EnableScheduling

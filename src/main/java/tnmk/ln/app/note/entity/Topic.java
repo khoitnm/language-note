@@ -4,13 +4,15 @@ import org.neo4j.ogm.annotation.NodeEntity;
 import tnmk.ln.app.common.entity.BaseNeo4jEntity;
 import tnmk.ln.infrastructure.security.entity.User;
 
+import java.util.Set;
+
 /**
  * @author khoi.tran on 2/25/17.
  */
-@NodeEntity
+@NodeEntity(label = "Topic")
 public class Topic extends BaseNeo4jEntity {
     private User owner;
-//    private List<Topic> children;
+    private Set<Topic> children;
 
     public User getOwner() {
         return owner;
@@ -19,12 +21,12 @@ public class Topic extends BaseNeo4jEntity {
     public void setOwner(User owner) {
         this.owner = owner;
     }
-//
-//    public List<Topic> getChildren() {
-//        return children;
-//    }
-//
-//    public void setChildren(List<Topic> children) {
-//        this.children = children;
-//    }
+
+    public Set<Topic> getChildren() {
+        return children;
+    }
+
+    public void setChildren(Set<Topic> children) {
+        this.children = children;
+    }
 }

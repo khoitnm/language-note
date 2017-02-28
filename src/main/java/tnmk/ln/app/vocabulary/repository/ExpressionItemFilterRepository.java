@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
-import tnmk.common.infrastructure.repositoriesfilter.MongoRepoScanInclude;
+import tnmk.common.infrastructure.data.mongo.repository.MongoRepoScanInclude;
 import tnmk.ln.app.vocabulary.entity.ExpressionItem;
 import tnmk.ln.app.vocabulary.model.ExpressionFilter;
 

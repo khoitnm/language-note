@@ -1,4 +1,4 @@
-package tnmk.common.infrastructure.repositoriesfilter;
+package tnmk.common.infrastructure.data.jpa.repository;
 
 import org.springframework.stereotype.Component;
 
@@ -15,6 +15,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Component
-public @interface Neo4jRepoScanInclude {
+public @interface JpaRepoScanInclude {
     String value() default "";
 }

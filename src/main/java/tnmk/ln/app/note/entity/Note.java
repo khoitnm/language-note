@@ -10,7 +10,7 @@ import java.util.Set;
 /**
  * @author khoi.tran on 2/25/17.
  */
-@NodeEntity
+@NodeEntity(label = "Note")
 public class Note extends BaseNeo4jEntity {
     private User owner;
     private Set<Expression> expressions;

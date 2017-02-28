@@ -3,7 +3,6 @@ package tnmk.ln.infrastructure.filestorage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tnmk.ln.infrastructure.filestorage.entity.FileItem;
-import tnmk.ln.infrastructure.filestorage.mongorepositories.FileItemRepository;
 
 /**
  * @author khoi.tran on 2/2/17.

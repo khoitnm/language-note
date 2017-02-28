@@ -3,7 +3,7 @@ package tnmk.ln.app.practice;
 //import org.springframework.data.neo4j.repository.GraphRepository; import tnmk.ln.app.practice.entity.PracticeResult;
 
 import org.springframework.data.neo4j.repository.GraphRepository;
-import tnmk.common.infrastructure.repositoriesfilter.Neo4jRepoScanInclude;
+import tnmk.common.infrastructure.data.neo4j.repository.Neo4jRepoScanInclude;
 import tnmk.ln.app.practice.entity.PracticeResult;
 
 /**

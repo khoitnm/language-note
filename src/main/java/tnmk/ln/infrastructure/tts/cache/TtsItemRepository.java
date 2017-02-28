@@ -2,7 +2,7 @@ package tnmk.ln.infrastructure.tts.cache;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
-import tnmk.common.infrastructure.repositoriesfilter.MongoRepoScanInclude;
+import tnmk.common.infrastructure.data.mongo.repository.MongoRepoScanInclude;
 
 /**
  * @author khoi.tran on 2/2/17.

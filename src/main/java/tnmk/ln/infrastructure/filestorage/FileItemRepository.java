@@ -1,8 +1,8 @@
-package tnmk.ln.infrastructure.filestorage.mongorepositories;
+package tnmk.ln.infrastructure.filestorage;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
-import tnmk.common.infrastructure.repositoriesfilter.MongoRepoScanInclude;
+import tnmk.common.infrastructure.data.mongo.repository.MongoRepoScanInclude;
 import tnmk.ln.infrastructure.filestorage.entity.FileItem;
 
 /**
