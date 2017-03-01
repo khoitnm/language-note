@@ -2,10 +2,14 @@ package tnmk.common.util;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeansException;
+import org.springframework.util.Assert;
+import tnmk.common.exception.UnexpectedException;
 
 import java.beans.PropertyDescriptor;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.time.temporal.Temporal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,6 +23,23 @@ public class ReflectionUtils {
     public static <A extends Annotation> Field findFieldByAnnotationType(Class<?> clazz, Class<A> annotationClass) {
         org.springframework.data.util.ReflectionUtils.AnnotationFieldFilter annotationFieldFilter = new org.springframework.data.util.ReflectionUtils.AnnotationFieldFilter(annotationClass);
         return org.springframework.data.util.ReflectionUtils.findField(clazz, annotationFieldFilter);
+    }
+
+    public static <A extends Annotation> List<PropertyDescriptor> findPropertyDescriptorsByAnnotationType(Class<?> clazz, Class<A> annotationClass) {
+        List<PropertyDescriptor> result = new ArrayList<>();
+        Field[] fields = clazz.getDeclaredFields();
+        for (Field field : fields) {
+            A annotation = field.getAnnotation(annotationClass);
+            if (annotation != null) {
+                PropertyDescriptor propertyDescriptor = BeanUtils.getPropertyDescriptor(clazz, field.getName());
+                if (propertyDescriptor == null) {
+                    String msg = String.format("The class %s has field %s, so its descriptor must be not null", clazz, field);
+                    throw new UnexpectedException(msg);
+                }
+                result.add(propertyDescriptor);
+            }
+        }
+        return result;
     }
 
     public static <A extends Annotation> List<Field> findFieldsByAnnotationType(Class<?> clazz, Class<A> annotationClass) {
@@ -61,16 +82,23 @@ public class ReflectionUtils {
      * @param type
      * @return
      */
-    public static boolean isFirstClassSimpleType(Class<?> type) {
-        if (type.isPrimitive()) return true;
-        if (String.class.isAssignableFrom(type)) return true;
-        if (Number.class.isAssignableFrom(type)) return true;
-        if (Enum.class.isAssignableFrom(type)) return true;
+    public static boolean isSimpleType(Class<?> type) {
+        if (BeanUtils.isSimpleValueType(type)) return true;
         if (isDateTimeType(type)) return true;
         return false;
     }
 
     public static boolean isDateTimeType(Class<?> type) {
         return Temporal.class.isAssignableFrom(type) || Date.class.isAssignableFrom(type);
+    }
+
+    public static Object readProperty(Object object, PropertyDescriptor propertyDescriptor) {
+        Method method = propertyDescriptor.getReadMethod();
+        Assert.notNull(method, "The field " + propertyDescriptor.getName() + " of object " + object + " doesn't have getter");
+        try {
+            return method.invoke(object);
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            throw new UnexpectedException(e.getMessage(), e);
+        }
     }
 }

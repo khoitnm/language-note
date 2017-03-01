@@ -22,7 +22,6 @@ public class Sense extends BaseNeo4jEntity {
 
     private String explanation;
     private String note;
-    private LexicalType lexicalType;
 
     @CascadeRelationship
     @Relationship(type = HAS_PHOTOS, direction = Relationship.OUTGOING)
@@ -56,13 +55,6 @@ public class Sense extends BaseNeo4jEntity {
         this.examples = examples;
     }
 
-    public LexicalType getLexicalType() {
-        return lexicalType;
-    }
-
-    public void setLexicalType(LexicalType lexicalType) {
-        this.lexicalType = lexicalType;
-    }
 
     public List<DigitalAsset> getPhotos() {
         return photos;

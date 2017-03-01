@@ -59,4 +59,14 @@ public class OgmRepository<E> {
     public void removeRelationships(E entity, String... relationships) {
         ogmRepositoryHandler.removeRelationshipsByTypes(session, entity, relationships);
     }
+
+    @Transactional
+    public void setPropertiesAndRelationshipsCascade(E entity) {
+        ogmRepositoryHandler.setPropertiesAndRelationshipsCascade(session, entity);
+    }
+
+    @Transactional
+    public void setPropertiesAndRelationshipsCascade(E entity, int limitDepth) {
+        ogmRepositoryHandler.setPropertiesAndRelationshipsCascade(session, entity, limitDepth);
+    }
 }

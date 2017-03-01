@@ -37,6 +37,13 @@ public class ExpressionService {
     }
 
     @Transactional
+    public void updateCascade(Expression expression) {
+        //TODO should remove old lexical entries which are not related to this expression anymore.
+        expressionUpdateRepository.setPropertiesAndRelationshipsCascade(expression);
+//        return expressionRepository.save(expression);
+    }
+
+    @Transactional
     public void detachExpressionDefinition(Expression expression) {
         expressionUpdateRepository.removeRelationships(expression);
     }

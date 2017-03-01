@@ -33,7 +33,7 @@
 
     </appender>
 
-    <logger name="com.mkyong" level="debug" additivity="false">
+    <logger name="tnmk" level="info" additivity="false">
         <appender-ref ref="FILE-AUDIT"/>
     </logger>
     <logger name="org.springframework.data.document.mongodb" level="debug" additivity="true">

@@ -12,13 +12,19 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import tnmk.common.util.ObjectMapperUtil;
 import tnmk.ln.app.dictionary.ExpressionService;
+import tnmk.ln.app.dictionary.entity.Example;
 import tnmk.ln.app.dictionary.entity.Expression;
+import tnmk.ln.app.dictionary.entity.LexicalType;
+import tnmk.ln.app.dictionary.entity.Sense;
+import tnmk.ln.app.dictionary.entity.SensesGroup;
 import tnmk.ln.app.user.entity.Account;
 import tnmk.ln.app.user.entity.AccountRepository;
 import tnmk.ln.app.user.entity.Contributor;
 import tnmk.ln.test.BaseTest;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author khoi.tran on 2/26/17.
@@ -77,14 +83,18 @@ public class ExpressionTest extends BaseTest {
         synonym2.setAntonyms(Arrays.asList(antonym1));
         Expression synonym3 = expressionService.findById(191);
         synonym3.setText("synonym3");
+        synonym3.setSensesGroups(Arrays.asList(constructSensesGroup()));
+
+        antonym1.setAntonyms(Arrays.asList(synonym3));
 
         Expression expression = expressionService.findById(MAIN_EXPRESSION_ID);
         expression.setText("main");
         expression.setSynonyms(Arrays.asList(synonym2, synonym3));
-        expression.setAntonyms(Arrays.asList(antonym2));
+        expression.setAntonyms(Arrays.asList(antonym1, antonym2));
         expression.setOwner(null);
 //        expressionService.detachExpressionDefinition(expression);
-        expressionService.updateExpressionDefinition(expression);
+//        expressionService.updateCascade(expression);
+        expressionService.updateCascade(synonym3);
 //        expressionService.save(expression);
 //        expressionService.save(antonym1);
 //        expressionService.save(antonym2);
@@ -92,6 +102,28 @@ public class ExpressionTest extends BaseTest {
 
         expression = expressionService.findById(MAIN_EXPRESSION_ID);
         LOGGER.info(ObjectMapperUtil.toStringMultiLine(expression));
+    }
+
+    private SensesGroup constructSensesGroup() {
+        SensesGroup sensesGroup = new SensesGroup();
+        sensesGroup.setLexicalType(LexicalType.NOUN);
+        Set<Sense> senseSet = new HashSet<>();
+        senseSet.add(constructSense());
+        sensesGroup.setSenses(senseSet);
+        return sensesGroup;
+    }
+
+    private Sense constructSense() {
+        Sense sense = new Sense();
+        sense.setExplanation("explanation1");
+        sense.setExamples(Arrays.asList(constructExample()));
+        return sense;
+    }
+
+    private Example constructExample() {
+        Example example = new Example();
+        example.setText("example1");
+        return example;
     }
 
     @Test

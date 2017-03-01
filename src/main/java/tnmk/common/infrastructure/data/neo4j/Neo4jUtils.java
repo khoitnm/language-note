@@ -32,7 +32,10 @@ public class Neo4jUtils {
         // should not work on this.entityClass
         Class<?> entityClass = entity.getClass();
         NodeEntity nodeEntity = entityClass.getAnnotation(NodeEntity.class);
-        String label = nodeEntity.label();
+        String label = null;
+        if (nodeEntity != null) {
+            label = nodeEntity.label();
+        }
         if (StringUtils.isBlank(label)) {
             label = entityClass.getSimpleName();
         }
@@ -67,7 +70,7 @@ public class Neo4jUtils {
             if (Modifier.isStatic(field.getModifiers())) {
                 continue;//Ignore the static field.
             }
-            if (ReflectionUtils.isFirstClassSimpleType(field.getType())) {
+            if (ReflectionUtils.isSimpleType(field.getType())) {
                 continue;
             }
             Relationship relationshipAnno = field.getAnnotation(Relationship.class);
