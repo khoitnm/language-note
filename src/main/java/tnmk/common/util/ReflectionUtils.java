@@ -6,7 +6,9 @@ import org.springframework.beans.BeansException;
 import java.beans.PropertyDescriptor;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.time.temporal.Temporal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -51,5 +53,24 @@ public class ReflectionUtils {
             propertyDescriptor = null;
         }
         return propertyDescriptor;
+    }
+
+    /**
+     * This method doesn't check Map, Array or Collection types
+     *
+     * @param type
+     * @return
+     */
+    public static boolean isFirstClassSimpleType(Class<?> type) {
+        if (type.isPrimitive()) return true;
+        if (String.class.isAssignableFrom(type)) return true;
+        if (Number.class.isAssignableFrom(type)) return true;
+        if (Enum.class.isAssignableFrom(type)) return true;
+        if (isDateTimeType(type)) return true;
+        return false;
+    }
+
+    public static boolean isDateTimeType(Class<?> type) {
+        return Temporal.class.isAssignableFrom(type) || Date.class.isAssignableFrom(type);
     }
 }

@@ -32,7 +32,7 @@ public class ExpressionService {
     @Transactional
     public void updateExpressionDefinition(Expression expression) {
         //TODO should remove old lexical entries which are not related to this expression anymore.
-        expressionUpdateRepository.updateWithRelationshipsReplacement(expression);
+        expressionUpdateRepository.setPropertiesAndRelationshipsExcludeIncoming(expression);
 //        return expressionRepository.save(expression);
     }
 

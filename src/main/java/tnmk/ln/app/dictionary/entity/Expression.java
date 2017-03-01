@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.neo4j.ogm.annotation.Index;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
+import tnmk.common.infrastructure.data.neo4j.annotation.CascadeRelationship;
 import tnmk.ln.app.common.entity.BaseNeo4jEntity;
 import tnmk.ln.app.dictionary.LexicalEntryUtils;
 import tnmk.ln.app.digitalasset.entity.DigitalAsset;
@@ -18,7 +19,7 @@ import java.util.List;
 @NodeEntity(label = "Expression")
 public class Expression extends BaseNeo4jEntity {
     public static final String HAS_LEXICAL_ENTRIES = "HAS_LEXICAL_ENTRIES";
-    public static final String HAS_SENSES = "HAS_SENSES";
+    public static final String HAS_SENSE_GROUPS = "HAS_SENSE_GROUPS";
     public static final String HAS_MAIN_AUDIO = "HAS_MAIN_AUDIO";
 
     public static final String HAS_MAIN_IMAGE = "HAS_MAIN_IMAGE";
@@ -42,14 +43,23 @@ public class Expression extends BaseNeo4jEntity {
      * The list of lexical entries which helps to form the expression's text.
      * If the lexicalEntries is not empty, the text will be created from lexicalEntries
      */
+    @CascadeRelationship
     @Relationship(type = HAS_LEXICAL_ENTRIES, direction = Relationship.OUTGOING)
     private List<LexicalEntry> lexicalEntries;
-    @Relationship(type = HAS_SENSES, direction = Relationship.OUTGOING)
-    private List<Sense> senses;
+
+    @CascadeRelationship
+    @Relationship(type = HAS_SENSE_GROUPS, direction = Relationship.OUTGOING)
+    private List<SensesGroup> sensesGroups;
+
+    @CascadeRelationship
     @Relationship(type = HAS_MAIN_AUDIO, direction = Relationship.OUTGOING)
     private DigitalAsset audio;
+
+    @CascadeRelationship
     @Relationship(type = HAS_MAIN_IMAGE, direction = Relationship.OUTGOING)
     private DigitalAsset image;
+
+    @CascadeRelationship
     @Relationship(type = HAS_IMAGES, direction = Relationship.OUTGOING)
     private List<DigitalAsset> images;
 
@@ -91,14 +101,6 @@ public class Expression extends BaseNeo4jEntity {
 
     public List<LexicalEntry> getLexicalEntries() {
         return lexicalEntries;
-    }
-
-    public List<Sense> getSenses() {
-        return senses;
-    }
-
-    public void setSenses(List<Sense> senses) {
-        this.senses = senses;
     }
 
     public List<Expression> getSynonyms() {
@@ -155,5 +157,13 @@ public class Expression extends BaseNeo4jEntity {
 
     public void setOwner(Account owner) {
         this.owner = owner;
+    }
+
+    public List<SensesGroup> getSensesGroups() {
+        return sensesGroups;
+    }
+
+    public void setSensesGroups(List<SensesGroup> sensesGroups) {
+        this.sensesGroups = sensesGroups;
     }
 }

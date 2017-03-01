@@ -1,0 +1,76 @@
+{
+  "statements": [
+    {
+      "statement": "UNWIND {rows} as row MATCH (startNode) WHERE ID(startNode) = row.startNodeId MATCH (endNode) WHERE ID(endNode) = row.endNodeId MERGE (startNode)-[rel:`IS_SYNONYMOUS_WITH`]->(endNode) RETURN row.relRef as ref, ID(rel) as id, row.type as type",
+      "parameters": {
+        "rows": [
+          {
+            "startNodeId": 221,
+            "relRef": -731626152,
+            "type": "rel",
+            "endNodeId": 191
+          },
+          {
+            "startNodeId": 223,
+            "relRef": -154003348,
+            "type": "rel",
+            "endNodeId": 221
+          }
+        ]
+      },
+      "resultDataContents": [
+        "row"
+      ],
+      "includeStats": false
+    },
+    {
+      "statement":
+      "UNWIND {rows} as row MATCH (startNode) WHERE ID(startNode) = row.startNodeId MATCH (endNode) WHERE ID(endNode) = row.endNodeId MERGE (startNode)-[rel:`IS_ANTONYMOUS_WITH`]->(endNode) RETURN row.relRef as ref, ID(rel) as id, row.type as type",
+      "parameters": {
+        "rows": [
+          {
+            "startNodeId": 221,
+            "relRef": -1293167443,
+            "type": "rel",
+            "endNodeId": 192
+          }
+        ]
+      },
+      "resultDataContents": [
+        "row"
+      ],
+      "includeStats": false
+    },
+    {
+      "statement": "UNWIND {rows} as row MATCH (n) WHERE ID(n)=row.nodeId SET n:`Expression`:`BaseNeo4jEntity` SET n += row.props RETURN row.nodeId as ref, ID(n) as id, row.type as type",
+      "parameters": {
+        "rows": [
+          {
+            "type": "node",
+            "nodeId": 221,
+            "props": {
+              "createdDateTime": 1488273317949,
+              "expressionType": null,
+              "text": "main expression 2",
+              "updatedDateTime": 1488274509953
+            }
+          },
+          {
+            "type": "node",
+            "nodeId": 223,
+            "props": {
+              "createdDateTime": 1488274365747,
+              "expressionType": null,
+              "text": "synonym01",
+              "updatedDateTime": 1488274509953
+            }
+          }
+        ]
+      },
+      "resultDataContents": [
+        "row"
+      ],
+      "includeStats": false
+    }
+  ]
+}

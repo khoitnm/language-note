@@ -3,6 +3,8 @@ package tnmk.ln.app.dictionary.entity;
 //import org.neo4j.ogm.annotation.NodeEntity;
 
 import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
+import tnmk.common.infrastructure.data.neo4j.annotation.CascadeRelationship;
 import tnmk.ln.app.common.entity.BaseNeo4jEntity;
 import tnmk.ln.app.digitalasset.entity.DigitalAsset;
 
@@ -13,12 +15,29 @@ import java.util.List;
  */
 @NodeEntity(label = "Sense")
 public class Sense extends BaseNeo4jEntity {
+    public static final String HAS_EXAMPLE = "HAS_EXAMPLE";
+    public static final String HAS_PHOTOS = "HAS_PHOTOS";
+    public static final String HAS_AUDIOS = "HAS_AUDIOS";
+    public static final String HAS_VIDEOS = "HAS_VIDEOS";
+
     private String explanation;
     private String note;
     private LexicalType lexicalType;
+
+    @CascadeRelationship
+    @Relationship(type = HAS_PHOTOS, direction = Relationship.OUTGOING)
     private List<DigitalAsset> photos;
+
+    @CascadeRelationship
+    @Relationship(type = HAS_AUDIOS, direction = Relationship.OUTGOING)
     private List<DigitalAsset> audios;
+
+    @CascadeRelationship
+    @Relationship(type = HAS_VIDEOS, direction = Relationship.OUTGOING)
     private List<DigitalAsset> videos;
+
+    @CascadeRelationship
+    @Relationship(type = HAS_EXAMPLE, direction = Relationship.OUTGOING)
     private List<Example> examples;
 
     public String getExplanation() {
