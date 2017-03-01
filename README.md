@@ -8,13 +8,6 @@ An application for learning languages.
 > 
 > For the first version, we are focusing on English and vocabularies.
 
-----------
-
-## Table of contents
-[TOC]
-
-----------
-
 ## I. Requirement 
 There are some questions we have to answer
  - I would like to _collect_ some **Expressions** _in the global_ **Dictionary** or _in other users'_ **Dictionaries** _into my own_ **Note**.
