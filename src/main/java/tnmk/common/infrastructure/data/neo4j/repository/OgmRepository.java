@@ -1,9 +1,6 @@
 package tnmk.common.infrastructure.data.neo4j.repository;
 
-import org.apache.commons.lang3.StringUtils;
 import org.neo4j.ogm.annotation.GraphId;
-import org.neo4j.ogm.annotation.NodeEntity;
-import org.neo4j.ogm.annotation.Relationship;
 import org.neo4j.ogm.model.Result;
 import org.neo4j.ogm.session.Session;
 import org.slf4j.Logger;
@@ -11,7 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import tnmk.common.exception.UnexpectedException;
+import tnmk.common.infrastructure.data.neo4j.Neo4jUtils;
 import tnmk.common.util.ReflectionUtils;
+import tnmk.common.util.StringUtil;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
@@ -19,9 +18,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -70,12 +67,8 @@ public class OgmRepository<E> {
         if (entity == null) {
             return;
         }
-        Class<E> entityClass = (Class<E>) entity.getClass();
-        NodeEntity nodeEntity = entityClass.getAnnotation(NodeEntity.class);
-        String label = nodeEntity.label();
-        if (StringUtils.isBlank(label)) {
-            label = entityClass.getSimpleName();
-        }
+
+        String label = Neo4jUtils.getLabel(entity);
         String queryString = String.join("",
                 "MATCH (a:", label, ")-[rel]-(b) WHERE id(a)={id} DELETE rel");
         LOGGER.debug(queryString);
@@ -90,16 +83,10 @@ public class OgmRepository<E> {
         if (entity == null) {
             return;
         }
-        Class<E> entityClass = (Class<E>) entity.getClass();
-        NodeEntity nodeEntity = entityClass.getAnnotation(NodeEntity.class);
-        String label = nodeEntity.label();
-        if (StringUtils.isBlank(label)) {
-            label = entityClass.getSimpleName();
-        }
-
-        String relationshipsQuery = String.join(" | :", relationships);
+        String label = Neo4jUtils.getLabel(entity);
+        String relationshipsQuery = StringUtil.joinNotBlankStringsWithElementWrapper(" | ", ":'", "'", relationships);
         String queryString = String.join("",
-                "MATCH (a:", label, ")-[rel:", relationshipsQuery, "]-(b) WHERE id(a)={id} DELETE rel");
+                "MATCH (a:", label, ")-[rel", relationshipsQuery, "]-(b) WHERE id(a)={id} DELETE rel");
         LOGGER.debug(queryString);
         Map<String, Object> params = new HashMap<>();
         params.put("id", getId(entity));
@@ -124,19 +111,4 @@ public class OgmRepository<E> {
         return ReflectionUtils.getPropertyDescriptor(clazz, idField.getName());
     }
 
-    private String[] findAllRelationships(E entity) {
-        Field[] fields = entity.getClass().getDeclaredFields();
-        List<String> relationshipsList = new ArrayList<>();
-        for (Field field : fields) {
-            Relationship relationshipAnno = field.getAnnotation(Relationship.class);
-            String relationshipName;
-            if (relationshipAnno == null) {
-                relationshipName = field.getName();
-            } else {
-                relationshipName = relationshipAnno.type();
-            }
-            relationshipsList.add(relationshipName);
-        }
-        return relationshipsList.toArray(new String[] {});
-    }
 }

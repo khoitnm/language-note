@@ -61,18 +61,18 @@ public class ExpressionTest extends BaseTest {
     }
 
     @Test
-//    @Transactional
     public void testUdate() {
+        Expression antonym1 = new Expression();
+        antonym1.setText("antonym1");
+
         Expression synonym1 = expressionService.findById(223);
         synonym1.setText("synonym01");
         Expression synonym2 = expressionService.findById(224);
-
-//        Expression synonym2 = new Expression();
-//        synonym2.setText("synonym02");
+        synonym2.setAntonyms(Arrays.asList(antonym1));
 
         Expression expression = expressionService.findById(MAIN_EXPRESSION_ID);
         expression.setText("main expression 2");
-        expression.setSynonyms(Arrays.asList(synonym2));
+        expression.setSynonyms(Arrays.asList(synonym1, synonym2));
         expression.setOwner(null);
 //        expressionService.detachExpressionDefinition(expression);
         expressionService.updateExpressionDefinition(expression);

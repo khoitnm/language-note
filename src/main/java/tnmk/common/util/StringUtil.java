@@ -45,6 +45,10 @@ public class StringUtil {
     }
 
     public static String joinNotBlankStrings(String delimiter, String... strs) {
+        return joinNotBlankStringsWithElementWrapper(delimiter, "", "", strs);
+    }
+
+    public static String joinNotBlankStringsWithElementWrapper(String delimiter, String prefix, String suffix, String... strs) {
         if (strs == null) {
             return null;
         }
@@ -58,7 +62,7 @@ public class StringUtil {
                 if (sb.length() > 0) {
                     sb.append(delimiter);
                 }
-                sb.append(str);
+                sb.append(prefix).append(str).append(suffix);
             }
         }
         return sb.toString();
