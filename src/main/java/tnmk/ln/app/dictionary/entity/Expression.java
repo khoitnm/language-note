@@ -9,7 +9,7 @@ import tnmk.common.infrastructure.data.neo4j.annotation.CascadeRelationship;
 import tnmk.ln.app.common.entity.BaseNeo4jEntity;
 import tnmk.ln.app.dictionary.LexicalEntryUtils;
 import tnmk.ln.app.digitalasset.entity.DigitalAsset;
-import tnmk.ln.app.user.entity.Account;
+import tnmk.ln.infrastructure.security.neo4j.entity.User;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class Expression extends BaseNeo4jEntity {
     public static final String IS_SYNONYMOUS_WITH = "IS_SYNONYMOUS_WITH";
     public static final String IS_ANTONYMOUS_WITH = "IS_ANTONYMOUS_WITH";
     public static final String RELATE_TO = "RELATE_TO";
-    public static final String CREATED_EXPRESSION = "CREATED_EXPRESSION";
+    public static final String OWN_BY = "OWN_BY";
 
     /**
      * This field is not unique because many users can contribute differently to our system.
@@ -49,7 +49,7 @@ public class Expression extends BaseNeo4jEntity {
 
     @CascadeRelationship
     @Relationship(type = HAS_SENSE_GROUPS, direction = Relationship.OUTGOING)
-    private List<SensesGroup> sensesGroups;
+    private List<SenseGroup> sensesGroups;
 
     @CascadeRelationship
     @Relationship(type = HAS_MAIN_AUDIO, direction = Relationship.OUTGOING)
@@ -64,16 +64,25 @@ public class Expression extends BaseNeo4jEntity {
     private List<DigitalAsset> images;
 
     // RELATIONSHIPS //////////////////////////////////////////////////////////////
+    @CascadeRelationship
     @Relationship(type = IS_SYNONYMOUS_WITH, direction = Relationship.UNDIRECTED)
     private List<Expression> synonyms;
+
+    @CascadeRelationship
     @Relationship(type = IS_ANTONYMOUS_WITH, direction = Relationship.UNDIRECTED)
     private List<Expression> antonyms;
+
+    @CascadeRelationship
     @Relationship(type = RELATE_TO, direction = Relationship.UNDIRECTED)
     private List<Expression> family;
 
     // PARENT RELATIONSHIPS //////////////////////////////////////////////////////////////
-    @Relationship(type = CREATED_EXPRESSION, direction = Relationship.INCOMING)
-    private Account owner;
+    /**
+     * I use OUTGOING relationship here because I don't want the {@link User} object is concerned with Expression.
+     * The {@link User} should be concerned with Security matters only.
+     */
+    @Relationship(type = OWN_BY, direction = Relationship.OUTGOING)
+    private User owner;
 
     public void setLexicalEntries(List<LexicalEntry> lexicalEntries) {
         this.lexicalEntries = lexicalEntries;
@@ -151,19 +160,19 @@ public class Expression extends BaseNeo4jEntity {
         this.image = image;
     }
 
-    public Account getOwner() {
+    public User getOwner() {
         return owner;
     }
 
-    public void setOwner(Account owner) {
+    public void setOwner(User owner) {
         this.owner = owner;
     }
 
-    public List<SensesGroup> getSensesGroups() {
+    public List<SenseGroup> getSensesGroups() {
         return sensesGroups;
     }
 
-    public void setSensesGroups(List<SensesGroup> sensesGroups) {
+    public void setSensesGroups(List<SenseGroup> sensesGroups) {
         this.sensesGroups = sensesGroups;
     }
 }

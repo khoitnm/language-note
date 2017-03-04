@@ -21,6 +21,7 @@ public class Sense extends BaseNeo4jEntity {
     public static final String HAS_VIDEOS = "HAS_VIDEOS";
 
     private String explanation;
+    //TODO each person can note differently.
     private String note;
 
     @CascadeRelationship
@@ -54,7 +55,6 @@ public class Sense extends BaseNeo4jEntity {
     public void setExamples(List<Example> examples) {
         this.examples = examples;
     }
-
 
     public List<DigitalAsset> getPhotos() {
         return photos;

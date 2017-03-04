@@ -16,10 +16,10 @@ import tnmk.ln.app.dictionary.entity.Example;
 import tnmk.ln.app.dictionary.entity.Expression;
 import tnmk.ln.app.dictionary.entity.LexicalType;
 import tnmk.ln.app.dictionary.entity.Sense;
-import tnmk.ln.app.dictionary.entity.SensesGroup;
-import tnmk.ln.app.user.entity.Account;
-import tnmk.ln.app.user.entity.AccountRepository;
-import tnmk.ln.app.user.entity.Contributor;
+import tnmk.ln.app.dictionary.entity.SenseGroup;
+import tnmk.ln.infrastructure.security.neo4j.entity.User;
+import tnmk.ln.infrastructure.security.neo4j.UserRepository;
+import tnmk.ln.infrastructure.security.neo4j.entity.Contributor;
 import tnmk.ln.test.BaseTest;
 
 import java.util.Arrays;
@@ -43,7 +43,7 @@ public class ExpressionTest extends BaseTest {
     Session session;
 
     @Autowired
-    private AccountRepository accountRepository;
+    private UserRepository accountRepository;
 
     @Autowired
     private ExpressionService expressionService;
@@ -57,7 +57,7 @@ public class ExpressionTest extends BaseTest {
 
     @Test
     public void testCreate() {
-        Account account = new Contributor();
+        User account = new Contributor();
         account.setUsername("test01");
         Expression expression = new Expression();
         expression.setOwner(account);
@@ -68,34 +68,32 @@ public class ExpressionTest extends BaseTest {
 
     @Test
     public void testUdate() {
-        Account account = accountRepository.findOne(220l);
+        User account = accountRepository.findOne(220l);
         account.setUsername("contributor1");
 
         Expression antonym1 = expressionService.findById(192);
         antonym1.setText("antonym1");
-        Expression antonym2 = expressionService.findById(193);
-        antonym2.setText("antonym2");
 
-        Expression synonym1 = expressionService.findById(223);
-        synonym1.setText("synonym1");
+//        Expression synonym1 = expressionService.findById(223);
+//        synonym1.setText("synonym1");
         Expression synonym2 = expressionService.findById(224);
         synonym2.setText("synonym2");
         synonym2.setAntonyms(Arrays.asList(antonym1));
         Expression synonym3 = expressionService.findById(191);
         synonym3.setText("synonym3");
-        synonym3.setSensesGroups(Arrays.asList(constructSensesGroup()));
+        synonym3.setSensesGroups(Arrays.asList(constructSensesGroup(201l), constructSensesGroup(197l)));
 
         antonym1.setAntonyms(Arrays.asList(synonym3));
 
         Expression expression = expressionService.findById(MAIN_EXPRESSION_ID);
         expression.setText("main");
         expression.setSynonyms(Arrays.asList(synonym2, synonym3));
-        expression.setAntonyms(Arrays.asList(antonym1, antonym2));
-        expression.setOwner(null);
+        expression.setAntonyms(Arrays.asList(antonym1));
+        expression.setOwner(account);
 //        expressionService.detachExpressionDefinition(expression);
 //        expressionService.updateCascade(expression);
-        expressionService.updateCascade(synonym3);
-//        expressionService.save(expression);
+//        expressionService.updateCascade(synonym3);
+        expressionService.save(expression);
 //        expressionService.save(antonym1);
 //        expressionService.save(antonym2);
 //        accountRepository.save(account);
@@ -104,25 +102,29 @@ public class ExpressionTest extends BaseTest {
         LOGGER.info(ObjectMapperUtil.toStringMultiLine(expression));
     }
 
-    private SensesGroup constructSensesGroup() {
-        SensesGroup sensesGroup = new SensesGroup();
+    private SenseGroup constructSensesGroup(Long id) {
+        SenseGroup sensesGroup = new SenseGroup();
+        sensesGroup.setId(id);
         sensesGroup.setLexicalType(LexicalType.NOUN);
         Set<Sense> senseSet = new HashSet<>();
-        senseSet.add(constructSense());
+        senseSet.add(constructSense(199l));
+        senseSet.add(constructSense(196l));
         sensesGroup.setSenses(senseSet);
         return sensesGroup;
     }
 
-    private Sense constructSense() {
+    private Sense constructSense(Long id) {
         Sense sense = new Sense();
-        sense.setExplanation("explanation1");
-        sense.setExamples(Arrays.asList(constructExample()));
+        sense.setId(id);
+        sense.setExplanation("explanation2");
+        sense.setExamples(Arrays.asList(constructExample(198l)));
         return sense;
     }
 
-    private Example constructExample() {
+    private Example constructExample(Long id) {
         Example example = new Example();
-        example.setText("example1");
+        example.setId(id);
+        example.setText("example2.1");
         return example;
     }
 

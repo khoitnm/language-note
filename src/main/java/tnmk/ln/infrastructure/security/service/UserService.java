@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import tnmk.common.infrastructure.validator.BeanValidator;
-import tnmk.ln.infrastructure.security.entity.User;
-import tnmk.ln.infrastructure.security.repository.UserRepository;
+import tnmk.ln.infrastructure.security.neo4j.UserRepository;
+import tnmk.ln.infrastructure.security.neo4j.entity.User;
 
 /**
  * @author khoi.tran on 1/28/17.
@@ -23,13 +23,13 @@ public class UserService {
 
     public User registerUser(User user) {
         beanValidator.validate(user);
-//        String encodedPassword = user.getPassword();
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
         return userRepository.save(user);
     }
 
     public User findByUsername(String username) {
-        return userRepository.findOneByUsername(username);
+        tnmk.ln.infrastructure.security.neo4j.entity.User userEntity = userRepository.findOneByUsername(username);
+        return userEntity;
     }
 }

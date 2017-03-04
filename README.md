@@ -9,12 +9,13 @@ An application for learning languages.
 > For the first version, we are focusing on English and vocabularies.
 
 ## I. Requirement 
-There are some questions we have to answer
- - I would like to _collect_ some **Expressions** _in the global_ **Dictionary** or _in other users'_ **Dictionaries** _into my own_ **Note**.
- - I can _practice_ on my own **Note**.
- - I will _answer_ **Questions** inside a **Note**, and I will _have_ an **Answer Result** for each question. The **Practice Result** _of a_ **Note** will be aggregate from the **Practice Result** of each **Question** in the **Practice Session**. 
- - I can _practice_ with the new **Expressions** first.
- - The next time I _practice_, it must show either **Expressions** I have never tried or **Expressions** I didn't get max points in **last 2 Practice Results**.
+There are some questions we have to answer:
+
+- I would like to _collect_ some **Expressions** _in the global_ **Dictionary** or _in other users'_ **Dictionaries** _into my own_ **Note**.
+- I can _practice_ on my own **Note**.
+- I will _answer_ **Questions** inside a **Note**, and I will _have_ an **Answer Result** for each question. The **Practice Result** _of a_ **Note** will be aggregate from the **Practice Result** of each **Question** in the **Practice Session**. 
+- I can _practice_ with the new **Expressions** first.
+- The next time I _practice_, it must show either **Expressions** I have never tried or **Expressions** I didn't get max points in **last 2 Practice Results**.
 
 ## II. Run project
 Build:
@@ -55,3 +56,10 @@ So we will use ``@EagerRelationship`` for eager loading children nodes. (not imp
 ## VI. References
 Some good resource related to language:
 http://blog.mashape.com/list-of-25-natural-language-processing-apis/
+
+## Glossary
+- construct:
+- create: construct and saved into DB
+- initiate: starting a service, including constructing some objects and creating other objects.
+
+

@@ -81,8 +81,8 @@ public class OgmRepositoryHandler {
 
     public void setPropertiesAndRelationshipsCascade(Session session, List<Object> trackedEntities, Object entity, int level, int limitDepth) {
         if (entity == null || (limitDepth >= 0 && level >= limitDepth)) return;
-        trackedEntities.add(entity);
-        LOGGER.info("Entity {}. Level {}", entity.getClass(), level);
+
+        LOGGER.info("Entity: {}. Level: {}", entity, level);
         if (entity instanceof Iterable) {
             Iterable<?> childElements = (Iterable<?>) entity;
             for (Object childElement : childElements) {
@@ -107,14 +107,20 @@ public class OgmRepositoryHandler {
                 }
             }
         } else {
+            //TODO cannot detect 2 instance with same entity
+            if (trackedEntities.contains(entity)) {
+                return;
+            }
+            trackedEntities.add(entity);
+
             //Handle children node first
             List<PropertyDescriptor> cascadeChildren = tnmk.common.util.ReflectionUtils.findPropertyDescriptorsByAnnotationType(entity.getClass(), CascadeRelationship.class);
             int childLevel = level + 1;
             for (PropertyDescriptor cascadeChild : cascadeChildren) {
-                LOGGER.info("Entity {}. Child {}. ChildLevel {}", entity.getClass(), cascadeChild.getName(), childLevel);
+                LOGGER.info("Entity: {}. Child: {}. ChildLevel: {}", entity, cascadeChild.getName(), childLevel);
                 Object childValue = ReflectionUtils.readProperty(entity, cascadeChild);
-                if (!trackedEntities.contains(childValue)) {
-                    if (childValue != null) {
+                if (childValue != null) {
+                    if (!trackedEntities.contains(childValue)) {
                         setPropertiesAndRelationshipsCascadeForChild(session, trackedEntities, childValue, childLevel, limitDepth);
                     }
                 }

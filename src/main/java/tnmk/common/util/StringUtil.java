@@ -101,4 +101,11 @@ public class StringUtil {
     public static String maskEmail(String email) {
         return maskString(email, 3, 2);
     }
+
+    public static String[] toWords(String text) {
+//        org.springframework.util.StringUtils.
+//        org.apache.commons.codec.binary.StringUtils.
+        //TODO
+        return null;
+    }
 }

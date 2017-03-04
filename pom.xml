@@ -157,6 +157,20 @@
             <version>0.6.0</version>
         </dependency>
 
+        <!-- Natural Language Processing -->
+        <dependency>
+            <groupId>org.apache.opennlp</groupId>
+            <artifactId>opennlp-tools</artifactId>
+            <version>1.7.2</version>
+        </dependency>
+       
+        <!--<dependency>-->
+        <!--<groupId>org.tartarus.snowball</groupId>-->
+        <!--<artifactId>snowball</artifactId>-->
+        <!--&lt;!&ndash;https://github.com/torrances/snowball/blob/master/pom.xml&ndash;&gt;-->
+        <!--</dependency>-->
+
+
         <!--Test-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -4,7 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tnmk.ln.app.dictionary.entity.Expression;
-import tnmk.ln.app.user.entity.Account;
+import tnmk.ln.app.dictionary.entity.SenseGroup;
+import tnmk.ln.infrastructure.security.neo4j.entity.User;
+
+import java.util.Arrays;
 
 /**
  * @author khoi.tran on 2/28/17.
@@ -17,8 +20,10 @@ public class ExpressionService {
     @Autowired
     private ExpressionUpdateRepository expressionUpdateRepository;
 
+
+
     //    @Transactional
-    public Expression createExpression(Account owner, Expression expression) {
+    public Expression createExpression(User owner, Expression expression) {
         expression.setOwner(owner);
         return expressionRepository.save(expression);
     }

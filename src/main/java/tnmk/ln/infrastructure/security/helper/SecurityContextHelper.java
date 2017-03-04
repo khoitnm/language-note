@@ -4,8 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import tnmk.ln.infrastructure.security.entity.User;
-import tnmk.ln.infrastructure.security.model.UserAuthentication;
+import tnmk.ln.infrastructure.security.model.AuthenticatedUser;
+import tnmk.ln.infrastructure.security.neo4j.entity.User;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,8 +23,8 @@ public final class SecurityContextHelper {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null) {
             Object userDetailsObject = auth.getPrincipal();
-            if (userDetailsObject != null && userDetailsObject instanceof UserAuthentication) {
-                UserAuthentication userAuthentication = (UserAuthentication) userDetailsObject;
+            if (userDetailsObject != null && userDetailsObject instanceof AuthenticatedUser) {
+                AuthenticatedUser userAuthentication = (AuthenticatedUser) userDetailsObject;
                 result = userAuthentication.getUser();
             }
         }

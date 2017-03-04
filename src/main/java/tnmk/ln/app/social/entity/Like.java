@@ -2,20 +2,20 @@ package tnmk.ln.app.social.entity;
 
 import org.neo4j.ogm.annotation.NodeEntity;
 import tnmk.ln.app.common.entity.BaseNeo4jEntity;
-import tnmk.ln.app.user.entity.Account;
+import tnmk.ln.infrastructure.security.neo4j.entity.User;
 
 /**
  * @author khoi.tran on 2/28/17.
  */
 @NodeEntity
 public class Like extends BaseNeo4jEntity {
-    private Account owner;
+    private User owner;
 
-    public Account getOwner() {
+    public User getOwner() {
         return owner;
     }
 
-    public void setOwner(Account owner) {
+    public void setOwner(User owner) {
         this.owner = owner;
     }
 }

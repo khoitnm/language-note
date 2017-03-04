@@ -3,13 +3,13 @@ package tnmk.ln.app.practice.entity;
 //import org.neo4j.ogm.annotation.NodeEntity; import tnmk.ln.app.common.entity.BaseEntity;
 
 import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
 import tnmk.ln.app.common.entity.BaseNeo4jEntity;
+import tnmk.ln.app.dictionary.entity.Example;
 import tnmk.ln.app.dictionary.entity.Expression;
 import tnmk.ln.app.dictionary.entity.Sense;
-import tnmk.ln.app.note.entity.Note;
-import tnmk.ln.app.note.entity.Topic;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author khoi.tran on 2/25/17.
@@ -17,17 +17,38 @@ import java.util.Set;
 @NodeEntity
 public class Question extends BaseNeo4jEntity {
     private QuestionType questionType;
+    private List<QuestionPart> questionParts;
 
+    @Relationship(type = "FROM_EXAMPLE", direction = Relationship.OUTGOING)
+    private Example fromExample;
+    @Relationship(type = "FROM_SENSE", direction = Relationship.OUTGOING)
+    private Sense fromSense;
+    @Relationship(type = "FROM_EXPRESSION", direction = Relationship.OUTGOING)
+    private Expression fromExpression;
 
+    public List<QuestionPart> getQuestionParts() {
+        return questionParts;
+    }
 
-    private Set<Sense> relatedSenses;
-    private Set<Note> relatedNotes;
-    private Set<Topic> relatedTopics;
+    public void setQuestionParts(List<QuestionPart> questionParts) {
+        this.questionParts = questionParts;
+    }
 
-    /**
-     * Actually, this is the shortcut relationship between (question) -- (senses) -- (expressions)
-     */
-    private Set<Expression> relatedExpressions;
+    public Example getFromExample() {
+        return fromExample;
+    }
+
+    public void setFromExample(Example fromExample) {
+        this.fromExample = fromExample;
+    }
+
+    public Expression getFromExpression() {
+        return fromExpression;
+    }
+
+    public void setFromExpression(Expression fromExpression) {
+        this.fromExpression = fromExpression;
+    }
 
     public QuestionType getQuestionType() {
         return questionType;
@@ -37,35 +58,11 @@ public class Question extends BaseNeo4jEntity {
         this.questionType = questionType;
     }
 
-    public Set<Sense> getRelatedSenses() {
-        return relatedSenses;
+    public Sense getFromSense() {
+        return fromSense;
     }
 
-    public void setRelatedSenses(Set<Sense> relatedSenses) {
-        this.relatedSenses = relatedSenses;
-    }
-
-    public Set<Note> getRelatedNotes() {
-        return relatedNotes;
-    }
-
-    public void setRelatedNotes(Set<Note> relatedNotes) {
-        this.relatedNotes = relatedNotes;
-    }
-
-    public Set<Topic> getRelatedTopics() {
-        return relatedTopics;
-    }
-
-    public void setRelatedTopics(Set<Topic> relatedTopics) {
-        this.relatedTopics = relatedTopics;
-    }
-
-    public Set<Expression> getRelatedExpressions() {
-        return relatedExpressions;
-    }
-
-    public void setRelatedExpressions(Set<Expression> relatedExpressions) {
-        this.relatedExpressions = relatedExpressions;
+    public void setFromSense(Sense fromSense) {
+        this.fromSense = fromSense;
     }
 }

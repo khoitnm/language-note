@@ -5,9 +5,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import tnmk.ln.infrastructure.security.entity.User;
-import tnmk.ln.infrastructure.security.service.UserService;
 import tnmk.ln.app.common.entity.UriPrefixConstants;
+import tnmk.ln.infrastructure.security.neo4j.entity.User;
+import tnmk.ln.infrastructure.security.service.UserService;
 
 @RestController
 public class UserResource {

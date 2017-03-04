@@ -1,9 +1,10 @@
 package tnmk.ln.app.note.entity;
 
 import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
 import tnmk.ln.app.common.entity.BaseNeo4jEntity;
 import tnmk.ln.app.dictionary.entity.Expression;
-import tnmk.ln.infrastructure.security.entity.User;
+import tnmk.ln.infrastructure.security.neo4j.entity.User;
 
 import java.util.Set;
 
@@ -12,9 +13,17 @@ import java.util.Set;
  */
 @NodeEntity(label = "Note")
 public class Note extends BaseNeo4jEntity {
-    private User owner;
+    public static final String HAS_EXPRESSION = "HAS_EXPRESSION";
+    public static final String RELATE_TO_TOPIC = "RELATE_TO_TOPIC";
+    public static final String HAS_NOTE = "HAS_NOTE";
+
+    @Relationship(type = HAS_EXPRESSION, direction = Relationship.OUTGOING)
     private Set<Expression> expressions;
+    @Relationship(type = RELATE_TO_TOPIC, direction = Relationship.OUTGOING)
     private Set<Topic> topics;
+
+    @Relationship(type = HAS_NOTE, direction = Relationship.INCOMING)
+    private User owner;
 
     public User getOwner() {
         return owner;

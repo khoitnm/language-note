@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import tnmk.common.util.ObjectMapperUtil;
 import tnmk.ln.app.dictionary.ExpressionService;
 import tnmk.ln.app.dictionary.entity.Expression;
-import tnmk.ln.infrastructure.security.entity.User;
+import tnmk.ln.infrastructure.security.neo4j.entity.User;
 import tnmk.ln.infrastructure.security.service.UserService;
 
 import javax.annotation.PostConstruct;

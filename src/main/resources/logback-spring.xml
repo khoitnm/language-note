@@ -33,13 +33,8 @@
 
     </appender>
 
-    <logger name="tnmk" level="info" additivity="false">
-        <appender-ref ref="FILE-AUDIT"/>
-    </logger>
-    <logger name="org.springframework.data.document.mongodb" level="debug" additivity="true">
-        <appender-ref ref="CONSOLE-AUDIT"/>
-    </logger>
-
+    <logger name="tnmk" level="info"/>
+    <logger name="org.springframework" level="info"/>
     <root level="info">
         <appender-ref ref="FILE-AUDIT"/>
         <appender-ref ref="CONSOLE-AUDIT"/>

@@ -2,7 +2,7 @@ package tnmk.ln.app.social.entity;
 
 import org.neo4j.ogm.annotation.NodeEntity;
 import tnmk.ln.app.common.entity.BaseNeo4jEntity;
-import tnmk.ln.app.user.entity.Account;
+import tnmk.ln.infrastructure.security.neo4j.entity.User;
 
 import java.util.List;
 
@@ -11,15 +11,15 @@ import java.util.List;
  */
 @NodeEntity
 public class Comment extends BaseNeo4jEntity {
-    private Account owner;
+    private User owner;
     private String comment;
     private List<Comment> replies;
 
-    public Account getOwner() {
+    public User getOwner() {
         return owner;
     }
 
-    public void setOwner(Account owner) {
+    public void setOwner(User owner) {
         this.owner = owner;
     }
 

@@ -5,8 +5,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import tnmk.ln.infrastructure.security.entity.User;
-import tnmk.ln.infrastructure.security.model.UserAuthentication;
+import tnmk.ln.infrastructure.security.model.AuthenticatedUser;
+import tnmk.ln.infrastructure.security.neo4j.entity.User;
 
 /**
  * @author khoi.tran on 1/28/17.
@@ -22,6 +22,6 @@ public class UserAuthenticationService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("Cannot find username '" + username + "'");
         }
-        return new UserAuthentication(user);
+        return new AuthenticatedUser(user);
     }
 }
