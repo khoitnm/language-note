@@ -1,11 +1,11 @@
-package tnmk.common.infrastructure.data.neo4j;
+package tnmk.ln.infrastructure.data.neo4j;
 
 import org.apache.commons.lang3.StringUtils;
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 import tnmk.common.exception.UnexpectedException;
-import tnmk.common.infrastructure.data.neo4j.repository.RelationshipDirection;
+import tnmk.ln.infrastructure.data.neo4j.repository.RelationshipDirection;
 import tnmk.common.util.ReflectionUtils;
 
 import java.beans.PropertyDescriptor;

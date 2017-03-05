@@ -9,9 +9,9 @@ import java.util.Arrays;
  * @author khoi.tran on 3/4/17.
  */
 public class SenseFactory {
-    public static Sense constructSense() {
+    public static Sense constructSchema() {
         Sense sense = new Sense();
-        sense.setExamples(Arrays.asList(ExampleFactory.constructExample()));
+        sense.setExamples(Arrays.asList(ExampleFactory.constructSchema()));
         sense.setAudios(Arrays.asList(DigitalAssetFactory.construct()));
         sense.setPhotos(Arrays.asList(DigitalAssetFactory.construct()));
         sense.setVideos(Arrays.asList(DigitalAssetFactory.construct()));

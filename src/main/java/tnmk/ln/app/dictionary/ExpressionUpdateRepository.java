@@ -1,7 +1,7 @@
 package tnmk.ln.app.dictionary;
 
 import org.springframework.stereotype.Repository;
-import tnmk.common.infrastructure.data.neo4j.repository.OgmRepository;
+import tnmk.ln.infrastructure.data.neo4j.repository.OgmRepository;
 import tnmk.ln.app.dictionary.entity.Expression;
 
 /**

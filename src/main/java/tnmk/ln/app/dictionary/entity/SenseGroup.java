@@ -2,7 +2,7 @@ package tnmk.ln.app.dictionary.entity;
 
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
-import tnmk.common.infrastructure.data.neo4j.annotation.CascadeRelationship;
+import tnmk.ln.infrastructure.data.neo4j.annotation.CascadeRelationship;
 import tnmk.ln.app.common.entity.BaseNeo4jEntity;
 
 import java.util.Set;

@@ -45,6 +45,11 @@ public class OpenNLPLoader {
 
     }
 
+    /**
+     * Should use {@link SnowballStemmer}
+     * @return
+     */
+    @Deprecated
     public static PorterStemmer getPorterStemmer() {
         return new PorterStemmer();
     }

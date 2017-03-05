@@ -26,16 +26,24 @@ public class QuestionService {
     QuestionRepository questionRepository;
 
     @Transactional
-    public List<Question> createQuestionsForExpression(Expression expression) {
-        List<Question> questions = constructQuestionsForExpression(expression);
+    public List<Question> createQuestionsIfNotExist(Expression expression) {
+        //TODO need to check if this expression has questions or not.
+        List<Question> questions = constructQuestions(expression);
         questionRepository.save(questions);
         return questions;
     }
 
-    public List<Question> constructQuestionsForExpression(Expression expression) {
+    @Transactional
+    public List<Question> createQuestions(Expression expression) {
+        List<Question> questions = constructQuestions(expression);
+        questionRepository.save(questions);
+        return questions;
+    }
+
+    public List<Question> constructQuestions(Expression expression) {
         List<Question> questions = new ArrayList<>();
         questions.addAll(constructExpressionRecallQuestions(expression));
-        questions.addAll(constructFillBlankQuestions(expression));
+//        questions.addAll(constructFillBlankQuestions(expression));
         return questions;
     }
 

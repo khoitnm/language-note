@@ -16,6 +16,9 @@ public class Note extends BaseNeo4jEntity {
     public static final String HAS_EXPRESSION = "HAS_EXPRESSION";
     public static final String RELATE_TO_TOPIC = "RELATE_TO_TOPIC";
     public static final String HAS_NOTE = "HAS_NOTE";
+    public static final String TITLE_DEFAULT = "untitled";
+
+    private String title = TITLE_DEFAULT;
 
     @Relationship(type = HAS_EXPRESSION, direction = Relationship.OUTGOING)
     private Set<Expression> expressions;
@@ -47,5 +50,13 @@ public class Note extends BaseNeo4jEntity {
 
     public void setTopics(Set<Topic> topics) {
         this.topics = topics;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

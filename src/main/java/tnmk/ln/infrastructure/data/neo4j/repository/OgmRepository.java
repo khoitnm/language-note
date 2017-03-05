@@ -1,4 +1,4 @@
-package tnmk.common.infrastructure.data.neo4j.repository;
+package tnmk.ln.infrastructure.data.neo4j.repository;
 
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.session.Session;

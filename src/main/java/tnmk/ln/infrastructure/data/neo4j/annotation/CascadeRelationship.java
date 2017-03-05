@@ -1,4 +1,4 @@
-package tnmk.common.infrastructure.data.neo4j.annotation;
+package tnmk.ln.infrastructure.data.neo4j.annotation;
 
 import org.springframework.stereotype.Component;
 

@@ -1,4 +1,4 @@
-package tnmk.common.infrastructure.data.neo4j.repository;
+package tnmk.ln.infrastructure.data.neo4j.repository;
 
 import org.neo4j.ogm.model.Result;
 import org.neo4j.ogm.session.Session;
@@ -6,10 +6,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 import tnmk.common.exception.UnexpectedException;
-import tnmk.common.infrastructure.data.neo4j.Neo4jUtils;
-import tnmk.common.infrastructure.data.neo4j.annotation.CascadeRelationship;
 import tnmk.common.util.ReflectionUtils;
 import tnmk.common.util.StringUtil;
+import tnmk.ln.infrastructure.data.neo4j.Neo4jUtils;
+import tnmk.ln.infrastructure.data.neo4j.annotation.CascadeRelationship;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Array;

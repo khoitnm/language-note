@@ -29,7 +29,7 @@ public class UserService {
     }
 
     public User findByUsername(String username) {
-        tnmk.ln.infrastructure.security.neo4j.entity.User userEntity = userRepository.findOneByUsername(username);
+        User userEntity = userRepository.findOneByUsername(username);
         return userEntity;
     }
 }

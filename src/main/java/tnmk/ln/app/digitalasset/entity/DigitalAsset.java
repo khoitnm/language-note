@@ -3,7 +3,7 @@ package tnmk.ln.app.digitalasset.entity;
 import org.hibernate.validator.constraints.NotBlank;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
-import tnmk.common.infrastructure.data.neo4j.annotation.CascadeRelationship;
+import tnmk.ln.infrastructure.data.neo4j.annotation.CascadeRelationship;
 import tnmk.ln.app.common.entity.BaseNeo4jEntity;
 import tnmk.ln.app.social.entity.Like;
 

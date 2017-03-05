@@ -10,11 +10,11 @@ import java.util.Arrays;
  * @author khoi.tran on 3/4/17.
  */
 public class ExpressionFactory {
-    public static Expression constructExpression() {
+    public static Expression constructSchema() {
         Expression expression = new Expression();
         expression.setLexicalEntries(Arrays.asList(new LexicalEntry()));
         expression.setExpressionType(ExpressionType.WORD);
-        expression.setSensesGroups(Arrays.asList(SenseGroupFactory.constructSenseGroup()));
+        expression.setSensesGroups(Arrays.asList(SenseGroupFactory.constructSchema()));
 
         expression.setAntonyms(Arrays.asList(new Expression()));
         expression.setSynonyms(Arrays.asList(new Expression()));

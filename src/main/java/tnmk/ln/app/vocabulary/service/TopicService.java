@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 /**
  * @author khoi.tran on 1/26/17.
  */
-@Service
+@Service("vocabularyTopicService")
 public class TopicService {
 
     @Autowired

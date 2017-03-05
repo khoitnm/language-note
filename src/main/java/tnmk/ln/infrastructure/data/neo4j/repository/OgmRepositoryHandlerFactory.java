@@ -1,4 +1,4 @@
-package tnmk.common.infrastructure.data.neo4j.repository;
+package tnmk.ln.infrastructure.data.neo4j.repository;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

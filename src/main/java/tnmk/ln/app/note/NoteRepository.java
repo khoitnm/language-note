@@ -3,7 +3,7 @@ package tnmk.ln.app.note;
 //import org.springframework.data.neo4j.repository.GraphRepository; import tnmk.ln.app.note.entity.Note;
 
 import org.springframework.data.neo4j.repository.GraphRepository;
-import tnmk.common.infrastructure.data.neo4j.repository.Neo4jRepoScanInclude;
+import tnmk.ln.infrastructure.data.neo4j.repository.Neo4jRepoScanInclude;
 import tnmk.ln.app.note.entity.Note;
 
 /**
@@ -11,4 +11,5 @@ import tnmk.ln.app.note.entity.Note;
  */
 @Neo4jRepoScanInclude
 public interface NoteRepository extends GraphRepository<Note> {
+    Note findOneByTitle(String title);
 }

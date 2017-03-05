@@ -13,6 +13,6 @@ import tnmk.ln.app.note.entity.Note;
 public class NoteResource {
     @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/topics/construct", method = RequestMethod.GET)
     public Note construct() {
-        return NoteFactory.constructNote();
+        return NoteFactory.constructSchema();
     }
 }
