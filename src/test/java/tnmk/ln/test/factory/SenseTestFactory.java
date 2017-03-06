@@ -18,6 +18,7 @@ public class SenseTestFactory {
         for (String exampleString : exampleStrings) {
             Example example = new Example();
             example.setText(exampleString);
+            exampleList.add(example);
         }
         sense.setExamples(exampleList);
         return sense;
