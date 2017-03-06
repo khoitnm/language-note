@@ -31,7 +31,7 @@ public class NoteService {
     public Note saveNoteAndRelationships(User user, Note note) {
         note.setOwner(user);
         Set<Expression> expressionSet = note.getExpressions();
-        topicService.saveIfNecessaryByTextAndOwner(note.getTopics());
+        topicService.saveIfNecessaryByTextAndOwner(user, note.getTopics());
         note = noteRepository.save(note);
         expressionSet.stream().forEach(expression -> questionService.createQuestionsIfNotExist(expression));
         return note;

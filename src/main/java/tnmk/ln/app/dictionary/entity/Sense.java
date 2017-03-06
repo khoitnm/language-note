@@ -4,9 +4,9 @@ package tnmk.ln.app.dictionary.entity;
 
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
-import tnmk.ln.infrastructure.data.neo4j.annotation.CascadeRelationship;
 import tnmk.ln.app.common.entity.BaseNeo4jEntity;
 import tnmk.ln.app.digitalasset.entity.DigitalAsset;
+import tnmk.ln.infrastructure.data.neo4j.annotation.CascadeRelationship;
 
 import java.util.List;
 
@@ -23,6 +23,11 @@ public class Sense extends BaseNeo4jEntity {
     private String explanation;
     //TODO each person can note differently.
     private String note;
+    /**
+     * This is an example which helps you to easily link some famous events/characters/movies... to the expression.
+     * Examples of links are shown in this video: https://www.youtube.com/watch?v=jZrWc1j-NLA
+     */
+    private String memorizedLink;
 
     @CascadeRelationship
     @Relationship(type = HAS_PHOTOS, direction = Relationship.OUTGOING)
@@ -86,5 +91,13 @@ public class Sense extends BaseNeo4jEntity {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public String getMemorizedLink() {
+        return memorizedLink;
+    }
+
+    public void setMemorizedLink(String memorizedLink) {
+        this.memorizedLink = memorizedLink;
     }
 }

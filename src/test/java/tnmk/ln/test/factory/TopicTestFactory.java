@@ -14,12 +14,17 @@ public class TopicTestFactory {
     @Autowired
     private TopicRepository topicRepository;
 
+    public static Topic construct(String topicText) {
+        Topic topic = new Topic();
+        topic.setText(topicText);
+        return topic;
+    }
+
     @Transactional
     public Topic initTopic(String topicText) {
         Topic topic = topicRepository.findOneByText(topicText);
         if (topic == null) {
-            topic = new Topic();
-            topic.setText(topicText);
+            topic = construct(topicText);
             topic = topicRepository.save(topic);
         }
         return topic;

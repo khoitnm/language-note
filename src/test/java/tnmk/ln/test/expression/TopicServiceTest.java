@@ -50,17 +50,18 @@ public class TopicServiceTest extends BaseTest {
         Topic topic = new Topic();
         topic.setText(text);
         topic.setOwner(defaultUser);
-        Topic topicSaved01 = topicService.saveIfNecessaryByTextAndOwner(topic);
+        Topic topicSaved01 = topicService.saveIfNecessaryByTextAndOwner(defaultUser, topic);
         long topicsCountBefore = topicCountRepository.countByTextAndOwner(text, owner.getId());
 
         topic.setId(null);
         topic.setCreatedDateTime(null);
-        Topic topicSaved02 = topicService.saveIfNecessaryByTextAndOwner(topic);
+        Topic topicSaved02 = topicService.saveIfNecessaryByTextAndOwner(defaultUser, topic);
 
         long topicsCountAfter = topicCountRepository.countByTextAndOwner(text, owner.getId());
-
-        Assert.assertEquals(topicsCountBefore, topicsCountAfter);
         LOGGER.info("Count: {} -> {}", topicsCountBefore, topicsCountAfter);
+
+        Assert.assertEquals(topicSaved01.getId(), topicSaved02.getId());
+        Assert.assertEquals(topicsCountBefore, topicsCountAfter);
     }
 
 }
