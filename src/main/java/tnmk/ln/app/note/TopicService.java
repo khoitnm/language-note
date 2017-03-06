@@ -28,9 +28,8 @@ public class TopicService {
         //TODO use merge query of neo4j to improve performance?
         Topic existingTopic = topicAndOwnerRepository.findOneByTextAndOwner(topic.getText(), user.getId());
         if (existingTopic == null) {
-            if (topic.getOwner() == null) {
-                topic.setOwner(user);
-            }
+            topic.setId(null);
+            topic.setOwner(user);
             return topicRepository.save(topic);
         } else {
             return existingTopic;
