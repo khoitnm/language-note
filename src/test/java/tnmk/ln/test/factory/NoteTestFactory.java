@@ -44,8 +44,8 @@ public class NoteTestFactory {
     }
 
     @Transactional
-    public Note initNote(String title, String... topicTexts) {
-        Note note = noteService.findOneByTitle(title);
+    public Note initNote(User owner, String title, String... topicTexts) {
+        Note note = noteService.findOneByTitle(owner.getId(), title);
         if (note == null) {
             note = new Note();
             if (StringUtils.isNotBlank(title)) {
@@ -58,11 +58,9 @@ public class NoteTestFactory {
             topics.add(topic);
         }
         note.setTopics(topics);
-
-        User user = userFactory.initDefaultUser();
-        note.setOwner(user);
-        note = noteRepository.save(note);
-//        return noteService.createNote(userFactory.initDefaultUser(), note);
+        note.setOwner(owner);
+        noteRepository.save(note);
+        note = noteService.findOneByTitle(owner.getId(), title);
         return note;
     }
 }

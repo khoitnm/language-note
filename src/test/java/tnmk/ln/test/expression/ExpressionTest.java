@@ -42,8 +42,7 @@ public class ExpressionTest extends BaseTest {
     @Test
     public void addExpressionToNote() {
         User user = userTestFactory.initDefaultUser();
-
-        Note note = noteTestFactory.initNote("test_" + System.currentTimeMillis(), "topic" + System.currentTimeMillis(), "topic" + System.currentTimeMillis());
+        Note note = noteTestFactory.initNote(user, "test_" + System.currentTimeMillis(), "topic" + System.currentTimeMillis(), "topic" + System.currentTimeMillis());
         Expression expression = new Expression();
         noteService.addExpressionToNote(user, note.getId(), expression);
     }

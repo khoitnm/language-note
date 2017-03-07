@@ -11,13 +11,14 @@ import tnmk.ln.app.note.entity.Topic;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 /**
  * @author khoi.tran on 3/6/17.
  */
 public class NoteAssert {
-    public static void assertTopics(Note note, User owner, int numTopic) {
+    public static void assertExistTopic(Note note, User owner, int numTopic) {
         Set<Topic> topicSet = note.getTopics();
         Assert.assertEquals(numTopic, topicSet.size());
         for (Topic topic : topicSet) {
@@ -48,5 +49,11 @@ public class NoteAssert {
                 }
             }
         }
+    }
+
+    public static void assertExistTopic(Note note, String topicText, boolean exist) {
+        Set<Topic> topics = note.getTopics();
+        Optional<Topic> topicOptional = topics.stream().filter(topic -> topic.getText().equals(topicText)).findAny();
+        Assert.assertEquals(exist, topicOptional.isPresent());
     }
 }

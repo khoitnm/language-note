@@ -20,6 +20,8 @@ import java.util.Set;
 public class NoteService {
     @Autowired
     private NoteRepository noteRepository;
+    @Autowired
+    private NoteAndOwnerRepository noteAndOwnerRepository;
 
     @Autowired
     private QuestionService questionService;
@@ -104,7 +106,7 @@ public class NoteService {
         //TODO remove relationship(RELATIONSHIP_NAME, nodeId, rexpressionId);
     }
 
-    public Note findOneByTitle(String title) {
-        return noteRepository.findOneByTitle(title);
+    public Note findOneByTitle(Long userId, String title) {
+        return noteAndOwnerRepository.findOneByTitleAndOwner(userId, title);
     }
 }

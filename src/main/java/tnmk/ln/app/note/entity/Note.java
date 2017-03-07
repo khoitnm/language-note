@@ -15,17 +15,21 @@ import java.util.Set;
 public class Note extends BaseNeo4jEntity {
     public static final String HAS_EXPRESSION = "HAS_EXPRESSION";
     public static final String RELATE_TO_TOPIC = "RELATE_TO_TOPIC";
-    public static final String HAS_NOTE = "HAS_NOTE";
+    /**
+     * Don't name the relationship as "HAS_NOTE", I would like to distinguish it with other composition relationships (HAS_A, HAS_B...)
+     */
+    public static final String OWN_NOTE = "OWN_NOTE";
     public static final String TITLE_DEFAULT = "untitled";
 
     private String title = TITLE_DEFAULT;
 
     @Relationship(type = HAS_EXPRESSION, direction = Relationship.OUTGOING)
     private Set<Expression> expressions;
+
     @Relationship(type = RELATE_TO_TOPIC, direction = Relationship.OUTGOING)
     private Set<Topic> topics;
 
-    @Relationship(type = HAS_NOTE, direction = Relationship.INCOMING)
+    @Relationship(type = OWN_NOTE, direction = Relationship.INCOMING)
     private User owner;
 
     public User getOwner() {
