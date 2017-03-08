@@ -63,13 +63,14 @@ public class NoteServiceTest extends BaseTest {
     @Test
     public void createNoteWithNewExpression() {
         User owner = defaultUser;
-        Note note = NoteTestFactory.constructNote("test_note_no_expression", "test_topic1", "test_topic2");
+        Note note = NoteTestFactory.constructNote("test_note_with_expression", "test_topic1", "test_topic2");
         note.setExpressions(SetUtil.constructSet(
                 ExpressionTestFactory.constructWord("test_expression1")
                 , ExpressionTestFactory.constructWord("test_expression2")
                 , ExpressionTestFactory.constructWord("test_expression3")
         ));
         Note savedNote = noteService.saveNoteAndRelationships(owner, note);
+        LOGGER.debug("New created note: " + savedNote.getId());
         NoteAssert.assertExistTopic(savedNote, owner, 2);
         NoteAssert.assertExpressions(savedNote, owner, 3);
     }
@@ -77,7 +78,7 @@ public class NoteServiceTest extends BaseTest {
     @Test
     public void updateNoteWithNewExpression() {
         User owner = defaultUser;
-        String noteTitle = "test_note_no_expression";
+        String noteTitle = "test_note_with_expression";
         Note note = initExistingNoteOfUser(owner, noteTitle);
 
         //UPDATE & ADD TOPIC ------------------------------------
@@ -93,7 +94,7 @@ public class NoteServiceTest extends BaseTest {
         newTopic.setText("test_topic_" + DateTimeUtil.formatLocalDateTimeForFilePath());
 
         //UPDATE & ADD EXPRESSION ------------------------------------
-        int numOldExpressions = note.getExpressions().size();
+        int numOldExpressions = (note.getExpressions() != null) ? note.getExpressions().size() : 0;
         //Update expression
 
         Note savedNote = noteService.saveNoteAndRelationships(owner, note);

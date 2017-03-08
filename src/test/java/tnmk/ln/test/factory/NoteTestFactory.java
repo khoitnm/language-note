@@ -59,8 +59,8 @@ public class NoteTestFactory {
         }
         note.setTopics(topics);
         note.setOwner(owner);
-        noteRepository.save(note);
-        note = noteService.findOneByTitle(owner.getId(), title);
+        note = noteRepository.save(note);
+        note = noteService.findDetailById(note.getId());
         return note;
     }
 }

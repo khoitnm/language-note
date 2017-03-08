@@ -109,4 +109,7 @@ public class NoteService {
     public Note findOneByTitle(Long userId, String title) {
         return noteAndOwnerRepository.findOneByTitleAndOwner(userId, title);
     }
+    public Note findDetailById(Long noteId) {
+        return noteAndOwnerRepository.findOneDetailById(noteId);
+    }
 }
