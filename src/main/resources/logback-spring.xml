@@ -33,9 +33,9 @@
 
     </appender>
 
-    <logger name="tnmk" level="info"/>
+    <logger name="tnmk" level="debug"/>
     <logger name="org.springframework" level="info"/>
-    <root level="info">
+    <root level="debug">
         <appender-ref ref="FILE-AUDIT"/>
         <appender-ref ref="CONSOLE-AUDIT"/>
     </root>

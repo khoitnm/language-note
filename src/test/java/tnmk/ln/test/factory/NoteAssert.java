@@ -31,6 +31,7 @@ public class NoteAssert {
 
     public static void assertExpressions(Note note, User owner, int numExpressions) {
         Set<Expression> expressions = note.getExpressions();
+        Assert.assertNotNull(expressions);
         Assert.assertEquals(numExpressions, expressions.size());
         for (Expression expression : expressions) {
 //            Assert.assertEquals(owner, expression.getOwner());

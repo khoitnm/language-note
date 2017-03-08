@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import tnmk.common.util.IterableUtil;
 import tnmk.common.util.ReflectionUtils;
 import tnmk.ln.infrastructure.data.neo4j.Neo4jUtils;
 import tnmk.ln.infrastructure.data.neo4j.annotation.DetailLoading;
@@ -50,9 +49,19 @@ public class Neo4jRepository {
         String sb = String.join("",
                 "MATCH (n) WHERE ID(n) = {p0} WITH n MATCH p=(n)-[:", relTypes, "*0..", "" + relDepth, "]-(m) RETURN p"
         );
+        T result = null;
         Iterable<T> iterable = session.query(resultClass, sb, constructParams(id));
-        List<T> results = IterableUtil.toList(iterable);
-        return results.get(0);
+        for (T entity : iterable) {
+            Long entityId = Neo4jUtils.getId(entity);
+            if (id.equals(entityId)) {
+                result = entity;
+                break;
+            }
+        }
+        return result;
+//        throw new UnexpectedException("Cannot find ")
+//        List<T> results = IterableUtil.toList(iterable);
+//        return results.get(0);
 //        int i = 0;
 //        for (T o : iterable) {
 //            LOGGER.info(i + ": " + ObjectMapperUtil.toStringMultiLine(o));

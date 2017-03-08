@@ -101,6 +101,11 @@ public class Expression extends BaseNeo4jEntity {
         }
     }
 
+    @Override
+    public String toString() {
+        return String.format("Expression{%s, %s}", super.getId(), text);
+    }
+
     public String getText() {
         return text;
     }

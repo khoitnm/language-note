@@ -35,6 +35,11 @@ public class Note extends BaseNeo4jEntity {
     @Relationship(type = OWN_NOTE, direction = Relationship.INCOMING)
     private User owner;
 
+    @Override
+    public String toString() {
+        return String.format("Note{%s, %s}", super.getId(), title);
+    }
+
     public User getOwner() {
         return owner;
     }

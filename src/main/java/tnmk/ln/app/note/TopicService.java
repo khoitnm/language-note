@@ -26,14 +26,20 @@ public class TopicService {
     @Transactional
     public Topic saveIfNecessaryByTextAndOwner(User user, Topic topic) {
         //TODO use merge query of neo4j to improve performance?
-        Topic existingTopic = topicAndOwnerRepository.findOneByTextAndOwner(topic.getText(), user.getId());
-        if (existingTopic == null) {
-            topic.setId(null);
-            topic.setOwner(user);
-            return topicRepository.save(topic);
+        Topic result;
+        topic.setOwner(user);
+        if (topic.getId() != null) {
+            result = topicRepository.save(topic);
         } else {
-            return existingTopic;
+            Topic existingTopic = topicAndOwnerRepository.findOneByTextAndOwner(topic.getText(), user.getId());
+            if (existingTopic == null) {
+                topic.setOwner(user);
+                result = topicRepository.save(topic);
+            } else {
+                result = existingTopic;
+            }
         }
+        return result;
     }
 
     //TODO can improve performance (using batch or Merge query?)

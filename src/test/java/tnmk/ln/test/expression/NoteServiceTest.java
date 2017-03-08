@@ -1,6 +1,7 @@
 package tnmk.ln.test.expression;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -83,7 +84,7 @@ public class NoteServiceTest extends BaseTest {
 
         //UPDATE & ADD TOPIC ------------------------------------
         int numOldTopics = note.getTopics().size();
-        //Update old topic
+        //Update old topic - it still create the new one.
         Topic oldTopic = note.getTopics().iterator().next();
         String oldTopicText = oldTopic.getText();
         String newTopicText = "test_updated_topic_" + DateTimeUtil.formatLocalDateTimeForFilePath();
@@ -98,7 +99,8 @@ public class NoteServiceTest extends BaseTest {
         //Update expression
 
         Note savedNote = noteService.saveNoteAndRelationships(owner, note);
-        //TODO it may load only one level relationships
+
+        savedNote = noteService.findDetailById(savedNote.getId());
         NoteAssert.assertExistTopic(savedNote, oldTopicText, false);
         NoteAssert.assertExistTopic(savedNote, newTopicText, true);
         NoteAssert.assertExistTopic(savedNote, owner, numOldTopics + 1);
@@ -113,5 +115,25 @@ public class NoteServiceTest extends BaseTest {
     public void testLoadNote() {
         Note note = noteRepository.findOne(260l);
         LOGGER.info(ObjectMapperUtil.toJson(new ObjectMapper(), note));
+        Assert.assertEquals(260l, note.getId(), 0.001);
+    }
+
+    @Test
+    public void testUpdate() {
+        long noteId = 450l;
+        Note note = noteRepository.findOne(noteId);
+        LOGGER.debug("Saved note: " + ObjectMapperUtil.toStringMultiLine(note));
+
+        String title = "test_note_updated_" + DateTimeUtil.formatLocalDateTimeForFilePath();
+        note.setTitle(title);
+
+        Topic topic = note.getTopics().iterator().next();
+        LOGGER.debug("old topic: " + topic);
+        topic.setText("test_topic_updated_" + DateTimeUtil.formatLocalDateTimeForFilePath());
+        LOGGER.debug("new topic: " + topic);
+        noteRepository.save(note);
+
+        note = noteService.findDetailById(noteId);
+        LOGGER.debug("Saved note: " + ObjectMapperUtil.toStringMultiLine(note));
     }
 }

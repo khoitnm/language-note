@@ -24,6 +24,11 @@ public class SenseGroup extends BaseNeo4jEntity {
     @Relationship(type = HAS_SENSES, direction = Relationship.OUTGOING)
     private Set<Sense> senses;
 
+    @Override
+    public String toString() {
+        return String.format("SenseGroup{%s, %s}", super.getId(), lexicalType);
+    }
+
     public LexicalType getLexicalType() {
         return lexicalType;
     }

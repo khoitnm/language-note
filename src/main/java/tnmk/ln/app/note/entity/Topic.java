@@ -21,6 +21,11 @@ public class Topic extends BaseNeo4jEntity {
     private String text;
     private Set<Topic> children;
 
+    @Override
+    public String toString() {
+        return String.format("Topic{%s, %s}", super.getId(), text);
+    }
+
     public User getOwner() {
         return owner;
     }

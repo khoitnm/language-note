@@ -50,6 +50,11 @@ public class Sense extends BaseNeo4jEntity {
     @Relationship(type = HAS_EXAMPLE, direction = Relationship.OUTGOING)
     private List<Example> examples;
 
+    @Override
+    public String toString() {
+        return String.format("Sense{%s, %s}", super.getId(), explanation);
+    }
+
     public String getExplanation() {
         return explanation;
     }

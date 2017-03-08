@@ -10,6 +10,11 @@ import tnmk.ln.app.common.entity.BaseNeo4jEntity;
 public class Example extends BaseNeo4jEntity {
     private String text;
 
+    @Override
+    public String toString() {
+        return String.format("Example{%s, %s}", super.getId(), text);
+    }
+
     public String getText() {
         return text;
     }

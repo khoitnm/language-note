@@ -35,7 +35,9 @@ public class NoteService {
         Set<Expression> expressionSet = note.getExpressions();
         topicService.saveIfNecessaryByTextAndOwner(user, note.getTopics());
         note = noteRepository.save(note);
-        expressionSet.stream().forEach(expression -> questionService.createQuestionsIfNotExist(expression));
+        if (expressionSet != null) {
+            expressionSet.stream().forEach(expression -> questionService.createQuestionsIfNotExist(expression));
+        }
         return note;
     }
 
@@ -109,6 +111,7 @@ public class NoteService {
     public Note findOneByTitle(Long userId, String title) {
         return noteAndOwnerRepository.findOneByTitleAndOwner(userId, title);
     }
+
     public Note findDetailById(Long noteId) {
         return noteAndOwnerRepository.findOneDetailById(noteId);
     }
