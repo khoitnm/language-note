@@ -5,10 +5,11 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.neo4j.ogm.annotation.Index;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
-import tnmk.ln.infrastructure.data.neo4j.annotation.CascadeRelationship;
 import tnmk.ln.app.common.entity.BaseNeo4jEntity;
 import tnmk.ln.app.dictionary.LexicalEntryUtils;
 import tnmk.ln.app.digitalasset.entity.DigitalAsset;
+import tnmk.ln.infrastructure.data.neo4j.annotation.CascadeRelationship;
+import tnmk.ln.infrastructure.data.neo4j.annotation.DetailLoading;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public class Expression extends BaseNeo4jEntity {
     public static final String IS_SYNONYMOUS_WITH = "IS_SYNONYMOUS_WITH";
     public static final String IS_ANTONYMOUS_WITH = "IS_ANTONYMOUS_WITH";
     public static final String RELATE_TO = "RELATE_TO";
-    public static final String OWN_BY = "OWN_BY";
+    public static final String OWN_EXPRESSION = "OWN_EXPRESSION";
 
     /**
      * This field is not unique because many users can contribute differently to our system.
@@ -43,35 +44,43 @@ public class Expression extends BaseNeo4jEntity {
      * The list of lexical entries which helps to form the expression's text.
      * If the lexicalEntries is not empty, the text will be created from lexicalEntries
      */
+    @DetailLoading
     @CascadeRelationship
     @Relationship(type = HAS_LEXICAL_ENTRIES, direction = Relationship.OUTGOING)
     private List<LexicalEntry> lexicalEntries;
 
+    @DetailLoading
     @CascadeRelationship
     @Relationship(type = HAS_SENSE_GROUPS, direction = Relationship.OUTGOING)
     private List<SenseGroup> sensesGroups;
 
+    @DetailLoading
     @CascadeRelationship
     @Relationship(type = HAS_MAIN_AUDIO, direction = Relationship.OUTGOING)
     private DigitalAsset audio;
 
+    @DetailLoading
     @CascadeRelationship
     @Relationship(type = HAS_MAIN_IMAGE, direction = Relationship.OUTGOING)
     private DigitalAsset image;
 
+    @DetailLoading
     @CascadeRelationship
     @Relationship(type = HAS_IMAGES, direction = Relationship.OUTGOING)
     private List<DigitalAsset> images;
 
     // RELATIONSHIPS //////////////////////////////////////////////////////////////
+    @DetailLoading
     @CascadeRelationship
     @Relationship(type = IS_SYNONYMOUS_WITH, direction = Relationship.UNDIRECTED)
     private List<Expression> synonyms;
 
+    @DetailLoading
     @CascadeRelationship
     @Relationship(type = IS_ANTONYMOUS_WITH, direction = Relationship.UNDIRECTED)
     private List<Expression> antonyms;
 
+    @DetailLoading
     @CascadeRelationship
     @Relationship(type = RELATE_TO, direction = Relationship.UNDIRECTED)
     private List<Expression> family;
@@ -81,7 +90,7 @@ public class Expression extends BaseNeo4jEntity {
      * I use OUTGOING relationship here because I don't want the {@link User} object is concerned with Expression.
      * The {@link User} should be concerned with Security matters only.
      */
-    @Relationship(type = OWN_BY, direction = Relationship.OUTGOING)
+    @Relationship(type = OWN_EXPRESSION, direction = Relationship.INCOMING)
     private User owner;
 
     public void setLexicalEntries(List<LexicalEntry> lexicalEntries) {

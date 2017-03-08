@@ -3,17 +3,22 @@ package tnmk.common.util;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.util.Assert;
+import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 import tnmk.common.exception.UnexpectedException;
 
 import java.beans.PropertyDescriptor;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.time.temporal.Temporal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author khoi.tran on 2/28/17.
@@ -101,4 +106,40 @@ public class ReflectionUtils {
             throw new UnexpectedException(e.getMessage(), e);
         }
     }
+
+    public static boolean isWrapperClass(Class<?> entityClass) {
+        boolean result = (Iterable.class.isAssignableFrom(entityClass)
+                || Map.class.isAssignableFrom(entityClass)
+                || Array.class.isAssignableFrom(entityClass));
+        return result;
+    }
+
+    public static List<Class<?>> getParameterClasses(Field field) {
+        Type[] types = ((ParameterizedType) field.getGenericType()).getActualTypeArguments();
+        List<Class<?>> classes = new ArrayList<>();
+        classes.addAll(getParameterClasses(types));
+        return classes;
+    }
+
+    private static List<Class<?>> getParameterClasses(Type[] types) {
+        List<Class<?>> classes = new ArrayList<>();
+        for (Type type : types) {
+            if (type instanceof ParameterizedTypeImpl) {
+                ParameterizedType iparameterizedType = (ParameterizedTypeImpl) type;
+                iparameterizedType.getActualTypeArguments();
+                classes.addAll(getParameterClasses(iparameterizedType));
+            } else if (type instanceof Class<?>) {
+                classes.add((Class<?>) type);
+            }
+        }
+        return classes;
+    }
+
+    private static List<Class<?>> getParameterClasses(ParameterizedType parameterizedType) {
+        List<Class<?>> classes = new ArrayList<>();
+        Type[] types = parameterizedType.getActualTypeArguments();
+        classes.addAll(getParameterClasses(types));
+        return classes;
+    }
+
 }

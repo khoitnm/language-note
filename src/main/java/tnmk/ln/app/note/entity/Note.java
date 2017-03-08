@@ -4,6 +4,7 @@ import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 import tnmk.ln.app.common.entity.BaseNeo4jEntity;
 import tnmk.ln.app.dictionary.entity.Expression;
+import tnmk.ln.infrastructure.data.neo4j.annotation.DetailLoading;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
 
 import java.util.Set;
@@ -23,9 +24,11 @@ public class Note extends BaseNeo4jEntity {
 
     private String title = TITLE_DEFAULT;
 
+    @DetailLoading
     @Relationship(type = HAS_EXPRESSION, direction = Relationship.OUTGOING)
     private Set<Expression> expressions;
 
+    @DetailLoading
     @Relationship(type = RELATE_TO_TOPIC, direction = Relationship.OUTGOING)
     private Set<Topic> topics;
 

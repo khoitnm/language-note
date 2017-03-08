@@ -13,7 +13,9 @@ import java.lang.reflect.Type;
 /**
  * @param <E> the type of entity. It must have an id property (with annotation {@link GraphId}).
  * @author khoi.tran on 2/28/17.
+ * @deprecated Still has bugs, not completed
  */
+@Deprecated
 public class OgmRepository<E> {
     public static final Logger LOGGER = LoggerFactory.getLogger(OgmRepository.class);
 

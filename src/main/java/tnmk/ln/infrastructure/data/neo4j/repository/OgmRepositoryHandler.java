@@ -23,7 +23,9 @@ import java.util.Set;
 
 /**
  * @author khoi.tran on 2/28/17.
+ * @deprecated Still has bugs, not completed
  */
+@Deprecated
 public class OgmRepositoryHandler {
     public static final Logger LOGGER = LoggerFactory.getLogger(OgmRepositoryHandler.class);
 

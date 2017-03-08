@@ -7,6 +7,7 @@ import org.neo4j.ogm.annotation.Relationship;
 import tnmk.ln.app.common.entity.BaseNeo4jEntity;
 import tnmk.ln.app.digitalasset.entity.DigitalAsset;
 import tnmk.ln.infrastructure.data.neo4j.annotation.CascadeRelationship;
+import tnmk.ln.infrastructure.data.neo4j.annotation.DetailLoading;
 
 import java.util.List;
 
@@ -29,18 +30,22 @@ public class Sense extends BaseNeo4jEntity {
      */
     private String memorizedLink;
 
+    @DetailLoading
     @CascadeRelationship
     @Relationship(type = HAS_PHOTOS, direction = Relationship.OUTGOING)
     private List<DigitalAsset> photos;
 
+    @DetailLoading
     @CascadeRelationship
     @Relationship(type = HAS_AUDIOS, direction = Relationship.OUTGOING)
     private List<DigitalAsset> audios;
 
+    @DetailLoading
     @CascadeRelationship
     @Relationship(type = HAS_VIDEOS, direction = Relationship.OUTGOING)
     private List<DigitalAsset> videos;
 
+    @DetailLoading
     @CascadeRelationship
     @Relationship(type = HAS_EXAMPLE, direction = Relationship.OUTGOING)
     private List<Example> examples;

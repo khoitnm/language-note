@@ -24,4 +24,8 @@ public class NoteAndOwnerRepository {
         String queryString = String.format("MATCH (n:Note)<-[r:%s]-(u:User) WHERE n.`title`={p0} AND id(u)={p1} RETURN n", Note.OWN_NOTE);
         return neo4jRepository.queryForObject(Note.class, queryString, title, ownerId);
     }
+
+    public Note findOneDetailById(long noteId) {
+        return neo4jRepository.queryOneDetail(Note.class, noteId);
+    }
 }

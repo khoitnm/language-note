@@ -1,14 +1,16 @@
 package tnmk.ln.infrastructure.data.neo4j;
 
+import org.apache.commons.collections4.Predicate;
 import org.apache.commons.lang3.StringUtils;
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 import tnmk.common.exception.UnexpectedException;
-import tnmk.ln.infrastructure.data.neo4j.repository.RelationshipDirection;
 import tnmk.common.util.ReflectionUtils;
+import tnmk.ln.infrastructure.data.neo4j.repository.RelationshipDirection;
 
 import java.beans.PropertyDescriptor;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -42,20 +44,46 @@ public class Neo4jUtils {
         return label;
     }
 
-    public static String[] findAllRelationships(Object entity) {
-        Field[] fields = entity.getClass().getDeclaredFields();
+    public static String[] findAllRelationshipsOnAnnotatedFields(Class<?> entityClass, Class<? extends Annotation> annotationClass) {
+        return findRelationships(entityClass, field -> field.getAnnotationsByType(annotationClass) != null);
+    }
+
+    public static String[] findAllRelationships(Class<?> entityClass) {
+        return findRelationships(entityClass, null);
+    }
+
+    public static String[] findRelationships(Class<?> entityClass, Predicate<Field> predicate) {
+        Field[] fields = entityClass.getDeclaredFields();
         List<String> relationshipsList = new ArrayList<>();
         for (Field field : fields) {
-            Relationship relationshipAnno = field.getAnnotation(Relationship.class);
-            String relationshipName;
-            if (relationshipAnno == null) {
-                relationshipName = field.getName();
-            } else {
-                relationshipName = relationshipAnno.type();
-            }
-            relationshipsList.add(relationshipName);
+            if (predicate != null && !predicate.evaluate(field)) continue;
+            relationshipsList.add(findRelationshipType(field));
         }
         return relationshipsList.toArray(new String[] {});
+    }
+
+    public static String findRelationshipType(Field field) {
+        Relationship relationshipAnno = field.getAnnotation(Relationship.class);
+        String relationshipType;
+        if (relationshipAnno == null) {
+            relationshipType = field.getName();
+        } else {
+            relationshipType = relationshipAnno.type();
+        }
+        return relationshipType;
+    }
+
+    public static List<Field> findRelationshipFields(Class<?> entityClass, Predicate<Field> predicate) {
+        Field[] fields = entityClass.getDeclaredFields();
+        List<Field> relationshipsList = new ArrayList<>();
+        for (Field field : fields) {
+            if (predicate != null && !predicate.evaluate(field)) continue;
+            Relationship relationshipAnno = field.getAnnotation(Relationship.class);
+            if (relationshipAnno != null) {
+                relationshipsList.add(field);
+            }
+        }
+        return relationshipsList;
     }
 
     /**

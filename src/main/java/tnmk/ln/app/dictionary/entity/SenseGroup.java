@@ -2,8 +2,9 @@ package tnmk.ln.app.dictionary.entity;
 
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
-import tnmk.ln.infrastructure.data.neo4j.annotation.CascadeRelationship;
 import tnmk.ln.app.common.entity.BaseNeo4jEntity;
+import tnmk.ln.infrastructure.data.neo4j.annotation.CascadeRelationship;
+import tnmk.ln.infrastructure.data.neo4j.annotation.DetailLoading;
 
 import java.util.Set;
 
@@ -18,6 +19,7 @@ public class SenseGroup extends BaseNeo4jEntity {
 
     private LexicalType lexicalType;
 
+    @DetailLoading
     @CascadeRelationship
     @Relationship(type = HAS_SENSES, direction = Relationship.OUTGOING)
     private Set<Sense> senses;
