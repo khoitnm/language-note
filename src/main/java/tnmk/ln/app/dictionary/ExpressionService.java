@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tnmk.ln.app.dictionary.entity.Expression;
-import tnmk.ln.app.dictionary.entity.SenseGroup;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
-
-import java.util.Arrays;
 
 /**
  * @author khoi.tran on 2/28/17.
@@ -18,9 +15,7 @@ public class ExpressionService {
     private ExpressionRepository expressionRepository;
 
     @Autowired
-    private ExpressionUpdateRepository expressionUpdateRepository;
-
-
+    private ExpressionDetailRepository expressionDetailRepository;
 
     //    @Transactional
     public Expression createExpression(User owner, Expression expression) {
@@ -37,20 +32,20 @@ public class ExpressionService {
     @Transactional
     public void updateExpressionDefinition(Expression expression) {
         //TODO should remove old lexical entries which are not related to this expression anymore.
-        expressionUpdateRepository.setPropertiesAndRelationshipsExcludeIncoming(expression);
+//        expressionUpdateRepository.setPropertiesAndRelationshipsExcludeIncoming(expression);
 //        return expressionRepository.save(expression);
     }
 
     @Transactional
     public void updateCascade(Expression expression) {
         //TODO should remove old lexical entries which are not related to this expression anymore.
-        expressionUpdateRepository.setPropertiesAndRelationshipsCascade(expression);
+//        expressionUpdateRepository.setPropertiesAndRelationshipsCascade(expression);
 //        return expressionRepository.save(expression);
     }
 
     @Transactional
     public void detachExpressionDefinition(Expression expression) {
-        expressionUpdateRepository.removeRelationships(expression);
+//        expressionUpdateRepository.removeRelationships(expression);
     }
 
     public Expression findById(long expressionId) {
@@ -60,4 +55,13 @@ public class ExpressionService {
     public void deleteById(long expressionId) {
         expressionRepository.delete(expressionId);
     }
+
+    public Expression findDetailById(long expressionId) {
+        return expressionDetailRepository.findOneDetailById(expressionId);
+    }
+
+    public void deleteExpressionAndSenseGroupsById(long expressionId) {
+        expressionRepository.delete(expressionId);
+    }
+
 }

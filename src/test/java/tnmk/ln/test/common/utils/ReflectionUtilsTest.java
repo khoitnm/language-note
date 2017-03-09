@@ -15,15 +15,21 @@ import java.util.Set;
  */
 public class ReflectionUtilsTest {
 
-    List<Set<Map<String, List<Integer>>>> entity = new ArrayList<>();
+    List<Set<Map<Child, List<Group<Boy>>>>> entity = new ArrayList<>();
+
+    public static class Child {}
+
+    public static class Boy {}
+
+    public static class Group<T> {}
 
     @Test
     public void test() throws NoSuchFieldException {
         Field entityField = ReflectionUtilsTest.class.getDeclaredField("entity");
         List<Class<?>> classes = ReflectionUtils.getParameterClasses(entityField);
         System.out.println(classes);
-        Assert.assertTrue(classes.contains(String.class));
-        Assert.assertTrue(classes.contains(Integer.class));
+        Assert.assertTrue(classes.contains(Child.class));
+        Assert.assertTrue(classes.contains(Boy.class));
 
     }
 }

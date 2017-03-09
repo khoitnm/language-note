@@ -11,7 +11,7 @@ import tnmk.ln.infrastructure.data.neo4j.repository.Neo4jRepository;
  * @author khoi.tran on 2/26/17.
  */
 @Component
-public class NoteAndOwnerRepository {
+public class NoteDetailRepository {
     @Autowired
     private Neo4jRepository neo4jRepository;
 
@@ -27,5 +27,22 @@ public class NoteAndOwnerRepository {
 
     public Note findOneDetailById(long noteId) {
         return neo4jRepository.queryOneDetail(Note.class, noteId);
+    }
+
+    //TODO should remove digital asset???
+    public int removeOneAndCompositions(long id) {
+        String query = "MATCH (n:Note) "
+                + "where id(n)={p0} "
+                + "optional match "
+                + "(n)--(e:Expression) "
+                + "optional match "
+                + "(e)--(sg:SenseGroup) "
+                + "optional match "
+                + "(sg)--(s:Sense) "
+                + "optional match "
+                + "(s)--(ex:Example) "
+                + "optional match "
+                + "(ex)--(q:Question) detach delete n,e,sg,s,ex,q";
+        return neo4jRepository.execute(query, id).getNodesDeleted();
     }
 }

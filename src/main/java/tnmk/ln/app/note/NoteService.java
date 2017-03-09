@@ -21,7 +21,7 @@ public class NoteService {
     @Autowired
     private NoteRepository noteRepository;
     @Autowired
-    private NoteAndOwnerRepository noteAndOwnerRepository;
+    private NoteDetailRepository noteAndOwnerRepository;
 
     @Autowired
     private QuestionService questionService;
@@ -41,38 +41,21 @@ public class NoteService {
         return note;
     }
 
-//    @Transactional
-//    public Note updateNote(User user, Note note) {
-//        note = noteRepository.save(note);
-//        //TODO generate questions for new expression.senseGroup.sense.example
-//        return note;
-//    }
+    public void deleteNoteAndExpressions(User user, Long noteId) {
+        Note note = findDetailById(noteId);
+        if (note.getExpressions() != null){
+            for (Expression expression : note.getExpressions()) {
 
-    /**
-     * @param user
-     * @return list of global notes and personal notes
-     */
-//    public List<Note> findViewableNodes(User user) {
-//
-//    }
-//
-//    public List<Note> findGlobalNotes(User user) {
-//
-//    }
-
-//    public List<Note> findPersonalNotes(User user) {
-//
-//    }
-    public List<Note> findAllNotes(User user) {
-        return IterableUtil.toList(noteRepository.findAll());
+            }
+        }
     }
 
-    public Note findNoteForEditing(User user, Long noteId) {
-        Note note = noteRepository.findOne(noteId);
-//        if (note != null) {
-//            note.getExpressions()
-//        }
-        return note;
+    public List<Note> findByOwnerId(User user) {
+        return noteRepository.findByOwnerId(user.getId());
+    }
+
+    public List<Note> findAll() {
+        return IterableUtil.toList(noteRepository.findAll());
     }
 
     /**
@@ -91,10 +74,6 @@ public class NoteService {
         if (isNewExpression) {
             questionService.createQuestions(expression);
         }
-    }
-
-    private void generateQuestionsForExpression(User user, Expression expression) {
-
     }
 
     /**

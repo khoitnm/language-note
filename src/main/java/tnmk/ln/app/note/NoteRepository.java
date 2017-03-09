@@ -13,5 +13,5 @@ import java.util.List;
  */
 @Neo4jRepoScanInclude
 public interface NoteRepository extends GraphRepository<Note> {
-    List<Note> findByTitle(String title);
+    List<Note> findByOwnerId(Long ownerId);
 }

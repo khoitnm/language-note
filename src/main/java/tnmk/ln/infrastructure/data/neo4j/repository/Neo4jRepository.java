@@ -1,5 +1,6 @@
 package tnmk.ln.infrastructure.data.neo4j.repository;
 
+import org.neo4j.ogm.model.QueryStatistics;
 import org.neo4j.ogm.model.Result;
 import org.neo4j.ogm.session.Session;
 import org.slf4j.Logger;
@@ -124,6 +125,12 @@ public class Neo4jRepository {
     public <T> T queryForObject(Class<T> resultClass, String queryString, Object... paramValues) {
         Map<String, Object> params = constructParams(paramValues);
         return session.queryForObject(resultClass, queryString, params);
+    }
+
+    public QueryStatistics execute(String queryString, Object... paramValues) {
+        Map<String, Object> params = constructParams(paramValues);
+        Result result = session.query(queryString, params);
+        return result.queryStatistics();
     }
 
     private Map<String, Object> constructParams(Object... paramValues) {

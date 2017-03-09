@@ -1,0 +1,37 @@
+MATCH (n:Note)
+where id(n)=450
+optional match
+(n)--(e:Expression)--(sg:SenseGroup)--(s:Sense)--(ex:Example)--(q:Question) RETURN n,e,sg,s,ex,q LIMIT 25
+
+
+MATCH (n:Note)
+where id(n)=450
+optional match
+(n)--(e:Expression)
+optional match
+(e)--(sg:SenseGroup)
+optional match
+(sg)--(s:Sense)
+optional match
+(s)--(ex:Example)
+optional match
+(ex)--(q:Question) RETURN n,e,sg,s,ex,q LIMIT 25
+
+MATCH (n:Note)
+where id(n)=450
+optional match
+(n)--(e:Expression)
+optional match
+(e)--(sg:SenseGroup)
+optional match
+(sg)--(s:Sense)
+optional match
+(s)--(ex:Example)
+optional match
+(ex)--(q:Question) detach delete n,e,sg,s,ex,q
+
+note: 450
+expression: 483
+senseGroup:480
+sense: 494
+example: 474

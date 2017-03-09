@@ -6,7 +6,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import tnmk.common.util.ObjectMapperUtil;
-import tnmk.ln.app.note.NoteAndOwnerRepository;
+import tnmk.ln.app.note.NoteDetailRepository;
 import tnmk.ln.app.note.NoteRepository;
 import tnmk.ln.app.note.entity.Note;
 import tnmk.ln.test.BaseTest;
@@ -19,7 +19,7 @@ public class NoteTest extends BaseTest {
     @Autowired
     NoteRepository noteRepository;
     @Autowired
-    NoteAndOwnerRepository noteAndOwnerRepository;
+    NoteDetailRepository noteAndOwnerRepository;
 
     @Test
     public void test() {
