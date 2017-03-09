@@ -7,7 +7,7 @@ import tnmk.common.util.IterableUtil;
 import tnmk.common.util.SetUtil;
 import tnmk.ln.app.dictionary.entity.Expression;
 import tnmk.ln.app.note.entity.Note;
-import tnmk.ln.app.practice.QuestionService;
+import tnmk.ln.app.practice.QuestionGenerationService;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
 
 import java.util.List;
@@ -24,7 +24,7 @@ public class NoteService {
     private NoteDetailRepository noteAndOwnerRepository;
 
     @Autowired
-    private QuestionService questionService;
+    private QuestionGenerationService questionService;
 
     @Autowired
     private TopicService topicService;

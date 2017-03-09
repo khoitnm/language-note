@@ -11,4 +11,5 @@ import tnmk.ln.app.practice.entity.PracticeResult;
  */
 @Neo4jRepoScanInclude
 public interface PracticeResultRepository extends GraphRepository<PracticeResult> {
+    PracticeResult findByUserIdAndQuestionId(Long userId, Long questionId);
 }

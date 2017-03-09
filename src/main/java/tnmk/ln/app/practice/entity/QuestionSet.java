@@ -4,7 +4,7 @@ package tnmk.ln.app.practice.entity;
 
 import org.neo4j.ogm.annotation.NodeEntity;
 import tnmk.ln.app.common.entity.BaseNeo4jEntity;
-import tnmk.ln.infrastructure.security.mongodb.entity.User;
+import tnmk.ln.infrastructure.security.neo4j.entity.User;
 
 import java.util.Set;
 
