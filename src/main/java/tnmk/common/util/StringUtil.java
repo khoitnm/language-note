@@ -44,6 +44,17 @@ public class StringUtil {
         return sb.toString();
     }
 
+    public static String newStringWithDelimiter(String delimiter, Object... strs) {
+        StringBuilder sb = new StringBuilder();
+        for (Object string : strs) {
+            if (sb.length() > 0) {
+                sb.append(delimiter);
+            }
+            sb.append(string);
+        }
+        return sb.toString();
+    }
+
     public static String joinNotBlankStrings(String delimiter, String... strs) {
         return joinNotBlankStringsWithElementWrapper(delimiter, "", "", strs);
     }

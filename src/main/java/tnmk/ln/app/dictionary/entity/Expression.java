@@ -30,6 +30,7 @@ public class Expression extends BaseNeo4jEntity {
     public static final String IS_ANTONYMOUS_WITH = "IS_ANTONYMOUS_WITH";
     public static final String RELATE_TO = "RELATE_TO";
     public static final String OWN_EXPRESSION = "OWN_EXPRESSION";
+    public static final String EXPRESSION_IN_LOCALE = "EXPRESSION_IN_LOCALE";
 
     /**
      * This field is not unique because many users can contribute differently to our system.
@@ -40,6 +41,9 @@ public class Expression extends BaseNeo4jEntity {
     private ExpressionType expressionType;
 
     // COMPOSITION RELATIONSHIPS //////////////////////////////////////////////////////////////
+    @DetailLoading
+    @Relationship(type = EXPRESSION_IN_LOCALE, direction = Relationship.OUTGOING)
+    private Locale locale;
     /**
      * The list of lexical entries which helps to form the expression's text.
      * If the lexicalEntries is not empty, the text will be created from lexicalEntries
@@ -188,5 +192,13 @@ public class Expression extends BaseNeo4jEntity {
 
     public void setSensesGroups(List<SenseGroup> sensesGroups) {
         this.sensesGroups = sensesGroups;
+    }
+
+    public Locale getLocale() {
+        return locale;
+    }
+
+    public void setLocale(Locale locale) {
+        this.locale = locale;
     }
 }

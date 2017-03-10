@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
  */
 public class LogUtil {
     public static final Logger LOGGER = LoggerFactory.getLogger(LogUtil.class);
+    private static final int MAX_ELEMENTS_IN_AN_ARRAY = 7;
 
     public static Instant logRuntime(Instant startTime, String msg) {
         Instant now = Instant.now();
@@ -52,20 +53,40 @@ public class LogUtil {
 
     public static String toStringRequestParams(HttpServletRequest request) {
         return request.getParameterMap().toString();
-//        Enumeration<String> names = request.getParameterNames();
-//        List<String> paramStrings = new ArrayList<>();
-//        while (names.hasMoreElements()) {
-//            String paramName = names.nextElement();
-//            String paramValue = request.getParameterMap(paramName);
-//            String paramString = String.format("{%s:%s}", paramName, paramValue);
-//            paramStrings.add(paramString);
-//        }
-//        String result = paramStrings.stream().collect(Collectors.joining("\n,"));
-//        return result;
     }
 
     public static String toStringRequestURL(HttpServletRequest request) {
         return String.format("%s %s", request.getMethod(), request.getRequestURL());
     }
 
+    public static String toString(Object object) {
+        if (object == null) {
+            return null;
+        }
+        if (object instanceof String) {
+            return (String) object;
+        } else if (object.getClass().isArray()) {
+            return toStringOfArray((Object[]) object);
+        } else {
+            return String.valueOf(object);
+        }
+    }
+
+    private static String toStringOfArray(Object[] arr) {
+        StringBuilder result = new StringBuilder("[");
+        int i = 0;
+        for (Object element : arr) {
+            if (result.length() > 1) {
+                result.append(",");
+            }
+            if (i >= MAX_ELEMENTS_IN_AN_ARRAY) {
+                result.append("...");
+                break;
+            }
+            result.append(toString(element));
+            i++;
+        }
+        result.append("]");
+        return result.toString();
+    }
 }

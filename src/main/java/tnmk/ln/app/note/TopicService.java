@@ -29,7 +29,17 @@ public class TopicService {
         Topic result;
         topic.setOwner(user);
         if (topic.getId() != null) {
-            result = topicRepository.save(topic);
+            Topic existingTopic = topicRepository.findOne(topic.getId());
+            if (existingTopic == null) {
+                existingTopic = topicAndOwnerRepository.findOneByTextAndOwner(topic.getText(), user.getId());
+                if (existingTopic == null) {
+                    result = topicRepository.save(topic);
+                } else {
+                    result = existingTopic;
+                }
+            } else {
+                result = topicRepository.save(topic);
+            }
         } else {
             Topic existingTopic = topicAndOwnerRepository.findOneByTextAndOwner(topic.getText(), user.getId());
             if (existingTopic == null) {

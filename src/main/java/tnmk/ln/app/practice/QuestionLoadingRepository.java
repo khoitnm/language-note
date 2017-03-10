@@ -19,13 +19,15 @@ public class QuestionLoadingRepository {
     @Autowired
     private Neo4jRepository neo4jRepository;
 
-//    public List<Question> loadQuestionsByNote(User user, Long noteId) {
-//        String queryString = "";
-//        return IterableUtil.toList(neo4jRepository.queryList(Question.class, queryString, user.getId(), noteId));
-//    }
-
     public List<Question> loadQuestionsByNotes(User user, Long... noteIds) {
-        String queryString = "";
+        String queryString = String.join("",
+                "MATCH", " (q:Question)-[:FROM_EXPRESSION]-(e:Expression)<-[:HAS_EXPRESSION]-(n:Note) "
+                , " WHERE id(n) IN {p1}"
+                , " MATCH (e)-[:OWN_EXPRESSION]-(u:User)"
+                , " WHERE id(u)={p0}"
+                , " OPTIONAL MATCH (e)--(sg:SenseGroup)--(s:Sense)--(ex:Example)"
+                , " RETURN q,e,sg,s,ex"
+        );
         return IterableUtil.toList(neo4jRepository.queryList(Question.class, queryString, user.getId(), noteIds));
     }
 

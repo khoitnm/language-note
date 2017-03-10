@@ -7,7 +7,7 @@ import opennlp.tools.tokenize.TokenizerME;
 import opennlp.tools.tokenize.TokenizerModel;
 import tnmk.common.exception.UnexpectedException;
 import tnmk.common.util.IOUtil;
-import tnmk.ln.infrastructure.LanguageConst;
+import tnmk.ln.app.dictionary.entity.Locale;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,8 +16,12 @@ import java.io.InputStream;
  * @author khoi.tran on 3/4/17.
  */
 public class OpenNLPLoader {
+    private static Tokenizer TOKENIZER = null;
 
     public static Tokenizer getTokenizer() {
+        if (TOKENIZER != null) {
+            return TOKENIZER;
+        }
         InputStream modelIn = IOUtil.loadInputStreamFileInClassPath("/opennlp/en-token.bin");//new FileInputStream("/en-token.bin");
         TokenizerModel model = null;
         try {
@@ -33,11 +37,12 @@ public class OpenNLPLoader {
                 }
             }
         }
-        return new TokenizerME(model);
+        TOKENIZER = new TokenizerME(model);
+        return TOKENIZER;
     }
 
     /**
-     * @param language {@link tnmk.ln.infrastructure.LanguageConst}
+     * @param language {@link Locale#language}
      */
     public static SnowballStemmer getSnowballStemmer(String language) {
         SnowballStemmer.ALGORITHM algorithm = toAlgorithm(language);
@@ -47,6 +52,7 @@ public class OpenNLPLoader {
 
     /**
      * Should use {@link SnowballStemmer}
+     *
      * @return
      */
     @Deprecated
@@ -54,8 +60,12 @@ public class OpenNLPLoader {
         return new PorterStemmer();
     }
 
+    /**
+     * @param language the value comes from {@link Locale#language}
+     * @return
+     */
     private static SnowballStemmer.ALGORITHM toAlgorithm(String language) {
-        if (LanguageConst.EN.equals(language)) {
+        if (Locale.EN_EN.getLanguage().equals(language)) {
             return SnowballStemmer.ALGORITHM.ENGLISH;
         } else {
             return SnowballStemmer.ALGORITHM.ENGLISH;

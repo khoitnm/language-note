@@ -21,7 +21,7 @@ public class PracticeAnswerService {
 
     @Transactional
     public PracticeResult answerResult(User user, Question question, AnswerPoint answerPoint) {
-        PracticeResult practiceResult = practiceResultRepository.findByUserIdAndQuestionId(user.getId(), question.getId());
+        PracticeResult practiceResult = practiceResultRepository.findByOwnerIdAndQuestionId(user.getId(), question.getId());
         if (practiceResult == null) {
             practiceResult = new PracticeResult();
             practiceResult.setOwner(user);

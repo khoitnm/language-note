@@ -11,10 +11,10 @@ import tnmk.common.infrastructure.logging.BaseLoggingAspect;
  */
 @Aspect
 @Component
-public class ApiLoggingAspect extends BaseLoggingAspect {
+public class Neo4jRepositoryLoggingAspect extends BaseLoggingAspect {
 
-    @Around("execution(* tnmk..api.*Resource.*(..))")
+    @Around("execution(* tnmk..*.Neo4jRepository.*(..))")
     public Object aroundRuntime(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
-        return super.aroundRuntime(proceedingJoinPoint);
+        return super.aroundInput(proceedingJoinPoint);
     }
 }

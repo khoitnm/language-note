@@ -33,8 +33,11 @@
 
     </appender>
 
-    <logger name="tnmk" level="debug"/>
+    <logger name="tnmk" level="trace"/>
     <logger name="org.springframework" level="info"/>
+    <logger name="org.apache.http" level="warn"/>
+    <logger name="org.apache.http.wire" level="debug"/>
+
     <root level="debug">
         <appender-ref ref="FILE-AUDIT"/>
         <appender-ref ref="CONSOLE-AUDIT"/>

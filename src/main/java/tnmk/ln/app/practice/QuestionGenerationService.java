@@ -10,6 +10,7 @@ import tnmk.ln.app.dictionary.entity.Expression;
 import tnmk.ln.app.dictionary.entity.Sense;
 import tnmk.ln.app.practice.entity.Question;
 import tnmk.ln.app.practice.entity.QuestionType;
+import tnmk.ln.infrastructure.stemming.LemmaFindingService;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,6 +25,8 @@ import java.util.stream.Collectors;
 public class QuestionGenerationService {
     @Autowired
     QuestionRepository questionRepository;
+    @Autowired
+    LemmaFindingService wordStemmingService;
 
     @Transactional
     public List<Question> createQuestionsIfNotExist(Expression expression) {
@@ -84,6 +87,7 @@ public class QuestionGenerationService {
     }
 
     private String[] toStemmingWords(String text) {
+
         String[] originalWords = StringUtil.toWords(text);
         //TODO
         List<String> stemmedWords = Collections.EMPTY_LIST;

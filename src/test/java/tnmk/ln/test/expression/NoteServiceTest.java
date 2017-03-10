@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import tnmk.common.util.DateTimeUtil;
 import tnmk.common.util.ObjectMapperUtil;
 import tnmk.common.util.SetUtil;
+import tnmk.ln.app.dictionary.ExpressionService;
 import tnmk.ln.app.note.NoteRepository;
 import tnmk.ln.app.note.NoteService;
 import tnmk.ln.app.note.TopicAndOwnerRepository;
@@ -46,6 +47,9 @@ public class NoteServiceTest extends BaseTest {
     NoteRepository noteRepository;
     @Autowired
     TopicAndOwnerRepository topicCountRepository;
+    @Autowired
+    ExpressionService expressionService;
+
     private User defaultUser;
 
     @Before
@@ -79,8 +83,8 @@ public class NoteServiceTest extends BaseTest {
     @Test
     public void updateNoteWithNewExpression() {
         User owner = defaultUser;
-        String noteTitle = "test_note_with_expression";
-        Note note = initExistingNoteOfUser(owner, noteTitle);
+        String noteTitle = "test_note_" + DateTimeUtil.formatLocalDateTimeForFilePath();
+        Note note = noteTestFactory.createNoteWithDefaultRelationships(owner, noteTitle);
 
         //UPDATE & ADD TOPIC ------------------------------------
         int numOldTopics = note.getTopics().size();
@@ -105,6 +109,7 @@ public class NoteServiceTest extends BaseTest {
         NoteAssert.assertExistTopic(savedNote, newTopicText, true);
         NoteAssert.assertExistTopic(savedNote, owner, numOldTopics + 1);
         NoteAssert.assertExpressions(savedNote, owner, 3);
+
     }
 
     private Note initExistingNoteOfUser(User owner, String noteTitle) {
