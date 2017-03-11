@@ -14,13 +14,14 @@ import java.util.List;
 /**
  * @author khoi.tran on 2/25/17.
  */
-@NodeEntity
-public class Question extends BaseNeo4jEntity {
+@NodeEntity(label = "Question")
+public abstract class Question extends BaseNeo4jEntity {
     public static final String FROM_EXAMPLE = "FROM_EXAMPLE";
     public static final String FROM_SENSE = "FROM_SENSE";
     public static final String FROM_EXPRESSION = "FROM_EXPRESSION";
 
-    private QuestionType questionType;
+    private String text;
+    //    private QuestionType questionType;
     private List<QuestionPart> questionParts;
 
     @Relationship(type = FROM_EXAMPLE, direction = Relationship.OUTGOING)
@@ -29,6 +30,10 @@ public class Question extends BaseNeo4jEntity {
     private Sense fromSense;
     @Relationship(type = FROM_EXPRESSION, direction = Relationship.OUTGOING)
     private Expression fromExpression;
+
+    public abstract QuestionType getQuestionType();
+
+    public abstract void setQuestionType(QuestionType questionType);
 
     public List<QuestionPart> getQuestionParts() {
         return questionParts;
@@ -54,19 +59,19 @@ public class Question extends BaseNeo4jEntity {
         this.fromExpression = fromExpression;
     }
 
-    public QuestionType getQuestionType() {
-        return questionType;
-    }
-
-    public void setQuestionType(QuestionType questionType) {
-        this.questionType = questionType;
-    }
-
     public Sense getFromSense() {
         return fromSense;
     }
 
     public void setFromSense(Sense fromSense) {
         this.fromSense = fromSense;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 }

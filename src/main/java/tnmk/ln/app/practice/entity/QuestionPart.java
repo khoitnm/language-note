@@ -5,9 +5,13 @@ import tnmk.ln.app.common.entity.BaseNeo4jEntity;
 /**
  * @author khoi.tran on 3/4/17.
  */
-public class QuestionPart extends BaseNeo4jEntity{
+public class QuestionPart extends BaseNeo4jEntity {
     private String text;
     private QuestionPartType questionPartType;
+
+    public String toString() {
+        return String.format("%s [%s]", text, questionPartType);
+    }
 
     public String getText() {
         return text;

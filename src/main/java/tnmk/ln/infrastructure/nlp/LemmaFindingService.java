@@ -1,4 +1,4 @@
-package tnmk.ln.infrastructure.stemming;
+package tnmk.ln.infrastructure.nlp;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -23,9 +23,10 @@ public class LemmaFindingService {
 
     private StandfordNLPService standfordNLPService = new StandfordNLPService();
 
-    public List<LemmaSpan> findByLemma(String language, String findingWord, String text) {
+    public List<LemmaSpan> findByLemma(String language, String findingExpression, String text) {
         List<LemmaSpan> result = new ArrayList<>();
-        String findingLemma = standfordNLPService.lemma(language, findingWord);
+        //TODO an expression can be a word, or a phrasal verb (verb + preposition)...
+        String findingLemma = standfordNLPService.lemma(language, findingExpression);
         if (StringUtils.isBlank(findingLemma)) {
             return result;
         }

@@ -1,4 +1,4 @@
-package tnmk.ln.infrastructure.stemming;
+package tnmk.ln.infrastructure.nlp;
 
 /**
  * In morphology and lexicography, a lemma is the canonical form, dictionary form, or citation form of a set of words (headword).
@@ -11,17 +11,17 @@ public class LemmaSpan {
     private String lemma;
     private String originalWord;
     /**
-     * Start position of spanWord in a text.
+     * Start position of originalWord in a text.
      */
     private int start;
     /**
-     * Start position of spanWord in a text.
+     * Start position of originalWord in a text.
      */
     private int end;
 
     @Override
     public String toString() {
-        return String.format("[%s-%s] '%s' -> '%s'", start, end, originalWord, lemma);
+        return String.format("[%s-%s]'%s'->'%s'", start, end, originalWord, lemma);
     }
 
     public String getLemma() {

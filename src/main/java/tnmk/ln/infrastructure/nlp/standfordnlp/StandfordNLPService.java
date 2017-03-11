@@ -6,7 +6,7 @@ import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.process.Morphology;
 import edu.stanford.nlp.util.CoreMap;
-import tnmk.ln.infrastructure.stemming.LemmaSpan;
+import tnmk.ln.infrastructure.nlp.LemmaSpan;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +17,7 @@ import java.util.List;
 public class StandfordNLPService {
 
     public String lemma(String language, String inflectionWord) {
+        //TODO need to config the language
         Morphology morphology = new Morphology();
         return morphology.stem(inflectionWord);
     }

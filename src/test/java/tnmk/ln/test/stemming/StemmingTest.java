@@ -3,8 +3,8 @@ package tnmk.ln.test.stemming;
 import org.junit.Assert;
 import org.junit.Test;
 import tnmk.ln.app.dictionary.entity.Locale;
-import tnmk.ln.infrastructure.stemming.LemmaFindingService;
-import tnmk.ln.infrastructure.stemming.LemmaSpan;
+import tnmk.ln.infrastructure.nlp.LemmaFindingService;
+import tnmk.ln.infrastructure.nlp.LemmaSpan;
 import tnmk.ln.test.PureTest;
 
 import java.util.List;

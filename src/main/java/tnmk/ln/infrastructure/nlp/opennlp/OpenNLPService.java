@@ -3,7 +3,7 @@ package tnmk.ln.infrastructure.nlp.opennlp;
 import opennlp.tools.stemmer.Stemmer;
 import opennlp.tools.tokenize.Tokenizer;
 import opennlp.tools.util.Span;
-import tnmk.ln.infrastructure.stemming.LemmaSpan;
+import tnmk.ln.infrastructure.nlp.LemmaSpan;
 
 /**
  * @author khoi.tran on 3/10/17.

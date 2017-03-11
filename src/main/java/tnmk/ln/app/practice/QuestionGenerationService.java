@@ -3,17 +3,16 @@ package tnmk.ln.app.practice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import tnmk.common.util.StringUtil;
 import tnmk.ln.app.dictionary.ExpressionUtils;
 import tnmk.ln.app.dictionary.entity.Example;
 import tnmk.ln.app.dictionary.entity.Expression;
 import tnmk.ln.app.dictionary.entity.Sense;
 import tnmk.ln.app.practice.entity.Question;
-import tnmk.ln.app.practice.entity.QuestionType;
-import tnmk.ln.infrastructure.stemming.LemmaFindingService;
+import tnmk.ln.app.practice.entity.QuestionExpressionRecall;
+import tnmk.ln.app.practice.entity.QuestionFillBlank;
+import tnmk.ln.app.practice.entity.QuestionPart;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -25,8 +24,9 @@ import java.util.stream.Collectors;
 public class QuestionGenerationService {
     @Autowired
     QuestionRepository questionRepository;
+
     @Autowired
-    LemmaFindingService wordStemmingService;
+    QuestionFillBlankGenerator questionFillBlankGenerator;
 
     @Transactional
     public List<Question> createQuestionsIfNotExist(Expression expression) {
@@ -46,7 +46,7 @@ public class QuestionGenerationService {
     public List<Question> constructQuestions(Expression expression) {
         List<Question> questions = new ArrayList<>();
         questions.addAll(constructExpressionRecallQuestions(expression));
-//        questions.addAll(constructFillBlankQuestions(expression));
+        questions.addAll(constructFillBlankQuestions(expression));
         return questions;
     }
 
@@ -57,8 +57,7 @@ public class QuestionGenerationService {
     }
 
     private Question constructExpressionRecallQuestion(Expression expression, Sense sense) {
-        Question question = new Question();
-        question.setQuestionType(QuestionType.EXPRESSION_RECALL);
+        Question question = new QuestionExpressionRecall();
         question.setFromExpression(expression);
         question.setFromSense(sense);
         return question;
@@ -76,22 +75,16 @@ public class QuestionGenerationService {
     }
 
     private Question constructFillBlankQuestion(Expression expression, Sense sense, Example example) {
-        Question question = new Question();
-        question.setQuestionType(QuestionType.FILL_BLANK);
+        Question question = new QuestionFillBlank();
+        question.setText(example.getText());
         question.setFromExpression(expression);
         question.setFromSense(sense);
         question.setFromExample(example);
 
-        //TODO question.setQuestionParts();
+        String findingExpression = expression.getText();
+        List<QuestionPart> questionParts = questionFillBlankGenerator.analyzeToQuestionParts(expression.getLocale().getLanguage(), findingExpression, question.getText());
+        question.setQuestionParts(questionParts);
         return question;
     }
 
-    private String[] toStemmingWords(String text) {
-
-        String[] originalWords = StringUtil.toWords(text);
-        //TODO
-        List<String> stemmedWords = Collections.EMPTY_LIST;
-//        String stemmedSentence = stemmedWords.stream().collect(Collectors.joining());
-        return null;
-    }
 }
