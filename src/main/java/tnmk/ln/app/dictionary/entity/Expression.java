@@ -104,7 +104,13 @@ public class Expression extends BaseNeo4jEntity {
             this.text = text;
         }
     }
-
+    public Locale getLocaleOrDefault(){
+        Locale locale = this.getLocale();
+        if (locale == null){
+            locale = Locale.DEFAULT;
+        }
+        return locale;
+    }
     @Override
     public String toString() {
         return String.format("Expression{%s, %s}", super.getId(), text);

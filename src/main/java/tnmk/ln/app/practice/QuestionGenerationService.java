@@ -11,6 +11,7 @@ import tnmk.ln.app.practice.entity.Question;
 import tnmk.ln.app.practice.entity.QuestionExpressionRecall;
 import tnmk.ln.app.practice.entity.QuestionFillBlank;
 import tnmk.ln.app.practice.entity.QuestionPart;
+import tnmk.ln.app.practice.entity.QuestionType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,9 @@ public class QuestionGenerationService {
     QuestionRepository questionRepository;
 
     @Autowired
+    QuestionLoadingRepository questionLoadingRepository;
+
+    @Autowired
     QuestionFillBlankGenerator questionFillBlankGenerator;
 
     @Transactional
@@ -39,7 +43,9 @@ public class QuestionGenerationService {
     @Transactional
     public List<Question> createQuestions(Expression expression) {
         List<Question> questions = constructQuestions(expression);
-        questionRepository.save(questions);
+        if (!questions.isEmpty()) {
+            questionRepository.save(questions);
+        }
         return questions;
     }
 
@@ -52,14 +58,17 @@ public class QuestionGenerationService {
 
     private List<Question> constructExpressionRecallQuestions(Expression expression) {
         Set<Sense> senses = ExpressionUtils.getSenses(expression);
-        List<Question> questions = senses.stream().map(sense -> constructExpressionRecallQuestion(expression, sense)).collect(Collectors.toList());
+        List<Question> questions = senses.stream().map(sense -> constructExpressionRecallQuestionIfNotExist(expression, sense)).collect(Collectors.toList());
         return questions;
     }
 
-    private Question constructExpressionRecallQuestion(Expression expression, Sense sense) {
-        Question question = new QuestionExpressionRecall();
-        question.setFromExpression(expression);
-        question.setFromSense(sense);
+    private Question constructExpressionRecallQuestionIfNotExist(Expression expression, Sense sense) {
+        Question question = questionLoadingRepository.findOneByQuestionTypeAndFromExpressionIdAndFromSenseId(QuestionType.EXPRESSION_RECALL, expression.getId(), sense.getId());
+        if (question == null) {
+            question = new QuestionExpressionRecall();
+            question.setFromExpression(expression);
+            question.setFromSense(sense);
+        }
         return question;
     }
 
@@ -75,15 +84,18 @@ public class QuestionGenerationService {
     }
 
     private Question constructFillBlankQuestion(Expression expression, Sense sense, Example example) {
-        Question question = new QuestionFillBlank();
-        question.setText(example.getText());
-        question.setFromExpression(expression);
-        question.setFromSense(sense);
-        question.setFromExample(example);
+        Question question = questionLoadingRepository.findOneByQuestionTypeAndFromExpressionIdAndFromSenseIdAndFromExampleId(QuestionType.FILL_BLANK, expression.getId(), sense.getId(), example.getId());
+        if (question == null) {
+            question = new QuestionFillBlank();
+            question.setText(example.getText());
+            question.setFromExpression(expression);
+            question.setFromSense(sense);
+            question.setFromExample(example);
 
-        String findingExpression = expression.getText();
-        List<QuestionPart> questionParts = questionFillBlankGenerator.analyzeToQuestionParts(expression.getLocale().getLanguage(), findingExpression, question.getText());
-        question.setQuestionParts(questionParts);
+            String findingExpression = expression.getText();
+            List<QuestionPart> questionParts = questionFillBlankGenerator.analyzeToQuestionParts(expression.getLocaleOrDefault().getLanguage(), findingExpression, question.getText());
+            question.setQuestionParts(questionParts);
+        }
         return question;
     }
 

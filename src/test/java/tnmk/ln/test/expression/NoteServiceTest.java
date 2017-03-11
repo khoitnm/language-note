@@ -109,6 +109,7 @@ public class NoteServiceTest extends BaseTest {
         NoteAssert.assertExistTopic(savedNote, newTopicText, true);
         NoteAssert.assertExistTopic(savedNote, owner, numOldTopics + 1);
         NoteAssert.assertExpressions(savedNote, owner, 3);
+        LOGGER.debug("Saved Note: \n" + ObjectMapperUtil.toJson(new ObjectMapper(), savedNote));
 
     }
 

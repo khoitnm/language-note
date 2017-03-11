@@ -5,11 +5,11 @@ import org.neo4j.ogm.annotation.NodeEntity;
 /**
  * @author khoi.tran on 3/11/17.
  */
-@NodeEntity(label = QuestionFillBlank.LOGIC_NAME)
-public class QuestionFillBlank extends Question {
-    public static final String LOGIC_NAME = "QuestionFillBlank";
+@NodeEntity(label = QuestionListening.LOGIC_NAME)
+public class QuestionListening extends Question {
+    public static final String LOGIC_NAME = "QuestionListening";
 
-    private QuestionType questionType = QuestionType.FILL_BLANK;
+    private QuestionType questionType = QuestionType.LISTENING;
 
     @Override
     public QuestionType getQuestionType() {

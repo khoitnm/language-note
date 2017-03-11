@@ -4,10 +4,10 @@ import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 import tnmk.ln.app.common.entity.BaseNeo4jEntity;
 import tnmk.ln.app.dictionary.entity.Expression;
+import tnmk.ln.app.dictionary.entity.Locale;
 import tnmk.ln.infrastructure.data.neo4j.annotation.DetailLoading;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
 
-import java.util.Locale;
 import java.util.Set;
 
 /**
@@ -39,6 +39,14 @@ public class Note extends BaseNeo4jEntity {
 
     @Relationship(type = OWN_NOTE, direction = Relationship.INCOMING)
     private User owner;
+
+    public Locale getLocaleOrDefault() {
+        Locale locale = this.getLocale();
+        if (locale == null) {
+            locale = tnmk.ln.app.dictionary.entity.Locale.DEFAULT;
+        }
+        return locale;
+    }
 
     @Override
     public String toString() {
