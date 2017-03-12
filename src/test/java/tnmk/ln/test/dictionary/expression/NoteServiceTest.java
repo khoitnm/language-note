@@ -119,9 +119,16 @@ public class NoteServiceTest extends BaseTest {
 
     @Test
     public void testLoadNote() {
-        Note note = noteRepository.findOne(260l);
+        Note note = noteRepository.findOne(1070l);
         LOGGER.info(ObjectMapperUtil.toJson(new ObjectMapper(), note));
-        Assert.assertEquals(260l, note.getId(), 0.001);
+        Assert.assertEquals(1070l, note.getId(), 0.001);
+    }
+
+    @Test
+    public void testLoadDetail() {
+        Note note = noteService.findDetailById(1070l);
+        LOGGER.info(ObjectMapperUtil.toJson(new ObjectMapper(), note));
+        Assert.assertEquals(1070l, note.getId(), 0.001);
     }
 
     @Test

@@ -6,9 +6,9 @@ import org.springframework.transaction.annotation.Transactional;
 import tnmk.common.infrastructure.guardian.Guardian;
 import tnmk.ln.app.dictionary.entity.Expression;
 import tnmk.ln.app.practice.entity.Question;
-import tnmk.ln.app.practice.entity.practiceresult.AnswerPoint;
-import tnmk.ln.app.practice.entity.practiceresult.ExpressionPracticeResult;
-import tnmk.ln.app.practice.entity.practiceresult.QuestionPracticeResult;
+import tnmk.ln.app.practice.query.AnswerPoint;
+import tnmk.ln.app.practice.query.ExpressionPracticeResult;
+import tnmk.ln.app.practice.query.QuestionPracticeResult;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
 
 import java.util.Arrays;

@@ -65,3 +65,35 @@ OPTIONAL MATCH
 WITH q, exp, eprs
 ORDER BY eprs.latestAnswerPoints DESC
 RETURN q, exp, eprs LIMIT 100
+
+
+-----
+MATCH (q:QuestionExpressionRecall )
+MATCH (q)-[:FROM_EXPRESSION]-(exp:Expression)-[:HAS_EXPRESSION]-(n:Note) WHERE id(n) IN [1070]
+OPTIONAL MATCH (exp)-[:RESULT_OF_EXPRESSION]-(eprs:ExpressionPracticeResult)
+OPTIONAL MATCH (eprs)--(o:User) WHERE id(o)=1067
+
+OPTIONAL MATCH qpath=(q)-[:FROM_EXPRESSION]-(exp)-[:RELATE_TO | :HAS_VIDEOS | :HAS_LEXICAL_ENTRIES | :HAS_SENSES | :HAS_SENSE_GROUPS | :RELATE_TO_TOPIC | :NOTE_IN_LOCALE | :HAS_EXAMPLE | :OWN_EXPRESSION | :EXPRESSION_IN_LOCALE | :HAS_MAIN_IMAGE | :HAS_AUDIOS | :HAS_MAIN_AUDIO | :LIKE | :IS_SYNONYMOUS_WITH | :IS_ANTONYMOUS_WITH | :HAS_IMAGES | :HAS_EXPRESSION | :OWN_TOPIC | :HAS_PHOTOS | :OWN_NOTE*0..5]-(x)
+WITH qpath, CASE eprs.latestAnswerPoints WHEN null THEN 0 END AS eprs_answer_points
+ORDER BY eprs_answer_points ASC
+RETURN qpath LIMIT 100
+
+-----
+MATCH (q:QuestionExpressionRecall )
+MATCH (q)-[:FROM_EXPRESSION]-(exp:Expression)-[:HAS_EXPRESSION]-(n:Note) WHERE id(n) IN [1070]
+OPTIONAL MATCH (exp)-[:RESULT_OF_EXPRESSION]-(eprs:ExpressionPracticeResult)
+OPTIONAL MATCH (eprs)--(o:User) WHERE id(o)=1067
+
+RETURN q LIMIT 100
+
+
+-----
+MATCH (q:QuestionExpressionRecall )
+MATCH (q)-[:FROM_EXPRESSION]-(exp:Expression)-[:HAS_EXPRESSION]-(n:Note) WHERE id(n) IN [1070]
+OPTIONAL MATCH (exp)-[:RESULT_OF_EXPRESSION]-(eprs:ExpressionPracticeResult)
+OPTIONAL MATCH (eprs)--(o:User) WHERE id(o)=1067
+
+OPTIONAL MATCH qpath=(exp)-[:RELATE_TO | :HAS_VIDEOS | :HAS_LEXICAL_ENTRIES | :HAS_SENSES | :HAS_SENSE_GROUPS | :RELATE_TO_TOPIC | :NOTE_IN_LOCALE | :HAS_EXAMPLE | :OWN_EXPRESSION | :EXPRESSION_IN_LOCALE | :HAS_MAIN_IMAGE | :HAS_AUDIOS | :HAS_MAIN_AUDIO | :LIKE | :IS_SYNONYMOUS_WITH | :IS_ANTONYMOUS_WITH | :HAS_IMAGES | :HAS_EXPRESSION | :OWN_TOPIC | :HAS_PHOTOS | :OWN_NOTE*0..5]-(x)
+WITH q, qpath, CASE eprs.latestAnswerPoints WHEN null THEN 0 END AS eprs_answer_points
+ORDER BY eprs_answer_points ASC
+RETURN q,qpath LIMIT 100

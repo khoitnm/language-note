@@ -2,6 +2,7 @@ package tnmk.ln;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
@@ -15,6 +16,7 @@ import tnmk.ln.infrastructure.data.neo4j.repository.Neo4jRepoScanInclude;
 //Have to add this annotation because the repositories in 'infrastructure' package are not in the inside the package of MainApplication
 @EnableMongoRepositories(basePackages = { "tnmk.ln", "tnmk.common", "tnmk.ln.infrastructure" }, includeFilters = @ComponentScan.Filter(MongoRepoScanInclude.class))
 @EnableNeo4jRepositories(basePackages = { "tnmk.ln", "tnmk.common", "tnmk.ln.infrastructure" }, includeFilters = @ComponentScan.Filter(Neo4jRepoScanInclude.class))
+@EnableCaching
 public class MainApplication {
     public static void main(String[] args) {
         SpringApplication.run(MainApplication.class, args);

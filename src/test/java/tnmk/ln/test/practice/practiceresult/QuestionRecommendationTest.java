@@ -1,5 +1,6 @@
 package tnmk.ln.test.practice.practiceresult;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,7 +46,7 @@ public class QuestionRecommendationTest extends BaseTest {
         long noteId = 1070;
         User owner = defaultUser;
         List<Question> questions = questionRecommendationService.loadQuestionsByNotes(owner.getId(), QuestionType.EXPRESSION_RECALL, noteId);
-        LOGGER.info("Questions: \n" + ObjectMapperUtil.toStringMultiLineForEachElement(questions));
+        LOGGER.info("Questions: \n" + ObjectMapperUtil.toJson(new ObjectMapper(), questions));
         Assert.assertTrue(questions.size() > 3);
     }
 

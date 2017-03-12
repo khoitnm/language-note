@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import tnmk.common.infrastructure.data.query.QueryLoader;
 import tnmk.common.util.ReflectionUtils;
 import tnmk.ln.infrastructure.data.neo4j.Neo4jUtils;
 import tnmk.ln.infrastructure.data.neo4j.annotation.DetailLoading;
@@ -51,6 +52,7 @@ public class Neo4jRepository {
                 "MATCH (n) WHERE ID(n) = {p0} WITH n MATCH p=(n)-[:", relTypes, "*0..", "" + relDepth, "]-(m) RETURN p"
         );
         T result = null;
+        LOGGER.debug("QueryOneDetail: \n" + sb);
         Iterable<T> iterable = session.query(resultClass, sb, constructParams(id));
         for (T entity : iterable) {
             Long entityId = Neo4jUtils.getId(entity);

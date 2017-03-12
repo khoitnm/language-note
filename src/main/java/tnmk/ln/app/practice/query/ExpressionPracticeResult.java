@@ -1,4 +1,4 @@
-package tnmk.ln.app.practice.entity.practiceresult;
+package tnmk.ln.app.practice.query;
 
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
