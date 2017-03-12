@@ -1,4 +1,4 @@
-package tnmk.ln.test.dictionary.question;
+package tnmk.ln.test.practice.question;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

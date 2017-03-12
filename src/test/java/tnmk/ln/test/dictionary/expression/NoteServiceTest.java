@@ -1,4 +1,4 @@
-package tnmk.ln.test.expression;
+package tnmk.ln.test.dictionary.expression;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;

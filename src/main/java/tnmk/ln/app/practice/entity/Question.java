@@ -9,6 +9,7 @@ import tnmk.ln.app.dictionary.entity.Example;
 import tnmk.ln.app.dictionary.entity.Expression;
 import tnmk.ln.app.dictionary.entity.Sense;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -21,13 +22,16 @@ public abstract class Question extends BaseNeo4jEntity {
     public static final String FROM_EXPRESSION = "FROM_EXPRESSION";
 
     private String text;
-    //    private QuestionType questionType;
+
     private List<QuestionPart> questionParts;
 
     @Relationship(type = FROM_EXAMPLE, direction = Relationship.OUTGOING)
     private Example fromExample;
+
     @Relationship(type = FROM_SENSE, direction = Relationship.OUTGOING)
     private Sense fromSense;
+
+    @NotNull
     @Relationship(type = FROM_EXPRESSION, direction = Relationship.OUTGOING)
     private Expression fromExpression;
 

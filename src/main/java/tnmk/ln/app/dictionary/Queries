@@ -35,3 +35,33 @@ expression: 483
 senseGroup:480
 sense: 494
 example: 474
+
+
+///////////
+get questions of expressions
+
+MATCH (q:QuestionExpressionRecall)
+optional match
+(q)-[:FROM_EXPRESSION]-(e:Expression)
+optional match
+(pr:ExpressionPracticeResult)-[:RESULT_OF_EXPRESSION]-(e)
+WITH q, e, pr
+ORDER BY pr.latestAnswerPoints DESC
+RETURN q,e,pr LIMIT
+
+Note: must add WITH before ORDER BY because Neo4j cannot sort right after an aggregation.
+
+MATCH (q:QuestionExpressionRecall)-[:FROM_EXPRESSION]-(exp:Expression)
+OPTIONAL MATCH
+(q)-[:RESULT_OF_QUESTION]-(qrs:QuestionPracticeResult)
+WITH q, exp, qrs
+ORDER BY qrs.latestAnswerPoints DESC
+RETURN q, exp, qrs LIMIT 100
+
+MATCH (q:QuestionExpressionRecall)-[:FROM_EXPRESSION]-(exp:Expression)-[:HAS_EXPRESSION]-(n:Note)
+WHERE id(n) IN [1070]
+OPTIONAL MATCH
+(exp)-[:RESULT_OF_EXPRESSION]-(eprs:ExpressionPracticeResult)
+WITH q, exp, eprs
+ORDER BY eprs.latestAnswerPoints DESC
+RETURN q, exp, eprs LIMIT 100

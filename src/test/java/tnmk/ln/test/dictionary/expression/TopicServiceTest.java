@@ -1,4 +1,4 @@
-package tnmk.ln.test.expression;
+package tnmk.ln.test.dictionary.expression;
 
 import org.junit.Assert;
 import org.junit.Before;

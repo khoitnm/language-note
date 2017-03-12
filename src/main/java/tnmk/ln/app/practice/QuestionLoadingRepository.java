@@ -36,18 +36,6 @@ public class QuestionLoadingRepository {
         return IterableUtil.toList(neo4jRepository.queryList(Question.class, queryString, user.getId(), noteIds));
     }
 
-    public List<Question> loadQuestionsByTypeAndNotes(User user, QuestionType questionType, Long... noteIds) {
-        String queryString = String.join("",
-                "MATCH", " (q:", questionType.getLogicName(), ")-[:FROM_EXPRESSION]-(e:Expression)<-[:HAS_EXPRESSION]-(n:Note) "
-                , " WHERE id(n) IN {p1}"
-                , " MATCH (e)-[:OWN_EXPRESSION]-(u:User)"
-                , " WHERE id(u)={p0}"
-                , " OPTIONAL MATCH (e)--(sg:SenseGroup)--(s:Sense)--(ex:Example)"
-                , " RETURN q,e,sg,s,ex"
-        );
-        return IterableUtil.toList(neo4jRepository.queryList(Question.class, queryString, user.getId(), noteIds));
-    }
-
     public Question findOneByQuestionTypeAndFromExpressionIdAndFromSenseId(QuestionType questionType, Long expressionId, Long senseId) {
         String queryString = "MATCH (n:`" + questionType.getLogicName() + "`)"
                 + "MATCH (m0:`Expression`) WHERE id(m0) = {p0} "

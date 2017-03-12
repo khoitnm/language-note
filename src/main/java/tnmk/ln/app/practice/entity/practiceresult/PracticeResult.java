@@ -1,8 +1,9 @@
-package tnmk.ln.app.practice.entity;
+package tnmk.ln.app.practice.entity.practiceresult;
 
 //import org.neo4j.ogm.annotation.NodeEntity; import tnmk.ln.app.common.entity.BaseEntity;
 
 import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
 import tnmk.ln.app.common.entity.BaseNeo4jEntity;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
 
@@ -11,13 +12,12 @@ import java.util.List;
 /**
  * @author khoi.tran on 2/26/17.
  */
-@NodeEntity
+@NodeEntity(label = "PracticeResult")
 public class PracticeResult extends BaseNeo4jEntity {
+    @Relationship(type = "PRACTICE", direction = Relationship.INCOMING)
     private User owner;
+    @Relationship(type = "HAS_POINTS", direction = Relationship.INCOMING)
     private List<AnswerPoint> answers;
-
-    private Question question;
-    private QuestionSet questionSet;
     private double latestAnswerPoints;
 
     public User getOwner() {
@@ -44,19 +44,4 @@ public class PracticeResult extends BaseNeo4jEntity {
         this.latestAnswerPoints = latestAnswerPoints;
     }
 
-    public Question getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(Question question) {
-        this.question = question;
-    }
-
-    public QuestionSet getQuestionSet() {
-        return questionSet;
-    }
-
-    public void setQuestionSet(QuestionSet questionSet) {
-        this.questionSet = questionSet;
-    }
 }

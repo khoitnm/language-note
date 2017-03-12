@@ -1,4 +1,4 @@
-package tnmk.ln.test.dictionary.question;
+package tnmk.ln.test.practice.question;
 
 import org.junit.Assert;
 import org.junit.Test;

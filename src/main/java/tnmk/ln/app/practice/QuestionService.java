@@ -18,4 +18,5 @@ public class QuestionService {
     public List<Question> loadQuestionsByNotes(User user, Long... noteIds) {
         return questionLoadingRepository.loadQuestionsByNotes(user, noteIds);
     }
+
 }
