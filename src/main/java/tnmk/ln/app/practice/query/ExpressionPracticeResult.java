@@ -9,7 +9,9 @@ import tnmk.ln.app.dictionary.entity.Expression;
  */
 @NodeEntity(label = "ExpressionPracticeResult")
 public class ExpressionPracticeResult extends PracticeResult {
-    @Relationship(type = "RESULT_OF_EXPRESSION", direction = Relationship.OUTGOING)
+    public static final String RESULT_OF_EXPRESSION = "RESULT_OF_EXPRESSION";
+
+    @Relationship(type = RESULT_OF_EXPRESSION, direction = Relationship.OUTGOING)
     private Expression expression;
 
     public Expression getExpression() {

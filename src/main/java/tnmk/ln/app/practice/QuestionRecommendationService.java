@@ -17,7 +17,7 @@ public class QuestionRecommendationService {
     private QuestionRecommendationRepository questionRecommendationRepository;
 
     public List<Question> loadQuestionsByNotes(long userId, QuestionType questionType, Long... noteIds) {
-        return questionRecommendationRepository.loadQuestionsByLeastSuccessAnswer(userId, questionType, noteIds);
+        return questionRecommendationRepository.loadQuestionsByRecommendedExpressions(userId, questionType, noteIds);
     }
 
 }

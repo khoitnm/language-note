@@ -14,9 +14,12 @@ import java.util.List;
  */
 @NodeEntity(label = "PracticeResult")
 public class PracticeResult extends BaseNeo4jEntity {
-    @Relationship(type = "PRACTICE", direction = Relationship.INCOMING)
+    public static final String HAS_POINTS = "HAS_POINTS";
+    public static final String PRACTICE = "PRACTICE";
+
+    @Relationship(type = PRACTICE, direction = Relationship.INCOMING)
     private User owner;
-    @Relationship(type = "HAS_POINTS", direction = Relationship.INCOMING)
+    @Relationship(type = HAS_POINTS, direction = Relationship.INCOMING)
     private List<AnswerPoint> answers;
     private double latestAnswerPoints;
 

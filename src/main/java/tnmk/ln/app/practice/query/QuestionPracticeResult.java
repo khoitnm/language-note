@@ -12,9 +12,12 @@ import tnmk.ln.app.practice.entity.QuestionSet;
  */
 @NodeEntity(label = "QuestionPracticeResult")
 public class QuestionPracticeResult extends PracticeResult {
-    @Relationship(type = "RESULT_OF_QUESTION", direction = Relationship.OUTGOING)
+    public static final String RESULT_OF_QUESTION = "RESULT_OF_QUESTION";
+    public static final String RESULT_OF_QUESTION_SET = "RESULT_OF_QUESTION_SET";
+
+    @Relationship(type = RESULT_OF_QUESTION, direction = Relationship.OUTGOING)
     private Question question;
-    @Relationship(type = "RESULT_OF_QUESTION_SET", direction = Relationship.OUTGOING)
+    @Relationship(type = RESULT_OF_QUESTION_SET, direction = Relationship.OUTGOING)
     private QuestionSet questionSet;
 
     public Question getQuestion() {

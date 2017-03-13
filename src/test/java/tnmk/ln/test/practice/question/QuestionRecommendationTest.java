@@ -1,4 +1,4 @@
-package tnmk.ln.test.practice.practiceresult;
+package tnmk.ln.test.practice.question;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;
