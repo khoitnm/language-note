@@ -1,4 +1,4 @@
-package tnmk.ln.app.note.entity;
+package tnmk.ln.app.topic.entity;
 
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
@@ -10,20 +10,20 @@ import java.util.Set;
 /**
  * @author khoi.tran on 2/25/17.
  */
-@NodeEntity(label = "Topic")
-public class Topic extends BaseNeo4jEntity {
-    public static final String OWN_TOPIC = "OWN_TOPIC";
+@NodeEntity(label = "Category")
+public class Category extends BaseNeo4jEntity {
+    public static final String OWN_CATEGORY = "OWN_CATEGORY";
     /**
-     * Different users can have different topics with the same text, but one user cannot have 2 topics with the same text.
+     * Different users can have different categorys with the same text, but one user cannot have 2 categorys with the same text.
      */
-    @Relationship(type = OWN_TOPIC, direction = Relationship.INCOMING)
+    @Relationship(type = OWN_CATEGORY, direction = Relationship.INCOMING)
     private User owner;
     private String text;
-    private Set<Topic> children;
+    private Set<Category> children;
 
     @Override
     public String toString() {
-        return String.format("Topic{%s, %s}", super.getId(), text);
+        return String.format("Category{%s, %s}", super.getId(), text);
     }
 
     public User getOwner() {
@@ -34,11 +34,11 @@ public class Topic extends BaseNeo4jEntity {
         this.owner = owner;
     }
 
-    public Set<Topic> getChildren() {
+    public Set<Category> getChildren() {
         return children;
     }
 
-    public void setChildren(Set<Topic> children) {
+    public void setChildren(Set<Category> children) {
         this.children = children;
     }
 

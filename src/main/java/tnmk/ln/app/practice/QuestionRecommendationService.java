@@ -16,8 +16,8 @@ public class QuestionRecommendationService {
     @Autowired
     private QuestionRecommendationRepository questionRecommendationRepository;
 
-    public List<Question> loadQuestionsByNotes(long userId, QuestionType questionType, Long... noteIds) {
-        return questionRecommendationRepository.loadQuestionsByRecommendedExpressions(userId, questionType, noteIds);
+    public List<Question> loadQuestionsByTopics(long userId, QuestionType questionType, Long... topicIds) {
+        return questionRecommendationRepository.loadQuestionsByRecommendedExpressions(userId, questionType, topicIds);
     }
 
 }

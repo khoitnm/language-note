@@ -7,12 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import tnmk.ln.app.dictionary.entity.Expression;
-import tnmk.ln.app.note.NoteService;
-import tnmk.ln.app.note.entity.Note;
+import tnmk.ln.app.topic.TopicService;
+import tnmk.ln.app.topic.entity.Topic;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
 import tnmk.ln.test.BaseTest;
-import tnmk.ln.test.factory.NoteTestFactory;
+import tnmk.ln.test.factory.CategoryTestFactory;
 import tnmk.ln.test.factory.UserTestFactory;
 
 /**
@@ -22,28 +21,28 @@ import tnmk.ln.test.factory.UserTestFactory;
 @Transactional(propagation = Propagation.SUPPORTS)
 public class ExpressionTest extends BaseTest {
     @Autowired
-    NoteService noteService;
+    TopicService topicService;
 
     @Autowired
     UserTestFactory userTestFactory;
 
     @Autowired
-    NoteTestFactory noteTestFactory;
+    CategoryTestFactory topicTestFactory;
 
     private static final User USER = UserTestFactory.constructUser(1l);
 
     @Test
-    public void createNote() {
-        Note note = new Note();
-        note = noteService.saveNoteAndRelationships(USER, note);
-        Assert.assertEquals(Note.TITLE_DEFAULT, note);
+    public void createTopic() {
+        Topic topic = new Topic();
+        topic = topicService.saveTopicAndRelationships(USER, topic);
+        Assert.assertEquals(Topic.TITLE_DEFAULT, topic);
     }
 
     @Test
-    public void addExpressionToNote() {
-        User user = userTestFactory.initDefaultUser();
-        Note note = noteTestFactory.initNote(user, "test_" + System.currentTimeMillis(), "topic" + System.currentTimeMillis(), "topic" + System.currentTimeMillis());
-        Expression expression = new Expression();
-        noteService.addExpressionToNote(user, note.getId(), expression);
+    public void addExpressionToTopic() {
+//        User user = userTestFactory.initDefaultUser();
+//        Topic topic = topicTestFactory.initTopic(user, "test_" + System.currentTimeMillis(), "category" + System.currentTimeMillis(), "category" + System.currentTimeMillis());
+//        Expression expression = new Expression();
+//        topicService.addExpressionToTopic(user, topic.getId(), expression);
     }
 }

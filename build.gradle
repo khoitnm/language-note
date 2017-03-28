@@ -3,7 +3,7 @@ buildscript {
         springBootVersion = '1.0.0.BUILD-SNAPSHOT'
     }
     repositories {
-        // NOTE: You should declare only repositories that you need here
+        // TOPIC: You should declare only repositories that you need here
         mavenLocal()
         mavenCentral()
         maven { url "http://repo.spring.io/release" }
@@ -30,7 +30,7 @@ war {
 }
 
 repositories {
-    // NOTE: You should declare only repositories that you need here
+    // TOPIC: You should declare only repositories that you need here
     mavenLocal()
     mavenCentral()
     maven { url "http://repo.spring.io/release" }

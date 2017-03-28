@@ -26,15 +26,15 @@ public class QuestionRecommendationRepository {
 
     /**
      * @param questionType
-     * @param resultOwnerId this is the ownerId of result, not necessary to be the owner of questions, expressions, or notes.
-     * @param noteIds
+     * @param resultOwnerId this is the ownerId of result, not necessary to be the owner of questions, expressions, or topics.
+     * @param topicIds
      * @return this request will get questions based on the aggregated result of expressions, not the result of senses or examples.
      */
     //TODO it cannot load related objects
-    public List<Question> loadQuestionsByRecommendedExpressions(long resultOwnerId, QuestionType questionType, Long... noteIds) {
-        Guardian.assertArrayNotEmpty(noteIds, " param 'noteIds' must be not empty");
+    public List<Question> loadQuestionsByRecommendedExpressions(long resultOwnerId, QuestionType questionType, Long... topicIds) {
+        Guardian.assertArrayNotEmpty(topicIds, " param 'topicIds' must be not empty");
         String queryString = ClassPathQueryLoader.loadQuery("/tnmk/ln/app/practice/query/load-questions-by-recommended-expressions.cql", questionType.getLogicName(), questionType.getLogicName());
-        return IterableUtil.toList(neo4jRepository.queryList(Question.class, queryString, resultOwnerId, noteIds));
+        return IterableUtil.toList(neo4jRepository.queryList(Question.class, queryString, resultOwnerId, topicIds));
     }
 
 }

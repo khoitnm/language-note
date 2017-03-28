@@ -5,7 +5,7 @@ var LessonTestService = function ($http, $q, $routeParams, $sce) {
     this.$sce = $sce;
 
     this.lessonFilter = new FilterCollection($sce, "name");
-    this.topicFilter = new FilterCollection($sce, "name");
+    this.categoryFilter = new FilterCollection($sce, "name");
     this.expressionItems = [];
     this.totalQuestions = 10;
     this.expressionsTest = new ExpressionsTest(this.expressionItems, this.totalQuestions);
@@ -13,15 +13,15 @@ var LessonTestService = function ($http, $q, $routeParams, $sce) {
 LessonTestService.prototype.init = function () {
     var self = this;
     var lessonIntroductionsGet = self.$http.get(contextPath + '/api/lessons/introductions');
-    var topicsGet = self.$http.get(contextPath + '/api/topics');
-    self.$q.all([lessonIntroductionsGet, topicsGet]).then(function (arrayOfResults) {
+    var categorysGet = self.$http.get(contextPath + '/api/categorys');
+    self.$q.all([lessonIntroductionsGet, categorysGet]).then(function (arrayOfResults) {
         var lessonIntroductions = arrayOfResults[0].data;
-        var topics = arrayOfResults[1].data;
+        var categorys = arrayOfResults[1].data;
 
         self.lessonFilter.initByOriginalItems(lessonIntroductions, self.$routeParams.lessonId);
-        self.topicFilter.initByOriginalItems(topics, self.$routeParams.topicId);
+        self.categoryFilter.initByOriginalItems(categorys, self.$routeParams.categoryId);
 
-        if (self.lessonFilter.selectedItems.length > 0 || self.topicFilter.selectedItems.length > 0) {
+        if (self.lessonFilter.selectedItems.length > 0 || self.categoryFilter.selectedItems.length > 0) {
             self.filterExpressionItems();
         }
     });
@@ -31,7 +31,7 @@ LessonTestService.prototype.filterExpressionItems = function () {
     var filter = {
         selectedBookIds: []
         , selectedLessonIds: getArrayByFields(self.lessonFilter.selectedItems, "id")
-        , selectedTopicIds: getArrayByFields(self.topicFilter.selectedItems, "id")
+        , selectedCategoryIds: getArrayByFields(self.categoryFilter.selectedItems, "id")
     };
     self.$http.post(contextPath + "/api/expression-items/filter", filter).then(function (successResponse) {
         self.expressionItems = successResponse.data;

@@ -31,7 +31,7 @@ public class Neo4jUtils {
     }
 
     public static String getLabel(Object entity) {
-        //Note:
+        //Topic:
         // the entity can be a subclass of <E>, so we should work based on entity.getClass()
         // should not work on this.entityClass
         Class<?> entityClass = entity.getClass();

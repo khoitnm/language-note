@@ -16,7 +16,7 @@ import tnmk.ln.app.practice.query.ExpressionPracticeResult;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
 import tnmk.ln.test.BaseTest;
 import tnmk.ln.test.factory.AnswerPointFactoryTest;
-import tnmk.ln.test.factory.NoteTestFactory;
+import tnmk.ln.test.factory.CategoryTestFactory;
 import tnmk.ln.test.factory.QuestionFactoryTest;
 import tnmk.ln.test.factory.UserTestFactory;
 
@@ -30,7 +30,7 @@ public class PracticeAnswerQuestionTest extends BaseTest {
     UserTestFactory userTestFactory;
 
     @Autowired
-    NoteTestFactory noteTestFactory;
+    CategoryTestFactory topicTestFactory;
     @Autowired
     QuestionRecommendationService questionRecommendationService;
 
@@ -46,7 +46,7 @@ public class PracticeAnswerQuestionTest extends BaseTest {
 
     @Test
     public void answerQuestions() {
-        long noteId = 1070;
+        long topicId = 1070;
         long questionId = 1166;
         long expressionId = 1101;
         User owner = defaultUser;

@@ -1,8 +1,8 @@
-language-note!
+language-topic!
 ==============
 An application for learning languages.
 
-> With this project, a user can note his own vocabularies, phrases, idioms in any lessons, books.
+> With this project, a user can topic his own vocabularies, phrases, idioms in any lessons, books.
 > After that, he can test his vocabularies. The test will show some explanations and then the user has to recall the correct vocabularies, phrases.
 > The user will get a score for each words, the words with the most failure answers will be more likely to appear in later tests.
 > 
@@ -11,11 +11,14 @@ An application for learning languages.
 ## I. Requirement 
 There are some questions we have to answer:
 
-- I would like to _collect_ some **Expressions** _in the global_ **Dictionary** or _in other users'_ **Dictionaries** _into my own_ **Note**.
-- I can _practice_ on my own **Note**.
-- I will _answer_ **Questions** inside a **Note**, and I will _have_ an **Answer Result** for each question. The **Practice Result** _of a_ **Note** will be aggregate from the **Practice Result** of each **Question** in the **Practice Session**. 
+- I would like to _collect_ some **Expressions** _in the global_ **Dictionary** or _in other users'_ **Dictionaries** _into my own_ **Topic**.
+- I can _practice_ on my own **Topic**.
+- I will _answer_ **Questions** inside a **Topic**, and I will _have_ an **Answer Result** for each question. The **Practice Result** _of a_ **Topic** will be aggregate from the **Practice Result** of each **Question** in the **Practice Session**. 
 - I can _practice_ with the new **Expressions** first.
 - The next time I _practice_, it must show either **Expressions** I have never tried or **Expressions** I didn't get max points in **last 2 Practice Results**.
+
+
+- Add a Chrome plugin to look-up new words. The looked up words will be added in to a topic (the name is the title of web page). When you look up a word, the app will consider it as an failed answer for an expression-recall question. 
 
 ## II. Run project
 Build:
@@ -25,7 +28,7 @@ mvn clean install -DskipTests
 
 Deploy:
 ```
-cp target/language-note.war {TOMCAT_HOME}/webapp/
+cp target/language-topic.war {TOMCAT_HOME}/webapp/
 ```
 
 Neo4j server start:

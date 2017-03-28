@@ -93,26 +93,26 @@
                             <div class="tags_clear"></div>
                         </div>
                     </div>
-                    <!-- TOPICS -->
+                    <!-- CATEGORYS -->
                     <div class="col-md-6">
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead>
                                 <tr>
                                     <th>
-                                        <input type="checkbox" class="flat" name="table_records" ng-model="lessonTestService.topicFilter.selectAll">
+                                        <input type="checkbox" class="flat" name="table_records" ng-model="lessonTestService.categoryFilter.selectAll">
                                     </th>
                                     <th>
-                                        <input type="text" ng-model="lessonTestService.topicFilter.filterValue"
-                                               ng-change="lessonTestService.topicFilter.filterItems()"
-                                               placeholder="Search Topics" class="form-control"/>
+                                        <input type="text" ng-model="lessonTestService.categoryFilter.filterValue"
+                                               ng-change="lessonTestService.categoryFilter.filterItems()"
+                                               placeholder="Search Categorys" class="form-control"/>
                                     </th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="lesson in lessonTestService.topicFilter.filteredItems">
+                                <tr ng-repeat="lesson in lessonTestService.categoryFilter.filteredItems">
                                     <td>
-                                        <input type="checkbox" class="flat" name="table_records" ng-model="lesson.checked" ng-change="lessonTestService.topicFilter.selectItem(lesson)">
+                                        <input type="checkbox" class="flat" name="table_records" ng-model="lesson.checked" ng-change="lessonTestService.categoryFilter.selectItem(lesson)">
                                     </td>
                                     <td>
                                         <span ng-hide="lesson.resultWithHighlightText">{{lesson.name}}</span>
@@ -124,9 +124,9 @@
 
                         </div>
                         <div class="tagsinput" style="width: auto; min-height: 100px; height: 100px;">
-                                        <span class="tag" ng-repeat="selectedItem in lessonTestService.topicFilter.selectedItems">
+                                        <span class="tag" ng-repeat="selectedItem in lessonTestService.categoryFilter.selectedItems">
                                             <span>{{selectedItem.name}}&nbsp;&nbsp;</span>
-                                            <a href="" ng-click="lessonTestService.topicFilter.unselectItem(selectedItem)" title="Removing tag">x</a>
+                                            <a href="" ng-click="lessonTestService.categoryFilter.unselectItem(selectedItem)" title="Removing tag">x</a>
                                         </span>
 
                             <div class="tags_clear"></div>
@@ -159,7 +159,7 @@
                 </h2>
                 <!--<ul class="nav navbar-right panel_toolbox">-->
                 <!--<li>-->
-                <!--<a class="close-link"><i class="fa fa-plus" ng-click="lessonTestService.addTopic()"></i></a>-->
+                <!--<a class="close-link"><i class="fa fa-plus" ng-click="lessonTestService.addCategory()"></i></a>-->
                 <!--</li>-->
                 <!--</ul>-->
                 <div class="clearfix"></div>

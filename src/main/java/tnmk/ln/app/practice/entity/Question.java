@@ -8,6 +8,7 @@ import tnmk.ln.app.common.entity.BaseNeo4jEntity;
 import tnmk.ln.app.dictionary.entity.Example;
 import tnmk.ln.app.dictionary.entity.Expression;
 import tnmk.ln.app.dictionary.entity.Sense;
+import tnmk.ln.app.practice.query.QuestionPracticeResult;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -34,6 +35,9 @@ public abstract class Question extends BaseNeo4jEntity {
     @NotNull
     @Relationship(type = FROM_EXPRESSION, direction = Relationship.OUTGOING)
     private Expression fromExpression;
+
+    @Relationship(type = QuestionPracticeResult.RESULT_OF_QUESTION, direction = Relationship.INCOMING)
+    private List<QuestionPracticeResult> questionPracticeResults;
 
     public abstract QuestionType getQuestionType();
 
@@ -77,5 +81,13 @@ public abstract class Question extends BaseNeo4jEntity {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public List<QuestionPracticeResult> getQuestionPracticeResults() {
+        return questionPracticeResults;
+    }
+
+    public void setQuestionPracticeResults(List<QuestionPracticeResult> questionPracticeResults) {
+        this.questionPracticeResults = questionPracticeResults;
     }
 }

@@ -53,9 +53,9 @@ public class EnglishClubImport {
     private Lesson analyseDocument(String htmlContent) {
         Lesson lesson = new Lesson();
         lesson.setName("Phrasal Verb");
-        Topic topic = new Topic();
-        topic.setName("phrasal verb");
-        lesson.setTopics(Arrays.asList(topic).stream().collect(Collectors.toSet()));
+        Topic category = new Topic();
+        category.setName("phrasal verb");
+        lesson.setTopics(Arrays.asList(category).stream().collect(Collectors.toSet()));
 
         Document document = convertStringToDocument(htmlContent);
         Element html = (Element) document.getChildNodes().item(0);

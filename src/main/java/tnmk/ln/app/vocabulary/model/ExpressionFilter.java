@@ -8,9 +8,9 @@ import java.util.Set;
 public class ExpressionFilter {
     private boolean selectAllBooks;
     private boolean selectAllLessons;
-    private boolean selectAllTopics;
+    private boolean selectAllCategorys;
     private Set<String> selectedLessonIds;
-    private Set<String> selectedTopicIds;
+    private Set<String> selectedCategoryIds;
     private Set<String> selectedBookIds;
 
     public Set<String> getSelectedLessonIds() {
@@ -21,12 +21,12 @@ public class ExpressionFilter {
         this.selectedLessonIds = selectedLessonIds;
     }
 
-    public Set<String> getSelectedTopicIds() {
-        return selectedTopicIds;
+    public Set<String> getSelectedCategoryIds() {
+        return selectedCategoryIds;
     }
 
-    public void setSelectedTopicIds(Set<String> selectedTopicIds) {
-        this.selectedTopicIds = selectedTopicIds;
+    public void setSelectedCategoryIds(Set<String> selectedCategoryIds) {
+        this.selectedCategoryIds = selectedCategoryIds;
     }
 
     public Set<String> getSelectedBookIds() {
@@ -53,11 +53,11 @@ public class ExpressionFilter {
         this.selectAllLessons = selectAllLessons;
     }
 
-    public boolean isSelectAllTopics() {
-        return selectAllTopics;
+    public boolean isSelectAllCategorys() {
+        return selectAllCategorys;
     }
 
-    public void setSelectAllTopics(boolean selectAllTopics) {
-        this.selectAllTopics = selectAllTopics;
+    public void setSelectAllCategorys(boolean selectAllCategorys) {
+        this.selectAllCategorys = selectAllCategorys;
     }
 }

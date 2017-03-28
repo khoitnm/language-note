@@ -6,8 +6,8 @@ import tnmk.ln.app.dictionary.entity.Example;
 import tnmk.ln.app.dictionary.entity.Expression;
 import tnmk.ln.app.dictionary.entity.Sense;
 import tnmk.ln.app.dictionary.entity.SenseGroup;
-import tnmk.ln.app.note.entity.Note;
-import tnmk.ln.app.note.entity.Topic;
+import tnmk.ln.app.topic.entity.Topic;
+import tnmk.ln.app.topic.entity.Category;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
 
 import java.util.List;
@@ -17,20 +17,20 @@ import java.util.Set;
 /**
  * @author khoi.tran on 3/6/17.
  */
-public class NoteAssert {
-    public static void assertExistTopic(Note note, User owner, int numTopic) {
-        Set<Topic> topicSet = note.getTopics();
-        Assert.assertEquals(numTopic, topicSet.size());
-        for (Topic topic : topicSet) {
-            Assert.assertNotNull(topic.getId());
-            Assert.assertNotNull(topic.getText());
-            Assert.assertNotNull(topic.getCreatedDateTime());
-//            Assert.assertEquals(owner, topic.getOwner());
+public class TopicAssert {
+    public static void assertExistCategory(Topic topic, User owner, int numCategory) {
+        Set<Category> categorySet = topic.getCategorys();
+        Assert.assertEquals(numCategory, categorySet.size());
+        for (Category category : categorySet) {
+            Assert.assertNotNull(category.getId());
+            Assert.assertNotNull(category.getText());
+            Assert.assertNotNull(category.getCreatedDateTime());
+//            Assert.assertEquals(owner, category.getOwner());
         }
     }
 
-    public static void assertExpressions(Note note, User owner, int numExpressions) {
-        Set<Expression> expressions = note.getExpressions();
+    public static void assertExpressions(Topic topic, User owner, int numExpressions) {
+        Set<Expression> expressions = topic.getExpressions();
         Assert.assertNotNull(expressions);
         Assert.assertEquals(numExpressions, expressions.size());
         for (Expression expression : expressions) {
@@ -52,9 +52,9 @@ public class NoteAssert {
         }
     }
 
-    public static void assertExistTopic(Note note, String topicText, boolean exist) {
-        Set<Topic> topics = note.getTopics();
-        Optional<Topic> topicOptional = topics.stream().filter(topic -> topic.getText().equals(topicText)).findAny();
-        Assert.assertEquals(exist, topicOptional.isPresent());
+    public static void assertExistCategory(Topic topic, String categoryText, boolean exist) {
+        Set<Category> categorys = topic.getCategorys();
+        Optional<Category> categoryOptional = categorys.stream().filter(category -> category.getText().equals(categoryText)).findAny();
+        Assert.assertEquals(exist, categoryOptional.isPresent());
     }
 }

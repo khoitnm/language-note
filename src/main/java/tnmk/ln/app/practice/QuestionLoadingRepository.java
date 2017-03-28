@@ -24,16 +24,16 @@ public class QuestionLoadingRepository {
     @Autowired
     private Neo4jRepository neo4jRepository;
 
-    public List<Question> loadQuestionsByNotes(User user, Long... noteIds) {
+    public List<Question> loadQuestionsByTopics(User user, Long... topicIds) {
         String queryString = String.join("",
-                "MATCH", " (q:Question)-[:FROM_EXPRESSION]-(e:Expression)<-[:HAS_EXPRESSION]-(n:Note) "
+                "MATCH", " (q:Question)-[:FROM_EXPRESSION]-(e:Expression)<-[:HAS_EXPRESSION]-(n:Topic) "
                 , " WHERE id(n) IN {p1}"
                 , " MATCH (e)-[:OWN_EXPRESSION]-(u:User)"
                 , " WHERE id(u)={p0}"
                 , " OPTIONAL MATCH (e)--(sg:SenseGroup)--(s:Sense)--(ex:Example)"
                 , " RETURN q,e,sg,s,ex"
         );
-        return IterableUtil.toList(neo4jRepository.queryList(Question.class, queryString, user.getId(), noteIds));
+        return IterableUtil.toList(neo4jRepository.queryList(Question.class, queryString, user.getId(), topicIds));
     }
 
     public Question findOneByQuestionTypeAndFromExpressionIdAndFromSenseId(QuestionType questionType, Long expressionId, Long senseId) {

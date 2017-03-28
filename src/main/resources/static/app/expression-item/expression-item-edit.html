@@ -53,20 +53,20 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <!--Description-->
-                        <div ng-show="!lessonEditService.editingNote && !lessonEditService.lesson.noteAsHtml"
-                             ng-dblclick="lessonEditService.startEditingNote()"
+                        <div ng-show="!lessonEditService.editingTopic && !lessonEditService.lesson.topicAsHtml"
+                             ng-dblclick="lessonEditService.startEditingTopic()"
                              class="well well-sm">
                             <p style="font-style: italic; color: #D1D1D1;">Lesson Description</p>
                         </div>
-                        <div ng-show="!lessonEditService.editingNote && lessonEditService.lesson.noteAsHtml"
-                             ng-bind-html="lessonEditService.lesson.noteAsHtml"
-                             ng-dblclick="lessonEditService.startEditingNote()"
+                        <div ng-show="!lessonEditService.editingTopic && lessonEditService.lesson.topicAsHtml"
+                             ng-bind-html="lessonEditService.lesson.topicAsHtml"
+                             ng-dblclick="lessonEditService.startEditingTopic()"
                              class="well well-sm">
                         </div>
-                        <div ng-show="lessonEditService.editingNote">
-                            <textarea ck-editor="lessonEditService.ckeditor.options" ng-model="lessonEditService.lesson.noteAsHtml" ready="lessonEditService.ckeditor.onReady()"></textarea>
+                        <div ng-show="lessonEditService.editingTopic">
+                            <textarea ck-editor="lessonEditService.ckeditor.options" ng-model="lessonEditService.lesson.topicAsHtml" ready="lessonEditService.ckeditor.onReady()"></textarea>
                             <br/>
-                            <button class="btn btn-success" ng-click="lessonEditService.stopEditingNote()">Preview</button>
+                            <button class="btn btn-success" ng-click="lessonEditService.stopEditingTopic()">Preview</button>
                         </div>
                         <!--Expression Type-->
                         <div>
@@ -81,23 +81,23 @@
                 <div class="row">
 
                     <div class="col-lg-11">
-                        <!--Topics-->
-                        <div ng-repeat="topic in lessonEditService.lesson.topics track by $index"
+                        <!--Categorys-->
+                        <div ng-repeat="category in lessonEditService.lesson.categorys track by $index"
                              class="col-md-2 wrap-dd-menu">
 
                             <input type="text"
-                                   ng-model="topic.name"
-                                   ng-blur="lessonEditService.finishInputTopic(topic)"
-                                   placeholder="Topic" list="autocomplete_{{$index}}"
+                                   ng-model="category.name"
+                                   ng-blur="lessonEditService.finishInputCategory(category)"
+                                   placeholder="Category" list="autocomplete_{{$index}}"
                                    style="width: 100%"/>
                             <datalist id="autocomplete_{{$index}}">
-                                <select ng-options="itopic as itopic.name for itopic in lessonEditService.topics track by itopic.name" ng-model="selected"></select>
+                                <select ng-options="icategory as icategory.name for icategory in lessonEditService.categorys track by icategory.name" ng-model="selected"></select>
                             </datalist>
                         </div>
 
                     </div>
                     <div class="col-lg-1">
-                        <a class="close-link"><i class="fa fa-plus" ng-click="lessonEditService.addTopic()"></i></a>
+                        <a class="close-link"><i class="fa fa-plus" ng-click="lessonEditService.addCategory()"></i></a>
                     </div>
                 </div>
                 <div class="ln_solid"></div>
@@ -202,7 +202,7 @@
                                                                ng-show="$index == 0">e.g. </label>
                                                     </td>
                                                     <td>
-                                                        <!--<textarea ck-editor="lessonEditService.ckeditor.options" ng-model="lessonEditService.lesson.noteAsHtml" ready="lessonEditService.ckeditor.onReady()"></textarea>-->
+                                                        <!--<textarea ck-editor="lessonEditService.ckeditor.options" ng-model="lessonEditService.lesson.topicAsHtml" ready="lessonEditService.ckeditor.onReady()"></textarea>-->
 
                                                         <textarea class="form-control"
                                                                   rows="2"

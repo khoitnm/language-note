@@ -15,8 +15,8 @@ public class QuestionService {
     @Autowired
     private QuestionLoadingRepository questionLoadingRepository;
 
-    public List<Question> loadQuestionsByNotes(User user, Long... noteIds) {
-        return questionLoadingRepository.loadQuestionsByNotes(user, noteIds);
+    public List<Question> loadQuestionsByTopics(User user, Long... topicIds) {
+        return questionLoadingRepository.loadQuestionsByTopics(user, topicIds);
     }
 
 }

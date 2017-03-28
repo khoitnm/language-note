@@ -1,4 +1,4 @@
-package tnmk.ln.app.note.entity;
+package tnmk.ln.app.topic.entity;
 
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
@@ -13,31 +13,31 @@ import java.util.Set;
 /**
  * @author khoi.tran on 2/25/17.
  */
-@NodeEntity(label = "Note")
-public class Note extends BaseNeo4jEntity {
+@NodeEntity(label = "Topic")
+public class Topic extends BaseNeo4jEntity {
     public static final String HAS_EXPRESSION = "HAS_EXPRESSION";
-    public static final String RELATE_TO_TOPIC = "RELATE_TO_TOPIC";
-    public static final String NOTE_IN_LOCALE = "NOTE_IN_LOCALE";
+    public static final String RELATE_TO_CATEGORY = "RELATE_TO_CATEGORY";
+    public static final String TOPIC_IN_LOCALE = "TOPIC_IN_LOCALE";
 
     /**
-     * Don't name the relationship as "HAS_NOTE", I would like to distinguish it with other composition relationships (HAS_A, HAS_B...)
+     * Don't name the relationship as "HAS_TOPIC", I would like to distinguish it with other composition relationships (HAS_A, HAS_B...)
      */
-    public static final String OWN_NOTE = "OWN_NOTE";
+    public static final String OWN_TOPIC = "OWN_TOPIC";
     public static final String TITLE_DEFAULT = "untitled";
 
     private String title = TITLE_DEFAULT;
     @DetailLoading
-    @Relationship(type = NOTE_IN_LOCALE, direction = Relationship.OUTGOING)
+    @Relationship(type = TOPIC_IN_LOCALE, direction = Relationship.OUTGOING)
     private Locale locale;
     @DetailLoading
     @Relationship(type = HAS_EXPRESSION, direction = Relationship.OUTGOING)
     private Set<Expression> expressions;
 
     @DetailLoading
-    @Relationship(type = RELATE_TO_TOPIC, direction = Relationship.OUTGOING)
-    private Set<Topic> topics;
+    @Relationship(type = RELATE_TO_CATEGORY, direction = Relationship.OUTGOING)
+    private Set<Category> categorys;
 
-    @Relationship(type = OWN_NOTE, direction = Relationship.INCOMING)
+    @Relationship(type = OWN_TOPIC, direction = Relationship.INCOMING)
     private User owner;
 
     public Locale getLocaleOrDefault() {
@@ -50,7 +50,7 @@ public class Note extends BaseNeo4jEntity {
 
     @Override
     public String toString() {
-        return String.format("Note{%s, %s}", super.getId(), title);
+        return String.format("Topic{%s, %s}", super.getId(), title);
     }
 
     public User getOwner() {
@@ -69,12 +69,12 @@ public class Note extends BaseNeo4jEntity {
         this.expressions = expressions;
     }
 
-    public Set<Topic> getTopics() {
-        return topics;
+    public Set<Category> getCategorys() {
+        return categorys;
     }
 
-    public void setTopics(Set<Topic> topics) {
-        this.topics = topics;
+    public void setCategorys(Set<Category> categorys) {
+        this.categorys = categorys;
     }
 
     public String getTitle() {

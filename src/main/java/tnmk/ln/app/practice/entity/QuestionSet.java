@@ -14,7 +14,7 @@ import java.util.Set;
 @NodeEntity
 public class QuestionSet extends BaseNeo4jEntity {
     private User owner;
-    private String noteAsHtml;
+    private String topicAsHtml;
     private Set<Question> questions;
 
     public Set<Question> getQuestions() {
@@ -33,11 +33,11 @@ public class QuestionSet extends BaseNeo4jEntity {
         this.owner = owner;
     }
 
-    public String getNoteAsHtml() {
-        return noteAsHtml;
+    public String getTopicAsHtml() {
+        return topicAsHtml;
     }
 
-    public void setNoteAsHtml(String noteAsHtml) {
-        this.noteAsHtml = noteAsHtml;
+    public void setTopicAsHtml(String topicAsHtml) {
+        this.topicAsHtml = topicAsHtml;
     }
 }

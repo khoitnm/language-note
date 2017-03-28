@@ -6,24 +6,24 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import tnmk.common.util.ObjectMapperUtil;
-import tnmk.ln.app.note.NoteDetailRepository;
-import tnmk.ln.app.note.NoteRepository;
-import tnmk.ln.app.note.entity.Note;
+import tnmk.ln.app.topic.TopicDetailRepository;
+import tnmk.ln.app.topic.TopicRepository;
+import tnmk.ln.app.topic.entity.Topic;
 import tnmk.ln.test.BaseTest;
 
 /**
  * @author khoi.tran on 3/8/17.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-public class NoteTest extends BaseTest {
+public class TopicTest extends BaseTest {
     @Autowired
-    NoteRepository noteRepository;
+    TopicRepository topicRepository;
     @Autowired
-    NoteDetailRepository noteAndOwnerRepository;
+    TopicDetailRepository topicAndOwnerRepository;
 
     @Test
     public void test() {
-        Note note = noteAndOwnerRepository.findOneDetailById(150l);
-        LOGGER.info(ObjectMapperUtil.toJson(new ObjectMapper(), note));
+        Topic topic = topicAndOwnerRepository.findOneDetailById(150l);
+        LOGGER.info(ObjectMapperUtil.toJson(new ObjectMapper(), topic));
     }
 }

@@ -55,11 +55,11 @@ public class ExpressionItemFilterRepository {
                 query.addCriteria(where("lessonIds").in(expressionFilter.getSelectedLessonIds()));
             }
         }
-        if (!expressionFilter.isSelectAllTopics()) {
-            if (expressionFilter.getSelectedTopicIds() != null && !expressionFilter.getSelectedTopicIds().isEmpty()) {
-                query.addCriteria(where("topicIds").in(expressionFilter.getSelectedTopicIds()));
-            }
-        }
+//        if (!expressionFilter.isSelectAllTopics()) {
+//            if (expressionFilter.getSelectedTopicIds() != null && !expressionFilter.getSelectedTopicIds().isEmpty()) {
+//                query.addCriteria(where("topicIds").in(expressionFilter.getSelectedTopicIds()));
+//            }
+//        }
         Criteria favouriteCriteria;
         if (hasFavourite) {
             favouriteCriteria = where("userPoints." + userId + ".favourite").is(-1);

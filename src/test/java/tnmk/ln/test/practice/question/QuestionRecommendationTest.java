@@ -15,7 +15,7 @@ import tnmk.ln.app.practice.entity.Question;
 import tnmk.ln.app.practice.entity.QuestionType;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
 import tnmk.ln.test.BaseTest;
-import tnmk.ln.test.factory.NoteTestFactory;
+import tnmk.ln.test.factory.CategoryTestFactory;
 import tnmk.ln.test.factory.UserTestFactory;
 
 import java.util.List;
@@ -30,7 +30,7 @@ public class QuestionRecommendationTest extends BaseTest {
     UserTestFactory userTestFactory;
 
     @Autowired
-    NoteTestFactory noteTestFactory;
+    CategoryTestFactory topicTestFactory;
     @Autowired
     QuestionRecommendationService questionRecommendationService;
 
@@ -43,9 +43,9 @@ public class QuestionRecommendationTest extends BaseTest {
 
     @Test
     public void question() {
-        long noteId = 1070;
+        long topicId = 1070;
         User owner = defaultUser;
-        List<Question> questions = questionRecommendationService.loadQuestionsByNotes(owner.getId(), QuestionType.EXPRESSION_RECALL, noteId);
+        List<Question> questions = questionRecommendationService.loadQuestionsByTopics(owner.getId(), QuestionType.EXPRESSION_RECALL, topicId);
         LOGGER.info("Questions: \n" + ObjectMapperUtil.toJson(new ObjectMapper(), questions));
         Assert.assertTrue(questions.size() > 3);
     }

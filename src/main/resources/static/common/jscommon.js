@@ -300,7 +300,7 @@ function isArray(obj) {
 }
 /**
  * @param variable
- * @returns {Boolean} Note: if variable is an empty string (""), it still return true;
+ * @returns {Boolean} Topic: if variable is an empty string (""), it still return true;
  */
 function hasValue(variable) {
     return (typeof variable !== 'undefined') && (variable !== null);

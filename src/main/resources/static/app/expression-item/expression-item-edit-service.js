@@ -5,7 +5,7 @@ var LessonEditService = function ($rootScope, $http, $q, $routeParams, hotkeys) 
     this.$routeParams = $routeParams;
 
     this.lessonInit = undefined;
-    this.topicInit = undefined;
+    this.categoryInit = undefined;
     this.expressionItemInit = undefined;
     this.meaningInit = undefined;
     this.wordInit = undefined;
@@ -25,15 +25,15 @@ var LessonEditService = function ($rootScope, $http, $q, $routeParams, hotkeys) 
         new WordType("prep", "PREPOSITION")
     ];
     this.lessons = [];
-    this.topics = [];
-    this.topicNames = [];
+    this.categorys = [];
+    this.categoryNames = [];
     this.menu = new AngularDropDowns(this.lessons);
 
     this.sourceLanguage = "en";
     this.destLanguage = "vi";
 
     // Editor options.
-    this.editingNote = false;
+    this.editingTopic = false;
     var self = this;
     this.ckeditor = {
         options: {
@@ -43,7 +43,7 @@ var LessonEditService = function ($rootScope, $http, $q, $routeParams, hotkeys) 
         },
         // Called when the editor is completely ready.
         onReady: function () {
-            self.editingNote = false;
+            self.editingTopic = false;
         }
     };
 
@@ -51,20 +51,20 @@ var LessonEditService = function ($rootScope, $http, $q, $routeParams, hotkeys) 
 LessonEditService.prototype.init = function () {
     var self = this;
     var lessonInitGet = self.$http.get(contextPath + '/api/lessons/initiation');
-    var topicInitGet = self.$http.get(contextPath + '/api/topics/initiation');
+    var categoryInitGet = self.$http.get(contextPath + '/api/categorys/initiation');
     var expressionItemInitGet = self.$http.get(contextPath + '/api/expression-items/initiation?type=' + self.lesson.defaultExpressionType);
     var meaningInitGet = self.$http.get(contextPath + '/api/expression-items/meanings/initiation');
     var lessonsGet = self.$http.get(contextPath + '/api/lessons/introductions');
-    var topicsGet = self.$http.get(contextPath + '/api/topics');
+    var categorysGet = self.$http.get(contextPath + '/api/categorys');
 
-    self.$q.all([lessonInitGet, topicInitGet, expressionItemInitGet, meaningInitGet, lessonsGet, topicsGet]).then(function (arrayOfResults) {
+    self.$q.all([lessonInitGet, categoryInitGet, expressionItemInitGet, meaningInitGet, lessonsGet, categorysGet]).then(function (arrayOfResults) {
         self.lessonInit = arrayOfResults[0].data;
-        self.topicInit = arrayOfResults[1].data;
+        self.categoryInit = arrayOfResults[1].data;
         self.setExpressionItemInit(arrayOfResults[2].data);
         self.meaningInit = arrayOfResults[3].data;
         self.lessons = arrayOfResults[4].data;
-        self.topics = arrayOfResults[5].data;
-        self.topicNames = getArrayByFields(self.topics, "name");
+        self.categorys = arrayOfResults[5].data;
+        self.categoryNames = getArrayByFields(self.categorys, "name");
 
         self.constructLessonsMenu(self.lessons.copyTop(20));
 
@@ -109,9 +109,9 @@ LessonEditService.prototype.onOffExpression = function () {
 LessonEditService.prototype.onOffMeaning = function () {
     this.isShowMeaning = !this.isShowMeaning;
 };
-LessonEditService.prototype.addTopic = function () {
+LessonEditService.prototype.addCategory = function () {
     var self = this;
-    self.lesson.topics.push(angular.copy(self.topicInit));
+    self.lesson.categorys.push(angular.copy(self.categoryInit));
 };
 LessonEditService.prototype.addExpressionItem = function () {
     var self = this;
@@ -165,11 +165,11 @@ LessonEditService.prototype.mergePhrasalVerbToExpression = function (expressionI
     var expression = words.mergeNotBlankValuesToString(" ", "value");
     expressionItem.expression = expression;
 };
-LessonEditService.prototype.startEditingNote = function () {
-    this.editingNote = true;
+LessonEditService.prototype.startEditingTopic = function () {
+    this.editingTopic = true;
 };
-LessonEditService.prototype.stopEditingNote = function () {
-    this.editingNote = false;
+LessonEditService.prototype.stopEditingTopic = function () {
+    this.editingTopic = false;
 };
 
 LessonEditService.prototype.favourite = function (expressionItem) {
@@ -288,13 +288,13 @@ LessonEditService.prototype.selectWordType = function ($item) {
     }
     console.log(meaning.wordType);
 };
-LessonEditService.prototype.finishInputTopic = function (topic) {
+LessonEditService.prototype.finishInputCategory = function (category) {
     var self = this;
-    topic.id = null;//this will become the new topic entity.
-    if (!isBlank(topic.name)) {
-        var existingTopic = self.topics.findItemByField("name", topic.name.trim().toLowerCase());
-        if (hasValue(existingTopic)) {
-            copyProperties(existingTopic, topic);//include copying id.
+    category.id = null;//this will become the new category entity.
+    if (!isBlank(category.name)) {
+        var existingCategory = self.categorys.findItemByField("name", category.name.trim().toLowerCase());
+        if (hasValue(existingCategory)) {
+            copyProperties(existingCategory, category);//include copying id.
         }
     }
 };
@@ -320,17 +320,17 @@ LessonEditService.prototype.removeLesson = function () {
 
 LessonEditService.prototype.cleanLesson = function (lesson) {
     var self = this;
-    self.cleanTopics(lesson.topics);
+    self.cleanCategorys(lesson.categorys);
     self.cleanExpressionItems(lesson.expressionItems);
 };
-LessonEditService.prototype.cleanTopics = function (topics) {
-    if (!hasValue(topics)) {
+LessonEditService.prototype.cleanCategorys = function (categorys) {
+    if (!hasValue(categorys)) {
         return;
     }
-    for (var i = topics.length - 1; i >= 0; i--) {
-        var topic = topics[i];
-        if (isBlank(topic.name)) {
-            topics.splice(i, 1);
+    for (var i = categorys.length - 1; i >= 0; i--) {
+        var category = categorys[i];
+        if (isBlank(category.name)) {
+            categorys.splice(i, 1);
         }
     }
 };
