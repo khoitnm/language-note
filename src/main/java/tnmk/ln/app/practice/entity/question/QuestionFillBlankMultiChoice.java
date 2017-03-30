@@ -1,4 +1,4 @@
-package tnmk.ln.app.practice.entity;
+package tnmk.ln.app.practice.entity.question;
 
 import org.neo4j.ogm.annotation.NodeEntity;
 

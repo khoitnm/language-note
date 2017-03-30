@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import tnmk.common.infrastructure.data.query.QueryLoader;
+import tnmk.common.util.IterableUtil;
 import tnmk.common.util.ReflectionUtils;
 import tnmk.ln.infrastructure.data.neo4j.Neo4jUtils;
 import tnmk.ln.infrastructure.data.neo4j.annotation.DetailLoading;
@@ -62,15 +62,18 @@ public class Neo4jRepository {
             }
         }
         return result;
-//        throw new UnexpectedException("Cannot find ")
-//        List<T> results = IterableUtil.toList(iterable);
-//        return results.get(0);
-//        int i = 0;
-//        for (T o : iterable) {
-//            LOGGER.info(i + ": " + ObjectMapperUtil.toStringMultiLine(o));
-//            i++;
-//        }
-//        return queryForObject(resultClass, sb, id);
+    }
+
+    public <T> List<T> queryDetails(Class<T> resultClass, List<Long> ids) {
+        DetailLoadingRelationship detailLoadingRelationship = getRelationshipTypesWithDetailLoadingMultiLevels(resultClass);
+        String relTypes = detailLoadingRelationship.getRelationshipTypes().stream().collect(Collectors.joining(" | :"));
+        int relDepth = detailLoadingRelationship.getDepth();
+        String sb = String.join("",
+                "MATCH (n) WHERE ID(n) IN {p0} WITH n MATCH p=(n)-[:", relTypes, "*0..", "" + relDepth, "]-(m) RETURN p"
+        );
+        LOGGER.debug("QueryOneDetail: \n" + sb);
+        Iterable<T> iterable = session.query(resultClass, sb, constructParams(ids));
+        return IterableUtil.toList(iterable);
     }
 
     public static DetailLoadingRelationship getRelationshipTypesWithDetailLoadingMultiLevels(Class<?> entityClass) {

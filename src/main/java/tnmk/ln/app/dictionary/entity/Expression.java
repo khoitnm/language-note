@@ -8,7 +8,7 @@ import org.neo4j.ogm.annotation.Relationship;
 import tnmk.ln.app.common.entity.BaseNeo4jEntity;
 import tnmk.ln.app.dictionary.LexicalEntryUtils;
 import tnmk.ln.app.digitalasset.entity.DigitalAsset;
-import tnmk.ln.app.practice.query.ExpressionPracticeResult;
+import tnmk.ln.app.practice.entity.answer.ExpressionPracticeResult;
 import tnmk.ln.infrastructure.data.neo4j.annotation.CascadeRelationship;
 import tnmk.ln.infrastructure.data.neo4j.annotation.DetailLoading;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
@@ -99,8 +99,8 @@ public class Expression extends BaseNeo4jEntity {
     private User owner;
 
     //Just for convenient query
-    @Relationship(type = ExpressionPracticeResult.RESULT_OF_EXPRESSION, direction = Relationship.INCOMING)
-    private ExpressionPracticeResult expressionPracticeResult;
+//    @Relationship(type = ExpressionPracticeResult.RESULT_OF_EXPRESSION, direction = Relationship.INCOMING)
+//    private ExpressionPracticeResult expressionPracticeResult;
 
     public void setLexicalEntries(List<LexicalEntry> lexicalEntries) {
         this.lexicalEntries = lexicalEntries;
@@ -215,11 +215,11 @@ public class Expression extends BaseNeo4jEntity {
         this.locale = locale;
     }
 
-    public ExpressionPracticeResult getExpressionPracticeResult() {
-        return expressionPracticeResult;
-    }
-
-    public void setExpressionPracticeResult(ExpressionPracticeResult expressionPracticeResult) {
-        this.expressionPracticeResult = expressionPracticeResult;
-    }
+//    public ExpressionPracticeResult getExpressionPracticeResult() {
+//        return expressionPracticeResult;
+//    }
+//
+//    public void setExpressionPracticeResult(ExpressionPracticeResult expressionPracticeResult) {
+//        this.expressionPracticeResult = expressionPracticeResult;
+//    }
 }

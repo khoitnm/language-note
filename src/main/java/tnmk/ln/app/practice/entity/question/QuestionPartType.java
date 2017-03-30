@@ -1,4 +1,4 @@
-package tnmk.ln.app.practice.entity;
+package tnmk.ln.app.practice.entity.question;
 
 /**
  * @author khoi.tran on 3/4/17.

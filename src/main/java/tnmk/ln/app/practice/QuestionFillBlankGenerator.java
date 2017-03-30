@@ -2,8 +2,8 @@ package tnmk.ln.app.practice;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tnmk.ln.app.practice.entity.QuestionPart;
-import tnmk.ln.app.practice.entity.QuestionPartType;
+import tnmk.ln.app.practice.entity.question.QuestionPart;
+import tnmk.ln.app.practice.entity.question.QuestionPartType;
 import tnmk.ln.infrastructure.nlp.LemmaFindingService;
 import tnmk.ln.infrastructure.nlp.LemmaSpan;
 

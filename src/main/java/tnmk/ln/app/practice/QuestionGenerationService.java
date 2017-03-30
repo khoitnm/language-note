@@ -7,11 +7,11 @@ import tnmk.ln.app.dictionary.ExpressionUtils;
 import tnmk.ln.app.dictionary.entity.Example;
 import tnmk.ln.app.dictionary.entity.Expression;
 import tnmk.ln.app.dictionary.entity.Sense;
-import tnmk.ln.app.practice.entity.Question;
-import tnmk.ln.app.practice.entity.QuestionExpressionRecall;
-import tnmk.ln.app.practice.entity.QuestionFillBlank;
-import tnmk.ln.app.practice.entity.QuestionPart;
-import tnmk.ln.app.practice.entity.QuestionType;
+import tnmk.ln.app.practice.entity.question.Question;
+import tnmk.ln.app.practice.entity.question.QuestionExpressionRecall;
+import tnmk.ln.app.practice.entity.question.QuestionFillBlank;
+import tnmk.ln.app.practice.entity.question.QuestionPart;
+import tnmk.ln.app.practice.entity.question.QuestionType;
 
 import java.util.ArrayList;
 import java.util.List;

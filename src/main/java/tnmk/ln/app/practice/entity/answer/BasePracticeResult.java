@@ -1,4 +1,4 @@
-package tnmk.ln.app.practice.query;
+package tnmk.ln.app.practice.entity.answer;
 
 //import org.neo4j.ogm.annotation.NodeEntity; import tnmk.ln.app.common.entity.BaseEntity;
 
@@ -13,7 +13,7 @@ import java.util.List;
  * @author khoi.tran on 2/26/17.
  */
 @NodeEntity(label = "PracticeResult")
-public class PracticeResult extends BaseNeo4jEntity {
+public abstract class BasePracticeResult extends BaseNeo4jEntity {
     public static final String HAS_POINTS = "HAS_POINTS";
     public static final String PRACTICE = "PRACTICE";
 

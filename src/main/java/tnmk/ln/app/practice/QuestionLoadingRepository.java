@@ -7,8 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import tnmk.common.util.IterableUtil;
-import tnmk.ln.app.practice.entity.Question;
-import tnmk.ln.app.practice.entity.QuestionType;
+import tnmk.ln.app.practice.entity.question.Question;
+import tnmk.ln.app.practice.entity.question.QuestionType;
 import tnmk.ln.infrastructure.data.neo4j.repository.Neo4jRepository;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
 

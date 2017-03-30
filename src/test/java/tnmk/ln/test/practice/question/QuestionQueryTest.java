@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import tnmk.ln.app.practice.QuestionLoadingRepository;
 import tnmk.ln.app.practice.QuestionRepository;
-import tnmk.ln.app.practice.entity.Question;
-import tnmk.ln.app.practice.entity.QuestionType;
+import tnmk.ln.app.practice.entity.question.Question;
+import tnmk.ln.app.practice.entity.question.QuestionType;
 import tnmk.ln.test.BaseTest;
 
 /**

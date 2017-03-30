@@ -1,15 +1,15 @@
-package tnmk.ln.app.practice.entity;
+package tnmk.ln.app.practice.entity.question;
 
 import org.neo4j.ogm.annotation.NodeEntity;
 
 /**
  * @author khoi.tran on 3/11/17.
  */
-@NodeEntity(label = QuestionExpressionRecall.LOGIC_NAME)
-public class QuestionExpressionRecall extends Question {
-    public static final String LOGIC_NAME = "QuestionExpressionRecall";
+@NodeEntity(label = QuestionListening.LOGIC_NAME)
+public class QuestionListening extends Question {
+    public static final String LOGIC_NAME = "QuestionListening";
 
-    private QuestionType questionType = QuestionType.EXPRESSION_RECALL;
+    private QuestionType questionType = QuestionType.LISTENING;
 
     @Override
     public QuestionType getQuestionType() {

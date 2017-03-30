@@ -1,4 +1,4 @@
-package tnmk.ln.app.practice.query;
+package tnmk.ln.app.practice.entity.answer;
 
 //import org.neo4j.ogm.annotation.NodeEntity; import org.neo4j.ogm.annotation.Property;
 
@@ -7,8 +7,10 @@ import tnmk.ln.app.common.entity.BaseNeo4jEntity;
 
 /**
  * @author khoi.tran on 2/26/17.
+ * @deprecated should be replaced by Float
  */
 @NodeEntity
+@Deprecated
 public class AnswerPoint extends BaseNeo4jEntity {
 
     private int maxPoints;

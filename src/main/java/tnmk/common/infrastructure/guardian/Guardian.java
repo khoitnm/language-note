@@ -11,12 +11,12 @@ import tnmk.common.exception.UnexpectedException;
 public class Guardian {
     public static final Logger LOGGER = LoggerFactory.getLogger(Guardian.class);
 
-    public static void assertNotNull(Object object, String message) {
+    public static void validateNotNull(Object object, String message) {
         String msg = StringUtils.isNotBlank(message) ? message : "Expect a not null object";
         if (object == null) throw new UnexpectedException(msg);
     }
 
-    public static void assertArrayNotEmpty(Object array, String message) {
+    public static void validateArrayNotEmpty(Object array, String message) {
         boolean isArrayHasValue = (array != null) && array.getClass().isArray() ?
                 java.lang.reflect.Array.getLength(array) > 0 :
                 false;

@@ -1,4 +1,4 @@
-package tnmk.ln.app.practice.entity;
+package tnmk.ln.app.practice.entity.question;
 
 import tnmk.ln.app.common.entity.BaseNeo4jEntity;
 

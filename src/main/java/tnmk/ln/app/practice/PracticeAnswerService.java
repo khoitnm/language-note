@@ -5,10 +5,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tnmk.common.infrastructure.guardian.Guardian;
 import tnmk.ln.app.dictionary.entity.Expression;
-import tnmk.ln.app.practice.entity.Question;
-import tnmk.ln.app.practice.query.AnswerPoint;
-import tnmk.ln.app.practice.query.ExpressionPracticeResult;
-import tnmk.ln.app.practice.query.QuestionPracticeResult;
+import tnmk.ln.app.practice.entity.question.Question;
+import tnmk.ln.app.practice.entity.answer.AnswerPoint;
+import tnmk.ln.app.practice.entity.answer.ExpressionPracticeResult;
+import tnmk.ln.app.practice.entity.answer.QuestionPracticeResult;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
 
 import java.util.Arrays;
@@ -29,7 +29,7 @@ public class PracticeAnswerService {
     public ExpressionPracticeResult answerResult(User user, Question question, AnswerPoint answerPoint) {
         QuestionPracticeResult questionPracticeResult = saveQuestionAnswer(user, question, answerPoint);
         Expression expression = question.getFromExpression();
-        Guardian.assertNotNull(expression, "Expression inside question must be not null.");
+        Guardian.validateNotNull(expression, "Expression inside question must be not null.");
         ExpressionPracticeResult expressionPracticeResult = saveExpressionAnswer(user, expression, answerPoint);
         return expressionPracticeResult;
     }

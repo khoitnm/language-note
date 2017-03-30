@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import tnmk.ln.app.dictionary.entity.Locale;
 import tnmk.ln.app.practice.QuestionFillBlankGenerator;
-import tnmk.ln.app.practice.entity.QuestionPart;
+import tnmk.ln.app.practice.entity.question.QuestionPart;
 import tnmk.ln.test.BaseTest;
 
 import java.util.Arrays;

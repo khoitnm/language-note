@@ -97,6 +97,12 @@ public class ReflectionUtils {
         return Temporal.class.isAssignableFrom(type) || Date.class.isAssignableFrom(type);
     }
 
+    public static Object readProperty(Object object, String propertyName) {
+        if (object == null) return null;
+        PropertyDescriptor propertyDescriptor = getPropertyDescriptor(object.getClass(), propertyName);
+        return readProperty(object, propertyDescriptor);
+    }
+
     public static Object readProperty(Object object, PropertyDescriptor propertyDescriptor) {
         Method method = propertyDescriptor.getReadMethod();
         Assert.notNull(method, "The field " + propertyDescriptor.getName() + " of object " + object + " doesn't have getter");

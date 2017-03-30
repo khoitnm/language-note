@@ -1,4 +1,4 @@
-package tnmk.ln.app.practice.entity;
+package tnmk.ln.app.practice;
 
 //import org.springframework.data.neo4j.repository.GraphRepository; import tnmk.ln.app.practice.entity.Question;
 
@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 import tnmk.common.infrastructure.data.query.ClassPathQueryLoader;
 import tnmk.common.infrastructure.guardian.Guardian;
 import tnmk.common.util.IterableUtil;
+import tnmk.ln.app.practice.entity.question.Question;
+import tnmk.ln.app.practice.entity.question.QuestionType;
 import tnmk.ln.infrastructure.data.neo4j.repository.Neo4jRepository;
 
 import java.util.List;
@@ -32,9 +34,14 @@ public class QuestionRecommendationRepository {
      */
     //TODO it cannot load related objects
     public List<Question> loadQuestionsByRecommendedExpressions(long resultOwnerId, QuestionType questionType, Long... topicIds) {
-        Guardian.assertArrayNotEmpty(topicIds, " param 'topicIds' must be not empty");
+        Guardian.validateArrayNotEmpty(topicIds, "Param 'topicIds' must be not empty");
         String queryString = ClassPathQueryLoader.loadQuery("/tnmk/ln/app/practice/query/load-questions-by-recommended-expressions.cql", questionType.getLogicName(), questionType.getLogicName());
         return IterableUtil.toList(neo4jRepository.queryList(Question.class, queryString, resultOwnerId, topicIds));
     }
 
+    public List<Long> findQuestionIdsByRecommendedExpressions(long resultOwnerId, QuestionType questionType, Long... topicIds) {
+        Guardian.validateArrayNotEmpty(topicIds, "Param 'topicIds' must be not empty");
+        String queryString = ClassPathQueryLoader.loadQuery("/tnmk/ln/app/practice/query/load-question-ids-by-recommended-expressions-in-topics.cql", questionType.getLogicName());
+        return IterableUtil.toList(neo4jRepository.queryList(Long.class, queryString, resultOwnerId, topicIds));
+    }
 }

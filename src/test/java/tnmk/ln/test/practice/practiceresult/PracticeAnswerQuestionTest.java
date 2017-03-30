@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import tnmk.common.util.ObjectMapperUtil;
 import tnmk.ln.app.practice.PracticeAnswerService;
 import tnmk.ln.app.practice.QuestionRecommendationService;
-import tnmk.ln.app.practice.query.ExpressionPracticeResult;
+import tnmk.ln.app.practice.entity.answer.ExpressionPracticeResult;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
 import tnmk.ln.test.BaseTest;
 import tnmk.ln.test.factory.AnswerPointFactoryTest;

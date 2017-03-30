@@ -1,17 +1,17 @@
-package tnmk.ln.app.practice.query;
+package tnmk.ln.app.practice.entity.answer;
 
 //import org.neo4j.ogm.annotation.NodeEntity; import tnmk.ln.app.common.entity.BaseEntity;
 
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
-import tnmk.ln.app.practice.entity.Question;
-import tnmk.ln.app.practice.entity.QuestionSet;
+import tnmk.ln.app.practice.entity.question.Question;
+import tnmk.ln.app.practice.entity.question.QuestionSet;
 
 /**
  * @author khoi.tran on 2/26/17.
  */
 @NodeEntity(label = "QuestionPracticeResult")
-public class QuestionPracticeResult extends PracticeResult {
+public class QuestionPracticeResult extends BasePracticeResult {
     public static final String RESULT_OF_QUESTION = "RESULT_OF_QUESTION";
     public static final String RESULT_OF_QUESTION_SET = "RESULT_OF_QUESTION_SET";
 
