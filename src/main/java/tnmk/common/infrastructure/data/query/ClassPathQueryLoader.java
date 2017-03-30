@@ -2,6 +2,7 @@ package tnmk.common.infrastructure.data.query;
 
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
+import tnmk.common.util.ArrayUtil;
 import tnmk.common.util.IOUtil;
 import tnmk.common.util.RegularExpressions;
 
@@ -16,7 +17,12 @@ public class ClassPathQueryLoader {
     public static String loadQuery(String fileFullPathName, Object... params) {
         String query = IOUtil.loadTextFileInClassPath(fileFullPathName);
         query = query.replaceAll(RegularExpressions.BLOCK_COMMENTS, "");
-        String filledQuery = String.format(query, params);
+        String filledQuery;
+        if (!ArrayUtil.isEmpty(params)) {
+            filledQuery = String.format(query, params);
+        } else {
+            filledQuery = query;
+        }
         return filledQuery;
     }
 }

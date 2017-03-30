@@ -4,11 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tnmk.common.infrastructure.guardian.Guardian;
+import tnmk.common.util.ListUtil;
 import tnmk.ln.app.dictionary.entity.Expression;
 import tnmk.ln.app.practice.entity.question.Question;
-import tnmk.ln.app.practice.entity.answer.AnswerPoint;
-import tnmk.ln.app.practice.entity.answer.ExpressionPracticeResult;
-import tnmk.ln.app.practice.entity.answer.QuestionPracticeResult;
+import tnmk.ln.app.practice.entity.result.AnswerResult;
+import tnmk.ln.app.practice.entity.result.ExpressionPracticeResult;
+import tnmk.ln.app.practice.entity.result.QuestionPracticeResult;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
 
 import java.util.Arrays;
@@ -19,58 +20,75 @@ import java.util.List;
  */
 @Service
 public class PracticeAnswerService {
+    public static final int MAX_POINTS_STORING = 20;
+    private static final int LATEST_POINTS = 2;
+
+    @Autowired
+    private QuestionRepository questionRepository;
     @Autowired
     private QuestionPracticeResultRepository questionPracticeResultRepository;
 
     @Autowired
+    private QuestionPracticeResultQueryRepository questionPracticeResultQueryRepository;
+
+    @Autowired
     private ExpressionPracticeResultRepository expressionPracticeResultRepository;
 
+    @Autowired
+    private ExpressionPracticeResultQueryRepository expressionPracticeResultQueryRepository;
+
     @Transactional
-    public ExpressionPracticeResult answerResult(User user, Question question, AnswerPoint answerPoint) {
+    public AnswerResult answerResult(User user, long questionId, float answerPoint) {
+        Question question = questionRepository.findOne(questionId, 3);
+        Guardian.validateNotNull(question, "Question " + questionId + " doesn't exist. Cannot answer result for it");
+
         QuestionPracticeResult questionPracticeResult = saveQuestionAnswer(user, question, answerPoint);
         Expression expression = question.getFromExpression();
         Guardian.validateNotNull(expression, "Expression inside question must be not null.");
         ExpressionPracticeResult expressionPracticeResult = saveExpressionAnswer(user, expression, answerPoint);
-        return expressionPracticeResult;
+        return new AnswerResult(expressionPracticeResult, questionPracticeResult);
     }
 
-    private QuestionPracticeResult saveQuestionAnswer(User user, Question question, AnswerPoint answerPoint) {
+    private QuestionPracticeResult saveQuestionAnswer(User user, Question question, float answerPoint) {
         long questionId = question.getId();
-        QuestionPracticeResult practiceResult = questionPracticeResultRepository.findByOwnerIdAndQuestionId(user.getId(), questionId);
+        QuestionPracticeResult practiceResult = questionPracticeResultQueryRepository.findByOwnerIdAndQuestionId(user.getId(), questionId);
         if (practiceResult == null) {
             practiceResult = new QuestionPracticeResult();
             practiceResult.setOwner(user);
             practiceResult.setAnswers(Arrays.asList(answerPoint));
             practiceResult.setQuestion(question);
         } else {
-            practiceResult.getAnswers().add(answerPoint);
+            ListUtil.addToListWithMaxSize(practiceResult.getAnswers(), answerPoint, MAX_POINTS_STORING);
         }
-        practiceResult.setLatestAnswerPoints(calculateAnswerPoints(practiceResult.getAnswers()));
+        practiceResult.setSumLatestAnswerPoint(calculateAnswerPoints(practiceResult.getAnswers(), LATEST_POINTS));
         return questionPracticeResultRepository.save(practiceResult);
     }
 
-    private ExpressionPracticeResult saveExpressionAnswer(User user, Expression expression, AnswerPoint answerPoint) {
+    private ExpressionPracticeResult saveExpressionAnswer(User user, Expression expression, float answerPoint) {
         long expressionId = expression.getId();
-        ExpressionPracticeResult practiceResult = expressionPracticeResultRepository.findByOwnerIdAndExpressionId(user.getId(), expressionId);
+        ExpressionPracticeResult practiceResult = expressionPracticeResultQueryRepository.findByOwnerIdAndExpressionId(user.getId(), expressionId);
         if (practiceResult == null) {
             practiceResult = new ExpressionPracticeResult();
             practiceResult.setOwner(user);
             practiceResult.setAnswers(Arrays.asList(answerPoint));
             practiceResult.setExpression(expression);
         } else {
-            practiceResult.getAnswers().add(answerPoint);
+            ListUtil.addToListWithMaxSize(practiceResult.getAnswers(), answerPoint, MAX_POINTS_STORING);
         }
-        practiceResult.setLatestAnswerPoints(calculateAnswerPoints(practiceResult.getAnswers()));
+        practiceResult.setSumLatestAnswerPoint(calculateAnswerPoints(practiceResult.getAnswers(), LATEST_POINTS));
         return expressionPracticeResultRepository.save(practiceResult);
     }
 
-    private double calculateAnswerPoints(List<AnswerPoint> answerPointList) {
-        int totalMaxPoints = 0;
-        int totalCorrectPoints = 0;
-        for (AnswerPoint answerPoint : answerPointList) {
-            totalMaxPoints += answerPoint.getMaxPoints();
-            totalCorrectPoints += answerPoint.getCorrectPoints();
+    private double calculateAnswerPoints(List<Float> answerPoints, int numPoints) {
+        double result = 0;
+        int startIndex = Math.max(0, answerPoints.size() - numPoints);
+        for (int i = startIndex; i < answerPoints.size(); i++) {
+            Float point = answerPoints.get(i);
+            if (point != null) {
+                result += point;
+            }//else, consider point is 0
+            i++;
         }
-        return (double) totalCorrectPoints / totalMaxPoints;
+        return result;
     }
 }

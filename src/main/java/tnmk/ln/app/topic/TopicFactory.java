@@ -11,7 +11,7 @@ public class TopicFactory {
     public static Topic constructSchema() {
         Topic topic = new Topic();
         topic.setExpressions(SetUtil.constructSet(ExpressionFactory.constructSchema()));
-        topic.setCategorys(SetUtil.constructSet(CategoryFactory.constructSchema()));
+        topic.setCategories(SetUtil.constructSet(CategoryFactory.constructSchema()));
         return topic;
     }
 

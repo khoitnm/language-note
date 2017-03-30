@@ -43,7 +43,7 @@ public class TopicTestFactory {
             Category category = CategoryTestFactory.construct(categoryText);
             categorys.add(category);
         }
-        topic.setCategorys(categorys);
+        topic.setCategories(categorys);
         return topic;
     }
 
@@ -61,7 +61,7 @@ public class TopicTestFactory {
             Category category = categoryTestFactory.initCategory(categoryText);
             categorys.add(category);
         }
-        topic.setCategorys(categorys);
+        topic.setCategories(categorys);
         topic.setOwner(owner);
         topic = topicRepository.save(topic);
         topic = topicService.findDetailById(topic.getId());

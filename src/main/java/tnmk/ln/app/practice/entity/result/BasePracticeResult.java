@@ -1,4 +1,4 @@
-package tnmk.ln.app.practice.entity.answer;
+package tnmk.ln.app.practice.entity.result;
 
 //import org.neo4j.ogm.annotation.NodeEntity; import tnmk.ln.app.common.entity.BaseEntity;
 
@@ -14,14 +14,16 @@ import java.util.List;
  */
 @NodeEntity(label = "PracticeResult")
 public abstract class BasePracticeResult extends BaseNeo4jEntity {
-    public static final String HAS_POINTS = "HAS_POINTS";
     public static final String PRACTICE = "PRACTICE";
 
     @Relationship(type = PRACTICE, direction = Relationship.INCOMING)
     private User owner;
-    @Relationship(type = HAS_POINTS, direction = Relationship.INCOMING)
-    private List<AnswerPoint> answers;
-    private double latestAnswerPoints;
+
+    private List<Float> answers;
+    /**
+     * We use sum, not use average because 0.9/1 means that expression was tested only one time, while (0.9 + 0.1)/2 means that expression was tested two times. So we still prioritize for the expression with least testing times first.
+     */
+    private double sumLatestAnswerPoint;
 
     public User getOwner() {
         return owner;
@@ -31,20 +33,19 @@ public abstract class BasePracticeResult extends BaseNeo4jEntity {
         this.owner = owner;
     }
 
-    public List<AnswerPoint> getAnswers() {
+    public double getSumLatestAnswerPoint() {
+        return sumLatestAnswerPoint;
+    }
+
+    public void setSumLatestAnswerPoint(double sumLatestAnswerPoint) {
+        this.sumLatestAnswerPoint = sumLatestAnswerPoint;
+    }
+
+    public List<Float> getAnswers() {
         return answers;
     }
 
-    public void setAnswers(List<AnswerPoint> answers) {
+    public void setAnswers(List<Float> answers) {
         this.answers = answers;
     }
-
-    public double getLatestAnswerPoints() {
-        return latestAnswerPoints;
-    }
-
-    public void setLatestAnswerPoints(double latestAnswerPoints) {
-        this.latestAnswerPoints = latestAnswerPoints;
-    }
-
 }

@@ -1,4 +1,4 @@
-package tnmk.ln.app.practice.entity.answer;
+package tnmk.ln.app.practice.entity.result;
 
 //import org.neo4j.ogm.annotation.NodeEntity; import tnmk.ln.app.common.entity.BaseEntity;
 

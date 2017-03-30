@@ -54,11 +54,13 @@ public class CategoryService {
 
     //TODO can improve performance (using batch or Merge query?)
     @Transactional
-    public Set<Category> saveIfNecessaryByTextAndOwner(User user, Set<Category> categorys) {
+    public Set<Category> saveIfNecessaryByTextAndOwner(User user, Set<Category> categories) {
         Set<Category> result = new HashSet<>();
-        for (Category category : categorys) {
-            Category savedCategory = saveIfNecessaryByTextAndOwner(user, category);
-            result.add(savedCategory);
+        if (categories != null) {
+            for (Category category : categories) {
+                Category savedCategory = saveIfNecessaryByTextAndOwner(user, category);
+                result.add(savedCategory);
+            }
         }
         return result;
     }

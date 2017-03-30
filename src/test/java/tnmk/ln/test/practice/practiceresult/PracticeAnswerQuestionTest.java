@@ -1,23 +1,26 @@
 package tnmk.ln.test.practice.practiceresult;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.lang3.RandomUtils;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import tnmk.common.util.IterableUtil;
 import tnmk.common.util.ObjectMapperUtil;
 import tnmk.ln.app.practice.PracticeAnswerService;
 import tnmk.ln.app.practice.QuestionRecommendationService;
-import tnmk.ln.app.practice.entity.answer.ExpressionPracticeResult;
+import tnmk.ln.app.practice.QuestionRepository;
+import tnmk.ln.app.practice.entity.question.Question;
+import tnmk.ln.app.practice.entity.result.AnswerResult;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
 import tnmk.ln.test.BaseTest;
-import tnmk.ln.test.factory.AnswerPointFactoryTest;
 import tnmk.ln.test.factory.CategoryTestFactory;
-import tnmk.ln.test.factory.QuestionFactoryTest;
 import tnmk.ln.test.factory.UserTestFactory;
 
 /**
@@ -30,9 +33,12 @@ public class PracticeAnswerQuestionTest extends BaseTest {
     UserTestFactory userTestFactory;
 
     @Autowired
-    CategoryTestFactory topicTestFactory;
+    CategoryTestFactory categoryTestFactory;
     @Autowired
     QuestionRecommendationService questionRecommendationService;
+
+    @Autowired
+    QuestionRepository questionRepository;
 
     @Autowired
     PracticeAnswerService practiceAnswerService;
@@ -46,13 +52,15 @@ public class PracticeAnswerQuestionTest extends BaseTest {
 
     @Test
     public void answerQuestions() {
-        long topicId = 1070;
-        long questionId = 1166;
-        long expressionId = 1101;
+        Iterable<Question> questions = questionRepository.findAll(new PageRequest(0, 1), 3);
+        Question question = IterableUtil.getFirst(questions);
         User owner = defaultUser;
-        ExpressionPracticeResult expressionPracticeResult = practiceAnswerService.answerResult(owner, QuestionFactoryTest.constructExpressionRecallQuestion(questionId, expressionId), AnswerPointFactoryTest.construct(1, 1));
-        LOGGER.info("ExpressionPracticeResult: \n" + ObjectMapperUtil.toJson(new ObjectMapper(), expressionPracticeResult));
-        Assert.assertTrue(expressionPracticeResult.getLatestAnswerPoints() > 0);
+        float point = RandomUtils.nextFloat(0, 1f);
+        AnswerResult answerResult = practiceAnswerService.answerResult(owner, question.getId(), point);
+        LOGGER.info("ExpressionPracticeResult: \n" + ObjectMapperUtil.toJson(new ObjectMapper(), answerResult));
+        Assert.assertTrue(answerResult.getExpressionPracticeResult().getSumLatestAnswerPoint() > 0);
+        Assert.assertTrue(answerResult.getQuestionPracticeResult().getSumLatestAnswerPoint() > 0);
+
     }
 
 }

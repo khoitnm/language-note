@@ -11,8 +11,8 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import tnmk.common.util.ObjectMapperUtil;
 import tnmk.ln.app.practice.QuestionRecommendationService;
-import tnmk.ln.app.practice.entity.question.Question;
 import tnmk.ln.app.practice.entity.question.QuestionType;
+import tnmk.ln.app.practice.model.QuestionWithPracticeResult;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
 import tnmk.ln.test.BaseTest;
 import tnmk.ln.test.factory.CategoryTestFactory;
@@ -43,9 +43,9 @@ public class QuestionRecommendationTest extends BaseTest {
 
     @Test
     public void question() {
-        long topicId = 1070;
+//        long topicId = 1070;
         User owner = defaultUser;
-        List<Question> questions = questionRecommendationService.loadQuestionsByTopics(owner.getId(), QuestionType.EXPRESSION_RECALL, topicId);
+        List<QuestionWithPracticeResult> questions = questionRecommendationService.loadQuestionsByTopics(owner.getId(), QuestionType.EXPRESSION_RECALL);
         LOGGER.info("Questions: \n" + ObjectMapperUtil.toJson(new ObjectMapper(), questions));
         Assert.assertTrue(questions.size() > 3);
     }

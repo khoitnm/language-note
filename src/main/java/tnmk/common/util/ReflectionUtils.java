@@ -16,6 +16,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.time.temporal.Temporal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -148,4 +149,15 @@ public class ReflectionUtils {
         return classes;
     }
 
+    public static List<Field> getDeclaredFieldsIncludeSuperClasses(Class<?> type) {
+        List<Field> result = new ArrayList<>();
+
+        Class<?> i = type;
+        while (i != null && i != Object.class) {
+            Collections.addAll(result, i.getDeclaredFields());
+            i = i.getSuperclass();
+        }
+
+        return result;
+    }
 }

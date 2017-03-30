@@ -62,9 +62,10 @@ public class Neo4jUtils {
     }
 
     public static String[] findRelationships(Class<?> entityClass, Predicate<Field> predicate) {
-        Field[] fields = entityClass.getDeclaredFields();
+//        Field[] fields = entityClass.getDeclaredFields();
+        List<Field> declaredFields = ReflectionUtils.getDeclaredFieldsIncludeSuperClasses(entityClass);
         List<String> relationshipsList = new ArrayList<>();
-        for (Field field : fields) {
+        for (Field field : declaredFields) {
             if (predicate != null && !predicate.evaluate(field)) continue;
             relationshipsList.add(findRelationshipType(field));
         }
@@ -83,9 +84,9 @@ public class Neo4jUtils {
     }
 
     public static List<Field> findRelationshipFields(Class<?> entityClass, Predicate<Field> predicate) {
-        Field[] fields = entityClass.getDeclaredFields();
+        List<Field> declaredFields = ReflectionUtils.getDeclaredFieldsIncludeSuperClasses(entityClass);
         List<Field> relationshipsList = new ArrayList<>();
-        for (Field field : fields) {
+        for (Field field : declaredFields) {
             if (predicate != null && !predicate.evaluate(field)) continue;
             Relationship relationshipAnno = field.getAnnotation(Relationship.class);
             if (relationshipAnno != null) {
@@ -101,7 +102,7 @@ public class Neo4jUtils {
      * @return relationship types
      */
     public static String[] findAllRelationshipsByDirection(Object entity, RelationshipDirection... includeRelationshipDirections) {
-        Field[] fields = entity.getClass().getDeclaredFields();
+        List<Field> fields = ReflectionUtils.getDeclaredFieldsIncludeSuperClasses(entity.getClass());
         List<String> relationshipsList = new ArrayList<>();
         for (Field field : fields) {
             if (Modifier.isStatic(field.getModifiers())) {

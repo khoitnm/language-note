@@ -8,7 +8,6 @@ import org.neo4j.ogm.annotation.Relationship;
 import tnmk.ln.app.common.entity.BaseNeo4jEntity;
 import tnmk.ln.app.dictionary.LexicalEntryUtils;
 import tnmk.ln.app.digitalasset.entity.DigitalAsset;
-import tnmk.ln.app.practice.entity.answer.ExpressionPracticeResult;
 import tnmk.ln.infrastructure.data.neo4j.annotation.CascadeRelationship;
 import tnmk.ln.infrastructure.data.neo4j.annotation.DetailLoading;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;

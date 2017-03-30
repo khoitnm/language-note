@@ -47,6 +47,15 @@ public final class IterableUtil {
         return null;
     }
 
+    public static <T> void removeFirstItems(Iterable<T> iterable, int removedItems) {
+        Iterator<T> iterator = iterable.iterator();
+        int i = 0;
+        if (iterator.hasNext() && i < removedItems) {
+            iterator.remove();
+            i++;
+        }
+    }
+
     public static <T> Set<T> toSet(Iterable<T> iterable) {
         if (iterable instanceof Set) {
             return (Set<T>) iterable;

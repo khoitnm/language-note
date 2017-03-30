@@ -2,10 +2,10 @@ package tnmk.ln.app.practice;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tnmk.ln.app.practice.entity.answer.ExpressionPracticeResult;
-import tnmk.ln.app.practice.entity.answer.QuestionPracticeResult;
 import tnmk.ln.app.practice.entity.question.Question;
 import tnmk.ln.app.practice.entity.question.QuestionType;
+import tnmk.ln.app.practice.entity.result.ExpressionPracticeResult;
+import tnmk.ln.app.practice.entity.result.QuestionPracticeResult;
 import tnmk.ln.app.practice.model.QuestionWithPracticeResult;
 import tnmk.ln.infrastructure.data.neo4j.repository.Neo4jRepository;
 
@@ -21,10 +21,10 @@ public class QuestionRecommendationService {
     private QuestionRecommendationRepository questionRecommendationRepository;
 
     @Autowired
-    private ExpressionPracticeResultRepository expressionPracticeResultRepository;
+    private ExpressionPracticeResultQueryRepository expressionPracticeResultRepository;
 
     @Autowired
-    private QuestionPracticeResultRepository questionPracticeResultRepository;
+    private QuestionPracticeResultQueryRepository questionPracticeResultRepository;
 
     @Autowired
     private Neo4jRepository neo4jRepository;

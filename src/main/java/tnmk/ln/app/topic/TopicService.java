@@ -33,7 +33,7 @@ public class TopicService {
     public Topic saveTopicAndRelationships(User user, Topic topic) {
         topic.setOwner(user);
         Set<Expression> expressionSet = topic.getExpressions();
-        categoryService.saveIfNecessaryByTextAndOwner(user, topic.getCategorys());
+        categoryService.saveIfNecessaryByTextAndOwner(user, topic.getCategories());
         if (expressionSet != null) {
             expressionSet.stream().forEach(expression -> expression.setOwner(user));
         }

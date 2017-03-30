@@ -11,7 +11,7 @@ import tnmk.ln.app.vocabulary.service.TopicService;
 import java.util.List;
 
 @RestController
-public class TopicResource {
+public class LegacyTopicResource {
 
     @Autowired
     private TopicService topicService;

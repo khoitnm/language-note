@@ -3,6 +3,7 @@ package tnmk.ln.app.dictionary;
 import tnmk.ln.app.dictionary.entity.Expression;
 import tnmk.ln.app.dictionary.entity.Sense;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -11,8 +12,11 @@ import java.util.stream.Collectors;
  */
 public class ExpressionUtils {
     public static Set<Sense> getSenses(Expression expression) {
-        return expression.getSensesGroups().stream().flatMap(senseGroup -> senseGroup.getSenses().stream()).collect(Collectors.toSet());
+        Set<Sense> result = new HashSet<>();
+        if (expression.getSensesGroups() != null) {
+            result = expression.getSensesGroups().stream().flatMap(senseGroup -> senseGroup.getSenses().stream()).collect(Collectors.toSet());
+        }
+        return result;
     }
-
 
 }

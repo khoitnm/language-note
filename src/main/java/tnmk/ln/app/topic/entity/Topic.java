@@ -35,7 +35,7 @@ public class Topic extends BaseNeo4jEntity {
 
     @DetailLoading
     @Relationship(type = RELATE_TO_CATEGORY, direction = Relationship.OUTGOING)
-    private Set<Category> categorys;
+    private Set<Category> categories;
 
     @Relationship(type = OWN_TOPIC, direction = Relationship.INCOMING)
     private User owner;
@@ -69,12 +69,12 @@ public class Topic extends BaseNeo4jEntity {
         this.expressions = expressions;
     }
 
-    public Set<Category> getCategorys() {
-        return categorys;
+    public Set<Category> getCategories() {
+        return categories;
     }
 
-    public void setCategorys(Set<Category> categorys) {
-        this.categorys = categorys;
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
     }
 
     public String getTitle() {

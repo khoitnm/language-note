@@ -1,6 +1,6 @@
 package tnmk.ln.test.factory;
 
-import tnmk.ln.app.practice.entity.answer.AnswerPoint;
+import tnmk.ln.app.practice.entity.result.AnswerPoint;
 
 /**
  * @author khoi.tran on 3/13/17.

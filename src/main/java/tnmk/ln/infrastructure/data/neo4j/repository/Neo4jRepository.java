@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -72,7 +73,9 @@ public class Neo4jRepository {
                 "MATCH (n) WHERE ID(n) IN {p0} WITH n MATCH p=(n)-[:", relTypes, "*0..", "" + relDepth, "]-(m) RETURN p"
         );
         LOGGER.debug("QueryOneDetail: \n" + sb);
-        Iterable<T> iterable = session.query(resultClass, sb, constructParams(ids));
+        Set<Long> uniqueIds = new HashSet<>();
+        uniqueIds.addAll(ids);
+        Iterable<T> iterable = session.query(resultClass, sb, constructParams(uniqueIds));
         return IterableUtil.toList(iterable);
     }
 

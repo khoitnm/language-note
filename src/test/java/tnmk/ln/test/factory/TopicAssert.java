@@ -19,7 +19,7 @@ import java.util.Set;
  */
 public class TopicAssert {
     public static void assertExistCategory(Topic topic, User owner, int numCategory) {
-        Set<Category> categorySet = topic.getCategorys();
+        Set<Category> categorySet = topic.getCategories();
         Assert.assertEquals(numCategory, categorySet.size());
         for (Category category : categorySet) {
             Assert.assertNotNull(category.getId());
@@ -53,7 +53,7 @@ public class TopicAssert {
     }
 
     public static void assertExistCategory(Topic topic, String categoryText, boolean exist) {
-        Set<Category> categorys = topic.getCategorys();
+        Set<Category> categorys = topic.getCategories();
         Optional<Category> categoryOptional = categorys.stream().filter(category -> category.getText().equals(categoryText)).findAny();
         Assert.assertEquals(exist, categoryOptional.isPresent());
     }
