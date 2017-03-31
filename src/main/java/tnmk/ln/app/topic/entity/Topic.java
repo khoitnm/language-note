@@ -3,6 +3,7 @@ package tnmk.ln.app.topic.entity;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 import tnmk.ln.app.common.entity.BaseNeo4jEntity;
+import tnmk.ln.app.common.entity.Possession;
 import tnmk.ln.app.dictionary.entity.Expression;
 import tnmk.ln.app.dictionary.entity.Locale;
 import tnmk.ln.infrastructure.data.neo4j.annotation.DetailLoading;
@@ -14,7 +15,7 @@ import java.util.Set;
  * @author khoi.tran on 2/25/17.
  */
 @NodeEntity(label = "Topic")
-public class Topic extends BaseNeo4jEntity {
+public class Topic extends BaseNeo4jEntity implements Possession {
     public static final String HAS_EXPRESSION = "HAS_EXPRESSION";
     public static final String RELATE_TO_CATEGORY = "RELATE_TO_CATEGORY";
     public static final String TOPIC_IN_LOCALE = "TOPIC_IN_LOCALE";
@@ -53,6 +54,7 @@ public class Topic extends BaseNeo4jEntity {
         return String.format("Topic{%s, %s}", super.getId(), title);
     }
 
+    @Override
     public User getOwner() {
         return owner;
     }

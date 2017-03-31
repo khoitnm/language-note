@@ -20,7 +20,6 @@ import java.util.Arrays;
 public class InitiationService {
     public static Logger LOGGER = LoggerFactory.getLogger(InitiationService.class);
 
-    public static final String ADMIN_USERNAME = "admin";
     @Autowired
     private UserService userService;
 
@@ -33,7 +32,7 @@ public class InitiationService {
         if (user == null) {
             //TODO I know it's absolutely not secured.
             user = new User();
-            user.setUsername(ADMIN_USERNAME);
+            user.setUsername(UserService.USERNAME_ADMIN);
             user.setEmail("khoi.tnm@gmail.com");
             user.setPassword("password");
             user.setRoles(Arrays.asList("ADMIN"));

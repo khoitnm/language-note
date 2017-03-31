@@ -6,8 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import tnmk.common.util.IterableUtil;
 import tnmk.common.util.SetUtil;
 import tnmk.ln.app.dictionary.entity.Expression;
-import tnmk.ln.app.topic.entity.Topic;
 import tnmk.ln.app.practice.QuestionGenerationService;
+import tnmk.ln.app.topic.entity.Topic;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
 
 import java.util.List;
@@ -20,6 +20,7 @@ import java.util.Set;
 public class TopicService {
     @Autowired
     private TopicRepository topicRepository;
+
     @Autowired
     private TopicDetailRepository topicAndOwnerRepository;
 
@@ -44,13 +45,8 @@ public class TopicService {
         return topic;
     }
 
-    public void deleteTopicAndExpressions(User user, Long topicId) {
-        Topic topic = findDetailById(topicId);
-        if (topic.getExpressions() != null) {
-            for (Expression expression : topic.getExpressions()) {
-
-            }
-        }
+    public Topic findOneById(Long topicId) {
+        return topicRepository.findOne(topicId, 2);
     }
 
     public List<Topic> findByOwnerId(User user) {
@@ -77,17 +73,6 @@ public class TopicService {
         if (isNewExpression) {
             questionService.createQuestions(expression);
         }
-    }
-
-    /**
-     * This method only remove the relationship, the end node still exists in the DB.
-     *
-     * @param user
-     * @param topicId
-     * @param expressionId
-     */
-    public void removeExpressionRelationshipFromTopic(User user, Long topicId, Long expressionId) {
-        //TODO remove relationship(RELATIONSHIP_NAME, nodeId, rexpressionId);
     }
 
     public Topic findOneByTitle(Long userId, String title) {

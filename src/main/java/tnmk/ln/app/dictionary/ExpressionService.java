@@ -3,7 +3,10 @@ package tnmk.ln.app.dictionary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tnmk.ln.app.dictionary.entity.Example;
 import tnmk.ln.app.dictionary.entity.Expression;
+import tnmk.ln.app.dictionary.entity.Sense;
+import tnmk.ln.app.dictionary.entity.SenseGroup;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
 
 /**
@@ -52,6 +55,11 @@ public class ExpressionService {
         return expressionRepository.findOne(expressionId);
     }
 
+    /**
+     * It only delete the expression, not delete the children entities inside that expression.
+     *
+     * @param expressionId
+     */
     public void deleteById(long expressionId) {
         expressionRepository.delete(expressionId);
     }
@@ -59,9 +67,16 @@ public class ExpressionService {
     public Expression findDetailById(long expressionId) {
         return expressionDetailRepository.findOneDetailById(expressionId);
     }
-
-    public void deleteExpressionAndSenseGroupsById(long expressionId) {
-        expressionRepository.delete(expressionId);
-    }
-
+//
+//    public void deleteExpressionWithItsSensesAndExamples(Expression expression) {
+//        for (SenseGroup senseGroup : expression.getSensesGroups()) {
+//            for (Sense sense : senseGroup.getSenses()) {
+//                for (Example example : sense.getExamples()) {
+////                    List<Question> questions = que
+//                    //TODO remove questions and answers
+//                }
+//            }
+//        }
+//
+//    }
 }

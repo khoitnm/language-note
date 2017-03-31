@@ -20,9 +20,11 @@ public abstract class Question extends BaseNeo4jEntity {
     public static final String FROM_EXAMPLE = "FROM_EXAMPLE";
     public static final String FROM_SENSE = "FROM_SENSE";
     public static final String FROM_EXPRESSION = "FROM_EXPRESSION";
+    public static final String HAS_QUESTION_PARTS = "HAS_QUESTION_PARTS";
 
     private String text;
 
+    @Relationship(type = HAS_QUESTION_PARTS, direction = Relationship.OUTGOING)
     private List<QuestionPart> questionParts;
 
     @Relationship(type = FROM_EXAMPLE, direction = Relationship.OUTGOING)
@@ -35,8 +37,6 @@ public abstract class Question extends BaseNeo4jEntity {
     @Relationship(type = FROM_EXPRESSION, direction = Relationship.OUTGOING)
     private Expression fromExpression;
 
-//    @Relationship(type = QuestionPracticeResult.RESULT_OF_QUESTION, direction = Relationship.INCOMING)
-//    private List<QuestionPracticeResult> questionPracticeResults;
 
     public abstract QuestionType getQuestionType();
 
@@ -81,6 +81,5 @@ public abstract class Question extends BaseNeo4jEntity {
     public void setText(String text) {
         this.text = text;
     }
-
 
 }

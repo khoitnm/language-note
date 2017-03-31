@@ -6,6 +6,7 @@ import org.neo4j.ogm.annotation.Index;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 import tnmk.ln.app.common.entity.BaseNeo4jEntity;
+import tnmk.ln.app.common.entity.Possession;
 import tnmk.ln.app.dictionary.LexicalEntryUtils;
 import tnmk.ln.app.digitalasset.entity.DigitalAsset;
 import tnmk.ln.infrastructure.data.neo4j.annotation.CascadeRelationship;
@@ -18,7 +19,7 @@ import java.util.List;
  * @author khoi.tran on 2/18/17.
  */
 @NodeEntity(label = "Expression")
-public class Expression extends BaseNeo4jEntity {
+public class Expression extends BaseNeo4jEntity implements Possession {
     public static final String HAS_LEXICAL_ENTRIES = "HAS_LEXICAL_ENTRIES";
     public static final String HAS_SENSE_GROUPS = "HAS_SENSE_GROUPS";
     public static final String HAS_MAIN_AUDIO = "HAS_MAIN_AUDIO";
@@ -190,6 +191,7 @@ public class Expression extends BaseNeo4jEntity {
         this.image = image;
     }
 
+    @Override
     public User getOwner() {
         return owner;
     }

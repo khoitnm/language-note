@@ -34,7 +34,7 @@ public class BaseNeo4jEntity {
     }
 
     public String toString() {
-        return this.getClass().getSimpleName() + this.id;
+        return this.getClass().getSimpleName() + " " + this.id;
     }
 
     public Date getUpdatedDateTime() {
