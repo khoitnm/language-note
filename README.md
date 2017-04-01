@@ -66,5 +66,5 @@ http://blog.mashape.com/list-of-25-natural-language-processing-apis/
 - initiate: starting a service, including constructing some objects and creating other objects.
 
 - compositions: the entities which form the parent entity. The compositions cannot exist without the parent. E.g. Expression is composed of SenseGroups, Senses, Examples. 
-- related entities: the entities which are related to another entity. E.g. Topic is related to Categories, Expressions, SenseGroups, Senses, Examples, Questions, AnswerResult
+- relations / related entities: the entities which are related to another entity. E.g. Topic is related to Categories, Expressions, SenseGroups, Senses, Examples, Questions, AnswerResult
 

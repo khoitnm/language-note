@@ -27,10 +27,16 @@ public class TopicResource {
         return TopicFactory.constructSchema();
     }
 
+    @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/topics", method = RequestMethod.POST)
+    public void save(@RequestBody Topic topic) {
+        User user = SecurityContextHelper.validateExistAuthenticatedUser();
+        topicService.saveTopicAndRelations(user, topic);
+    }
+
     @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/topics", method = RequestMethod.DELETE)
     public void delete(@RequestBody RemoveRequest removeRequest) {
         User user = SecurityContextHelper.validateExistAuthenticatedUser();
-        topicDeletionService.deleteTopicAndRelatedEntities(user, removeRequest.id, removeRequest.removeExpressions);
+        topicDeletionService.deleteTopicAndRelations(user, removeRequest.id, removeRequest.removeExpressions);
     }
 
     public static class RemoveRequest {

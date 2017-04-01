@@ -45,7 +45,7 @@ public class TopicDeletionService {
     }
 
     @Transactional
-    public void deleteTopicAndRelatedEntities(User user, Long topicId, boolean removeExpression) {
+    public void deleteTopicAndRelations(User user, Long topicId, boolean removeExpression) {
         Topic topic;
         if (removeExpression) {
             topic = topicService.findDetailById(topicId);

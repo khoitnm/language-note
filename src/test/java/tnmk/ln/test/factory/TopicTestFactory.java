@@ -80,7 +80,7 @@ public class TopicTestFactory {
                 , ExpressionTestFactory.constructWord("test_expression2")
                 , ExpressionTestFactory.constructWord("test_expression3")
         ));
-        topic = topicService.saveTopicAndRelationships(owner, topic);
+        topic = topicService.saveTopicAndRelations(owner, topic);
         LOGGER.debug("Created topic: " + topic);
         return topic;
     }

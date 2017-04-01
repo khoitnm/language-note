@@ -40,7 +40,7 @@ public class TopicAndExpressionTest extends BaseTest {
     @Test
     public void createTopic() {
         Topic topic = new Topic();
-        topic = topicService.saveTopicAndRelationships(USER, topic);
+        topic = topicService.saveTopicAndRelations(USER, topic);
         Assert.assertEquals(Topic.TITLE_DEFAULT, topic.getTitle());
     }
 

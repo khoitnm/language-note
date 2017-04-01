@@ -31,7 +31,7 @@ public class TopicService {
     private CategoryService categoryService;
 
     @Transactional
-    public Topic saveTopicAndRelationships(User user, Topic topic) {
+    public Topic saveTopicAndRelations(User user, Topic topic) {
         topic.setOwner(user);
         Set<Expression> expressionSet = topic.getExpressions();
         categoryService.saveIfNecessaryByTextAndOwner(user, topic.getCategories());

@@ -25,7 +25,7 @@ public class ExpressionDeletionService {
      * @param expressionId
      */
     @Transactional
-    public void deleteExpressionAndAllRelatedEntities(long expressionId) {
+    public void deleteExpressionAndAllRelations(long expressionId) {
         questionDetailRepository.removeQuestionsAndCompositionsRelatedToExpression(expressionId);
         expressionDetailRepository.removeOneAndCompositions(expressionId);
     }
