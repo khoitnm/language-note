@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import tnmk.common.infrastructure.guardian.Guardian;
 import tnmk.common.util.IterableUtil;
 import tnmk.common.util.ReflectionUtils;
 import tnmk.ln.infrastructure.data.neo4j.Neo4jUtils;
@@ -45,6 +46,12 @@ public class Neo4jRepository {
         result.queryStatistics().getRelationshipsDeleted();
     }
 
+    public <T> T validateExistOne(Class<T> resultClass, Long id) {
+        T entity = queryOneDetail(resultClass, id);
+        Guardian.validateNotNull(entity, String.format("Not found %s<%s>", resultClass.getSimpleName(), id));
+        return entity;
+    }
+
     public <T> T queryOneDetail(Class<T> resultClass, Long id) {
         DetailLoadingRelationship detailLoadingRelationship = getRelationshipTypesWithDetailLoadingMultiLevels(resultClass);
         String relTypes = detailLoadingRelationship.getRelationshipTypes().stream().collect(Collectors.joining(" | :"));
@@ -77,6 +84,14 @@ public class Neo4jRepository {
         uniqueIds.addAll(ids);
         Iterable<T> iterable = session.query(resultClass, sb, constructParams(uniqueIds));
         return IterableUtil.toList(iterable);
+    }
+
+    public int detachTwoEntities(Long idA, Long idB) {
+        String queryString = String.join("",
+                "MATCH (a)-[r]-(b) WHERE ID(a)={p0} and ID(b)={p1} DELETE r"
+        );
+        Result result = session.query(queryString, constructParams(idA, idB));
+        return result.queryStatistics().getRelationshipsDeleted();
     }
 
     public static DetailLoadingRelationship getRelationshipTypesWithDetailLoadingMultiLevels(Class<?> entityClass) {

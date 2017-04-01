@@ -39,4 +39,34 @@ public class QuestionDetailRepository {
                 + " DETACH DELETE q, qp, pr";
         return neo4jRepository.execute(query, expressionId).getNodesDeleted();
     }
+
+    public int removeQuestionsAndCompositionsRelatedToSenseGroup(long senseGroupId) {
+        String query = "MATCH (q:Question)-[r:FROM_EXPRESSION]-(e:Expression)--(sg:SenseGroup) "
+                + " WHERE id(sg)={p0} "
+                + " OPTIONAL MATCH (q)--(qp:QuestionPart) "
+                + " OPTIONAL MATCH (q)--(pr:PracticeResult) "
+                + " DETACH DELETE q, qp, pr";
+        return neo4jRepository.execute(query, senseGroupId).getNodesDeleted();
+
+    }
+
+    public int removeQuestionsAndCompositionsRelatedToSense(long senseId) {
+        String query = "MATCH (q:Question)-[r:FROM_SENSE]-(s:Sense) "
+                + " WHERE id(s)={p0} "
+                + " OPTIONAL MATCH (q)--(qp:QuestionPart) "
+                + " OPTIONAL MATCH (q)--(pr:PracticeResult) "
+                + " DETACH DELETE q, qp, pr";
+        return neo4jRepository.execute(query, senseId).getNodesDeleted();
+
+    }
+
+    public int removeQuestionsAndCompositionsRelatedToExample(long exampleId) {
+        String query = "MATCH (q:Question)-[r:FROM_EXAMPLE]-(e:Example) "
+                + " WHERE id(e)={p0} "
+                + " OPTIONAL MATCH (q)--(qp:QuestionPart) "
+                + " OPTIONAL MATCH (q)--(pr:PracticeResult) "
+                + " DETACH DELETE q, qp, pr";
+        return neo4jRepository.execute(query, exampleId).getNodesDeleted();
+
+    }
 }

@@ -3,13 +3,12 @@ package tnmk.ln.app.aggregation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import tnmk.ln.app.dictionary.ExpressionDetailRepository;
 import tnmk.ln.app.dictionary.entity.Expression;
-import tnmk.ln.app.practice.QuestionDetailRepository;
 import tnmk.ln.app.security.user.PossessionAuthorization;
 import tnmk.ln.app.topic.TopicRepository;
 import tnmk.ln.app.topic.TopicService;
 import tnmk.ln.app.topic.entity.Topic;
+import tnmk.ln.infrastructure.data.neo4j.repository.Neo4jRepository;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
 
 /**
@@ -20,10 +19,10 @@ import tnmk.ln.infrastructure.security.neo4j.entity.User;
 public class TopicDeletionService {
 
     @Autowired
-    private ExpressionDetailRepository expressionDetailRepository;
+    private ExpressionDeletionService expressionDeletionService;
 
     @Autowired
-    private QuestionDetailRepository questionDetailRepository;
+    private Neo4jRepository neo4jRepository;
 
     @Autowired
     private TopicService topicService;
@@ -33,15 +32,11 @@ public class TopicDeletionService {
     @Autowired
     private PossessionAuthorization possessionAuthorization;
 
-    /**
-     * Note: related entities include composited entities and other connected entities (question, answerResult...)
-     *
-     * @param expressionId
-     */
     @Transactional
-    public void deleteExpressionAndAllRelatedEntities(long expressionId) {
-        questionDetailRepository.removeQuestionsAndCompositionsRelatedToExpression(expressionId);
-        expressionDetailRepository.removeOneAndCompositions(expressionId);
+    public void detachExpressionFromTopic(User user, Long topicId, Long expressionId) {
+        Topic topic = neo4jRepository.validateExistOne(Topic.class, topicId);
+        possessionAuthorization.validateCanRemovePossession(user, topic);
+        neo4jRepository.detachTwoEntities(topicId, expressionId);
     }
 
     @Transactional
@@ -52,7 +47,7 @@ public class TopicDeletionService {
             if (topic.getExpressions() != null) {
                 for (Expression expression : topic.getExpressions()) {
                     if (possessionAuthorization.canRemovePossession(user, expression)) {
-                        deleteExpressionAndAllRelatedEntities(expression.getId());
+                        expressionDeletionService.deleteExpressionAndRelations(expression.getId());
                     }
                 }
             }
