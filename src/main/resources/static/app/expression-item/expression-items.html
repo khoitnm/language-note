@@ -39,7 +39,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="lesson in lessonsService.lessons">
+                        <tr ng-repeat="lesson in topicsService.lessons">
                             <td>
                                 {{$index}}
                                 <a href="#!/expression-item-test?lessonId={{lesson.id}}" title="Test"><i class="fa fa-tasks"></i></a>
@@ -55,7 +55,7 @@
                                 {{lesson.createdDateTime * 1000 | date:'yyyy-MM-dd hh:mm:ss'}}
                             </td>
                             <td style="width: 20px; text-align: center">
-                                <a href="" ng-click="lessonsService.removeLesson(lesson)" class="text-danger"><i class="fa fa-remove"></i></a>
+                                <a href="" ng-click="topicsService.removeLesson(lesson)" class="text-danger"><i class="fa fa-remove"></i></a>
                             </td>
                         </tr>
                         </tbody>

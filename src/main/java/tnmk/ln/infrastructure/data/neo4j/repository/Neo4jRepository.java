@@ -161,9 +161,9 @@ public class Neo4jRepository {
         return session.query(queryString, params);
     }
 
-    public <T> Iterable<T> queryList(Class<T> entityClass, String queryString, Object... paramValues) {
+    public <T> List<T> queryList(Class<T> entityClass, String queryString, Object... paramValues) {
         Map<String, Object> params = constructParams(paramValues);
-        return session.query(entityClass, queryString, params);
+        return IterableUtil.toList(session.query(entityClass, queryString, params));
     }
 
     private Map<String, Object> constructParams(Object... paramValues) {

@@ -22,7 +22,7 @@ public class TopicService {
     private TopicRepository topicRepository;
 
     @Autowired
-    private TopicDetailRepository topicAndOwnerRepository;
+    private TopicDetailRepository topicDetailRepository;
 
     @Autowired
     private QuestionGenerationService questionService;
@@ -50,7 +50,7 @@ public class TopicService {
     }
 
     public List<Topic> findByOwnerId(User user) {
-        return topicRepository.findByOwnerId(user.getId());
+        return topicDetailRepository.findByOwner(user.getId());
     }
 
     public List<Topic> findAll() {
@@ -76,10 +76,26 @@ public class TopicService {
     }
 
     public Topic findOneByTitle(Long userId, String title) {
-        return topicAndOwnerRepository.findOneByTitleAndOwner(userId, title);
+        return topicDetailRepository.findOneByTitleAndOwner(userId, title);
     }
 
     public Topic findDetailById(Long topicId) {
-        return topicAndOwnerRepository.findOneDetailById(topicId);
+        return topicDetailRepository.findOneDetailById(topicId);
+    }
+
+    public List<Topic> getTopicBriefsByOwner(User user) {
+        List<Topic> topics = topicDetailRepository.findByOwner(user.getId(), 2);
+//        topics.stream().forEach(topic -> limitExpressionInTopics(topic, 4));
+        return topics;
+    }
+
+    private void limitExpressionInTopics(Topic topic, int maxExpressions) {
+        Set<Expression> expressions = SetUtil.getTop(topic.getExpressions(), maxExpressions);
+        topic.setExpressions(expressions);
+    }
+
+    @Transactional
+    public void rename(Topic topic) {
+        topicRepository.save(topic);
     }
 }

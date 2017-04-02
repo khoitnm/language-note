@@ -14,4 +14,17 @@ public class SetUtil {
         }
         return result;
     }
+
+    public static <E> Set<E> getTop(Set<E> source, int topSize) {
+        Set<E> result = new HashSet<>();
+        int i = 0;
+        for (E e : source) {
+            if (i >= topSize) {
+                break;
+            }
+            result.add(e);
+            i++;
+        }
+        return result;
+    }
 }

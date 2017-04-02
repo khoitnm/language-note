@@ -15,7 +15,7 @@ public class UserTestFactory {
     private UserService userService;
 
     public User initDefaultUser() {
-        User user = userService.findByUsername("admin");
+        User user = userService.findByUsername(UserService.USERNAME_ADMIN);
         if (user == null) {
             user = new Contributor();
             userService.registerUser(user);

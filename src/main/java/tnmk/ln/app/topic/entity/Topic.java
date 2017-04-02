@@ -27,6 +27,8 @@ public class Topic extends BaseNeo4jEntity implements Possession {
     public static final String TITLE_DEFAULT = "untitled";
 
     private String title = TITLE_DEFAULT;
+    private String noteAsHtml;
+
     @DetailLoading
     @Relationship(type = TOPIC_IN_LOCALE, direction = Relationship.OUTGOING)
     private Locale locale;
@@ -93,5 +95,13 @@ public class Topic extends BaseNeo4jEntity implements Possession {
 
     public void setLocale(Locale locale) {
         this.locale = locale;
+    }
+
+    public String getNoteAsHtml() {
+        return noteAsHtml;
+    }
+
+    public void setNoteAsHtml(String noteAsHtml) {
+        this.noteAsHtml = noteAsHtml;
     }
 }

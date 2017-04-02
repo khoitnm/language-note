@@ -5,7 +5,7 @@ angularApp.factory('httpInterceptor', ['$q', '$rootScope', function ($q, $rootSc
             return config;
         },
         response: function (response) {
-            $rootScope.userMessage = undefined;
+            $rootScope.editorMessage = undefined;
             $rootScope.globalMessage = undefined;
             $rootScope.isRunning = false;
             return response;
@@ -19,9 +19,9 @@ angularApp.factory('httpInterceptor', ['$q', '$rootScope', function ($q, $rootSc
             } else if (rejection.status == 401) {
                 $rootScope.globalMessage = "Your session is expired. Please login again!";
             } else if (rejection.status == 500) {
-                $rootScope.userMessage = rejection.data.userMessage;
+                $rootScope.editorMessage = rejection.data.editorMessage;
             } else {
-                $rootScope.globalMessage = rejection.data.userMessage;
+                $rootScope.globalMessage = rejection.data.editorMessage;
             }
             return $q.reject(rejection);
         }

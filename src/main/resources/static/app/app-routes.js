@@ -1,13 +1,26 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //angularApp was defined in angularApp.js
 angularApp.config(routeConfig);
+
 //angularApp.run(runFn);
 
 function routeConfig($routeProvider) {
     $routeProvider
         .when('/', {
-            templateUrl: contextPath + '/app/expression-item/expression-items.html',
-            controller: 'lessonsController'
+            templateUrl: contextPath + '/app/topic/topics.html',
+            controller: 'topicsController'
+        })
+        .when('/topics', {
+            templateUrl: contextPath + '/app/topic/topics.html',
+            controller: 'topicsController'
+        })
+        .when('/topic-edit', {
+            templateUrl: contextPath + '/app/topic/topic-edit.html',
+            controller: 'topicEditController'
+        })
+        .when('/expression-edit', {
+            templateUrl: contextPath + '/app/expression/expression-edit.html',
+            controller: 'topicEditController'
         })
         .when('/expression-items', {
             templateUrl: contextPath + '/app/expression-item/expression-items.html',
@@ -26,6 +39,10 @@ function routeConfig($routeProvider) {
         //})
     ;
 }
+function rootScope($rootScope) {
+    $rootScope.contextPath = contextPath;
+}
+angularApp.run(rootScope);
 //
 //function runFn($rootScope, $location, $templateCache, AuthService) {
 //    $rootScope.$on('$routeChangeStart', routeChangeStart);

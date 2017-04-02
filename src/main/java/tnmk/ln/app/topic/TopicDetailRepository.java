@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 import tnmk.ln.app.topic.entity.Topic;
 import tnmk.ln.infrastructure.data.neo4j.repository.Neo4jRepository;
 
+import java.util.List;
+
 /**
  * @author khoi.tran on 2/26/17.
  */
@@ -18,6 +20,20 @@ public class TopicDetailRepository {
     public long countByTitleAndOwner(long ownerId, String title) {
         String queryString = String.format("MATCH (n:Topic)<-[r:%s]-(u:User) WHERE n.`title`={p0} AND id(u)={p1} RETURN COUNT(n)", Topic.OWN_TOPIC);
         return neo4jRepository.count(queryString, title, ownerId);
+    }
+
+    public List<Topic> findByOwner(long ownerId) {
+        String queryString = String.format("MATCH (n:Topic)<-[r:%s]-(u:User) WHERE id(u)={p0} RETURN n", Topic.OWN_TOPIC);
+        return neo4jRepository.queryList(Topic.class, queryString, ownerId);
+    }
+
+    public List<Topic> findByOwner(long ownerId, int depth) {
+        String queryString = String.format("MATCH (t:Topic)"
+                + " MATCH (t)<-[r:OWN_TOPIC]-(u:User) "
+                + " OPTIONAL MATCH path=(t)-[*0..%s]-(n)"
+                + " WITH path"
+                + " RETURN path", depth);
+        return neo4jRepository.queryList(Topic.class, queryString, ownerId);
     }
 
     public Topic findOneByTitleAndOwner(long ownerId, String title) {

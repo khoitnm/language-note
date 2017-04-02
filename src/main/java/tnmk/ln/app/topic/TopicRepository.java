@@ -13,5 +13,4 @@ import java.util.List;
  */
 @Neo4jRepoScanInclude
 public interface TopicRepository extends GraphRepository<Topic> {
-    List<Topic> findByOwnerId(Long ownerId);
 }

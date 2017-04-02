@@ -5,6 +5,7 @@ package tnmk.ln.app.practice.entity.result;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 import tnmk.ln.app.common.entity.BaseNeo4jEntity;
+import tnmk.ln.app.common.entity.Possession;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
 
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
  * @author khoi.tran on 2/26/17.
  */
 @NodeEntity(label = "PracticeResult")
-public abstract class BasePracticeResult extends BaseNeo4jEntity {
+public abstract class BasePracticeResult extends BaseNeo4jEntity implements Possession {
     public static final String PRACTICE = "PRACTICE";
 
     @Relationship(type = PRACTICE, direction = Relationship.INCOMING)
@@ -25,6 +26,7 @@ public abstract class BasePracticeResult extends BaseNeo4jEntity {
      */
     private double sumLatestAnswerPoint;
 
+    @Override
     public User getOwner() {
         return owner;
     }

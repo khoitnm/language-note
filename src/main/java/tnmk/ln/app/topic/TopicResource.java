@@ -11,6 +11,8 @@ import tnmk.ln.app.topic.entity.Topic;
 import tnmk.ln.infrastructure.security.helper.SecurityContextHelper;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
 
+import java.util.List;
+
 /**
  * @author khoi.tran on 3/4/17.
  */
@@ -27,6 +29,18 @@ public class TopicResource {
         return TopicFactory.constructSchema();
     }
 
+    @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/topics/mine", method = RequestMethod.GET)
+    public List<Topic> getTopicBriefsByOnwer() {
+        User user = SecurityContextHelper.validateExistAuthenticatedUser();
+        return topicService.getTopicBriefsByOwner(user);
+    }
+
+    @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/topics/name", method = RequestMethod.PUT)
+    public void rename(@RequestBody Topic topic) {
+        User user = SecurityContextHelper.validateExistAuthenticatedUser();
+        topicService.rename(topic);
+    }
+
     @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/topics", method = RequestMethod.POST)
     public void save(@RequestBody Topic topic) {
         User user = SecurityContextHelper.validateExistAuthenticatedUser();
@@ -36,12 +50,12 @@ public class TopicResource {
     @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/topics", method = RequestMethod.DELETE)
     public void delete(@RequestBody RemoveRequest removeRequest) {
         User user = SecurityContextHelper.validateExistAuthenticatedUser();
-        topicDeletionService.deleteTopicAndRelations(user, removeRequest.id, removeRequest.removeExpressions);
+        topicDeletionService.deleteTopicAndRelations(user, removeRequest.id, removeRequest.removeCompositions);
     }
 
     public static class RemoveRequest {
         private long id;
-        private boolean removeExpressions;
+        private boolean removeCompositions;
 
         public long getId() {
             return id;
@@ -51,12 +65,12 @@ public class TopicResource {
             this.id = id;
         }
 
-        public boolean isRemoveExpressions() {
-            return removeExpressions;
+        public boolean isRemoveCompositions() {
+            return removeCompositions;
         }
 
-        public void setRemoveExpressions(boolean removeExpressions) {
-            this.removeExpressions = removeExpressions;
+        public void setRemoveCompositions(boolean removeCompositions) {
+            this.removeCompositions = removeCompositions;
         }
     }
 }

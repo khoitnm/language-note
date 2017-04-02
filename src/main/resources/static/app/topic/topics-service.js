@@ -8,26 +8,35 @@ var TopicsService = function ($http, $q) {
 
 TopicsService.prototype.init = function () {
     var self = this;
-    var lessonsGet = self.$http.get(contextPath + '/api/lessons/introductions');
-    self.$q.all([lessonsGet]).then(function (arrayOfResults) {
-        self.lessons = arrayOfResults[0].data;
+    var topicsGet = self.$http.get(contextPath + '/api/topics/mine');
+    self.$q.all([topicsGet]).then(function (arrayOfResults) {
+        self.topics = arrayOfResults[0].data;
     });
 };
 TopicsService.prototype.removeTopic = function (item) {
     var self = this;
-    self.lessons.remove(item);
-    var removeLessonRequest = {
-        lessonId: item.id
-        , includeExpressions: true
+    self.topics.remove(item);
+    var removeRequest = {
+        id: item.id
+        , removeCompositions: false
     };
     self.$http({
-        url: contextPath + "/api/lesson",
+        url: contextPath + "/api/topics",
         method: 'DELETE',
-        data: removeLessonRequest,
+        data: removeRequest,
         headers: {"Content-Type": "application/json;charset=utf-8"}
     });
 };
-angularApp.service('lessonsService', ['$http', '$q', '$routeParams', LessonsService]);
-angularApp.controller('lessonsController', ['$scope', '$http', '$q', '$routeParams', 'lessonsService', function ($scope, $http, $q, $routeParams, lessonsService) {
-    $scope.lessonsService = lessonsService;
+TopicsService.prototype.rename = function (item) {
+    var self = this;
+    self.$http.put(contextPath + '/api/topics/name', item).then(
+        function (successResponse) {
+            //self.setLesson(successResponse.data);
+        }
+    );
+};
+angularApp.service('topicsService', ['$http', '$q', '$routeParams', TopicsService]);
+angularApp.controller('topicsController', ['$scope', '$http', '$q', '$routeParams', 'topicsService', function ($scope, $http, $q, $routeParams, topicsService) {
+    $scope.topicsService = topicsService;
 }]);
+
