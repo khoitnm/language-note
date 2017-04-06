@@ -1,6 +1,7 @@
 package tnmk.ln.app.topic;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,6 +34,12 @@ public class TopicResource {
     public List<Topic> getTopicBriefsByOnwer() {
         User user = SecurityContextHelper.validateExistAuthenticatedUser();
         return topicService.getTopicBriefsByOwner(user);
+    }
+
+    @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/topics/{topicId}/detail", method = RequestMethod.GET)
+    public Topic getDetailTopic(@PathVariable Long topicId) {
+        User user = SecurityContextHelper.validateExistAuthenticatedUser();
+        return topicService.findDetailById(topicId);
     }
 
     @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/topics/name", method = RequestMethod.PUT)

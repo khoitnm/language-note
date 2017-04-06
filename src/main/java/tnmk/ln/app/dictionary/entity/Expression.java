@@ -57,22 +57,22 @@ public class Expression extends BaseNeo4jEntity implements Possession {
     @DetailLoading
     @CascadeRelationship
     @Relationship(type = HAS_SENSE_GROUPS, direction = Relationship.OUTGOING)
-    private List<SenseGroup> sensesGroups;
+    private List<SenseGroup> senseGroups;
 
     @DetailLoading
     @CascadeRelationship
     @Relationship(type = HAS_MAIN_AUDIO, direction = Relationship.OUTGOING)
     private DigitalAsset audio;
 
-    @DetailLoading
-    @CascadeRelationship
-    @Relationship(type = HAS_MAIN_IMAGE, direction = Relationship.OUTGOING)
-    private DigitalAsset image;
-
-    @DetailLoading
-    @CascadeRelationship
-    @Relationship(type = HAS_IMAGES, direction = Relationship.OUTGOING)
-    private List<DigitalAsset> images;
+//    @DetailLoading
+//    @CascadeRelationship
+//    @Relationship(type = HAS_MAIN_IMAGE, direction = Relationship.OUTGOING)
+//    private DigitalAsset image;
+//
+//    @DetailLoading
+//    @CascadeRelationship
+//    @Relationship(type = HAS_IMAGES, direction = Relationship.OUTGOING)
+//    private List<DigitalAsset> images;
 
     // RELATIONSHIPS //////////////////////////////////////////////////////////////
     @DetailLoading
@@ -174,22 +174,22 @@ public class Expression extends BaseNeo4jEntity implements Possession {
     public void setAudio(DigitalAsset audio) {
         this.audio = audio;
     }
-
-    public List<DigitalAsset> getImages() {
-        return images;
-    }
-
-    public void setImages(List<DigitalAsset> images) {
-        this.images = images;
-    }
-
-    public DigitalAsset getImage() {
-        return image;
-    }
-
-    public void setImage(DigitalAsset image) {
-        this.image = image;
-    }
+//
+//    public List<DigitalAsset> getImages() {
+//        return images;
+//    }
+//
+//    public void setImages(List<DigitalAsset> images) {
+//        this.images = images;
+//    }
+//
+//    public DigitalAsset getImage() {
+//        return image;
+//    }
+//
+//    public void setImage(DigitalAsset image) {
+//        this.image = image;
+//    }
 
     @Override
     public User getOwner() {
@@ -200,12 +200,12 @@ public class Expression extends BaseNeo4jEntity implements Possession {
         this.owner = owner;
     }
 
-    public List<SenseGroup> getSensesGroups() {
-        return sensesGroups;
+    public List<SenseGroup> getSenseGroups() {
+        return senseGroups;
     }
 
-    public void setSensesGroups(List<SenseGroup> sensesGroups) {
-        this.sensesGroups = sensesGroups;
+    public void setSenseGroups(List<SenseGroup> senseGroups) {
+        this.senseGroups = senseGroups;
     }
 
     public Locale getLocale() {

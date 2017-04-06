@@ -12,18 +12,23 @@ public class FileItemService {
     @Autowired
     private FileItemRepository fileItemRepository;
 
-    public FileItem save(String fileName, String mimeType, byte[] data) {
+    public FileItem save(String fileName, String mimeType, byte[] data, long size) {
         FileItem fileItem = new FileItem();
-//        fileItem.setBase64Content(Base64Utils.encodeToString(data));
         fileItem.setBytesContent(data);
         fileItem.setName(fileName);
         fileItem.setMimeType(mimeType);
+        fileItem.setFileSize(size);
 
         return save(fileItem);
     }
 
     public FileItem save(FileItem fileItem) {
-        return fileItemRepository.save(fileItem);
+        FileItem oldFileItem = fileItemRepository.findOneByNameAndMimeTypeAndFileSize(fileItem.getName(), fileItem.getMimeType(), fileItem.getFileSize());
+        if (oldFileItem != null) {
+            return oldFileItem;
+        } else {
+            return fileItemRepository.save(fileItem);
+        }
     }
 
     public FileItem findOneById(String fileId) {

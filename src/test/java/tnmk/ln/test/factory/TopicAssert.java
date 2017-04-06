@@ -36,7 +36,7 @@ public class TopicAssert {
         for (Expression expression : expressions) {
 //            Assert.assertEquals(owner, expression.getOwner());
             Assert.assertNotNull(expression.getText());
-            List<SenseGroup> senseGroupList = expression.getSensesGroups();
+            List<SenseGroup> senseGroupList = expression.getSenseGroups();
             Assert.assertTrue(senseGroupList.size() > 0);
             for (SenseGroup senseGroup : senseGroupList) {
                 Assert.assertNotNull(senseGroup.getLexicalType());

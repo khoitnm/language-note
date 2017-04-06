@@ -2,8 +2,8 @@ package tnmk.ln.infrastructure.tts.cache;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tnmk.ln.infrastructure.filestorage.entity.FileItem;
 import tnmk.ln.infrastructure.filestorage.FileItemService;
+import tnmk.ln.infrastructure.filestorage.entity.FileItem;
 
 /**
  * @author khoi.tran on 2/2/17.
@@ -38,7 +38,7 @@ public class TtsItemService {
             fileItemService.remove(oldFileItem.getId());
         }
 
-        FileItem newFileItem = fileItemService.save(text + "_" + sourceLanguage + ".mp3", MIMETYPE_MP3, mp3Data);
+        FileItem newFileItem = fileItemService.save(text + "_" + sourceLanguage + ".mp3", MIMETYPE_MP3, mp3Data, mp3Data.length);
         ttsItem.setFileItem(newFileItem);
         ttsItem.setText(text);
         ttsItem.setLocale(sourceLanguage);

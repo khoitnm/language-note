@@ -22,7 +22,8 @@ public class Sense extends BaseNeo4jEntity {
     public static final String HAS_VIDEOS = "HAS_VIDEOS";
 
     private String explanation;
-    private String explanationNote;
+    private String shortExplanation;
+    private String detailExplanation;
     /**
      * This is an example which helps you to easily link some famous events/characters/movies... to the expression.
      * Examples of links are shown in this video: https://www.youtube.com/watch?v=jZrWc1j-NLA
@@ -102,11 +103,19 @@ public class Sense extends BaseNeo4jEntity {
         this.memorizedLink = memorizedLink;
     }
 
-    public String getExplanationNote() {
-        return explanationNote;
+    public String getDetailExplanation() {
+        return detailExplanation;
     }
 
-    public void setExplanationNote(String explanationNote) {
-        this.explanationNote = explanationNote;
+    public void setDetailExplanation(String detailExplanation) {
+        this.detailExplanation = detailExplanation;
+    }
+
+    public String getShortExplanation() {
+        return shortExplanation;
+    }
+
+    public void setShortExplanation(String shortExplanation) {
+        this.shortExplanation = shortExplanation;
     }
 }

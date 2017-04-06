@@ -13,8 +13,8 @@ import java.util.stream.Collectors;
 public class ExpressionUtils {
     public static Set<Sense> getSenses(Expression expression) {
         Set<Sense> result = new HashSet<>();
-        if (expression.getSensesGroups() != null) {
-            result = expression.getSensesGroups().stream().flatMap(senseGroup -> senseGroup.getSenses().stream()).collect(Collectors.toSet());
+        if (expression.getSenseGroups() != null) {
+            result = expression.getSenseGroups().stream().flatMap(senseGroup -> senseGroup.getSenses().stream()).collect(Collectors.toSet());
         }
         return result;
     }

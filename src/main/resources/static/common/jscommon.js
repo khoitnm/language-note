@@ -28,6 +28,13 @@ Array.prototype.findItemByField = function (itemFieldExpression, itemValue) {
         j++;
     }
 };
+Array.prototype.getLast = function () {
+    if (this.length == 0) {
+        return null;
+    } else {
+        return this[this.length - 1];
+    }
+};
 Array.prototype.newArray = function (fromValue, toValue) {
     var result = [];
     var length = toValue - fromValue;
@@ -308,6 +315,9 @@ function hasValue(variable) {
 function isNotEmpty(variable) {
     return (typeof variable !== 'undefined') && (variable !== null) && (variable.length !== 0);
 }
+function isEmpty(variable) {
+    return !isNotEmpty(variable);
+}
 function isNotBlank(variable) {
     return isNotEmpty(variable) || (isString(variable) && isNotEmpty(variable.trim()));
 }
@@ -341,11 +351,3 @@ function numericOnly(field) {
         field.value = num.replace(string, "");
 }
 //REFLECTION ////////////////////////
-function copyProperties(source, dest) {
-    for (var key in source) {
-        //copy all the fields
-        dest[key] = source[key];
-    }
-
-    return dest;
-}

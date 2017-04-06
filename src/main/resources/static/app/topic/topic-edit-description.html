@@ -1,0 +1,24 @@
+<div class="col-lg-12">
+    <div ng-show="!topicEditService.editingNote && !topicEditService.topic.noteAsHtml"
+         ng-dblclick="topicEditService.startEditingNote()"
+         class="well well-sm">
+        <p style="font-style: italic; color: #D1D1D1;">Topic Description</p>
+    </div>
+    <div ng-show="!topicEditService.editingNote && topicEditService.topic.noteAsHtml"
+         ng-bind-html="topicEditService.topic.noteAsHtml"
+         ng-dblclick="topicEditService.startEditingNote()"
+         class="well well-sm">
+    </div>
+    <div ng-show="topicEditService.editingNote">
+        <textarea ck-editor="topicEditService.ckeditor.options" ng-model="topicEditService.topic.noteAsHtml" ready="topicEditService.ckeditor.onReady()"></textarea>
+        <br/>
+        <button class="btn btn-success" ng-click="topicEditService.stopEditingNote()">Preview</button>
+    </div>
+    Expression Type
+    <div>
+        <label>Expression Type: </label>
+
+        <input type="radio" ng-model="topicEditService.topic.defaultExpressionType" ng-change="topicEditService.selectExpressionType()" value="word" name="optionsRadios"> Word
+        <input type="radio" ng-model="topicEditService.topic.defaultExpressionType" ng-change="topicEditService.selectExpressionType()" value="phrasal verb" name="optionsRadios"> Phrasal Verb
+    </div>
+</div>

@@ -11,4 +11,5 @@ import tnmk.ln.infrastructure.filestorage.entity.FileItem;
 @MongoRepoScanInclude
 @Repository
 public interface FileItemRepository extends MongoRepository<FileItem, String> {
+    FileItem findOneByNameAndMimeTypeAndFileSize(String name, String mimeType, Long fileSize);
 }

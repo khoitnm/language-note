@@ -1,4 +1,104 @@
 <style>
+    .expression-teaser {
+        min-height: 20px;
+        margin-bottom: 20px;
+        border: 1px solid #e3e3e3;
+        border-radius: 4px;
+        -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+        box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    }
+
+    .expression-teaser .header {
+        padding: 10px;
+        background-color: #f7f7f7;
+        /*font-style: italic;*/
+        font-weight: bold;
+        font-size: 110%;
+        border-bottom: 1px solid #f0f0f0;
+
+        border-top-right-radius: 4px;
+        border-top-left-radius: 4px;
+        -moz-border-radius-topleft: 4px;
+        -moz-border-radius-topright: 4px;
+
+        -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+        box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    }
+
+    .expression-teaser .header .input-as-text {
+        width: 100%;
+        background: transparent;
+    }
+
+    .expression-teaser .body {
+        padding: 0px 10px 0px 10px;
+    }
+
+    .expression-teaser .body .lexical-type {
+        margin-top: 10px;
+        text-transform: lowercase;
+        padding: 2px 5px;
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+
+        background: #f0f0f0;
+        border: 1px solid #e3e3e3;
+        color: #5A738E;
+        min-width: 50px;
+        width: 50px;
+    }
+
+    /*.expression-editor .body .input-lexical-type {*/
+    /*border-bottom: 1px dotted #8c8c8c;*/
+    /*}*/
+
+    /*.expression-editor .body .lexical-type .input-lexical-type {*/
+    /*border: 0px;*/
+    /*border-bottom: 1px dotted #e3e3e3;*/
+    /*text-transform: lowercase;*/
+    /*background: transparent;*/
+    /*color: #5A738E;*/
+    /*min-width: 50px;*/
+    /*width: 50px;*/
+    /*}*/
+
+    .expression-teaser .footer {
+        padding: 0px 10px 10px 10px;
+    }
+
+    .expression-teaser .footer .more {
+        display: block;
+        padding: 0px 10px 0px 10px;
+    }
+
+    .expression-teaser .footer .more:hover {
+        background: #f7f7f7;
+        border-bottom-right-radius: 4px;
+        border-bottom-left-radius: 4px;
+        -moz-border-radius-bottomleft: 4px;
+        -moz-border-radius-bottomright: 4px;
+    }
+
+    .expression-teaser .sense:not(:last-child) {
+        border-bottom: 1px solid #f3f3f3;
+    }
+
+    .expression-teaser .sense-header {
+        color: #2c3546;
+    }
+
+    .expression-teaser .sense-explanation {
+        color: #4B5F71;
+        font-style: italic;
+    }
+
+    .expression-teaser .sense-example {
+        padding-left: 15px;
+        font-style: italic;
+    }
+</style>
+
+<style>
     .wrap-dd-menu {
         padding: 0px;
     }
@@ -8,27 +108,189 @@
         font-weight: lighter;
     }
 </style>
-<!-- TOP MENU -->
-<div class="row">
-    <div class="col-md-2">
-        <a href="" ng-click="topicEditService.constructNewTopic()"><i class="fa fa-file-text"></i> New</a>
-    </div>
 
-    <div class="col-md-2">
-        <a href='' title=''
-           dropdown-menu="topicEditService.menu.items"
-           dropdown-model="topicEditService.menu.selectedItem"
-           dropdown-item-label="text">
-            <i class="fa fa-folder-open"></i> Recent Topics
-        </a>
-    </div>
-    <div class="col-md-2">
-        <a href="#!/practice?topicId={{topicEditService.topic.id}}"><i class="fa fa-tasks"></i> Practice this Topic</a>
-    </div>
-    <div class="col-md-2">
-        <a href="" ng-show="topicEditService.topic.id" ng-click="topicEditService.removeTopic()"><i class="fa fa-close text-red"></i> Remove Topic</a>
-    </div>
-</div>
+<style>
+    .expression-editor {
+        /*min-height: 20px;*/
+        /*margin-bottom: 20px;*/
+        border: 1px solid #e3e3e3;
+        border-radius: 4px;
+        -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+        box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    }
+
+    .expression-editor .expression.header {
+        padding: 10px;
+        background-color: #f7f7f7;
+        font-style: italic;
+        font-weight: bold;
+        font-size: 110%;
+        border-bottom: 1px solid #f0f0f0;
+
+        border-top-right-radius: 4px;
+        border-top-left-radius: 4px;
+        -moz-border-radius-topleft: 4px;
+        -moz-border-radius-topright: 4px;
+
+        -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+        box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    }
+
+    .expression-editor .expression.body {
+        padding: 10px;
+        background: #f0f0f0;
+    }
+
+    .expression-editor .sense-group {
+        background: #f9f9f9;
+        padding: 10px;
+
+        border: 1px solid #e0e0e0;
+
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+
+        -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+        box-shadow: 0 1px 1px rgba(0, 0, 0, .05)
+    }
+
+    .expression-editor .sense-group:not(:last-child) {
+        margin-bottom: 10px;
+    }
+
+    .expression-editor .sense-group-header {
+        margin-bottom: 10px;
+    }
+
+    .expression-editor .sense-group-label {
+        /*margin-top: 10px;*/
+        font-weight: bolder;
+        text-align: center;
+        text-transform: lowercase;
+        padding: 2px 5px;
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+
+        background: #f0f0f0;
+        border: 1px solid #e3e3e3;
+        border-bottom: 1px dotted #a0a0a0;
+        color: #5A738E;
+        min-width: 50px;
+        width: 50px;
+    }
+
+    .expression-editor .sense {
+        border-top: 1px solid #ddd;
+        box-shadow: inset 0 1px 1px #ffffff;
+        padding-top: 10px;
+    }
+
+    .expression-editor .sense:not(:first-child) {
+        margin-top: 10px;
+    }
+
+    .expression-editor .input-as-text {
+        background: transparent;
+        border-bottom: 1px dotted #e0e0e0;
+    }
+
+    .expression-editor .input-as-text::-webkit-input-placeholder {
+        color: #d0d0d0;
+        font-weight: lighter;
+    }
+
+    .expression-editor .sense .example .input-as-text {
+        color: #169F85;
+        font-style: italic;
+    }
+
+    .expression-editor .sense .img-explanation {
+        display: block;
+        width: auto;
+        height: auto;
+        max-width: 100%;
+        max-height: 300px;
+        padding: 5px 20px 5px 5px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        /*box-shadow: inset 1px 1px 0px #999;*/
+    }
+
+    .img-with-close {
+        position: relative;
+    }
+
+    .img-with-close .img-btn-close {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 100;
+    }
+
+    .img-with-close .arrow-right {
+        position: absolute;
+        top: 0px;
+        right: 15px;
+        height: 100%;
+        display: block;
+    }
+
+    .btn-dark {
+        background: #444;
+        color: whitesmoke;
+        border: 1px solid white;
+    }
+
+    .expression-editor .footer {
+        padding: 5px;
+    }
+
+    .arrow-right .middle-wrapper {
+        position: absolute;
+    }
+
+    .middle-wrapper {
+        display: table;
+        height: 100%;
+        width: 100%;
+    }
+
+    .middle-vertical {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    .middle-horizontal {
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%; /*whatever width you want*/;
+    }
+
+    .image-border {
+        display: block;
+        padding: 4px;
+        margin-bottom: 20px;
+        /*line-height: 1.42857143;*/
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        -webkit-transition: border .2s ease-in-out;
+        -o-transition: border .2s ease-in-out;
+        transition: border .2s ease-in-out;
+        width: 100%;
+        height: 100%;
+    }
+
+    .image-profile {
+        text-align: center;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+</style>
+
+<!-- TOP MENU -->
+<div class="row" ng-include="contextPath + '/app/topic/topic-edit-nav.html'"></div>
 <div class="ln_solid" style="margin: 10px 0px;"></div>
 <!-- Topic Content -->
 <div class="row">
@@ -44,62 +306,22 @@
             </div>
             <div class="x_content">
                 <!--Description-->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <!--<div ng-show="!topicEditService.editingNote && !topicEditService.topic.noteAsHtml"-->
-                        <!--ng-dblclick="topicEditService.startEditingNote()"-->
-                        <!--class="well well-sm">-->
-                        <!--<p style="font-style: italic; color: #D1D1D1;">Topic Description</p>-->
-                        <!--</div>-->
-                        <!--<div ng-show="!topicEditService.editingNote && topicEditService.topic.noteAsHtml"-->
-                        <!--ng-bind-html="topicEditService.topic.noteAsHtml"-->
-                        <!--ng-dblclick="topicEditService.startEditingNote()"-->
-                        <!--class="well well-sm">-->
-                        <!--</div>-->
-                        <!--<div ng-show="topicEditService.editingNote">-->
-                        <!--<textarea ck-editor="topicEditService.ckeditor.options" ng-model="topicEditService.topic.noteAsHtml" ready="topicEditService.ckeditor.onReady()"></textarea>-->
-                        <!--<br/>-->
-                        <!--<button class="btn btn-success" ng-click="topicEditService.stopEditingNote()">Preview</button>-->
-                        <!--</div>-->
-                        <!--Expression Type-->
-                        <!--<div>-->
-                        <!--<label>Expression Type: </label>-->
-
-                        <!--<input type="radio" ng-model="topicEditService.topic.defaultExpressionType" ng-change="topicEditService.selectExpressionType()" value="word" name="optionsRadios"> Word-->
-                        <!--<input type="radio" ng-model="topicEditService.topic.defaultExpressionType" ng-change="topicEditService.selectExpressionType()" value="phrasal verb" name="optionsRadios"> Phrasal Verb-->
-                        <!--</div>-->
-                    </div>
-                </div>
+                <div class="row" ng-include="contextPath + '/app/topic/topic-edit-description.html'"></div>
                 <div class="ln_solid"></div>
                 <!--Categories-->
-                <div class="row">
-
-                    <div class="col-lg-11">
-                        <div ng-repeat="topic in topicEditService.topic.topics track by $index"
-                             class="col-md-2 wrap-dd-menu">
-
-                            <input type="text"
-                                   ng-model="topic.name"
-                                   ng-blur="topicEditService.finishInputTopic(topic)"
-                                   placeholder="Topic" list="autocomplete_{{$index}}"
-                                   style="width: 100%"/>
-                            <datalist id="autocomplete_{{$index}}">
-                                <select ng-options="itopic as itopic.name for itopic in topicEditService.topics track by itopic.name" ng-model="selected"></select>
-                            </datalist>
-                        </div>
-                    </div>
-                    <div class="col-lg-1">
-                        <a class="close-link"><i class="fa fa-plus" ng-click="topicEditService.addTopic()"></i></a>
-                    </div>
-                </div>
+                <div class="row" ng-include="contextPath + '/app/topic/topic-edit-categories.html'"></div>
                 <div class="ln_solid"></div>
 
                 <!-- Topic Detail -->
                 <div class="text-danger alert alert-danger" ng-show="userMessage">
                     {{userMessage}}
                 </div>
-                <div ng-include="contextPath + '/app/expression/expression-edit.html'"></div>
+                <div class="row" ng-include="contextPath + '/app/expression/expression-edit.html'"></div>
                 <div class="ln_solid"></div>
+
+                <div class="row" ng-include="contextPath + '/app/topic/topic-edit-expressions.html'"></div>
+                <div class="ln_solid"></div>
+
                 <!--Save button-->
                 <div class="form-group">
                     <div class="col-md-6 col-sm-6 col-xs-12">

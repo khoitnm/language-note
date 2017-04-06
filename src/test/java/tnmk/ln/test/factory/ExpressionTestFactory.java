@@ -12,7 +12,7 @@ public class ExpressionTestFactory {
     public static Expression constructWord(String text) {
         Expression expression = new Expression();
         expression.setText(text);
-        expression.setSensesGroups(Arrays.asList(
+        expression.setSenseGroups(Arrays.asList(
                 SenseGroupTestFactory.constructSenseGroup(LexicalType.NOUN)
                 , SenseGroupTestFactory.constructSenseGroup(LexicalType.ADJ)
         ));

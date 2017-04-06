@@ -81,7 +81,7 @@ public class ExpressionTest extends BaseTest {
         synonym2.setAntonyms(Arrays.asList(antonym1));
         Expression synonym3 = expressionService.findById(191);
         synonym3.setText("synonym3");
-        synonym3.setSensesGroups(Arrays.asList(constructSensesGroup(201l), constructSensesGroup(197l)));
+        synonym3.setSenseGroups(Arrays.asList(constructSensesGroup(201l), constructSensesGroup(197l)));
 
         antonym1.setAntonyms(Arrays.asList(synonym3));
 

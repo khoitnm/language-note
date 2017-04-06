@@ -69,7 +69,7 @@ public class ExpressionService {
     }
 //
 //    public void deleteExpressionWithItsSensesAndExamples(Expression expression) {
-//        for (SenseGroup senseGroup : expression.getSensesGroups()) {
+//        for (SenseGroup senseGroup : expression.getSenseGroups()) {
 //            for (Sense sense : senseGroup.getSenses()) {
 //                for (Example example : sense.getExamples()) {
 ////                    List<Question> questions = que

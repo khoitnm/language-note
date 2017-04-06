@@ -7,12 +7,23 @@ var angularApp = angular.module('myApp', [
     //,'file-model'
     , 'ngStorage'
     , 'ngRoute'
-    , 'angucomplete-alt'
+
     , 'ngCookies'
     //, 'ckeditor'
+
     //File menu navigation
     , 'ngDropdowns'
+
+    //Shortcut Keyboard (hot keys)
     , 'cfp.hotkeys'
+
+    //File Upload
+    , 'angularFileUpload'
+    //, 'ngFileUpload'
+    //, 'ngImgCrop'
+
+    //Auto-complete
+    , 'angucomplete-alt'
     //'ngMaterial'
     //, 'ngMessages', 'material.svgAssetsCache',
     //'ui.bootstrap',

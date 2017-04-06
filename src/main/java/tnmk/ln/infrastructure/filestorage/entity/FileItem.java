@@ -15,9 +15,10 @@ import java.util.Map;
 @Document(collection = "FileItem")
 public class FileItem extends BaseEntity {
     private String name;
+
     private String mimeType;
     private String base64Content;
-
+    private Long fileSize;
     private Map<String, Object> properties = new HashMap<>();
 
     @Transient
@@ -60,5 +61,13 @@ public class FileItem extends BaseEntity {
 
     public void setProperties(Map<String, Object> properties) {
         this.properties = properties;
+    }
+
+    public Long getFileSize() {
+        return fileSize;
+    }
+
+    public void setFileSize(Long fileSize) {
+        this.fileSize = fileSize;
     }
 }
