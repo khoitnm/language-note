@@ -49,9 +49,9 @@ public class TopicResource {
     }
 
     @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/topics", method = RequestMethod.POST)
-    public void save(@RequestBody Topic topic) {
+    public Topic save(@RequestBody Topic topic) {
         User user = SecurityContextHelper.validateExistAuthenticatedUser();
-        topicService.saveTopicAndRelations(user, topic);
+        return topicService.saveTopicAndRelations(user, topic);
     }
 
     @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/topics", method = RequestMethod.DELETE)

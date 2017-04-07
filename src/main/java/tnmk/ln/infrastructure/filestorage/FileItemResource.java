@@ -33,6 +33,7 @@ public class FileItemResource {
     @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/files/{fileItemId}", method = RequestMethod.GET)
     public void downloadFile(@PathVariable("fileItemId") String fileItemId, HttpServletResponse response) throws IOException {
         FileItem fileItem = fileItemService.findOneById(fileItemId);
+        if (fileItem == null) return;
         response.setContentType(fileItem.getMimeType());
         byte[] bytesContent = fileItem.getBytesContent();
         IOUtils.write(bytesContent, response.getOutputStream());

@@ -53,11 +53,8 @@ TopicEditService.prototype.initUploader = function () {
     var self = this;
     self.uploader = new self.FileUploader({
         url: self.$rootScope.contextPath + '/api/files'
+        , autoUpload: true
     });
-    self.uploader.onBeforeUploadItem = function (item) {
-        item.sense = this.sense;
-        console.info('onBeforeUploadItem');
-    };
     self.uploader.onSuccessItem = function (fileUploadItem, response, status, headers) {
         var sense = fileUploadItem.sense;
         fileUploadItem.sense = undefined;
@@ -67,7 +64,7 @@ TopicEditService.prototype.initUploader = function () {
         var digitalAssetSkeleton = self.topicSkeleton.expressions[0].senseGroups[0].senses[0].photos[0];
         var digitalAsset = angular.copy(digitalAssetSkeleton);
         digitalAsset.fileItemId = savedFileItem.id;
-        sense.photos.push(digitalAsset);
+        sense.photos.unshift(digitalAsset);
         console.info('onSuccessItem', fileUploadItem, response, status, headers);
     };
     self.uploader.onCompleteAll = function () {
@@ -81,7 +78,18 @@ TopicEditService.prototype.initUploader = function () {
     };
 };
 TopicEditService.prototype.modeEdit = function (expression) {
-    expression.isEditing = !expression.isEditing || true;
+    if (this.editingExpression == expression) {
+        this.editingExpression = undefined;
+    } else {
+        this.editingExpression = expression;
+    }
+    //
+    //if (hasValue(expression.isEditing)) {
+    //    expression.isEditing = !expression.isEditing;
+    //} else {
+    //    expression.isEditing = true;
+    //}
+    //
 };
 TopicEditService.prototype.removeTopic = function (item) {
     var self = this;
@@ -114,46 +122,21 @@ TopicEditService.prototype.startUploadImages = function (sense) {
         self.uploader.clearQueue();
     }
 };
-
+TopicEditService.prototype.selectMainPhoto = function (photos, photo) {
+    photos.remove(photo);
+    photos.unshift(photo);
+};
+TopicEditService.prototype.saveTopic = function () {
+    var self = this;
+    self.$http.post(contextPath + '/api/topics', self.topic).then(
+        function (successResponse) {
+            self.topic = successResponse.data;
+        }
+    );
+};
 //Use AngularFileUpload
 angularApp.service('topicEditService', ['$rootScope', '$http', '$q', '$routeParams', 'hotkeys', 'FileUploader', TopicEditService]);
 angularApp.controller('topicEditController', ['$rootScope', '$scope', '$http', '$q', '$location', '$routeParams', 'topicEditService', 'hotkeys', 'FileUploader', function ($rootScope, $scope, $http, $q, $location, $routeParams, topicEditService, hotkeys, FileUploader) {
     $scope.topicEditService = topicEditService;
 }]);
 
-
-////angularApp.service('topicEditService', ['$rootScope', '$http', '$q', '$routeParams', 'hotkeys', TopicEditService]);
-////angularApp.controller('topicEditController', ['$rootScope', '$scope', '$http', '$q', '$location', '$routeParams', 'topicEditService', 'hotkeys', function ($rootScope, $scope, $http, $q, $location, $routeParams, topicEditService, hotkeys) {
-////    $scope.topicEditService = topicEditService;
-////}]);
-//
-//var CompositeManagement = function (skeletonRoot, root) {
-//    this.skeletonRoot = skeletonRoot;
-//    this.root = root;
-//};
-//CompositeManagement.prototype.removeItem = function (type, list, item) {
-//    list.remove(item);
-//    if (!this.hasEmptyItem(type, list)) {
-//        var skeleton = this.getSkeleton(type);
-//        list.add(skeleton);
-//    }
-//};
-//CompositeManagement.prototype.hasEmptyItem = function (type, list) {
-//    for (var i = 0; i < list.length; i++) {
-//        var item = list[i];
-//        if (this.isEmptyItem(type, item)) {
-//            return true;
-//        }
-//    }
-//    return false;
-//};
-//CompositeManagement.prototype.isEmptyItem = function (type, item) {
-//    if (type == 'examples') {
-//        return (!hasValue(item) || !isBlank(item.text));
-//    }
-//};
-//CompositeManagement.prototype.getSkeleton = function (type) {
-//    if (type == 'examples') {
-//        return this.skeletonRoot.senseGroups[0].sense[0].examples[0];
-//    }
-//};

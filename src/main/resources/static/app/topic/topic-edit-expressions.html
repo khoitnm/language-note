@@ -1,8 +1,4 @@
-<div ng-repeat="expression in topicEditService.topic.expressions track by $index" ng-class="expression.isEditing ? 'col-xs-12' : 'col-md-4'">
-
-    <div ng-if="!expression.isEditing" ng-include="contextPath + '/app/topic/topic-edit-expression-teaser.html'"></div>
-    <div ng-if="expression.isEditing" ng-include="contextPath + '/app/topic/topic-edit-expression-editor.html'"></div>
-
-
-
+<div ng-repeat="expression in topicEditService.topic.expressions track by $index" ng-class="topicEditService.editingExpression == expression ? 'col-xs-12' : 'col-md-4'">
+    <div ng-if="topicEditService.editingExpression != expression" ng-include="contextPath + '/app/topic/topic-edit-expression-teaser.html'"></div>
+    <div ng-if="topicEditService.editingExpression == expression" ng-include="contextPath + '/app/topic/topic-edit-expression-editor.html'"></div>
 </div>
