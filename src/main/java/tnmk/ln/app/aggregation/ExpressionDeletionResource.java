@@ -19,8 +19,20 @@ public class ExpressionDeletionResource {
     private ExpressionDeletionService expressionDeletionService;
 
     @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/expressions/{expressionId}/sense-groups/{senseGroupId}", method = RequestMethod.DELETE)
-    public void save(@PathVariable Long expressionId, @PathVariable Long senseGroupId) {
+    public void deleteSenseGroup(@PathVariable Long expressionId, @PathVariable Long senseGroupId) {
         User user = SecurityContextHelper.validateExistAuthenticatedUser();
         expressionDeletionService.deleteSenseGroupAndRelations(senseGroupId);
+    }
+
+    @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/sense-groups/{senseGroupId}/senses/{senseId}", method = RequestMethod.DELETE)
+    public void deleteSense(@PathVariable Long senseGroupId, @PathVariable Long senseId) {
+        User user = SecurityContextHelper.validateExistAuthenticatedUser();
+        expressionDeletionService.deleteSenseAndRelations(senseGroupId);
+    }
+
+    @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/senses/{senseId}/examples/{exampleId}", method = RequestMethod.DELETE)
+    public void deleteExample(@PathVariable Long senseId, @PathVariable Long exampleId) {
+        User user = SecurityContextHelper.validateExistAuthenticatedUser();
+        expressionDeletionService.deleteExampleAndRelations(exampleId);
     }
 }

@@ -60,17 +60,25 @@ var $r = (function (module) {
             }
         };
         module.findParentPropertyFromChildPaths = function (root, childPaths) {
-            if (childPaths.length == 0) {
-                return null;
-            } else if (childPaths.length == 1) {
-                return PropertyNameAndValue.newRoot(root);
-            } else {
-                return childPaths[childPaths.length - 2];
-            }
+            return module.findSuperPropertyFromRoot(root, childPaths, 1);
         };
         module.findParentPropertyFromRoot = function (root, childValue) {
             var childPaths = module.findChildPaths(root, childValue);
             return module.findParentPropertyFromChildPaths(childPaths);
+        };
+        module.findSuperPropertyFromRoot = function (root, childValue, parentRelativeLevels) {
+            var childPaths = module.findChildPaths(root, childValue);
+            return module.findSuperPropertyFromChildPaths(root, childPaths, parentRelativeLevels);
+        };
+        module.findSuperPropertyFromChildPaths = function (root, childPaths, parentRelativeLevels) {
+            var indexParent = childPaths.length - parentRelativeLevels - 1;
+            if (indexParent < -1) {
+                return null;
+            } else if (indexParent == -1) {
+                return PropertyNameAndValue.newRoot(root);
+            } else {
+                return childPaths[indexParent];
+            }
         };
         module.getPropertyValueFromChildPaths = function (root, childPaths) {
             var propertyValue = root;
