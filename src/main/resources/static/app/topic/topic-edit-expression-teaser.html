@@ -12,7 +12,7 @@
     <div class="body">
         <div ng-repeat="senseGroup in expression.senseGroups  | limitTo: 2"
              class="sense-group">
-            <div class=" lexical-type text-center">{{senseGroup.lexicalType}}</div>
+            <div ng-show="senseGroup.lexicalType" class="lexical-type text-center">{{senseGroup.lexicalType}}</div>
             <div ng-repeat="sense in senseGroup.senses  | limitTo: 2" class="sense">
 
                 <div class="sense-header row">

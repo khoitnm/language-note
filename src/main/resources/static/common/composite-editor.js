@@ -3,6 +3,17 @@ var CompositeEditor = function (skeleton, root, functionsMap) {
     this.root = root;
     this.functionsMap = functionsMap || {};
 };
+CompositeEditor.prototype.addEmptyChildIfNecessary = function (containerPropertyName) {
+    var self = this;
+    var containerPaths = $r.findChildPathsByPropertyName(self.root, containerPropertyName);
+    if (containerPaths.length == 0) {
+        throw new Error('Not found property in root. propertyName: ' + containerPropertyName + ", root:" + self.root);
+    }
+    var containerProperty = containerPaths[containerPaths.length - 1];
+    var childPaths = containerPaths.slice();
+    childPaths.push(new $r.PropertyNameAndValue('0', null));
+    self.addEmptySiblingItemToDirectParentIfNecessary(containerProperty, childPaths);
+};
 CompositeEditor.prototype.changeItem = function (item) {
     var self = this;
     var addingSiblingResult = self.addEmptySiblingItemIfNecessary(item);
@@ -17,7 +28,7 @@ CompositeEditor.prototype.changeItemInList = function (list, index) {
 };
 CompositeEditor.prototype.removeItemInList = function (list, index) {
     var item = list[index];
-    this.removeItem(item);
+    return this.removeItem(item);
 };
 CompositeEditor.prototype.removeItem = function (item) {
     var self = this;
@@ -25,6 +36,7 @@ CompositeEditor.prototype.removeItem = function (item) {
     var childPaths = analyzeChildAndParentResult.childPaths;
     var parentProperty = analyzeChildAndParentResult.parentProperty;
     self.removeItemByParentProperty(childPaths, parentProperty, item);
+    return childPaths;
 };
 CompositeEditor.prototype.cleanRecursiveItem = function (item) {
     var self = this;
@@ -46,7 +58,7 @@ CompositeEditor.prototype.removeItemByParentProperty = function (childPaths, par
     var parent = parentProperty.propertyValue;
     parent.remove(item);
     var injectedFunction = self.getInjectFnRemoveItem(parentProperty.propertyName);
-    injectedFunction.call(self, item);
+    injectedFunction.call(self, item, childPaths);
     self.addEmptySiblingItemToDirectParentIfNecessary(parentProperty, childPaths);
 };
 CompositeEditor.prototype.addEmptySiblingItemIfNecessary = function (item) {
@@ -54,7 +66,6 @@ CompositeEditor.prototype.addEmptySiblingItemIfNecessary = function (item) {
     var analyzeChildAndParentResult = self.analyzeChildAndParentPaths(item);
     var childPaths = analyzeChildAndParentResult.childPaths;
     var parentProperty = analyzeChildAndParentResult.parentProperty;
-    //var parent = analyzeChildAndParentResult.parentProperty.propertyValue;//parent is an array containing children items.
     var itemSkeleton = self.addEmptySiblingItemToDirectParentIfNecessary(parentProperty, childPaths);
     return {childPaths: childPaths, parentProperty: parentProperty, itemSkeleton: itemSkeleton};
 };
@@ -63,7 +74,7 @@ CompositeEditor.prototype.analyzeChildAndParentPaths = function (item) {
     var childPaths = $r.findChildPaths(self.root, item);
     var parentProperty = $r.findParentPropertyFromChildPaths(self.root, childPaths);
     if (parentProperty == null || childPaths.length == 0) {
-        throw "Not found item from root. Root: " + self.root + ", Item: " + item;
+        throw new Error("Not found item from root. Root: " + self.root + ", Item: " + item);
     }
     return {childPaths: childPaths, parentProperty: parentProperty};
 };

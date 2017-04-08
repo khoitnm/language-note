@@ -31,9 +31,11 @@ TopicEditService.prototype.init = function () {
                 function (item) {
                     return !hasValue(item) || isBlank(item.text);
                 }
-                , function (item) {
+                , function (item, childPaths) {
+                    var superProperty = $r.findSuperPropertyFromChildPaths(self.topic, childPaths, 2);
+                    var superId = superProperty.propertyValue.id;
                     self.$http({
-                        url: contextPath + "/api/topics/" + topic.id + "/expressions/" + item.id,
+                        url: contextPath + "/api/topics/" + superId + "/expressions/" + item.id,
                         method: 'DELETE',
                         headers: {"Content-Type": "application/json;charset=utf-8"}
                     }).then(function () {
@@ -44,8 +46,8 @@ TopicEditService.prototype.init = function () {
                 function (item) {
                     return !hasValue(item) || isBlank(item.lexicalType);
                 }
-                , function (item) {
-                    var superProperty = $r.findSuperPropertyFromRoot(self.topic, item, 2);
+                , function (item, childPaths) {
+                    var superProperty = $r.findSuperPropertyFromChildPaths(self.topic, childPaths, 2);
                     var superId = superProperty.propertyValue.id;
                     self.$http({
                         url: contextPath + "/api/expressions/" + superId + "/senseGroups/" + item.id,
@@ -59,8 +61,8 @@ TopicEditService.prototype.init = function () {
                 function (item) {
                     return !hasValue(item) || (isBlank(item.explanation) && isBlank(item.shortExplanation));
                 }
-                , function (item) {
-                    var superProperty = $r.findSuperPropertyFromRoot(self.topic, item, 2);
+                , function (item, childPaths) {
+                    var superProperty = $r.findSuperPropertyFromChildPaths(self.topic, childPaths, 2);
                     var superId = superProperty.propertyValue.id;
                     self.$http({
                         url: contextPath + "/api/senseGroups/" + superId + "/senses/" + item.id,
@@ -74,8 +76,9 @@ TopicEditService.prototype.init = function () {
                 function (item) {
                     return !hasValue(item) || isBlank(item.text);
                 }
-                , function (item) {
-                    var superProperty = $r.findSuperPropertyFromRoot(self.topic, item, 2);
+                //Remove Item
+                , function (item, childPaths) {
+                    var superProperty = $r.findSuperPropertyFromChildPaths(self.topic, childPaths, 2);
                     var superId = superProperty.propertyValue.id;
                     self.$http({
                         url: contextPath + "/api/senses/" + superId + "/examples/" + item.id,
@@ -86,6 +89,7 @@ TopicEditService.prototype.init = function () {
                 }
             )
         });
+        self.topicCompositionEditor.addEmptyChildIfNecessary('expressions');
     });
 };
 TopicEditService.prototype.initUploader = function () {

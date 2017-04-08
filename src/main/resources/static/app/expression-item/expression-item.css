@@ -41,7 +41,12 @@
 .input-as-text {
     font-size: inherit;
     line-height: inherit;
+    background: transparent;
 }
+.input-as-text:hover {
+    border-bottom: 1px dotted #ECF0F1;
+}
+
 
 .table-input-as-text ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     color: #ECF0F1;
@@ -57,6 +62,7 @@
     border-style: dotted;
     border-color: #ECF0F1 #ECF0F1 #F1F1F1 #F7F7F7;
 }
+
 
 .table-input-as-text input:focus, .table-input-as-text textarea:focus, .input-as-text:focus {
     padding: 1px 0px 0px 0px; /* The bottom has border, so it doesn't need padding anymore*/

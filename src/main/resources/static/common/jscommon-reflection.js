@@ -40,6 +40,33 @@ var $r = (function (module) {
             }
             return result;
         };
+        /**
+         * This method is similar to findChildPaths, only difference is the comparator
+         * @param root
+         * @param propertyName
+         * @returns {Array}
+         */
+        module.findChildPathsByPropertyName = function (root, propertyName) {
+            var result = [];
+            for (var ipropertyName in root) {
+                var ipropertyValue = root[ipropertyName];
+                var resultPart = new PropertyNameAndValue(ipropertyName, ipropertyValue);
+                if (ipropertyName == propertyName) {
+                    result.push(resultPart);
+                    break;
+                } else {
+                    if (hasValue(ipropertyValue) && module.isObject(ipropertyValue)) {
+                        var findResultInChildren = module.findChildPathsByPropertyName(ipropertyValue, propertyName);
+                        if (findResultInChildren.length > 0) {
+                            result.push(resultPart);
+                            result = result.concat(findResultInChildren);
+                        }
+                    }
+                }
+
+            }
+            return result;
+        };
         module.removeChild = function (root, childValue) {
             var childPaths = module.findChildPaths(root, childValue);
             var parentProperty = module.findParentPropertyFromChildPaths(root, childPaths);
@@ -60,7 +87,7 @@ var $r = (function (module) {
             }
         };
         module.findParentPropertyFromChildPaths = function (root, childPaths) {
-            return module.findSuperPropertyFromRoot(root, childPaths, 1);
+            return module.findSuperPropertyFromChildPaths(root, childPaths, 1);
         };
         module.findParentPropertyFromRoot = function (root, childValue) {
             var childPaths = module.findChildPaths(root, childValue);
@@ -80,6 +107,7 @@ var $r = (function (module) {
                 return childPaths[indexParent];
             }
         };
+
         module.getPropertyValueFromChildPaths = function (root, childPaths) {
             var propertyValue = root;
             for (var i = 0; i < childPaths.length; i++) {
