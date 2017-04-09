@@ -10,6 +10,13 @@ CompositeEditor.prototype.addEmptyChildIfNecessary = function (containerProperty
         throw new Error('Not found property in root. propertyName: ' + containerPropertyName + ", root:" + self.root);
     }
     var containerProperty = containerPaths[containerPaths.length - 1];
+    var containerValue = containerProperty.propertyValue;
+    if (!hasValue(containerValue)) {
+        var containerParent = containerPaths.length >= 2 ? containerPaths[containerPaths.length - 2].propertyValue : self.root;
+        containerParent[containerPropertyName] = [];
+        containerPaths = $r.findChildPathsByPropertyName(self.root, containerPropertyName);
+        containerProperty = containerPaths[containerPaths.length - 1]
+    }
     var childPaths = containerPaths.slice();
     childPaths.push(new $r.PropertyNameAndValue('0', null));
     self.addEmptySiblingItemToDirectParentIfNecessary(containerProperty, childPaths);
@@ -139,6 +146,7 @@ CompositeEditor.prototype.hasEmptyItem = function (parentProperty) {
 };
 CompositeEditor.prototype.findEmptyItem = function (parentProperty) {
     var items = parentProperty.propertyValue;
+    if (!hasValue(items)) return null;
     var self = this;
     for (var i = 0; i < items.length; i++) {
         var iItem = items[i];

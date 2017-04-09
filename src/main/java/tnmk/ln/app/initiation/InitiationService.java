@@ -28,13 +28,13 @@ public class InitiationService {
 
     @PostConstruct
     public void initAdminUser() {
-        User user = userService.findByUsername("admin");
+        User user = userService.findByUsername(UserService.USERNAME_ADMIN);
         if (user == null) {
             //TODO I know it's absolutely not secured.
             user = new User();
             user.setUsername(UserService.USERNAME_ADMIN);
             user.setEmail("khoi.tnm@gmail.com");
-            user.setPassword("password");
+            user.setPassword("superuser");
             user.setRoles(Arrays.asList("ADMIN"));
             userService.registerUser(user);
         }

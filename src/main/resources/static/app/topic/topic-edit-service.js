@@ -200,6 +200,7 @@ TopicEditService.prototype.saveTopic = function () {
     self.topicCompositionEditor.cleanRecursiveRoot();
     self.$http.post(contextPath + '/api/topic-composites', self.topic).then(
         function (successResponse) {
+            //Update id of topic and composites fields.
             self.topic = successResponse.data;
             self.topicCompositionEditor.root = self.topic;
         }

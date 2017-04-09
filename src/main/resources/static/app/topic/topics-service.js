@@ -29,6 +29,7 @@ TopicsService.prototype.removeTopic = function (item) {
 };
 TopicsService.prototype.rename = function (item) {
     var self = this;
+    if (!hasValue(item.id)) return;
     self.$http.put(contextPath + '/api/topics/name', item).then(
         function (successResponse) {
             //self.setLesson(successResponse.data);

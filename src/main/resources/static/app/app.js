@@ -5,7 +5,7 @@ var angularApp = angular.module('myApp', [
     'ngSanitize'
     , 'ngResource'
     //,'file-model'
-    , 'ngStorage'
+    //, 'ngStorage'
     , 'ngRoute'
 
     , 'ngCookies'
@@ -29,8 +29,8 @@ var angularApp = angular.module('myApp', [
     //'ui.bootstrap',
     //'ngMask'
 ]);
-angularApp.run(function ($localStorage) {
-    if (isNotBlank(window.ACCESS_TOKEN)) {
-        $localStorage.token = window.ACCESS_TOKEN;
-    }
-});
+//angularApp.run(function ($localStorage) {
+//    if (isNotBlank(window.ACCESS_TOKEN)) {
+//        $localStorage.token = window.ACCESS_TOKEN;
+//    }
+//});

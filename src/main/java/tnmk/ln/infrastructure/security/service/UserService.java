@@ -12,7 +12,7 @@ import tnmk.ln.infrastructure.security.neo4j.entity.User;
  */
 @Service
 public class UserService {
-    public static final String USERNAME_ADMIN = "admin";
+    public static final String USERNAME_ADMIN = "superuser";
     @Autowired
     private UserRepository userRepository;
 
