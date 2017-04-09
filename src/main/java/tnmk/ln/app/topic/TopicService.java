@@ -30,21 +30,6 @@ public class TopicService {
     @Autowired
     private CategoryService categoryService;
 
-    @Transactional
-    public Topic saveTopicAndRelations(User user, Topic topic) {
-        topic.setOwner(user);
-        Set<Expression> expressionSet = topic.getExpressions();
-        categoryService.saveIfNecessaryByTextAndOwner(user, topic.getCategories());
-        if (expressionSet != null) {
-            expressionSet.stream().forEach(expression -> expression.setOwner(user));
-        }
-        topic = topicRepository.save(topic);
-        if (expressionSet != null) {
-            expressionSet.stream().forEach(expression -> questionService.createQuestionsIfNotExist(expression));
-        }
-        return topic;
-    }
-
     public Topic findOneById(Long topicId) {
         return topicRepository.findOne(topicId, 2);
     }
@@ -57,34 +42,17 @@ public class TopicService {
         return IterableUtil.toList(topicRepository.findAll());
     }
 
-    /**
-     * @param expressionEditor
-     * @param topicId
-     * @param expression       if expression is new, it will be sent. Otherwise, it will be updated.
-     */
-    @Transactional
-    public void addExpressionToTopic(User expressionEditor, Long topicId, Expression expression) {
-        boolean isNewExpression = expression.getId() == null;
-        Topic topic = new Topic();
-        topic.setId(topicId);
-        topic.setExpressions(SetUtil.constructSet(expression));
-        expression.setOwner(expressionEditor);
-        topicRepository.save(topic);
-        if (isNewExpression) {
-            questionService.createQuestions(expression);
-        }
-    }
-
     public Topic findOneByTitle(Long userId, String title) {
         return topicDetailRepository.findOneByTitleAndOwner(userId, title);
     }
 
     public Topic findDetailById(Long topicId) {
+        //TODO must avoid cycling relationship.
         return topicDetailRepository.findOneDetailById(topicId);
     }
 
     public List<Topic> getTopicBriefsByOwner(User user) {
-        List<Topic> topics = topicDetailRepository.findByOwner(user.getId(), 2);
+        List<Topic> topics = topicDetailRepository.findByOwner(user.getId(), 1);
 //        topics.stream().forEach(topic -> limitExpressionInTopics(topic, 4));
         return topics;
     }
@@ -97,5 +65,10 @@ public class TopicService {
     @Transactional
     public void rename(Topic topic) {
         topicRepository.save(topic);
+    }
+
+    public Topic saveTopic(User user, Topic topic) {
+        topic.setOwner(user);
+        return topicRepository.save(topic, 2);
     }
 }

@@ -3,10 +3,7 @@ package tnmk.ln.app.dictionary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import tnmk.ln.app.dictionary.entity.Example;
 import tnmk.ln.app.dictionary.entity.Expression;
-import tnmk.ln.app.dictionary.entity.Sense;
-import tnmk.ln.app.dictionary.entity.SenseGroup;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
 
 /**
@@ -39,18 +36,6 @@ public class ExpressionService {
 //        return expressionRepository.save(expression);
     }
 
-    @Transactional
-    public void updateCascade(Expression expression) {
-        //TODO should remove old lexical entries which are not related to this expression anymore.
-//        expressionUpdateRepository.setPropertiesAndRelationshipsCascade(expression);
-//        return expressionRepository.save(expression);
-    }
-
-    @Transactional
-    public void detachExpressionDefinition(Expression expression) {
-//        expressionUpdateRepository.removeRelationships(expression);
-    }
-
     public Expression findById(long expressionId) {
         return expressionRepository.findOne(expressionId);
     }
@@ -66,6 +51,16 @@ public class ExpressionService {
 
     public Expression findDetailById(long expressionId) {
         return expressionDetailRepository.findOneDetailById(expressionId);
+    }
+
+    public Expression findOneDetailByText(String text) {
+        String trimmedText = text.trim().toLowerCase();
+        return expressionDetailRepository.findOneDetailByText(trimmedText);
+    }
+
+    public Expression findOneBriefByText(String text) {
+        String trimmedText = text.trim().toLowerCase();
+        return expressionDetailRepository.findOneBriefByText(trimmedText);
     }
 //
 //    public void deleteExpressionWithItsSensesAndExamples(Expression expression) {

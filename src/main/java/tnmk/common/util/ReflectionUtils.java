@@ -20,6 +20,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 /**
  * @author khoi.tran on 2/28/17.
@@ -30,6 +31,10 @@ public class ReflectionUtils {
         org.springframework.data.util.ReflectionUtils.AnnotationFieldFilter annotationFieldFilter = new org.springframework.data.util.ReflectionUtils.AnnotationFieldFilter(annotationClass);
         return org.springframework.data.util.ReflectionUtils.findField(clazz, annotationFieldFilter);
     }
+
+//    public PropertyDescriptor getPropertyDescriptor(Class<?> clazz, String fieldName) {
+//        return BeanUtils.getPropertyDescriptor(clazz, fieldName);
+//    }
 
     public static <A extends Annotation> List<PropertyDescriptor> findPropertyDescriptorsByAnnotationType(Class<?> clazz, Class<A> annotationClass) {
         List<PropertyDescriptor> result = new ArrayList<>();
@@ -115,10 +120,22 @@ public class ReflectionUtils {
     }
 
     public static boolean isWrapperClass(Class<?> entityClass) {
-        boolean result = (Iterable.class.isAssignableFrom(entityClass)
-                || Map.class.isAssignableFrom(entityClass)
-                || Array.class.isAssignableFrom(entityClass));
+        boolean result = (isIterable(entityClass)
+                || isMap(entityClass)
+                || isArray(entityClass));
         return result;
+    }
+
+    public static boolean isArray(Class<?> entityClass) {
+        return Array.class.isAssignableFrom(entityClass);
+    }
+
+    public static boolean isMap(Class<?> entityClass) {
+        return Map.class.isAssignableFrom(entityClass);
+    }
+
+    public static boolean isIterable(Class<?> entityClass) {
+        return Iterable.class.isAssignableFrom(entityClass);
     }
 
     public static List<Class<?>> getParameterClasses(Field field) {
@@ -159,5 +176,37 @@ public class ReflectionUtils {
         }
 
         return result;
+    }
+
+    //TODO not finished yet.
+    public void traverseEntity(Object entity, Function<FieldDeclaration, Boolean> acceptFilter, Function action) {
+        if (entity == null) return;
+        Class<?> clazz = entity.getClass();
+        if (isArray(clazz)) {
+
+        } else if (isIterable(clazz)) {
+
+        } else if (isMap(clazz)) {
+
+        } else {
+            List<Field> fields = getDeclaredFieldsIncludeSuperClasses(clazz);
+            for (Field field : fields) {
+                Object fieldValue = readProperty(entity, field.getName());
+                if (!acceptFilter.apply(new FieldDeclaration(entity, field, fieldValue))) continue;
+
+            }
+        }
+    }
+
+    public static class FieldDeclaration {
+        private Field field;
+        private Object fieldValue;
+        private Object parent;
+
+        public FieldDeclaration(Object parent, Field field, Object fieldValue) {
+            this.field = field;
+            this.fieldValue = fieldValue;
+            this.parent = parent;
+        }
     }
 }

@@ -1,44 +1,59 @@
-<div class="expression-teaser">
-    <div class="header">
-        <div class="pull-left">
-            <button ng-click="topicEditService.modeEdit(expression)" class="btn btn-xs btn-success"><i class="fa fa-edit"></i></button>
-        </div>
-        <div class="pull-left" style="width: 70%"><input ng-model="expression.text" class="input-as-text"/></div>
-        <div class="pull-right">
-            <i class="fa fa-remove"></i>
-        </div>
-        <div class="clearfix"></div>
-    </div>
-    <div class="body">
-        <div ng-repeat="senseGroup in expression.senseGroups  | limitTo: 2"
-             class="sense-group">
-            <div ng-show="senseGroup.lexicalType" class="lexical-type text-center">{{senseGroup.lexicalType}}</div>
-            <div ng-repeat="sense in senseGroup.senses  | limitTo: 2" class="sense">
+<div class="col-md-12">
 
-                <div class="sense-header row">
-                    <div class="col-md-12 explanation">{{sense.shortExplanation || sense.explanation}}</div>
+    <div class="expression-teaser row">
+        <div class="col-md-12">
+            <div class="header row">
+                <div class="pull-left">
+                    <button ng-click="topicEditService.modeEdit(expression)" class="btn btn-xs btn-success"><i class="fa fa-edit"></i></button>
                 </div>
-                <div class="image-border" ng-if="sense.photos && sense.photos.length > 0 && sense.photos[0].fileItemId">
-                    <img class="sense-image image-content" ng-src="{{contextPath + '/api/files/'+sense.photos[0].fileItemId}}"/>
+                <div class="pull-left" style="width: 70%">
+                    <input ng-model="expression.text"
+                           ng-blur="topicEditService.lookUpExpression(expression)"
+                           class="input-as-text"/>
                 </div>
-                <div class="sense-explanation row" ng-show="sense.shortExplanation">
-                    <div class="col-md-12">
-                        {{sense.explanation}}
-                    </div>
+                <div class="pull-right">
+                    <i class="fa fa-remove"></i>
                 </div>
-                <div class="sense-example row">
-                    <div ng-repeat="example in sense.examples | limitTo: 2" class="col-md-12">
-                        {{example.text}}
+                <div class="clearfix"></div>
+            </div>
+            <div class="body row">
+                <div class="col-md-12">
+                    <div ng-repeat="senseGroup in expression.senseGroups  | limitTo: 2"
+                         class="sense-group row">
+                        <div class="col-md-12">
+                            <div ng-show="senseGroup.lexicalType" class="lexical-type text-center row">{{senseGroup.lexicalType}}</div>
+                            <div ng-repeat="sense in senseGroup.senses  | limitTo: 2" class="sense row">
+                                <div class="col-md-12">
+                                    <div class="sense-header row">
+                                        <div class="col-md-12 explanation">{{sense.shortExplanation || sense.explanation}}</div>
+                                    </div>
+                                    <div class="image-border row" ng-if="sense.mainPhoto.fileItemId">
+                                        <img class="sense-image image-content" ng-src="{{contextPath + '/api/files/'+sense.mainPhoto.fileItemId}}"/>
+                                    </div>
+                                    <div class="sense-explanation row" ng-show="sense.shortExplanation">
+                                        <div class="col-md-12">
+                                            {{sense.explanation}}
+                                        </div>
+                                    </div>
+                                    <div class="sense-example row">
+                                        <div ng-repeat="example in sense.examples | limitTo: 2" class="col-md-12">
+                                            {{example.text}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="footer row text-center">
+                <div class="col-md-12">
+                    <a href="" ng-click="topicEditService.modeEdit(expression)" class="more">
+                        <i class="fa fa-chevron-down"></i>
+                    </a>
+                </div>
+            </div>
         </div>
+    </div>
 
-    </div>
-    <div class="footer text-center">
-        <a href="" ng-click="topicEditService.modeEdit(expression)" class="more">
-            <i class="fa fa-chevron-down"></i>
-        </a>
-    </div>
 </div>
-

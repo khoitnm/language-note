@@ -5,7 +5,9 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.neo4j.ogm.annotation.Index;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
+import org.neo4j.ogm.annotation.Transient;
 import tnmk.ln.app.common.entity.BaseNeo4jEntity;
+import tnmk.ln.app.common.entity.Cleanable;
 import tnmk.ln.app.common.entity.Possession;
 import tnmk.ln.app.dictionary.LexicalEntryUtils;
 import tnmk.ln.app.digitalasset.entity.DigitalAsset;
@@ -19,7 +21,7 @@ import java.util.List;
  * @author khoi.tran on 2/18/17.
  */
 @NodeEntity(label = "Expression")
-public class Expression extends BaseNeo4jEntity implements Possession {
+public class Expression extends BaseNeo4jEntity implements Possession, Cleanable {
     public static final String HAS_LEXICAL_ENTRIES = "HAS_LEXICAL_ENTRIES";
     public static final String HAS_SENSE_GROUPS = "HAS_SENSE_GROUPS";
     public static final String HAS_MAIN_AUDIO = "HAS_MAIN_AUDIO";
@@ -29,7 +31,7 @@ public class Expression extends BaseNeo4jEntity implements Possession {
     public static final String HAS_IMAGES = "HAS_IMAGES";
     public static final String IS_SYNONYMOUS_WITH = "IS_SYNONYMOUS_WITH";
     public static final String IS_ANTONYMOUS_WITH = "IS_ANTONYMOUS_WITH";
-    public static final String RELATE_TO = "RELATE_TO";
+    public static final String FAMILY_WITH = "FAMILY_WITH";
     public static final String OWN_EXPRESSION = "OWN_EXPRESSION";
     public static final String EXPRESSION_IN_LOCALE = "EXPRESSION_IN_LOCALE";
 
@@ -75,19 +77,19 @@ public class Expression extends BaseNeo4jEntity implements Possession {
 //    private List<DigitalAsset> images;
 
     // RELATIONSHIPS //////////////////////////////////////////////////////////////
-    @DetailLoading
+//    @DetailLoading
     @CascadeRelationship
     @Relationship(type = IS_SYNONYMOUS_WITH, direction = Relationship.UNDIRECTED)
     private List<Expression> synonyms;
 
-    @DetailLoading
+    //    @DetailLoading
     @CascadeRelationship
     @Relationship(type = IS_ANTONYMOUS_WITH, direction = Relationship.UNDIRECTED)
     private List<Expression> antonyms;
 
     @DetailLoading
     @CascadeRelationship
-    @Relationship(type = RELATE_TO, direction = Relationship.UNDIRECTED)
+    @Relationship(type = FAMILY_WITH, direction = Relationship.UNDIRECTED)
     private List<Expression> family;
 
     // PARENT RELATIONSHIPS //////////////////////////////////////////////////////////////
@@ -95,12 +97,18 @@ public class Expression extends BaseNeo4jEntity implements Possession {
      * I use OUTGOING relationship here because I don't want the {@link User} object is concerned with Expression.
      * The {@link User} should be concerned with Security matters only.
      */
+    @DetailLoading
     @Relationship(type = OWN_EXPRESSION, direction = Relationship.INCOMING)
     private User owner;
 
     //Just for convenient query
 //    @Relationship(type = ExpressionPracticeResult.RESULT_OF_EXPRESSION, direction = Relationship.INCOMING)
 //    private ExpressionPracticeResult expressionPracticeResult;
+    @Transient
+    @Override
+    public boolean isEmpty() {
+        return StringUtils.isBlank(this.text);
+    }
 
     public void setLexicalEntries(List<LexicalEntry> lexicalEntries) {
         this.lexicalEntries = lexicalEntries;

@@ -10,11 +10,13 @@ import java.lang.annotation.Target;
 
 /**
  * @author khoi.tran on 3/1/17.
+ * @deprecated this annotation is used for update or delete cascade. However, it's too complicated to do that. It has no effected now.
  */
 @Target({ ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Component
+@Deprecated
 public @interface CascadeRelationship {
     String value() default "";
 }

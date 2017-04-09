@@ -122,6 +122,12 @@ var $r = (function (module) {
             }
             return dest;
         };
+        /**
+         * Copy the properties which are missing from destination.
+         * @param source
+         * @param dest
+         * @returns {*}
+         */
         module.copyMissingProperties = function (source, dest) {
             for (var field in source) {//includes inherited fields
                 var destFieldValue = dest[field];
@@ -135,8 +141,10 @@ var $r = (function (module) {
             return $.isNumeric(value);
         };
         module.isObject = function (value) {
+            if (!hasValue(value)) return false;
             return (typeof(value) === 'object');
         };
+        module.isArray = Array.isArray;
         return module;
     }($r || {})
 );

@@ -3,6 +3,7 @@ package tnmk.ln.app.dictionary.entity;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 import tnmk.ln.app.common.entity.BaseNeo4jEntity;
+import tnmk.ln.app.common.entity.Cleanable;
 import tnmk.ln.infrastructure.data.neo4j.annotation.CascadeRelationship;
 import tnmk.ln.infrastructure.data.neo4j.annotation.DetailLoading;
 
@@ -14,7 +15,7 @@ import java.util.Set;
  * @author khoi.tran on 2/27/17.
  */
 @NodeEntity(label = "SenseGroup")
-public class SenseGroup extends BaseNeo4jEntity {
+public class SenseGroup extends BaseNeo4jEntity implements Cleanable {
     public static final String HAS_SENSES = "HAS_SENSES";
 
     private LexicalType lexicalType;
@@ -23,6 +24,11 @@ public class SenseGroup extends BaseNeo4jEntity {
     @CascadeRelationship
     @Relationship(type = HAS_SENSES, direction = Relationship.OUTGOING)
     private Set<Sense> senses;
+
+    @Override
+    public boolean isEmpty() {
+        return lexicalType == null;
+    }
 
     @Override
     public String toString() {

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import tnmk.ln.app.aggregation.TopicCompositeService;
 import tnmk.ln.app.aggregation.TopicDeletionService;
 import tnmk.ln.app.common.entity.UriPrefixConstants;
 import tnmk.ln.app.topic.entity.Topic;
@@ -24,6 +25,9 @@ public class TopicResource {
 
     @Autowired
     TopicDeletionService topicDeletionService;
+
+    @Autowired
+    TopicCompositeService topicCompositeService;
 
     @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/topics/construct", method = RequestMethod.GET)
     public Topic construct() {
@@ -49,9 +53,9 @@ public class TopicResource {
     }
 
     @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/topics", method = RequestMethod.POST)
-    public Topic save(@RequestBody Topic topic) {
+    public Topic saveOnlyTopic(@RequestBody Topic topic) {
         User user = SecurityContextHelper.validateExistAuthenticatedUser();
-        return topicService.saveTopicAndRelations(user, topic);
+        return topicService.saveTopic(user, topic);
     }
 
     @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/topics", method = RequestMethod.DELETE)

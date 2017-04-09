@@ -53,9 +53,15 @@ public class ExpressionDeletionService {
         questionDetailRepository.removeQuestionsAndCompositionsRelatedToSense(senseId);
         expressionDetailRepository.removeSenseAndCompositions(senseId);
     }
+
     @Transactional
     void deleteExampleAndRelations(long exampleId) {
         questionDetailRepository.removeQuestionsAndCompositionsRelatedToExample(exampleId);
         expressionDetailRepository.removeExampleAndCompositions(exampleId);
+    }
+
+    @Transactional
+    public void deletePhotoAndRelations(Long photoId) {
+        expressionDetailRepository.detachPhotoFromSense(photoId);
     }
 }

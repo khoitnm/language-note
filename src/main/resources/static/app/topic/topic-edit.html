@@ -1,4 +1,8 @@
 <style>
+    .expression-item {
+        padding: 0px 5px;
+    }
+
     .expression-teaser {
         min-height: 20px;
         margin-bottom: 20px;
@@ -356,11 +360,12 @@
                 <div class="ln_solid"></div>
 
                 <!-- Topic Detail -->
-                <div class="text-danger alert alert-danger" ng-show="userMessage">
-                    {{userMessage}}
+                <div class="text-danger alert alert-danger" ng-show="unexpectedMessage">
+                    {{unexpectedMessage}}
                 </div>
-                <div class="row" ng-include="contextPath + '/app/expression/expression-edit.html'"></div>
-                <div class="ln_solid"></div>
+                <div class="text-danger alert alert-danger" ng-show="userErrorMessage">
+                    {{userErrorMessage}}
+                </div>
 
                 <div class="row" ng-include="contextPath + '/app/topic/topic-edit-expressions.html'"></div>
                 <div class="ln_solid"></div>
@@ -373,6 +378,10 @@
                                 type="submit" class="btn btn-success"
                                 title="Ctrl+S, Command+S">
                             Save
+                        </button>
+
+                        <button ng-click="topicEditService.cleanTopic()" type="submit" class="btn btn-success">
+                            Clean up topic
                         </button>
                     </div>
                 </div>

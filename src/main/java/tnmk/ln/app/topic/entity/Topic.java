@@ -1,8 +1,11 @@
 package tnmk.ln.app.topic.entity;
 
+import org.apache.commons.lang3.StringUtils;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
+import org.neo4j.ogm.annotation.Transient;
 import tnmk.ln.app.common.entity.BaseNeo4jEntity;
+import tnmk.ln.app.common.entity.Cleanable;
 import tnmk.ln.app.common.entity.Possession;
 import tnmk.ln.app.dictionary.entity.Expression;
 import tnmk.ln.app.dictionary.entity.Locale;
@@ -15,7 +18,7 @@ import java.util.Set;
  * @author khoi.tran on 2/25/17.
  */
 @NodeEntity(label = "Topic")
-public class Topic extends BaseNeo4jEntity implements Possession {
+public class Topic extends BaseNeo4jEntity implements Possession, Cleanable {
     public static final String HAS_EXPRESSION = "HAS_EXPRESSION";
     public static final String RELATE_TO_CATEGORY = "RELATE_TO_CATEGORY";
     public static final String TOPIC_IN_LOCALE = "TOPIC_IN_LOCALE";
@@ -54,6 +57,12 @@ public class Topic extends BaseNeo4jEntity implements Possession {
     @Override
     public String toString() {
         return String.format("Topic{%s, %s}", super.getId(), title);
+    }
+
+    @Transient
+    @Override
+    public boolean isEmpty() {
+        return StringUtils.isBlank(this.title);
     }
 
     @Override
@@ -104,4 +113,6 @@ public class Topic extends BaseNeo4jEntity implements Possession {
     public void setNoteAsHtml(String noteAsHtml) {
         this.noteAsHtml = noteAsHtml;
     }
+
+
 }

@@ -27,6 +27,9 @@ angularApp.directive('capitalize', function () {
         }
     };
 });
+/**
+ * This directive is used along with angular-file-upload
+ */
 angularApp.directive('ngThumb', ['$window', function ($window) {
     var helper = {
         support: !!($window.FileReader && $window.CanvasRenderingContext2D),

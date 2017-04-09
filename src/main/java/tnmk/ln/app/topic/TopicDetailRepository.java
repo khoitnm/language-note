@@ -41,8 +41,20 @@ public class TopicDetailRepository {
         return neo4jRepository.queryForObject(Topic.class, queryString, title, ownerId);
     }
 
+    /**
+     * NOTE: when changing any thing in expression, should recheck the query here.
+     *
+     * @param topicId
+     * @return
+     */
     public Topic findOneDetailById(long topicId) {
-        return neo4jRepository.queryOneDetail(Topic.class, topicId);
+        String queryString = " MATCH (n) WHERE ID(n) = {p0} "
+                + " WITH n "
+                + " MATCH p=(n)-[:HAS_VIDEOS | :HAS_LEXICAL_ENTRIES | :HAS_SENSES | :HAS_SENSE_GROUPS | :HAS_EXAMPLE | :OWN_EXPRESSION | :EXPRESSION_IN_LOCALE | :OWN_CATEGORY | :HAS_AUDIOS | :RELATE_TO_CATEGORY"
+                + " | :HAS_MAIN_AUDIO | :LIKE | :TOPIC_IN_LOCALE | :HAS_EXPRESSION | :OWN_TOPIC | :SENSE_HAS_MAIN_PHOTO | :HAS_PHOTOS*0..5]-(m)"
+//                + "-[r:IS_SYNONYMOUS_WITH | :IS_ANTONYMOUS_WITH | :FAMILY_WITH *0..1]->(l) "
+                + " RETURN p ";
+        return neo4jRepository.queryForObject(Topic.class, queryString, topicId);
     }
 
     //TODO should remove digital asset???

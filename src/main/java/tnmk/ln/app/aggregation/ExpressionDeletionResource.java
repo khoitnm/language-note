@@ -35,4 +35,10 @@ public class ExpressionDeletionResource {
         User user = SecurityContextHelper.validateExistAuthenticatedUser();
         expressionDeletionService.deleteExampleAndRelations(exampleId);
     }
+
+    @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/senses/{senseId}/photo/{itemId}/detach", method = RequestMethod.DELETE)
+    public void deletePhotoFromSense(@PathVariable Long senseId, @PathVariable Long itemId) {
+        User user = SecurityContextHelper.validateExistAuthenticatedUser();
+        expressionDeletionService.deletePhotoAndRelations(itemId);
+    }
 }

@@ -4,7 +4,10 @@ package tnmk.ln.app.practice.entity.result;
 
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
+import org.neo4j.ogm.annotation.Transient;
+import org.thymeleaf.util.ListUtils;
 import tnmk.ln.app.common.entity.BaseNeo4jEntity;
+import tnmk.ln.app.common.entity.Cleanable;
 import tnmk.ln.app.common.entity.Possession;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
 
@@ -14,7 +17,7 @@ import java.util.List;
  * @author khoi.tran on 2/26/17.
  */
 @NodeEntity(label = "PracticeResult")
-public abstract class BasePracticeResult extends BaseNeo4jEntity implements Possession {
+public abstract class BasePracticeResult extends BaseNeo4jEntity implements Possession, Cleanable {
     public static final String PRACTICE = "PRACTICE";
 
     @Relationship(type = PRACTICE, direction = Relationship.INCOMING)
@@ -25,6 +28,12 @@ public abstract class BasePracticeResult extends BaseNeo4jEntity implements Poss
      * We use sum, not use average because 0.9/1 means that expression was tested only one time, while (0.9 + 0.1)/2 means that expression was tested two times. So we still prioritize for the expression with least testing times first.
      */
     private double sumLatestAnswerPoint;
+
+    @Transient
+    @Override
+    public boolean isEmpty() {
+        return ListUtils.isEmpty(answers);
+    }
 
     @Override
     public User getOwner() {

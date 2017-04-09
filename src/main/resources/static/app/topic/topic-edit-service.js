@@ -10,8 +10,9 @@ var TopicEditService = function ($rootScope, $http, $q, $routeParams, hotkeys, F
     this.topicCompositionEditor;
     this.topicComposite;
     this.init();
+    CommonService.call(this);
 };
-
+inherit(CommonService, TopicEditService);
 TopicEditService.prototype.init = function () {
     var self = this;
     var topicId = self.$routeParams.topicId;
@@ -32,6 +33,7 @@ TopicEditService.prototype.init = function () {
                     return !hasValue(item) || isBlank(item.text);
                 }
                 , function (item, childPaths) {
+                    if (!hasValue(item.id)) return;
                     var superProperty = $r.findSuperPropertyFromChildPaths(self.topic, childPaths, 2);
                     var superId = superProperty.propertyValue.id;
                     self.$http({
@@ -47,6 +49,7 @@ TopicEditService.prototype.init = function () {
                     return !hasValue(item) || isBlank(item.lexicalType);
                 }
                 , function (item, childPaths) {
+                    if (!hasValue(item.id)) return;
                     var superProperty = $r.findSuperPropertyFromChildPaths(self.topic, childPaths, 2);
                     var superId = superProperty.propertyValue.id;
                     self.$http({
@@ -62,10 +65,28 @@ TopicEditService.prototype.init = function () {
                     return !hasValue(item) || (isBlank(item.explanation) && isBlank(item.shortExplanation));
                 }
                 , function (item, childPaths) {
+                    if (!hasValue(item.id)) return;
                     var superProperty = $r.findSuperPropertyFromChildPaths(self.topic, childPaths, 2);
                     var superId = superProperty.propertyValue.id;
                     self.$http({
                         url: contextPath + "/api/senseGroups/" + superId + "/senses/" + item.id,
+                        method: 'DELETE',
+                        headers: {"Content-Type": "application/json;charset=utf-8"}
+                    }).then(function () {
+                    })
+                }
+            )
+            , 'photos': new InjectedFunction(
+                function (item) {
+                    return !hasValue(item) || isBlank(item.fileItemId);
+                }
+                //Remove Item
+                , function (item, childPaths) {
+                    if (!hasValue(item.id)) return;
+                    var superProperty = $r.findSuperPropertyFromChildPaths(self.topic, childPaths, 2);
+                    var superId = superProperty.propertyValue.id;
+                    self.$http({
+                        url: contextPath + "/api/senses/" + superId + "/photos/" + item.id + "/detach",
                         method: 'DELETE',
                         headers: {"Content-Type": "application/json;charset=utf-8"}
                     }).then(function () {
@@ -78,6 +99,7 @@ TopicEditService.prototype.init = function () {
                 }
                 //Remove Item
                 , function (item, childPaths) {
+                    if (!hasValue(item.id)) return;
                     var superProperty = $r.findSuperPropertyFromChildPaths(self.topic, childPaths, 2);
                     var superId = superProperty.propertyValue.id;
                     self.$http({
@@ -90,6 +112,9 @@ TopicEditService.prototype.init = function () {
             )
         });
         self.topicCompositionEditor.addEmptyChildIfNecessary('expressions');
+        if (isEmpty(self.topic.id)) {
+            self.saveTopic();
+        }
     });
 };
 TopicEditService.prototype.initUploader = function () {
@@ -102,13 +127,20 @@ TopicEditService.prototype.initUploader = function () {
         var sense = fileUploadItem.sense;
         fileUploadItem.sense = undefined;
         sense.photos = sense.photos || [];
-        //TODO should map fileItem to digitalAsset item
         var savedFileItem = response;
         var digitalAssetSkeleton = self.topicSkeleton.expressions[0].senseGroups[0].senses[0].photos[0];
         var digitalAsset = angular.copy(digitalAssetSkeleton);
         digitalAsset.fileItemId = savedFileItem.id;
-        sense.photos.unshift(digitalAsset);
-        console.info('onSuccessItem', fileUploadItem, response, status, headers);
+        if (sense.photos.length > 0) {
+            var lastPhoto = sense.photos[sense.photos.length - 1];
+            if (!hasValue(lastPhoto.fileItemId)) {
+                sense.photos.remove(lastPhoto);
+            }
+        }
+        sense.photos.push(digitalAsset);
+        if (!hasValue(sense.mainPhoto) || isEmpty(sense.mainPhoto.fileItemId)) {
+            sense.mainPhoto = digitalAsset;
+        }
     };
     self.uploader.onCompleteAll = function () {
         var queue = this.queue;
@@ -117,7 +149,6 @@ TopicEditService.prototype.initUploader = function () {
             item.sense = undefined;
         }
         this.clearQueue();
-        console.info('onCompleteAll');
     };
 };
 TopicEditService.prototype.modeEdit = function (expression) {
@@ -156,26 +187,55 @@ TopicEditService.prototype.rename = function (item) {
         }
     );
 };
-TopicEditService.prototype.startUploadImages = function (sense) {
-    var self = this;
-    if (sense == self.uploader.sense) {
-        self.uploader.sense = undefined;
-    } else {
-        self.uploader.sense = sense;
-        self.uploader.clearQueue();
-    }
+TopicEditService.prototype.selectMainPhoto = function (sense, photo) {
+    sense.mainPhoto = photo;
+    //photos.remove(photo);
+    //photos.unshift(photo);
 };
-TopicEditService.prototype.selectMainPhoto = function (photos, photo) {
-    photos.remove(photo);
-    photos.unshift(photo);
+TopicEditService.prototype.cleanTopic = function () {
+    this.topicCompositionEditor.cleanRecursiveRoot();
 };
 TopicEditService.prototype.saveTopic = function () {
     var self = this;
-    self.$http.post(contextPath + '/api/topics', self.topic).then(
+    self.topicCompositionEditor.cleanRecursiveRoot();
+    self.$http.post(contextPath + '/api/topic-composites', self.topic).then(
         function (successResponse) {
             self.topic = successResponse.data;
+            self.topicCompositionEditor.root = self.topic;
         }
     );
+};
+TopicEditService.prototype.lookUpExpression = function (expression) {
+    var self = this;
+    var expressionText = expression.text;
+    if (isBlank(expressionText)) {
+        var skeletonExpressions = self.topicCompositionEditor.getSkeletonByPropertyName('expressions');
+        var skeletonExpression = skeletonExpressions[0];
+        $r.copyProperties(skeletonExpression, expression);
+    } else {
+        self.$http.get(contextPath + '/api/expressions/detail/lookup?text=' + expressionText).then(function (successRespond) {
+            var lookupExpression = successRespond.data;
+            if (hasValue(lookupExpression)) {
+                $r.copyProperties(lookupExpression, expression);
+            }
+        });
+    }
+};
+TopicEditService.prototype.validateNotExistExpressionText = function (expression) {
+    var self = this;
+    var expressionText = expression.text;
+    if (isBlank(expressionText)) {
+        return;
+    } else {
+        self.$http.get(contextPath + '/api/expressions/brief/lookup?text=' + expressionText).then(function (successRespond) {
+            var lookupExpression = successRespond.data;
+            if (hasValue(lookupExpression)) {
+                self.showErrorMessage("The text '" + expressionText + "' was used by another expression.")
+            } else {
+                self.showSuccessMessage(undefined);
+            }
+        });
+    }
 };
 //Use AngularFileUpload
 angularApp.service('topicEditService', ['$rootScope', '$http', '$q', '$routeParams', 'hotkeys', 'FileUploader', TopicEditService]);

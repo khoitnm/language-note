@@ -1,100 +1,121 @@
-<div class="expression-editor row">
-    <div class="col-md-12">
-        <!-- Expression Header-->
-        <div class="expression header row">
-            <div class="col-md-10">
-                <input ng-model="expression.text" ng-change="topicEditService.topicCompositionEditor.changeItem(expression)" class="input-as-text"/>
+<div class="col-md-12">
+    <div class="expression-editor row">
+        <div class="col-md-12">
+            <!-- Expression Header-->
+            <div class="expression header row">
+                <div class="col-md-10">
+                    <input ng-model="expression.text"
+                           ng-focus="topicEditService.topicCompositionEditor.changeItem(expression)"
+                           ng-blur="topicEditService.topicCompositionEditor.changeItem(expression)"
+                           ng-change="topicEditService.validateNotExistExpressionText(expression)" ng-model-options='{ debounce: 1000 }'
+                           class="input-as-text"/>
+                </div>
+                <div class="col-md-2 text-right">
+                    <a href="" ng-click="topicEditService.topicCompositionEditor.removeItemAndAddSkeleton(expression)"><i class="fa fa-remove"></i></a>
+                </div>
             </div>
-            <div class="col-md-2 text-right">
-                <a href="" ng-click="topicEditService.topicCompositionEditor.removeItem(expression)"><i class="fa fa-remove"></i></a>
-            </div>
-        </div>
 
-        <!-- Expression Body: List of SenseGroups -->
-        <div class="expression body row">
-            <div class="col-md-12">
-                <!--SenseGroup-->
-                <div ng-repeat="senseGroup in expression.senseGroups" class="sense-group row">
-                    <div class="col-md-12">
-                        <!--SenseGroup Header-->
-                        <div class="sense-group-header row">
-                            <div class="col-md-10">
-                                <input ng-model="senseGroup.lexicalType" ng-change="topicEditService.topicCompositionEditor.changeItem(senseGroup)" class="sense-group-label"/>
+            <!-- Expression Body: List of SenseGroups -->
+            <div class="expression body row">
+                <div class="col-md-12">
+                    <!--SenseGroup-->
+                    <div ng-repeat="senseGroup in expression.senseGroups" class="sense-group row">
+                        <div class="col-md-12">
+                            <!--SenseGroup Header-->
+                            <div class="sense-group-header row">
+                                <div class="col-md-10">
+                                    <input ng-model="senseGroup.lexicalType" capitalize
+                                           ng-focus="topicEditService.topicCompositionEditor.changeItem(senseGroup)"
+                                           ng-blur="topicEditService.topicCompositionEditor.changeItem(senseGroup)"
+                                           class="sense-group-label"/>
+                                </div>
+                                <div class="col-md-2 text-right">
+                                    <a href="" ng-click="topicEditService.topicCompositionEditor.removeItemAndAddSkeleton(senseGroup)"><i class="fa fa-remove"></i></a>
+                                </div>
                             </div>
-                            <div class="col-md-2 text-right">
-                                <a href="" ng-click="topicEditService.topicCompositionEditor.removeItem(senseGroup)"><i class="fa fa-remove"></i></a>
-                            </div>
-                        </div>
-                        <!--SenseGroup Body-->
-                        <div class="sense-group-body row">
-                            <div class="col-md-12">
-                                <!--Sense-->
-                                <div ng-repeat="sense in senseGroup.senses" class="sense row">
-                                    <div class="col-md-12">
-                                        <div class="explanation row">
-                                            <div class="col-md-4">
-                                                <textarea ng-model="sense.shortExplanation" ng-change="topicEditService.topicCompositionEditor.changeItem(sense)" class="input-as-text" placeholder="sense's summary"></textarea>
-                                            </div>
-                                            <div class="col-md-7">
-                                                <textarea ng-model="sense.explanation" ng-change="topicEditService.topicCompositionEditor.changeItem(sense)" class="input-as-text" placeholder="sense's explanation"></textarea>
-                                            </div>
-                                            <div class="col-md-1 text-right">
-                                                <a href="" ng-click="topicEditService.topicCompositionEditor.removeItem(sense)"><i class="fa fa-remove"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="sense-photos row">
-                                            <div class="col-md-6" ng-if="sense.photos.length > 0 && sense.photos[0].fileItemId">
-                                                <div class="row">
-                                                    <div class="col-md-8">
-                                                        <div class="img-with-close-wrapper image-border" class="img-explanation" ng-if="sense.photos[0].fileItemId">
-                                                            <span class="img-btn-close btn btn-xs btn-dark"><i class="fa fa-remove"></i></span>
-                                                            <img class="img-explanation" ng-src="{{contextPath + '/api/files/'+sense.photos[0].fileItemId}}"/>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4 images-list">
-                                                        <div ng-repeat="photo in sense.photos track by $index" ng-if="$index > 0">
-                                                            <div class="image-item img-with-close-wrapper" class="img-explanation" ng-click="topicEditService.selectMainPhoto(sense.photos, photo)">
-                                                                <span class="img-btn-close btn btn-xs btn-dark"><i class="fa fa-remove"></i></span>
-                                                                <img class="" ng-src="{{contextPath + '/api/files/'+photo.fileItemId}}"/>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                            <!--SenseGroup Body-->
+                            <div class="sense-group-body row">
+                                <div class="col-md-12">
+                                    <!--Sense-->
+                                    <div ng-repeat="sense in senseGroup.senses" class="sense row">
+                                        <div class="col-md-12">
+                                            <div class="explanation row">
+                                                <div class="col-md-4">
+                                                    <textarea ng-model="sense.shortExplanation"
+                                                              ng-focus="topicEditService.topicCompositionEditor.changeItem(sense)"
+                                                              ng-blur="topicEditService.topicCompositionEditor.changeItem(sense)"
+                                                              class="input-as-text" placeholder="sense's summary"></textarea>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <textarea ng-model="sense.explanation"
+                                                              ng-focus="topicEditService.topicCompositionEditor.changeItem(sense)"
+                                                              ng-blur="topicEditService.topicCompositionEditor.changeItem(sense)"
+                                                              class="input-as-text" placeholder="sense's explanation"></textarea>
+                                                </div>
+                                                <div class="col-md-1 text-right">
+                                                    <a href="" ng-click="topicEditService.topicCompositionEditor.removeItemAndAddSkeleton(sense)"><i class="fa fa-remove"></i></a>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div nv-file-drop="" uploader="topicEditService.uploader" options="{'sense': sense}" class="">
-                                                            <div nv-file-over="" uploader="topicEditService.uploader" over-class="file-upload-drop-zone-hover" class="middle-wrapper file-upload-drop-zone">
-                                                                <div class="middle-vertical">
-                                                                    <input type="file" nv-file-select="" uploader="topicEditService.uploader" options="{'sense': sense}" multiple="" class="middle-horizontal" style="max-width: 200px;"/>
+                                            <div class="sense-photos row">
+                                                <div class="col-md-6" ng-if="(sense.photos.length > 0 && sense.photos[0].fileItemId) || sense.mainPhoto.fileItemId">
+                                                    <div class="row">
+                                                        <div class="col-md-8">
+                                                            <div class="img-with-close-wrapper image-border" class="img-explanation" ng-if="sense.mainPhoto.fileItemId">
+                                                                <!--<span class="img-btn-close btn btn-xs btn-dark"><i class="fa fa-remove"></i></span>-->
+                                                                <img class="img-explanation" ng-src="{{contextPath + '/api/files/'+sense.mainPhoto.fileItemId}}"/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4 images-list">
+                                                            <div ng-repeat="photo in sense.photos track by $index">
+                                                                <div class="image-item img-with-close-wrapper" class="img-explanation" ng-class="sense.mainPhoto == photo ? 'image-item-selected' : '">
+                                                                    <span class="img-btn-close btn btn-xs btn-dark" ng-click="topicEditService.removeItemAndAddSkeleton(photo)"><i class="fa fa-remove"></i></span>
+                                                                    <img class=""
+                                                                         ng-click="topicEditService.selectMainPhoto(sense, photo)"
+                                                                         ng-src="{{contextPath + '/api/files/'+photo.fileItemId}}"/>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <!--<div class="col-md-2">-->
-                                                    <!--<button type="button" class="btn btn-success btn-s" ng-click="topicEditService.uploader.uploadAll()" ng-disabled="!topicEditService.uploader.getNotUploadedItems().length">-->
-                                                    <!--<i class="glyphicon glyphicon-upload"></i> All-->
-                                                    <!--</button>-->
-                                                    <!--</div>-->
                                                 </div>
-                                                <div class="row">
-                                                    <div ng-repeat="item in topicEditService.uploader.queue" ng-if="item.sense == sense" class="col-md-3 image-profile">
-                                                        <span>{{ item.file.name }}</span>
+                                                <div class="col-md-6">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div nv-file-drop="" uploader="topicEditService.uploader" options="{'sense': sense}" class="">
+                                                                <div nv-file-over="" uploader="topicEditService.uploader" over-class="file-upload-drop-zone-hover" class="middle-wrapper file-upload-drop-zone">
+                                                                    <div class="middle-vertical">
+                                                                        <input type="file" nv-file-select="" uploader="topicEditService.uploader" options="{'sense': sense}" multiple="" class="middle-horizontal" style="max-width: 200px;"/>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!--<div class="col-md-2">-->
+                                                        <!--<button type="button" class="btn btn-success btn-s" ng-click="topicEditService.uploader.uploadAll()" ng-disabled="!topicEditService.uploader.getNotUploadedItems().length">-->
+                                                        <!--<i class="glyphicon glyphicon-upload"></i> All-->
+                                                        <!--</button>-->
+                                                        <!--</div>-->
+                                                    </div>
+                                                    <div class="row">
+                                                        <div ng-repeat="item in topicEditService.uploader.queue" ng-if="item.sense == sense" class="col-md-3 image-profile">
+                                                            <span>{{ item.file.name }}</span>
 
-                                                        <div ng-thumb="{ file: item._file, width: 100, height: 100, 'class':'image-border' }"></div>
+                                                            <div ng-thumb="{ file: item._file, width: 100, height: 100, 'class':'image-border' }"></div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div ng-repeat="example in sense.examples" class="row">
-                                            <div class="col-md-12">
-                                                <div class="example row">
-                                                    <div class="col-md-11">
-                                                        <textarea ng-model="example.text" ng-change="topicEditService.topicCompositionEditor.changeItem(example)" class="input-as-text" placeholder="Example"></textarea>
-                                                    </div>
-                                                    <div class="col-md-1 text-left">
-                                                        <a href="" ng-click="topicEditService.topicCompositionEditor.removeItem(example)"><i class="fa fa-remove"></i></a>
+                                            <div ng-repeat="example in sense.examples" class="row">
+                                                <div class="col-md-12">
+                                                    <div class="example row">
+                                                        <div class="col-md-11">
+                                                            <textarea ng-model="example.text"
+                                                                      ng-focus="topicEditService.topicCompositionEditor.changeItem(example)"
+                                                                      ng-blur="topicEditService.topicCompositionEditor.changeItem(example)"
+                                                                      class="input-as-text" placeholder="Example">
+                                                            </textarea>
+                                                        </div>
+                                                        <div class="col-md-1 text-left">
+                                                            <a href="" ng-click="topicEditService.topicCompositionEditor.removeItemAndAddSkeleton(example)"><i class="fa fa-remove"></i></a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -106,13 +127,13 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- Footer -->
-        <div class="footer row">
-            <div class="col-md-12 text-center">
-                <a href="" ng-click="topicEditService.modeEdit(expression)" class="more">
-                    <i class="fa fa-chevron-up"></i>
-                </a>
+            <!-- Footer -->
+            <div class="footer row">
+                <div class="col-md-12 text-center">
+                    <a href="" ng-click="topicEditService.modeEdit(expression)" class="more">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </div>

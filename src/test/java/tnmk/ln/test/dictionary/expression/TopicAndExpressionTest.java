@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import tnmk.ln.app.aggregation.TopicCompositeService;
 import tnmk.ln.app.dictionary.entity.Expression;
 import tnmk.ln.app.topic.TopicService;
 import tnmk.ln.app.topic.entity.Topic;
@@ -27,6 +28,9 @@ public class TopicAndExpressionTest extends BaseTest {
     TopicService topicService;
 
     @Autowired
+    TopicCompositeService topicCompositeService;
+
+    @Autowired
     UserTestFactory userTestFactory;
 
     @Autowired
@@ -40,7 +44,7 @@ public class TopicAndExpressionTest extends BaseTest {
     @Test
     public void createTopic() {
         Topic topic = new Topic();
-        topic = topicService.saveTopicAndRelations(USER, topic);
+        topic = topicCompositeService.saveTopicAndRelations(USER, topic);
         Assert.assertEquals(Topic.TITLE_DEFAULT, topic.getTitle());
     }
 
@@ -49,6 +53,6 @@ public class TopicAndExpressionTest extends BaseTest {
         User user = userTestFactory.initDefaultUser();
         Topic topic = topicTestFactory.initTopic(user, "test_" + System.currentTimeMillis(), "category" + System.currentTimeMillis(), "category" + System.currentTimeMillis());
         Expression expression = ExpressionTestFactory.constructWord("expression_" + System.currentTimeMillis());
-        topicService.addExpressionToTopic(user, topic.getId(), expression);
+        topicCompositeService.addExpressionToTopic(user, topic.getId(), expression);
     }
 }

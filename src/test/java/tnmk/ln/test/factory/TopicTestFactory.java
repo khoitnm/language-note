@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import tnmk.common.util.SetUtil;
+import tnmk.ln.app.aggregation.TopicCompositeService;
 import tnmk.ln.app.topic.TopicFactory;
 import tnmk.ln.app.topic.TopicRepository;
 import tnmk.ln.app.topic.TopicService;
@@ -31,6 +32,9 @@ public class TopicTestFactory {
 
     @Autowired
     private TopicService topicService;
+
+    @Autowired
+    private TopicCompositeService topicCompositeService;
 
     @Autowired
     private TopicRepository topicRepository;
@@ -80,7 +84,7 @@ public class TopicTestFactory {
                 , ExpressionTestFactory.constructWord("test_expression2")
                 , ExpressionTestFactory.constructWord("test_expression3")
         ));
-        topic = topicService.saveTopicAndRelations(owner, topic);
+        topic = topicCompositeService.saveTopicAndRelations(owner, topic);
         LOGGER.debug("Created topic: " + topic);
         return topic;
     }

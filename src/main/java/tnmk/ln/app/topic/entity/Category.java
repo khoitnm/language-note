@@ -1,8 +1,10 @@
 package tnmk.ln.app.topic.entity;
 
+import org.apache.commons.lang3.StringUtils;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 import tnmk.ln.app.common.entity.BaseNeo4jEntity;
+import tnmk.ln.app.common.entity.Cleanable;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
 
 import java.util.Set;
@@ -11,7 +13,7 @@ import java.util.Set;
  * @author khoi.tran on 2/25/17.
  */
 @NodeEntity(label = "Category")
-public class Category extends BaseNeo4jEntity {
+public class Category extends BaseNeo4jEntity implements Cleanable {
     public static final String OWN_CATEGORY = "OWN_CATEGORY";
     /**
      * Different users can have different categorys with the same text, but one user cannot have 2 categorys with the same text.
@@ -48,5 +50,10 @@ public class Category extends BaseNeo4jEntity {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return StringUtils.isBlank(text);
     }
 }

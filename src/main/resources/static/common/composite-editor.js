@@ -14,6 +14,15 @@ CompositeEditor.prototype.addEmptyChildIfNecessary = function (containerProperty
     childPaths.push(new $r.PropertyNameAndValue('0', null));
     self.addEmptySiblingItemToDirectParentIfNecessary(containerProperty, childPaths);
 };
+CompositeEditor.prototype.getSkeletonByPropertyName = function (propertyName) {
+    var self = this;
+    var skeletonPaths = $r.findChildPathsByPropertyName(self.skeleton, propertyName);
+    if (skeletonPaths.length == 0) {
+        throw new Error('Not found property in skeleton. propertyName: ' + propertyName + ", skeleton:" + self.skeleton);
+    }
+    var skeletonProperty = skeletonPaths[skeletonPaths.length - 1];
+    return skeletonProperty.propertyValue;
+};
 CompositeEditor.prototype.changeItem = function (item) {
     var self = this;
     var addingSiblingResult = self.addEmptySiblingItemIfNecessary(item);
@@ -26,10 +35,6 @@ CompositeEditor.prototype.changeItemInList = function (list, index) {
     var item = list[index];
     this.changeItem(item);
 };
-CompositeEditor.prototype.removeItemInList = function (list, index) {
-    var item = list[index];
-    return this.removeItem(item);
-};
 CompositeEditor.prototype.removeItem = function (item) {
     var self = this;
     var analyzeChildAndParentResult = self.analyzeChildAndParentPaths(item);
@@ -38,28 +43,56 @@ CompositeEditor.prototype.removeItem = function (item) {
     self.removeItemByParentProperty(childPaths, parentProperty, item);
     return childPaths;
 };
+CompositeEditor.prototype.removeItemAndAddSkeleton = function (item) {
+    var self = this;
+    var analyzeChildAndParentResult = self.analyzeChildAndParentPaths(item);
+    var childPaths = analyzeChildAndParentResult.childPaths;
+    var parentProperty = analyzeChildAndParentResult.parentProperty;
+    self.removeItemAndAddSkeletonByParentProperty(childPaths, parentProperty, item);
+    return childPaths;
+};
+CompositeEditor.prototype.cleanRecursiveRoot = function () {
+    var root = this.root;
+    for (propertyName in root) {
+        var propertyValue = root[propertyName];
+        if ($r.isObject(propertyValue) || $r.isArray(propertyValue)) {
+            this.cleanRecursiveItem(propertyValue);
+        }
+    }
+};
 CompositeEditor.prototype.cleanRecursiveItem = function (item) {
     var self = this;
-    var childPaths = $r.findChildPaths(self.root, item);
-    var parentProperty = $r.findParentPropertyFromChildPaths(self.root, childPaths);
-    if (self.isItemEmpty(parentProperty, item)) {
-        self.removeItemByParentProperty(childPaths, parentProperty, item)
+    if ($r.isArray(item)) {
+        for (var i = 0; i < item.length; i++) {
+            self.cleanRecursiveItem(item[i]);
+        }
     } else {
-        for (iprop in item) {
-            if ($r.isObject(iprop)) {
-                self.cleanRecursiveItem(iprop);
+        var childPaths = $r.findChildPaths(self.root, item);
+        var parentProperty = $r.findParentPropertyFromChildPaths(self.root, childPaths);
+        if (self.isItemEmpty(parentProperty.propertyName, item)) {
+            self.removeItemByParentProperty(childPaths, parentProperty, item)
+        } else {
+            for (ipropName in item) {
+                var ipropValue = item[ipropName];
+                if ($r.isObject(ipropValue)) {
+                    self.cleanRecursiveItem(ipropValue);
+                }
             }
         }
     }
 };
 //INTERNAL METHOS /////////////////////////////////////////
+CompositeEditor.prototype.removeItemAndAddSkeletonByParentProperty = function (childPaths, parentProperty, item) {
+    var self = this;
+    self.removeItemByParentProperty(childPaths, parentProperty, item);
+    self.addEmptySiblingItemToDirectParentIfNecessary(parentProperty, childPaths);
+};
 CompositeEditor.prototype.removeItemByParentProperty = function (childPaths, parentProperty, item) {
     var self = this;
     var parent = parentProperty.propertyValue;
     parent.remove(item);
     var injectedFunction = self.getInjectFnRemoveItem(parentProperty.propertyName);
     injectedFunction.call(self, item, childPaths);
-    self.addEmptySiblingItemToDirectParentIfNecessary(parentProperty, childPaths);
 };
 CompositeEditor.prototype.addEmptySiblingItemIfNecessary = function (item) {
     var self = this;
