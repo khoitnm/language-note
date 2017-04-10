@@ -36,7 +36,7 @@ public class QuestionRecommendationRepository {
         } else {
             queryString = ClassPathQueryLoader.loadQuery("/tnmk/ln/app/practice/query/load-question-ids-by-recommended-expressions-in-topics.cql", questionType.getLogicName());
         }
-        return IterableUtil.toList(neo4jRepository.queryList(Long.class, queryString, resultOwnerId, topicIds));
+        return IterableUtil.toList(neo4jRepository.findList(Long.class, queryString, resultOwnerId, topicIds));
     }
 
 }

@@ -16,6 +16,10 @@ inherit(CommonService, TopicEditService);
 TopicEditService.prototype.init = function () {
     var self = this;
     var topicId = self.$routeParams.topicId;
+    self.initData(topicId);
+};
+TopicEditService.prototype.initData = function (topicId) {
+    var self = this;
     self.initUploader();
     var topicSkeletonGet = self.$http.get(contextPath + '/api/topics/construct');
     var topicDetailGet;
@@ -26,6 +30,9 @@ TopicEditService.prototype.init = function () {
     }
     self.$q.all([topicDetailGet, topicSkeletonGet]).then(function (arrayOfResults) {
         self.topic = arrayOfResults[0].data;
+        if (isBlank(topicId)) {
+            self.topic = angular.copy(self.topic);
+        }
         self.topicSkeleton = arrayOfResults[1].data;
         self.topicCompositionEditor = new CompositeEditor(self.topicSkeleton, self.topic, {
             'expressions': new InjectedFunction(
@@ -111,11 +118,14 @@ TopicEditService.prototype.init = function () {
                 }
             )
         });
-        self.topicCompositionEditor.addEmptyChildIfNecessary('expressions');
         if (isEmpty(self.topic.id)) {
             self.saveTopic();
         }
+
     });
+};
+TopicEditService.prototype.constructNewTopic = function () {
+    this.initData();
 };
 TopicEditService.prototype.initUploader = function () {
     var self = this;
@@ -195,14 +205,18 @@ TopicEditService.prototype.selectMainPhoto = function (sense, photo) {
 TopicEditService.prototype.cleanTopic = function () {
     this.topicCompositionEditor.cleanRecursiveRoot();
 };
-TopicEditService.prototype.saveTopic = function () {
+TopicEditService.prototype.saveTopic = function (callback) {
     var self = this;
+    self.topic.isSaving = true;
     self.topicCompositionEditor.cleanRecursiveRoot();
     self.$http.post(contextPath + '/api/topic-composites', self.topic).then(
         function (successResponse) {
             //Update id of topic and composites fields.
             self.topic = successResponse.data;
+            self.editingExpression = undefined;
             self.topicCompositionEditor.root = self.topic;
+            self.topicCompositionEditor.addEmptyChildIfNecessary('expressions');
+            if (callback) callback.call(self, self.topic, self.topicCompositionEditor);
         }
     );
 };
@@ -212,7 +226,7 @@ TopicEditService.prototype.lookUpExpression = function (expression) {
     if (isBlank(expressionText)) {
         var skeletonExpressions = self.topicCompositionEditor.getSkeletonByPropertyName('expressions');
         var skeletonExpression = skeletonExpressions[0];
-        $r.copyProperties(skeletonExpression, expression);
+        $r.copyProperties(angular.copy(skeletonExpression), expression);
     } else {
         self.$http.get(contextPath + '/api/expressions/detail/lookup?text=' + expressionText).then(function (successRespond) {
             var lookupExpression = successRespond.data;

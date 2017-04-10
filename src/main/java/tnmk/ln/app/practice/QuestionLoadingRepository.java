@@ -33,7 +33,7 @@ public class QuestionLoadingRepository {
                 , " OPTIONAL MATCH (e)--(sg:SenseGroup)--(s:Sense)--(ex:Example)"
                 , " RETURN q,e,sg,s,ex"
         );
-        return IterableUtil.toList(neo4jRepository.queryList(Question.class, queryString, user.getId(), topicIds));
+        return IterableUtil.toList(neo4jRepository.findList(Question.class, queryString, user.getId(), topicIds));
     }
 
     public Question findOneByQuestionTypeAndFromExpressionIdAndFromSenseId(QuestionType questionType, Long expressionId, Long senseId) {
@@ -58,7 +58,7 @@ public class QuestionLoadingRepository {
 
     private <T> T findOne(Class<T> entityClass, String queryString, Object... params) {
         T result;
-        Iterable<T> questions = neo4jRepository.queryList(entityClass, queryString, params);
+        Iterable<T> questions = neo4jRepository.findList(entityClass, queryString, params);
         Iterator<T> iterator = questions.iterator();
         if (iterator.hasNext()) {
             result = iterator.next();

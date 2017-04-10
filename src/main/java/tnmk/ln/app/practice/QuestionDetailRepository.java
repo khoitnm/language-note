@@ -19,7 +19,7 @@ public class QuestionDetailRepository {
     private Neo4jRepository neo4jRepository;
 
     public Question findOneDetailById(long id) {
-        return neo4jRepository.queryOneDetail(Question.class, id);
+        return neo4jRepository.findOneDetail(Question.class, id);
     }
 
     public int removeOneAndCompositions(long id) {

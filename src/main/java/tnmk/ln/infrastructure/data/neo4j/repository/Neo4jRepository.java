@@ -8,9 +8,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import tnmk.common.exception.UnexpectedException;
 import tnmk.common.infrastructure.guardian.Guardian;
 import tnmk.common.util.IterableUtil;
 import tnmk.common.util.ReflectionUtils;
+import tnmk.ln.app.common.entity.BaseNeo4jEntity;
 import tnmk.ln.infrastructure.data.neo4j.Neo4jUtils;
 import tnmk.ln.infrastructure.data.neo4j.annotation.DetailLoading;
 
@@ -47,12 +49,36 @@ public class Neo4jRepository {
     }
 
     public <T> T validateExistOne(Class<T> resultClass, Long id) {
-        T entity = queryOneDetail(resultClass, id);
+        T entity = findOneDetail(resultClass, id);
         Guardian.validateNotNull(entity, String.format("Not found %s<%s>", resultClass.getSimpleName(), id));
         return entity;
     }
 
-    public <T> T queryOneDetail(Class<T> resultClass, Long id) {
+    public <T> List<T> findList(Class<T> entityClass, String queryString, Object... paramValues) {
+        Map<String, Object> params = constructParams(paramValues);
+        return IterableUtil.toList(session.query(entityClass, queryString, params));
+    }
+
+    public <T> T findOne(Class<T> resultClass, String queryString, Object... paramValues) {
+        Map<String, Object> params = constructParams(paramValues);
+        return session.queryForObject(resultClass, queryString, params);
+    }
+
+    public <T extends BaseNeo4jEntity> T findOneById(Class<T> resultClass, String queryString, Object objectId) {
+        List<T> list = findList(resultClass, queryString, objectId);
+        if (list.size() > 0) {
+            for (T item : list) {
+                if (objectId.equals(item.getId())) {
+                    return item;
+                }
+            }
+            throw new UnexpectedException(String.format("Found list of '%s' items: %s, but there's no item with id %s", resultClass.getSimpleName(), list.size(), objectId));
+        } else {
+            return null;
+        }
+    }
+
+    public <T> T findOneDetail(Class<T> resultClass, Long id) {
         DetailLoadingRelationship detailLoadingRelationship = getRelationshipTypesWithDetailLoadingMultiLevels(resultClass);
         String relTypes = detailLoadingRelationship.getRelationshipTypes().stream().collect(Collectors.joining(" | :"));
         int relDepth = detailLoadingRelationship.getDepth();
@@ -72,7 +98,7 @@ public class Neo4jRepository {
         return result;
     }
 
-    public <T> List<T> queryDetails(Class<T> resultClass, List<Long> ids) {
+    public <T> List<T> findDetails(Class<T> resultClass, List<Long> ids) {
         DetailLoadingRelationship detailLoadingRelationship = getRelationshipTypesWithDetailLoadingMultiLevels(resultClass);
         String relTypes = detailLoadingRelationship.getRelationshipTypes().stream().collect(Collectors.joining(" | :"));
         int relDepth = detailLoadingRelationship.getDepth();
@@ -145,25 +171,10 @@ public class Neo4jRepository {
         return count;
     }
 
-    public <T> T queryForObject(Class<T> resultClass, String queryString, Object... paramValues) {
-        Map<String, Object> params = constructParams(paramValues);
-        return session.queryForObject(resultClass, queryString, params);
-    }
-
     public QueryStatistics execute(String queryString, Object... paramValues) {
         Map<String, Object> params = constructParams(paramValues);
         Result result = session.query(queryString, params);
         return result.queryStatistics();
-    }
-
-    public Result query(String queryString, Object... paramValues) {
-        Map<String, Object> params = constructParams(paramValues);
-        return session.query(queryString, params);
-    }
-
-    public <T> List<T> queryList(Class<T> entityClass, String queryString, Object... paramValues) {
-        Map<String, Object> params = constructParams(paramValues);
-        return IterableUtil.toList(session.query(entityClass, queryString, params));
     }
 
     private Map<String, Object> constructParams(Object... paramValues) {

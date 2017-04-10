@@ -21,7 +21,7 @@ public class QuestionPracticeResultQueryRepository {
 
     public QuestionPracticeResult findByOwnerIdAndQuestionId(Long userId, Long questionId) {
         String queryString = ClassPathQueryLoader.loadQuery("/tnmk/ln/app/practice/query/load-question-practice-result-by-owner-and-expression.cql");
-        return neo4jRepository.queryForObject(QuestionPracticeResult.class, queryString, userId, questionId);
+        return neo4jRepository.findOne(QuestionPracticeResult.class, queryString, userId, questionId);
     }
 
 }

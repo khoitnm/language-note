@@ -67,7 +67,7 @@
                                                         </div>
                                                         <div class="col-md-4 images-list">
                                                             <div ng-repeat="photo in sense.photos track by $index">
-                                                                <div class="image-item img-with-close-wrapper" class="img-explanation" ng-class="sense.mainPhoto == photo ? 'image-item-selected' : '">
+                                                                <div class="image-item img-with-close-wrapper" class="img-explanation" ng-class="sense.mainPhoto == photo ? 'image-item-selected' : '' ">
                                                                     <span class="img-btn-close btn btn-xs btn-dark" ng-click="topicEditService.removeItemAndAddSkeleton(photo)"><i class="fa fa-remove"></i></span>
                                                                     <img class=""
                                                                          ng-click="topicEditService.selectMainPhoto(sense, photo)"

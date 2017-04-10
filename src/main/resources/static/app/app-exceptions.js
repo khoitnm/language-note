@@ -19,9 +19,18 @@ angularApp.factory('httpInterceptor', ['$q', '$rootScope', function ($q, $rootSc
             } else if (rejection.status == 401) {
                 $rootScope.globalMessage = "Your session is expired. Please login again!";
             } else if (rejection.status == 500) {
-                $rootScope.unexpectedMessage = rejection.data.unexpectedMessage;
+                if (hasValue(rejection.data)) {
+                    $rootScope.unexpectedMessage = rejection.data.unexpectedMessage;
+                } else {
+                    $rootScope.unexpectedMessage = "Some unexpected error in server: " + rejection;
+                }
             } else {
-                $rootScope.globalMessage = rejection.data.unexpectedMessage;
+                if (hasValue(rejection.data)) {
+                    $rootScope.globalMessage = rejection.data.unexpectedMessage;
+                } else {
+                    $rootScope.unexpectedMessage = "Some unexpected error in server: " + rejection;
+                }
+
             }
             return $q.reject(rejection);
         }

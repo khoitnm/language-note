@@ -14,7 +14,7 @@ public class ExampleRepository {
     Neo4jRepository neo4jRepository;
 
     public Example findOneDetailById(long id) {
-        return neo4jRepository.queryOneDetail(Example.class, id);
+        return neo4jRepository.findOneDetail(Example.class, id);
     }
 
     public int removeOneAndCompositions(long id) {

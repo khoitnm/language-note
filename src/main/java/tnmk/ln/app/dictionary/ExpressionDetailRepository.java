@@ -14,7 +14,7 @@ public class ExpressionDetailRepository {
     Neo4jRepository neo4jRepository;
 
     public Expression findOneDetailById(long id) {
-        return neo4jRepository.queryOneDetail(Expression.class, id);
+        return neo4jRepository.findOneDetail(Expression.class, id);
     }
 
     public int removeExpressionAndCompositions(long expressionId) {
@@ -71,11 +71,11 @@ public class ExpressionDetailRepository {
                 + " | :HAS_MAIN_AUDIO | :LIKE | :OWN_TOPIC | :SENSE_HAS_MAIN_PHOTO | :HAS_PHOTOS*0..5]-(m)"
 //                + "-[r:IS_SYNONYMOUS_WITH | :IS_ANTONYMOUS_WITH | :FAMILY_WITH *0..1]->(l) "
                 + " RETURN p ";
-        return neo4jRepository.queryForObject(Expression.class, queryString, trimmedText);
+        return neo4jRepository.findOne(Expression.class, queryString, trimmedText);
     }
 
     public Expression findOneBriefByText(String trimmedText) {
         String queryString = " MATCH (n) WHERE LOWER(n.text) = LOWER({p0}) RETURN n ";
-        return neo4jRepository.queryForObject(Expression.class, queryString, trimmedText);
+        return neo4jRepository.findOne(Expression.class, queryString, trimmedText);
     }
 }

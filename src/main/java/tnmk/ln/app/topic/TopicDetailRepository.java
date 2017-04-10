@@ -15,6 +15,9 @@ import java.util.List;
 @Component
 public class TopicDetailRepository {
     @Autowired
+    TopicRepository topicRepository;
+
+    @Autowired
     private Neo4jRepository neo4jRepository;
 
     public long countByTitleAndOwner(long ownerId, String title) {
@@ -24,7 +27,7 @@ public class TopicDetailRepository {
 
     public List<Topic> findByOwner(long ownerId) {
         String queryString = String.format("MATCH (n:Topic)<-[r:%s]-(u:User) WHERE id(u)={p0} RETURN n", Topic.OWN_TOPIC);
-        return neo4jRepository.queryList(Topic.class, queryString, ownerId);
+        return neo4jRepository.findList(Topic.class, queryString, ownerId);
     }
 
     public List<Topic> findByOwner(long ownerId, int depth) {
@@ -33,28 +36,30 @@ public class TopicDetailRepository {
                 + " OPTIONAL MATCH path=(t)-[*0..%s]-(n)"
                 + " WITH path"
                 + " RETURN path", depth);
-        return neo4jRepository.queryList(Topic.class, queryString, ownerId);
+        return neo4jRepository.findList(Topic.class, queryString, ownerId);
     }
 
     public Topic findOneByTitleAndOwner(long ownerId, String title) {
         String queryString = String.format("MATCH (n:Topic)<-[r:%s]-(u:User) WHERE n.`title`={p0} AND id(u)={p1} RETURN n", Topic.OWN_TOPIC);
-        return neo4jRepository.queryForObject(Topic.class, queryString, title, ownerId);
+        return neo4jRepository.findOne(Topic.class, queryString, title, ownerId);
     }
 
     /**
      * NOTE: when changing any thing in expression, should recheck the query here.
+     * Don't use findOne(id) default method of Neo4j because it can cause StackOverflow when there is an cycling references.
      *
      * @param topicId
      * @return
      */
     public Topic findOneDetailById(long topicId) {
-        String queryString = " MATCH (n) WHERE ID(n) = {p0} "
-                + " WITH n "
+        String queryString = " MATCH (n:Topic) WHERE ID(n) = {p0} "
+                + " WITH n"
                 + " MATCH p=(n)-[:HAS_VIDEOS | :HAS_LEXICAL_ENTRIES | :HAS_SENSES | :HAS_SENSE_GROUPS | :HAS_EXAMPLE | :OWN_EXPRESSION | :EXPRESSION_IN_LOCALE | :OWN_CATEGORY | :HAS_AUDIOS | :RELATE_TO_CATEGORY"
                 + " | :HAS_MAIN_AUDIO | :LIKE | :TOPIC_IN_LOCALE | :HAS_EXPRESSION | :OWN_TOPIC | :SENSE_HAS_MAIN_PHOTO | :HAS_PHOTOS*0..5]-(m)"
 //                + "-[r:IS_SYNONYMOUS_WITH | :IS_ANTONYMOUS_WITH | :FAMILY_WITH *0..1]->(l) "
                 + " RETURN p ";
-        return neo4jRepository.queryForObject(Topic.class, queryString, topicId);
+//        return neo4jRepository.queryForObject(Topic.class, queryString, topicId);
+        return neo4jRepository.findOneById(Topic.class, queryString, topicId);
     }
 
     //TODO should remove digital asset???

@@ -375,7 +375,7 @@
                 <!--Save button-->
                 <div class="form-group">
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <button ng-disabled="isRunning"
+                        <button ng-disabled="isRunning || topicEditService.topic.isSaving"
                                 ng-click="topicEditService.saveTopic()"
                                 type="submit" class="btn btn-success"
                                 title="Ctrl+S, Command+S">

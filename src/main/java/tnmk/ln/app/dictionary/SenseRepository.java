@@ -14,7 +14,7 @@ public class SenseRepository {
     Neo4jRepository neo4jRepository;
 
     public Sense findOneDetailById(long id) {
-        return neo4jRepository.queryOneDetail(Sense.class, id);
+        return neo4jRepository.findOneDetail(Sense.class, id);
     }
 
     public int removeOneAndCompositions(long id) {

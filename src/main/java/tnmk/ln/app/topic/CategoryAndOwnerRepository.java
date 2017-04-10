@@ -22,6 +22,6 @@ public class CategoryAndOwnerRepository {
 
     public Category findOneByTextAndOwner(String categoryText, long ownerId) {
         String queryString = String.format("MATCH (n:Category)<-[r:%s]-(u:User) WHERE n.`text`={p0} AND id(u)={p1} RETURN n", Category.OWN_CATEGORY);
-        return neo4jRepository.queryForObject(Category.class, queryString, categoryText, ownerId);
+        return neo4jRepository.findOne(Category.class, queryString, categoryText, ownerId);
     }
 }

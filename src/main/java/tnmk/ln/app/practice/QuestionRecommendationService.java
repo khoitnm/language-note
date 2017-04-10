@@ -31,7 +31,7 @@ public class QuestionRecommendationService {
 
     public List<QuestionWithPracticeResult> loadQuestionsByTopics(long userId, QuestionType questionType, Long... topicIds) {
         List<Long> questionIds = questionRecommendationRepository.findQuestionIdsByRecommendedExpressions(userId, questionType, topicIds);
-        List<Question> questions = neo4jRepository.queryDetails(questionType.getQuestionClass(), questionIds);
+        List<Question> questions = neo4jRepository.findDetails(questionType.getQuestionClass(), questionIds);
         List<QuestionWithPracticeResult> result = questions.stream().map(question -> mapToQuestionWithPracticeResult(userId, question)).collect(Collectors.toList());
         return result;
     }
