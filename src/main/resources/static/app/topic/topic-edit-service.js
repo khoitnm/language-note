@@ -31,7 +31,7 @@ TopicEditService.prototype.initData = function (topicId) {
     self.$q.all([topicDetailGet, topicSkeletonGet]).then(function (arrayOfResults) {
         self.topic = arrayOfResults[0].data;
         if (isBlank(topicId)) {
-            self.topic = angular.copy(self.topic);
+            self.topic = angular.copy(self.topic);//Otherwise, the topic and topicSkeleton will reference to the same memory (because of AngularJS cache?)
         }
         self.topicSkeleton = arrayOfResults[1].data;
         self.topicCompositionEditor = new CompositeEditor(self.topicSkeleton, self.topic, {
@@ -49,6 +49,26 @@ TopicEditService.prototype.initData = function (topicId) {
                         headers: {"Content-Type": "application/json;charset=utf-8"}
                     }).then(function () {
                     })
+                }
+            )
+            , 'lexicalEntries': new InjectedFunction(
+                function (item) {
+                    return !hasValue(item) || isBlank(item.text);
+                }
+            )
+            , 'family': new InjectedFunction(
+                function (item) {
+                    return !hasValue(item) || isBlank(item.text);
+                }
+            )
+            , 'synonyms': new InjectedFunction(
+                function (item) {
+                    return !hasValue(item) || isBlank(item.text);
+                }
+            )
+            , 'antonyms': new InjectedFunction(
+                function (item) {
+                    return !hasValue(item) || isBlank(item.text);
                 }
             )
             , 'senseGroups': new InjectedFunction(
@@ -120,6 +140,8 @@ TopicEditService.prototype.initData = function (topicId) {
         });
         if (isEmpty(self.topic.id)) {
             self.saveTopic();
+        } else {
+            self.topicCompositionEditor.addEmptyChildIfNecessary('expressions');
         }
 
     });
