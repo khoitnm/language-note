@@ -68,3 +68,11 @@ http://blog.mashape.com/list-of-25-natural-language-processing-apis/
 - compositions: the entities which form the parent entity. The compositions cannot exist without the parent. E.g. Expression is composed of SenseGroups, Senses, Examples. 
 - relations / related entities: the entities which are related to another entity. E.g. Topic is related to Categories, Expressions, SenseGroups, Senses, Examples, Questions, AnswerResult
 
+## LessonLearn
+### UI/UX: 
+Only saving when clicking the save button. 
+Don't save when loosing focus because it will make the code is very complicated and need so much manual handling methods. 
+For example: saving when losing focus on expressions, on senseGroups, on senses, on examples...
+
+### Difficulty with Neo4j:
+Don't remove old data when remove that item from the list.

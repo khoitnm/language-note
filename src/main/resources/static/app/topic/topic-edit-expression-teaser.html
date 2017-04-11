@@ -8,13 +8,19 @@
                 </div>
                 <div class="pull-left" style="width: 70%">
                     <input ng-model="expression.text"
-                           ng-blur="topicEditService.lookUpExpression(expression)"
+                           ng-change="expression.errorMessage = undefined;"
+                           complete-input="topicEditService.lookUpExpression(expression)"
                            class="input-as-text"/>
                 </div>
                 <div class="pull-right">
                     <i class="fa fa-remove"></i>
                 </div>
                 <div class="clearfix"></div>
+            </div>
+            <div class="row" ng-if="expression.errorMessage">
+                <div class="col-xs-12">
+                    <span class="error-message">{{expression.errorMessage}}</span>
+                </div>
             </div>
             <div class="body row">
                 <div class="col-md-12">

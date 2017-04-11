@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tnmk.common.util.SetUtil;
+import tnmk.ln.app.dictionary.ExpressionRepository;
 import tnmk.ln.app.dictionary.entity.Expression;
 import tnmk.ln.app.practice.QuestionGenerationService;
 import tnmk.ln.app.topic.CategoryService;
@@ -21,6 +22,9 @@ import java.util.Set;
 public class TopicCompositeService {
     @Autowired
     private TopicRepository topicRepository;
+
+    @Autowired
+    private ExpressionRepository expressionRepository;
 
     @Autowired
     private TopicDetailRepository topicDetailRepository;
@@ -44,6 +48,14 @@ public class TopicCompositeService {
             expressionSet.stream().forEach(expression -> questionService.createQuestionsIfNotExist(expression));
         }
         return topic;
+    }
+
+    @Transactional
+    public Expression saveExpressionAndRelations(User user, Expression expression) {
+        expression.setOwner(user);
+        Expression savedExpression = expressionRepository.save(expression);
+        questionService.createQuestionsIfNotExist(savedExpression);
+        return savedExpression;
     }
 
     /**

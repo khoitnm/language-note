@@ -46,7 +46,7 @@ public class Expression extends BaseNeo4jEntity implements Possession, Cleanable
     // COMPOSITION RELATIONSHIPS //////////////////////////////////////////////////////////////
     @DetailLoading
     @Relationship(type = EXPRESSION_IN_LOCALE, direction = Relationship.OUTGOING)
-    private Locale locale;
+    private Locale locale = Locale.DEFAULT;
     /**
      * The list of lexical entries which helps to form the expression's text.
      * If the lexicalEntries is not empty, the text will be created from lexicalEntries

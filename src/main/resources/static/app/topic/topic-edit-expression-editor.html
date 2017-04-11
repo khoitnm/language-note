@@ -5,8 +5,8 @@
             <div class="expression header row">
                 <div class="col-md-10">
                     <input ng-model="expression.text"
+                           complete-input="topicEditService.topicCompositionEditor.changeItem(expression)"
                            ng-focus="topicEditService.topicCompositionEditor.changeItem(expression)"
-                           ng-blur="topicEditService.topicCompositionEditor.changeItem(expression)"
                            ng-change="topicEditService.validateNotExistExpressionText(expression)" ng-model-options='{ debounce: 1000 }'
                            class="input-as-text"/>
                 </div>
@@ -26,7 +26,7 @@
                                 <div class="col-md-10">
                                     <input ng-model="senseGroup.lexicalType" capitalize
                                            ng-focus="topicEditService.topicCompositionEditor.changeItem(senseGroup)"
-                                           ng-blur="topicEditService.topicCompositionEditor.changeItem(senseGroup)"
+                                           complete-input="topicEditService.topicCompositionEditor.changeItem(senseGroup)"
                                            class="sense-group-label"/>
                                 </div>
                                 <div class="col-md-2 text-right">
@@ -43,13 +43,13 @@
                                                 <div class="col-md-4">
                                                     <textarea ng-model="sense.shortExplanation"
                                                               ng-focus="topicEditService.topicCompositionEditor.changeItem(sense)"
-                                                              ng-blur="topicEditService.topicCompositionEditor.changeItem(sense)"
+                                                              complete-input="topicEditService.topicCompositionEditor.changeItem(sense)"
                                                               class="input-as-text" placeholder="sense's summary"></textarea>
                                                 </div>
                                                 <div class="col-md-7">
                                                     <textarea ng-model="sense.explanation"
                                                               ng-focus="topicEditService.topicCompositionEditor.changeItem(sense)"
-                                                              ng-blur="topicEditService.topicCompositionEditor.changeItem(sense)"
+                                                              complete-input="topicEditService.topicCompositionEditor.changeItem(sense)"
                                                               class="input-as-text" placeholder="sense's explanation"></textarea>
                                                 </div>
                                                 <div class="col-md-1 text-right">
@@ -109,7 +109,7 @@
                                                         <div class="col-md-11">
                                                             <textarea ng-model="example.text"
                                                                       ng-focus="topicEditService.topicCompositionEditor.changeItem(example)"
-                                                                      ng-blur="topicEditService.topicCompositionEditor.changeItem(example)"
+                                                                      complete-input="topicEditService.topicCompositionEditor.changeItem(example)"
                                                                       class="input-as-text" placeholder="Example">
                                                             </textarea>
                                                         </div>
@@ -130,7 +130,11 @@
             <!-- Footer -->
             <div class="footer row">
                 <div class="col-md-12 text-center">
-                    <a href="" ng-click="topicEditService.modeEdit(expression)" class="more">
+                    <!--<a href="" ng-click="topicEditService.modeEdit(expression)" class="more">-->
+                    <!--<i class="fa fa-chevron-up"></i>-->
+                    <!--</a>-->
+
+                    <a href="" ng-click="topicEditService.saveExpression(expression)" class="more">
                         <i class="fa fa-chevron-up"></i>
                     </a>
                 </div>

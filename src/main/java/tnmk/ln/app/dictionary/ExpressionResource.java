@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import tnmk.ln.app.aggregation.TopicDeletionService;
 import tnmk.ln.app.common.entity.UriPrefixConstants;
 import tnmk.ln.app.dictionary.entity.Expression;
+import tnmk.ln.app.dictionary.entity.Locale;
 import tnmk.ln.app.topic.TopicService;
 import tnmk.ln.infrastructure.security.helper.SecurityContextHelper;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
@@ -27,13 +28,17 @@ public class ExpressionResource {
     ExpressionService expressionService;
 
     @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/expressions/detail/lookup", method = RequestMethod.GET)
-    public Expression lookupExpression(@RequestParam(value = "text") String text) {
+    public Expression lookupExpression(
+            @RequestParam(value = "lang", required = false, defaultValue = Locale.LANGUAGE_EN) String language
+            , @RequestParam(value = "text") String text) {
         User user = SecurityContextHelper.validateExistAuthenticatedUser();
-        return expressionService.findOneDetailByText(text);
+        return expressionService.findLookUpDetailByText(language, text);
     }
 
     @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/expressions/brief/lookup", method = RequestMethod.GET)
-    public Expression checkExistingExpressionByText(@RequestParam(value = "text") String text) {
+    public Expression checkExistingExpressionByText(
+            @RequestParam(value = "lang", required = false, defaultValue = Locale.LANGUAGE_EN) String language
+            , @RequestParam(value = "text") String text) {
         User user = SecurityContextHelper.validateExistAuthenticatedUser();
         return expressionService.findOneBriefByText(text);
     }

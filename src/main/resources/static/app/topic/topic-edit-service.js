@@ -242,9 +242,26 @@ TopicEditService.prototype.saveTopic = function (callback) {
         }
     );
 };
+TopicEditService.prototype.saveExpression = function (expression) {
+    var self = this;
+    self.$http.post(contextPath + '/api/expression-composites', expression).then(
+        function (successResponse) {
+            expression = $r.copyProperties(successResponse.data, expression);
+        }
+    );
+};
 TopicEditService.prototype.lookUpExpression = function (expression) {
     var self = this;
     var expressionText = expression.text;
+    var comparator = new ComparatorByFields([new FieldSort('text', 1)]);
+    if ($list.hasDuplication(self.topic.expressions, expression, comparator)) {
+        expression.errorMessage = "The expression '" + expressionText + "' was already used in this topic.";
+        //setTimeout(function () {
+        //    expression.errorMessage = undefined;
+        //}, 5000);
+        return;
+    }
+    expression.errorMessage = undefined;
     if (isBlank(expressionText)) {
         var skeletonExpressions = self.topicCompositionEditor.getSkeletonByPropertyName('expressions');
         var skeletonExpression = skeletonExpressions[0];
@@ -258,6 +275,7 @@ TopicEditService.prototype.lookUpExpression = function (expression) {
         });
     }
 };
+
 TopicEditService.prototype.validateNotExistExpressionText = function (expression) {
     var self = this;
     var expressionText = expression.text;

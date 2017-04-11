@@ -10,9 +10,10 @@ import tnmk.ln.app.common.entity.Cleanable;
  * @author khoi.tran on 3/10/17.
  */
 @NodeEntity(label = "Locale")
-public class Locale extends BaseNeo4jEntity implements Cleanable{
-    public static final Locale EN_EN = new Locale("en", "en");
-    public static final Locale EN_US = new Locale("en", "us");
+public class Locale extends BaseNeo4jEntity implements Cleanable {
+    public static final String LANGUAGE_EN = "en";
+    public static final Locale EN_EN = new Locale(LANGUAGE_EN, "en");
+    public static final Locale EN_US = new Locale(LANGUAGE_EN, "us");
     public static final Locale DEFAULT = EN_EN;
 
     private String language;
@@ -25,11 +26,13 @@ public class Locale extends BaseNeo4jEntity implements Cleanable{
 
     public Locale() {
     }
+
     @Transient
     @Override
     public boolean isEmpty() {
         return StringUtils.isBlank(this.language);
     }
+
     public String getLanguage() {
         return language;
     }

@@ -74,14 +74,21 @@ Array.prototype.mergeNotBlankValuesToString = function (delimiterString, fieldNa
     }
     return result;
 };
+/**
+ * @param fieldName
+ * @param asc 1 for asc, -1 for desc
+ */
 var FieldSort = function (fieldName, asc) {
     this.fieldName = fieldName;
     this.asc = asc;
 };
+/**
+ * @param fieldSorts array of {@link FieldSort} items.
+ * @constructor
+ */
 var ComparatorByFields = function (fieldSorts) {
     this.fieldSorts = fieldSorts;
-}
-''
+};
 ComparatorByFields.prototype.compareByField = function (fieldName, asc, a, b) {
     var valA = getField(a, fieldName);
     var valB = getField(b, fieldName);
@@ -109,7 +116,7 @@ ComparatorByFields.prototype.compareByField = function (fieldName, asc, a, b) {
     }
     return result;
 };
-ComparatorByFields.prototype.compareByFields = function (a, b) {
+ComparatorByFields.prototype.compare = function (a, b) {
     var result = 0;
     for (i = 0; i < this.fieldSorts.length; i++) {
         var fieldSort = this.fieldSorts[i];
@@ -128,14 +135,14 @@ ComparatorByFields.prototype.compareByFields = function (a, b) {
 Array.prototype.sortByField = function (fieldName, asc) {
     var comparator = new ComparatorByFields([new FieldSort(fieldName, asc)]);
     var comparatorByField = function (a, b) {
-        return comparator.compareByFields(a, b);
+        return comparator.compare(a, b);
     };
     this.sort(comparatorByField);
 };
 Array.prototype.sortByFields = function (fieldSorts) {
     var comparator = new ComparatorByFields(fieldSorts);
     var comparatorByField = function (a, b) {
-        return comparator.compareByFields(a, b);
+        return comparator.compare(a, b);
     };
     this.sort(comparatorByField);
 };

@@ -1,3 +1,29 @@
+angularApp.directive('completeInput', function () {
+    return function (scope, element, attrs) {
+        element.bind("keydown keypress blur", function (event) {
+            if (event.type == 'blur' || event.which === 13) {
+                scope.$apply(function () {
+                    scope.$eval(attrs['completeInput']);
+                });
+
+                event.preventDefault();
+            }
+        });
+    };
+});
+angularApp.directive('enterAction', function () {
+    return function (scope, element, attrs) {
+        element.bind("keydown keypress", function (event) {
+            if (event.which === 13) {
+                scope.$apply(function () {
+                    scope.$eval(attrs['enterAction']);
+                });
+
+                event.preventDefault();
+            }
+        });
+    };
+});
 angularApp.directive("limitTo", [function () {
     return {
         restrict: "A",

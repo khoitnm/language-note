@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tnmk.ln.app.dictionary.entity.Expression;
+import tnmk.ln.infrastructure.dictionary.oxford.OxfordService;
+import tnmk.ln.infrastructure.dictionary.oxford.entity.OxfordWord;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
 
 /**
@@ -15,7 +17,13 @@ public class ExpressionService {
     private ExpressionRepository expressionRepository;
 
     @Autowired
+    private ExpressionMapper expressionMapper;
+
+    @Autowired
     private ExpressionDetailRepository expressionDetailRepository;
+
+    @Autowired
+    OxfordService oxfordService;
 
     //    @Transactional
     public Expression createExpression(User owner, Expression expression) {
@@ -54,8 +62,17 @@ public class ExpressionService {
     }
 
     public Expression findOneDetailByText(String text) {
+        return expressionDetailRepository.findOneDetailByText(text);
+    }
+
+    public Expression findLookUpDetailByText(String sourceLanguage, String text) {
         String trimmedText = text.trim().toLowerCase();
-        return expressionDetailRepository.findOneDetailByText(trimmedText);
+        Expression expression = findOneDetailByText(trimmedText);
+        if (expression == null) {
+            OxfordWord oxfordWord = oxfordService.lookUpDefinition(sourceLanguage, trimmedText);
+            expression = ExpressionMapper.toExpression(oxfordWord);
+        }
+        return expression;
     }
 
     public Expression findOneBriefByText(String text) {

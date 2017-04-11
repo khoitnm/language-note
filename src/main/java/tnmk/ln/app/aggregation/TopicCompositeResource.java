@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import tnmk.ln.app.common.entity.UriPrefixConstants;
+import tnmk.ln.app.dictionary.entity.Expression;
 import tnmk.ln.app.topic.TopicService;
 import tnmk.ln.app.topic.entity.Topic;
 import tnmk.ln.infrastructure.security.helper.SecurityContextHelper;
@@ -31,4 +32,9 @@ public class TopicCompositeResource {
         return topicCompositeService.saveTopicAndRelations(user, topic);
     }
 
+    @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/expression-composites", method = RequestMethod.POST)
+    public Expression saveExpressionComposite(@RequestBody Expression expression) {
+        User user = SecurityContextHelper.validateExistAuthenticatedUser();
+        return topicCompositeService.saveExpressionAndRelations(user, expression);
+    }
 }
