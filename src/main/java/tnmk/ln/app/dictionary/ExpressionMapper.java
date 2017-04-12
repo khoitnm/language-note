@@ -95,8 +95,16 @@ public class ExpressionMapper {
 
     private static LexicalType toLexicalType(String lexicalCategory) {
         LexicalType lexicalType = null;
-        if (lexicalCategory.endsWith("")) {
+        if (lexicalCategory.equalsIgnoreCase("noun")) {
+            return LexicalType.NOUN;
+        } else if (lexicalCategory.equalsIgnoreCase("adjective")) {
             return LexicalType.ADJ;
+        } else if (lexicalCategory.equalsIgnoreCase("adverb")) {
+            return LexicalType.ADV;
+        } else if (lexicalCategory.equalsIgnoreCase("verb")) {
+            return LexicalType.VERB;
+        } else if (lexicalCategory.equalsIgnoreCase("preposition")) {
+            return LexicalType.PREPOSITION;
         }
         return lexicalType;
     }
