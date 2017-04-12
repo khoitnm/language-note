@@ -2,13 +2,13 @@ package tnmk.ln.infrastructure.translate.cache;
 
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
-import tnmk.ln.app.common.entity.BaseEntity;
+import tnmk.ln.app.common.entity.BaseMongoEntity;
 
 /**
  * @author khoi.tran on 2/1/17.
  */
 @Document(collection = "Translation")
-public class Translation extends BaseEntity {
+public class Translation extends BaseMongoEntity {
     @Indexed
     private String sourceLanguage;
     @Indexed

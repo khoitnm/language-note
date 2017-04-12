@@ -76,3 +76,11 @@ For example: saving when losing focus on expressions, on senseGroups, on senses,
 
 ### Difficulty with Neo4j:
 Don't remove old data when remove that item from the list.
+
+In a composite entity, every subordinated entities will be denormalized into many children entities. It has some disadvantages:
+ + It's extremely difficult to handle the order of children. For example:
+ At first, parent.children = [1, 2, 3]. Then you update parent.children = [3, 1, 2]. However, when you select data, it still shown parent.chidlren is unchanged [1, 2, 3]
+ + It's very complicated to query when there is a cycling reference (problem with Spring OGM). For example:
+ Word[1].synonyms = [2 ,3] -> query all detail of word[1], it will cause stack overflow:
+ Word[1] -> load synonyms [2, 3] -> load word[2] -> synonyms[1, 3] -> load word[1] -> synonyms[2, 3]
+ + The aggregation query is slower compare to the query of MongoDB.

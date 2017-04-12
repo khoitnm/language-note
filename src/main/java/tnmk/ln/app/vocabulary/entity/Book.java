@@ -4,7 +4,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-import tnmk.ln.app.common.entity.BaseEntity;
+import tnmk.ln.app.common.entity.BaseMongoEntity;
 
 import java.time.Instant;
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
  * @author khoi.tran on 1/25/17.
  */
 @Document(collection = "Book")
-public class Book extends BaseEntity {
+public class Book extends BaseMongoEntity {
     @Indexed(unique = true)
     @NotBlank
     private String name;

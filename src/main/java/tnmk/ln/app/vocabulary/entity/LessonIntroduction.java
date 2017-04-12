@@ -1,11 +1,11 @@
 package tnmk.ln.app.vocabulary.entity;
 
-import tnmk.ln.app.common.entity.BaseEntity;
+import tnmk.ln.app.common.entity.BaseMongoEntity;
 
 /**
  * @author khoi.tran on 1/25/17.
  */
-public class LessonIntroduction extends BaseEntity {
+public class LessonIntroduction extends BaseMongoEntity {
     private String name;
 
     private String bookId;

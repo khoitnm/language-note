@@ -3,7 +3,7 @@ package tnmk.ln.infrastructure.filestorage.entity;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.util.Base64Utils;
-import tnmk.ln.app.common.entity.BaseEntity;
+import tnmk.ln.app.common.entity.BaseMongoEntity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +13,7 @@ import java.util.Map;
  * With current relationship, one Document metadata can point to many DocumentDownload binary (in theory), it's not good.
  */
 @Document(collection = "FileItem")
-public class FileItem extends BaseEntity {
+public class FileItem extends BaseMongoEntity {
     private String name;
 
     private String mimeType;

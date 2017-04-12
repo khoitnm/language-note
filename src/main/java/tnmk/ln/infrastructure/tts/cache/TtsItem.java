@@ -3,14 +3,14 @@ package tnmk.ln.infrastructure.tts.cache;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-import tnmk.ln.app.common.entity.BaseEntity;
+import tnmk.ln.app.common.entity.BaseMongoEntity;
 import tnmk.ln.infrastructure.filestorage.entity.FileItem;
 
 /**
  * @author khoi.tran on 2/2/17.
  */
 @Document(collection = "TtsItem")
-public class TtsItem extends BaseEntity {
+public class TtsItem extends BaseMongoEntity {
     /**
      * Must be trimmed and compare ignore case (don't care about uppercase or lowercase).
      */

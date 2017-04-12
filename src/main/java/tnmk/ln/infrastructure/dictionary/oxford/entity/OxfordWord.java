@@ -7,7 +7,7 @@ package tnmk.ln.infrastructure.dictionary.oxford.entity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-import tnmk.ln.app.common.entity.BaseEntity;
+import tnmk.ln.app.common.entity.BaseMongoEntity;
 
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @Document(collection = "OxfordWord")
-public class OxfordWord extends BaseEntity {
+public class OxfordWord extends BaseMongoEntity {
     @Field("oxford_word_id")
     @JsonProperty("id")//In order to compatible with OxfordAPI
     private String oxfordWordId;

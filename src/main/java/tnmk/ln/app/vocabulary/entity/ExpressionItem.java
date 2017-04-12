@@ -5,7 +5,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
-import tnmk.ln.app.common.entity.BaseEntity;
+import tnmk.ln.app.common.entity.BaseMongoEntity;
 
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  * @author khoi.tran on 1/25/17.
  */
 @Document(collection = "ExpressionItem")
-public class ExpressionItem extends BaseEntity {
+public class ExpressionItem extends BaseMongoEntity {
     /**
      * full expression
      */

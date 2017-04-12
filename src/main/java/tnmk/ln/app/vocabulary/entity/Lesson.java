@@ -5,7 +5,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-import tnmk.ln.app.common.entity.BaseEntity;
+import tnmk.ln.app.common.entity.BaseMongoEntity;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -16,7 +16,7 @@ import java.util.Set;
  * @author khoi.tran on 1/25/17.
  */
 @Document(collection = "Lesson")
-public class Lesson extends BaseEntity {
+public class Lesson extends BaseMongoEntity {
     @Indexed
     @NotBlank
     private String name;

@@ -4,7 +4,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
-import tnmk.ln.app.common.entity.BaseEntity;
+import tnmk.ln.app.common.entity.BaseMongoEntity;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Deprecated
 @Document(collection = "User")
-public class User extends BaseEntity {
+public class User extends BaseMongoEntity {
     @NotBlank
     @Indexed(unique = true)
     private String username;

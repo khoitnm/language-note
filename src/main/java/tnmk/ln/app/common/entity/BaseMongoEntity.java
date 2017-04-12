@@ -7,7 +7,7 @@ import java.time.Instant;
 /**
  * @author khoi.tran on 1/25/17.
  */
-public class BaseEntity {
+public class BaseMongoEntity {
     @Id
     private String id;
 
