@@ -138,11 +138,12 @@ TopicEditService.prototype.initData = function (topicId) {
                 }
             )
         });
-        if (isEmpty(self.topic.id)) {
-            self.saveTopic();
-        } else {
-            self.topicCompositionEditor.addEmptyChildIfNecessary('expressions');
-        }
+        self.topicCompositionEditor.addEmptyChildIfNecessary('expressions');
+        //if (isEmpty(self.topic.id)) {
+        //    self.saveTopic();
+        //} else {
+        //    self.topicCompositionEditor.addEmptyChildIfNecessary('expressions');
+        //}
 
     });
 };
