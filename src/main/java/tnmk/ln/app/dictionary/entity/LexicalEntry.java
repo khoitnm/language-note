@@ -1,16 +1,17 @@
 package tnmk.ln.app.dictionary.entity;
 
 import org.apache.commons.lang3.StringUtils;
-import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Transient;
-import tnmk.ln.app.common.entity.BaseNeo4jEntity;
+import org.springframework.data.mongodb.core.mapping.Document;
+import tnmk.ln.app.common.entity.BaseMongoEntity;
 import tnmk.ln.app.common.entity.Cleanable;
 
 /**
  * @author khoi.tran on 2/18/17.
  */
-@NodeEntity(label = "LexicalEntry")
-public class LexicalEntry extends BaseNeo4jEntity implements Cleanable {
+//@NodeEntity(label = "LexicalEntry")
+@Document(collection = "LexicalEntry")
+public class LexicalEntry extends BaseMongoEntity implements Cleanable {
     private String text;
     private LexicalType type;
 

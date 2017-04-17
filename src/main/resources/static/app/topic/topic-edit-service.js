@@ -35,22 +35,25 @@ TopicEditService.prototype.initData = function (topicId) {
         }
         self.topicSkeleton = arrayOfResults[1].data;
         self.topicCompositionEditor = new CompositeEditor(self.topicSkeleton, self.topic, {
-            'expressions': new InjectedFunction(
-                function (item) {
+            'expressions': {
+                fnIsItemEmpty: function (item) {
                     return !hasValue(item) || isBlank(item.text);
                 }
-                , function (item, childPaths) {
-                    if (!hasValue(item.id)) return;
-                    var superProperty = $r.findSuperPropertyFromChildPaths(self.topic, childPaths, 2);
-                    var superId = superProperty.propertyValue.id;
-                    self.$http({
-                        url: contextPath + "/api/topics/" + superId + "/expressions/" + item.id,
-                        method: 'DELETE',
-                        headers: {"Content-Type": "application/json;charset=utf-8"}
-                    }).then(function () {
-                    })
+                , fnChangeItemCallback: function (item) {
+                    self.lookUpExpression(item);
                 }
-            )
+                //, function (item, childPaths) {
+                //    if (!hasValue(item.id)) return;
+                //    var superProperty = $r.findSuperPropertyFromChildPaths(self.topic, childPaths, 2);
+                //    var superId = superProperty.propertyValue.id;
+                //    self.$http({
+                //        url: contextPath + "/api/topics/" + superId + "/expressions/" + item.id,
+                //        method: 'DELETE',
+                //        headers: {"Content-Type": "application/json;charset=utf-8"}
+                //    }).then(function () {
+                //    })
+                //}
+            }
             , 'lexicalEntries': new InjectedFunction(
                 function (item) {
                     return !hasValue(item) || isBlank(item.text);
@@ -75,67 +78,67 @@ TopicEditService.prototype.initData = function (topicId) {
                 function (item) {
                     return !hasValue(item) || isBlank(item.lexicalType);
                 }
-                , function (item, childPaths) {
-                    if (!hasValue(item.id)) return;
-                    var superProperty = $r.findSuperPropertyFromChildPaths(self.topic, childPaths, 2);
-                    var superId = superProperty.propertyValue.id;
-                    self.$http({
-                        url: contextPath + "/api/expressions/" + superId + "/senseGroups/" + item.id,
-                        method: 'DELETE',
-                        headers: {"Content-Type": "application/json;charset=utf-8"}
-                    }).then(function () {
-                    })
-                }
+                //, function (item, childPaths) {
+                //    if (!hasValue(item.id)) return;
+                //    var superProperty = $r.findSuperPropertyFromChildPaths(self.topic, childPaths, 2);
+                //    var superId = superProperty.propertyValue.id;
+                //    self.$http({
+                //        url: contextPath + "/api/expressions/" + superId + "/senseGroups/" + item.id,
+                //        method: 'DELETE',
+                //        headers: {"Content-Type": "application/json;charset=utf-8"}
+                //    }).then(function () {
+                //    })
+                //}
             )
             , 'senses': new InjectedFunction(
                 function (item) {
                     return !hasValue(item) || (isBlank(item.explanation) && isBlank(item.shortExplanation));
                 }
-                , function (item, childPaths) {
-                    if (!hasValue(item.id)) return;
-                    var superProperty = $r.findSuperPropertyFromChildPaths(self.topic, childPaths, 2);
-                    var superId = superProperty.propertyValue.id;
-                    self.$http({
-                        url: contextPath + "/api/senseGroups/" + superId + "/senses/" + item.id,
-                        method: 'DELETE',
-                        headers: {"Content-Type": "application/json;charset=utf-8"}
-                    }).then(function () {
-                    })
-                }
+                //, function (item, childPaths) {
+                //    if (!hasValue(item.id)) return;
+                //    var superProperty = $r.findSuperPropertyFromChildPaths(self.topic, childPaths, 2);
+                //    var superId = superProperty.propertyValue.id;
+                //    self.$http({
+                //        url: contextPath + "/api/senseGroups/" + superId + "/senses/" + item.id,
+                //        method: 'DELETE',
+                //        headers: {"Content-Type": "application/json;charset=utf-8"}
+                //    }).then(function () {
+                //    })
+                //}
             )
             , 'photos': new InjectedFunction(
                 function (item) {
                     return !hasValue(item) || isBlank(item.fileItemId);
                 }
                 //Remove Item
-                , function (item, childPaths) {
-                    if (!hasValue(item.id)) return;
-                    var superProperty = $r.findSuperPropertyFromChildPaths(self.topic, childPaths, 2);
-                    var superId = superProperty.propertyValue.id;
-                    self.$http({
-                        url: contextPath + "/api/senses/" + superId + "/photos/" + item.id + "/detach",
-                        method: 'DELETE',
-                        headers: {"Content-Type": "application/json;charset=utf-8"}
-                    }).then(function () {
-                    })
-                }
+                //, function (item, childPaths) {
+                //    if (!hasValue(item.id)) return;
+                //    var superProperty = $r.findSuperPropertyFromChildPaths(self.topic, childPaths, 2);
+                //    var superId = superProperty.propertyValue.id;
+                //    self.$http({
+                //        url: contextPath + "/api/senses/" + superId + "/photos/" + item.id + "/detach",
+                //        method: 'DELETE',
+                //        headers: {"Content-Type": "application/json;charset=utf-8"}
+                //    }).then(function () {
+                //    })
+                //}
             )
             , 'examples': new InjectedFunction(
                 function (item) {
                     return !hasValue(item) || isBlank(item.text);
                 }
                 //Remove Item
-                , function (item, childPaths) {
-                    if (!hasValue(item.id)) return;
-                    var superProperty = $r.findSuperPropertyFromChildPaths(self.topic, childPaths, 2);
-                    var superId = superProperty.propertyValue.id;
-                    self.$http({
-                        url: contextPath + "/api/senses/" + superId + "/examples/" + item.id,
-                        method: 'DELETE',
-                        headers: {"Content-Type": "application/json;charset=utf-8"}
-                    }).then(function () {
-                    })
-                }
+                //, function (item, childPaths) {
+                //    if (!hasValue(item.id)) return;
+                //    var superProperty = $r.findSuperPropertyFromChildPaths(self.topic, childPaths, 2);
+                //    var superId = superProperty.propertyValue.id;
+                //    self.$http({
+                //        url: contextPath + "/api/senses/" + superId + "/examples/" + item.id,
+                //        method: 'DELETE',
+                //        headers: {"Content-Type": "application/json;charset=utf-8"}
+                //    }).then(function () {
+                //    })
+                //}
             )
         });
         self.topicCompositionEditor.addEmptyChildIfNecessary('expressions');

@@ -14,4 +14,6 @@ import java.util.List;
 @Repository
 public interface OxfordWordRepositories extends MongoRepository<OxfordWord, String> {
     List<OxfordWord> findByLanguageAndWord(String sourceLanguage, String word);
+
+    List<OxfordWord> findByLanguageAndWordAndFromRequest(String sourceLanguage, String word, String resultOf);
 }

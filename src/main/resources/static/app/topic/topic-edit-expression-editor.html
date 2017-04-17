@@ -7,7 +7,8 @@
                     <input ng-model="expression.text"
                            complete-input="topicEditService.topicCompositionEditor.changeItem(expression)"
                            ng-focus="topicEditService.topicCompositionEditor.changeItem(expression)"
-                           ng-change="topicEditService.validateNotExistExpressionText(expression)" ng-model-options='{ debounce: 1000 }'
+                           ng-change="topicEditService.validateNotExistExpressionText(expression)"
+                           ng-model-options='{ debounce: 1000 }'
                            class="input-as-text"/>
                 </div>
                 <div class="col-md-2 text-right">

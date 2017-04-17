@@ -6,6 +6,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 import org.neo4j.ogm.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.Document;
+import tnmk.ln.app.common.entity.BaseMongoEntity;
 import tnmk.ln.app.common.entity.BaseNeo4jEntity;
 import tnmk.ln.app.common.entity.Cleanable;
 import tnmk.ln.app.digitalasset.entity.DigitalAsset;
@@ -17,8 +19,9 @@ import java.util.List;
 /**
  * @author khoi.tran on 2/18/17.
  */
-@NodeEntity(label = "Sense")
-public class Sense extends BaseNeo4jEntity implements Cleanable {
+//@NodeEntity(label = "Sense")
+@Document(collection = "Sense")
+public class Sense extends BaseMongoEntity implements Cleanable {
     public static final String HAS_EXAMPLE = "HAS_EXAMPLE";
     public static final String HAS_PHOTOS = "HAS_PHOTOS";
     public static final String HAS_AUDIOS = "HAS_AUDIOS";
@@ -39,22 +42,18 @@ public class Sense extends BaseNeo4jEntity implements Cleanable {
     private DigitalAsset mainPhoto;
 
     @DetailLoading
-    @CascadeRelationship
     @Relationship(type = HAS_PHOTOS, direction = Relationship.OUTGOING)
     private List<DigitalAsset> photos;
 
     @DetailLoading
-    @CascadeRelationship
     @Relationship(type = HAS_AUDIOS, direction = Relationship.OUTGOING)
     private List<DigitalAsset> audios;
 
     @DetailLoading
-    @CascadeRelationship
     @Relationship(type = HAS_VIDEOS, direction = Relationship.OUTGOING)
     private List<DigitalAsset> videos;
 
     @DetailLoading
-    @CascadeRelationship
     @Relationship(type = HAS_EXAMPLE, direction = Relationship.OUTGOING)
     private List<Example> examples;
 

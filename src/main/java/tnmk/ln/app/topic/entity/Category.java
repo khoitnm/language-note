@@ -13,6 +13,7 @@ import java.util.Set;
  * @author khoi.tran on 2/25/17.
  */
 @NodeEntity(label = "Category")
+//@Document(collection = "Category")
 public class Category extends BaseNeo4jEntity implements Cleanable {
     public static final String OWN_CATEGORY = "OWN_CATEGORY";
     /**

@@ -36,23 +36,31 @@ public class QuestionLoadingRepository {
         return IterableUtil.toList(neo4jRepository.findList(Question.class, queryString, user.getId(), topicIds));
     }
 
-    public Question findOneByQuestionTypeAndFromExpressionIdAndFromSenseId(QuestionType questionType, Long expressionId, Long senseId) {
+    public Question findOneByQuestionTypeAndFromExpressionIdAndFromSenseId(QuestionType questionType, String expressionId, String senseId) {
         String queryString = "MATCH (n:`" + questionType.getLogicName() + "`)"
-                + "MATCH (m0:`Expression`) WHERE id(m0) = {p0} "
-                + "MATCH (m1:`Sense`) WHERE id(m1) = {p1} "
-                + "MATCH (n)-[:`FROM_EXPRESSION`]->(m0) MATCH (n)-[:`FROM_SENSE`]->(m1) WITH n MATCH p=(n)-[*0..1]-(m) "
-                + "RETURN p, ID(n)";
+                + " WHERE n.fromExpressionId = {p0} AND n.fromSenseId = {p1} "
+                + " WITH n "
+                + " MATCH p=(n)-[*0..1]-(m) "
+                + " RETURN p, ID(n)";
         return findOne(Question.class, queryString, expressionId, senseId);
     }
 
-    public Question findOneByQuestionTypeAndFromExpressionIdAndFromSenseIdAndFromExampleId(QuestionType questionType, Long expressionId, Long senseId, Long exampleId) {
+    public Question findOneByQuestionTypeAndFromExpressionIdAndFromSenseIdAndFromExampleId(QuestionType questionType, String expressionId, String senseId, String exampleId) {
+//        String queryString = "MATCH (n:`" + questionType.getLogicName() + "`)"
+//                + "MATCH (m0:`Expression`) WHERE id(m0) = {p0} "
+//                + "MATCH (m1:`Sense`) WHERE id(m1) = {p1} "
+//                + "MATCH (m2:`Example`) WHERE id(m2) = {p2} "
+//                + "MATCH (n)-[:`FROM_EXPRESSION`]->(m0) MATCH (n)-[:`FROM_SENSE`]->(m1) "
+//                + "MATCH (n)-[:`FROM_EXAMPLE`]->(m2) WITH n "
+//                + "MATCH p=(n)-[*0..1]-(m) RETURN p, ID(n)";
         String queryString = "MATCH (n:`" + questionType.getLogicName() + "`)"
-                + "MATCH (m0:`Expression`) WHERE id(m0) = {p0} "
-                + "MATCH (m1:`Sense`) WHERE id(m1) = {p1} "
-                + "MATCH (m2:`Example`) WHERE id(m2) = {p2} "
-                + "MATCH (n)-[:`FROM_EXPRESSION`]->(m0) MATCH (n)-[:`FROM_SENSE`]->(m1) "
-                + "MATCH (n)-[:`FROM_EXAMPLE`]->(m2) WITH n "
-                + "MATCH p=(n)-[*0..1]-(m) RETURN p, ID(n)";
+                + " WHERE n.fromExpressionId = {p0} "
+                + " AND n.fromSenseId = {p1} "
+                + " AND n.fromExampleId = {p2} "
+//                + "MATCH (n)-[:`FROM_EXPRESSION`]->(m0) MATCH (n)-[:`FROM_SENSE`]->(m1) "
+//                + "MATCH (n)-[:`FROM_EXAMPLE`]->(m2)
+                + " WITH n "
+                + " MATCH p=(n)-[*0..1]-(m) RETURN p, ID(n)";
         return findOne(Question.class, queryString, expressionId, senseId, exampleId);
     }
 

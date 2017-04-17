@@ -6,15 +6,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import tnmk.common.util.SetUtil;
 import tnmk.ln.app.aggregation.TopicCompositeService;
-import tnmk.ln.app.topic.TopicFactory;
+import tnmk.ln.app.aggregation.model.TopicComposite;
+import tnmk.ln.app.topic.TopicCompositeFactory;
 import tnmk.ln.app.topic.TopicRepository;
 import tnmk.ln.app.topic.TopicService;
 import tnmk.ln.app.topic.entity.Category;
 import tnmk.ln.app.topic.entity.Topic;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -39,8 +40,8 @@ public class TopicTestFactory {
     @Autowired
     private TopicRepository topicRepository;
 
-    public static Topic constructTopic(String title, String... categoryTexts) {
-        Topic topic = TopicFactory.constructSchema();
+    public static TopicComposite constructTopic(String title, String... categoryTexts) {
+        TopicComposite topic = TopicCompositeFactory.constructSchema();
         topic.setTitle(title);
         Set<Category> categorys = new HashSet<>();
         for (String categoryText : categoryTexts) {
@@ -68,7 +69,7 @@ public class TopicTestFactory {
         topic.setCategories(categorys);
         topic.setOwner(owner);
         topic = topicRepository.save(topic);
-        topic = topicService.findDetailById(topic.getId());
+        topic = topicService.findDetailById("" + topic.getId());
         return topic;
     }
 
@@ -78,14 +79,14 @@ public class TopicTestFactory {
      * @return topic with 2 categorys and 3 expressions
      */
     public Topic createTopicWithDefaultRelationships(User owner, String topicTitle) {
-        Topic topic = constructTopic(topicTitle, "test_category1", "test_category2");
-        topic.setExpressions(SetUtil.constructSet(
+        TopicComposite topicComposite = constructTopic(topicTitle, "test_category1", "test_category2");
+        topicComposite.setExpressions(Arrays.asList(
                 ExpressionTestFactory.constructWord("test_expression1")
                 , ExpressionTestFactory.constructWord("test_expression2")
                 , ExpressionTestFactory.constructWord("test_expression3")
         ));
-        topic = topicCompositeService.saveTopicAndRelations(owner, topic);
-        LOGGER.debug("Created topic: " + topic);
-        return topic;
+        Topic topic = topicCompositeService.saveTopicAndRelations(owner, topicComposite);
+        LOGGER.debug("Created topic: " + topicComposite);
+        return topicComposite;
     }
 }

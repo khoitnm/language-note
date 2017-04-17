@@ -11,14 +11,23 @@ import tnmk.ln.app.dictionary.entity.Expression;
 public class ExpressionPracticeResult extends BasePracticeResult {
     public static final String RESULT_OF_EXPRESSION = "RESULT_OF_EXPRESSION";
 
-    @Relationship(type = RESULT_OF_EXPRESSION, direction = Relationship.OUTGOING)
-    private Expression expression;
+    private String expressionId;
 
-    public Expression getExpression() {
-        return expression;
+    public String getExpressionId() {
+        return expressionId;
     }
 
-    public void setExpression(Expression expression) {
-        this.expression = expression;
+    public void setExpressionId(String expressionId) {
+        this.expressionId = expressionId;
     }
+//    @Relationship(type = RESULT_OF_EXPRESSION, direction = Relationship.OUTGOING)
+//    private Expression expression;
+//
+//    public Expression getExpression() {
+//        return expression;
+//    }
+//
+//    public void setExpression(Expression expression) {
+//        this.expression = expression;
+//    }
 }

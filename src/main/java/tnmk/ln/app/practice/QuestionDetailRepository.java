@@ -31,9 +31,9 @@ public class QuestionDetailRepository {
         return neo4jRepository.execute(query, id).getNodesDeleted();
     }
 
-    public int removeQuestionsAndCompositionsRelatedToExpression(long expressionId) {
-        String query = "MATCH (q:Question)-[r:FROM_EXPRESSION]-(e:Expression) "
-                + " WHERE id(e)={p0} "
+    public int removeQuestionsAndCompositionsRelatedToExpression(String expressionId) {
+        String query = "MATCH (q:Question)"
+                + " WHERE e.fromExpressionId={p0} "
                 + " OPTIONAL MATCH (q)--(qp:QuestionPart) "
                 + " OPTIONAL MATCH (q)--(pr:PracticeResult) "
                 + " DETACH DELETE q, qp, pr";

@@ -8,9 +8,6 @@ import org.neo4j.ogm.annotation.Relationship;
 import org.neo4j.ogm.annotation.Transient;
 import tnmk.ln.app.common.entity.BaseNeo4jEntity;
 import tnmk.ln.app.common.entity.Cleanable;
-import tnmk.ln.app.dictionary.entity.Example;
-import tnmk.ln.app.dictionary.entity.Expression;
-import tnmk.ln.app.dictionary.entity.Sense;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -30,15 +27,12 @@ public abstract class Question extends BaseNeo4jEntity implements Cleanable {
     @Relationship(type = HAS_QUESTION_PARTS, direction = Relationship.OUTGOING)
     private List<QuestionPart> questionParts;
 
-    @Relationship(type = FROM_EXAMPLE, direction = Relationship.OUTGOING)
-    private Example fromExample;
+    private String fromExampleId;
 
-    @Relationship(type = FROM_SENSE, direction = Relationship.OUTGOING)
-    private Sense fromSense;
+    private String fromSenseId;
 
     @NotNull
-    @Relationship(type = FROM_EXPRESSION, direction = Relationship.OUTGOING)
-    private Expression fromExpression;
+    private String fromExpressionId;
 
     @Transient
     @Override
@@ -58,30 +52,6 @@ public abstract class Question extends BaseNeo4jEntity implements Cleanable {
         this.questionParts = questionParts;
     }
 
-    public Example getFromExample() {
-        return fromExample;
-    }
-
-    public void setFromExample(Example fromExample) {
-        this.fromExample = fromExample;
-    }
-
-    public Expression getFromExpression() {
-        return fromExpression;
-    }
-
-    public void setFromExpression(Expression fromExpression) {
-        this.fromExpression = fromExpression;
-    }
-
-    public Sense getFromSense() {
-        return fromSense;
-    }
-
-    public void setFromSense(Sense fromSense) {
-        this.fromSense = fromSense;
-    }
-
     public String getText() {
         return text;
     }
@@ -90,4 +60,27 @@ public abstract class Question extends BaseNeo4jEntity implements Cleanable {
         this.text = text;
     }
 
+    public String getFromExampleId() {
+        return fromExampleId;
+    }
+
+    public void setFromExampleId(String fromExampleId) {
+        this.fromExampleId = fromExampleId;
+    }
+
+    public String getFromSenseId() {
+        return fromSenseId;
+    }
+
+    public void setFromSenseId(String fromSenseId) {
+        this.fromSenseId = fromSenseId;
+    }
+
+    public String getFromExpressionId() {
+        return fromExpressionId;
+    }
+
+    public void setFromExpressionId(String fromExpressionId) {
+        this.fromExpressionId = fromExpressionId;
+    }
 }

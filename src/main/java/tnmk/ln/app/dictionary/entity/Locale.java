@@ -1,16 +1,17 @@
 package tnmk.ln.app.dictionary.entity;
 
 import org.apache.commons.lang3.StringUtils;
-import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Transient;
-import tnmk.ln.app.common.entity.BaseNeo4jEntity;
+import org.springframework.data.mongodb.core.mapping.Document;
+import tnmk.ln.app.common.entity.BaseMongoEntity;
 import tnmk.ln.app.common.entity.Cleanable;
 
 /**
  * @author khoi.tran on 3/10/17.
  */
-@NodeEntity(label = "Locale")
-public class Locale extends BaseNeo4jEntity implements Cleanable {
+//@NodeEntity(label = "Locale")
+@Document(collection = "Locale")
+public class Locale extends BaseMongoEntity implements Cleanable {
     public static final String LANGUAGE_EN = "en";
     public static final Locale EN_EN = new Locale(LANGUAGE_EN, "en");
     public static final Locale EN_US = new Locale(LANGUAGE_EN, "us");

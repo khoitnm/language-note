@@ -12,6 +12,7 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.time.temporal.Temporal;
@@ -178,35 +179,121 @@ public class ReflectionUtils {
         return result;
     }
 
-    //TODO not finished yet.
-    public void traverseEntity(Object entity, Function<FieldDeclaration, Boolean> acceptFilter, Function action) {
-        if (entity == null) return;
-        Class<?> clazz = entity.getClass();
+    public static void traverseEntity(Object entity, Function<ActionStatus, Boolean> action) {
+        traverseEntity(action, new ActionStatus(entity, null, null, null, null, null));
+    }
+
+    /**
+     * @param action        return result whether to continue with children elements or not.
+     * @param currentStatus
+     */
+    public static void traverseEntity(Function<ActionStatus, Boolean> action, ActionStatus currentStatus) {
+        Object currentEntity = currentStatus.objectValue;
+        if (currentEntity == null) return;
+        boolean runActionResult = action.apply(currentStatus);
+        if (!runActionResult) return;
+        if (ReflectionUtils.isSimpleType(currentEntity.getClass())) return;
+
+        Class<?> clazz = currentEntity.getClass();
         if (isArray(clazz)) {
-
+            Object[] children = (Object[]) currentEntity;
+            int i = 0;
+            for (Object child : children) {
+                ActionStatus childActionStatus = new ActionStatus(child, null, i, null, currentEntity, currentStatus);
+                traverseEntity(action, childActionStatus);
+                i++;
+            }
         } else if (isIterable(clazz)) {
-
+            Iterable<Object> children = (Iterable<Object>) currentEntity;
+            int i = 0;
+            for (Object child : children) {
+                ActionStatus childActionStatus = new ActionStatus(child, null, i, null, currentEntity, currentStatus);
+                traverseEntity(action, childActionStatus);
+                i++;
+            }
         } else if (isMap(clazz)) {
-
+            Map<Object, Object> map = (Map<Object, Object>) currentEntity;
+            for (Map.Entry<Object, Object> childEntry : map.entrySet()) {
+                ActionStatus childActionStatus = new ActionStatus(childEntry.getValue(), null, null, childEntry.getKey(), currentEntity, currentStatus);
+                traverseEntity(action, childActionStatus);
+            }
         } else {
-            List<Field> fields = getDeclaredFieldsIncludeSuperClasses(clazz);
-            for (Field field : fields) {
-                Object fieldValue = readProperty(entity, field.getName());
-                if (!acceptFilter.apply(new FieldDeclaration(entity, field, fieldValue))) continue;
-
+            List<Field> childFields = getDeclaredFieldsIncludeSuperClasses(clazz);
+            for (Field childField : childFields) {
+                if (ReflectionUtils.isStatic(childField)) {
+                    continue;
+                }
+                Object childFieldValue = readProperty(currentEntity, childField.getName());
+                ActionStatus childActionStatus = new ActionStatus(childFieldValue, childField, null, null, currentEntity, currentStatus);
+                if (action.apply(childActionStatus)) {
+                    traverseEntity(action, childActionStatus);
+                }
             }
         }
     }
 
-    public static class FieldDeclaration {
-        private Field field;
-        private Object fieldValue;
-        private Object parent;
+    private static boolean isStatic(Field field) {
+        return Modifier.isStatic(field.getModifiers());
+    }
 
-        public FieldDeclaration(Object parent, Field field, Object fieldValue) {
-            this.field = field;
-            this.fieldValue = fieldValue;
+    public static class ActionStatus {
+        /**
+         * Only use when the parent is an object (not Array / Collection / Map)
+         */
+        private final Field objectField;
+        /**
+         * Only used when the container is an Array, or a Collection
+         */
+        private final Integer objectIndex;
+        /**
+         * Only used when the container is a Map
+         */
+        private final Object objectKey;
+        private final Object objectValue;
+        private final Object parent;
+        private final ActionStatus parentActionStatus;
+
+        private Object result;
+
+        public ActionStatus(Object objectValue, Field objectField, Integer objectIndex, Object objectKey, Object parent, ActionStatus parentActionStatus) {
+            this.objectField = objectField;
+            this.objectValue = objectValue;
+            this.objectIndex = objectIndex;
+            this.objectKey = objectKey;
             this.parent = parent;
+            this.parentActionStatus = parentActionStatus;
+        }
+
+        public Field getObjectField() {
+            return objectField;
+        }
+
+        public Object getObjectValue() {
+            return objectValue;
+        }
+
+        public Object getParent() {
+            return parent;
+        }
+
+        public ActionStatus getParentActionStatus() {
+            return parentActionStatus;
+        }
+
+        public Object getResult() {
+            return result;
+        }
+
+        public void setResult(Object result) {
+            this.result = result;
+        }
+
+        public Integer getObjectIndex() {
+            return objectIndex;
+        }
+
+        public Object getObjectKey() {
+            return objectKey;
         }
     }
 }

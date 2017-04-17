@@ -37,6 +37,12 @@ CompositeEditor.prototype.changeItem = function (item) {
 
     //Add an init children object to ichild
     $r.copyMissingProperties(angular.copy(itemSkeleton), item);
+
+    var parentProperty = addingSiblingResult.parentProperty;
+    var fnChangeItemCallback = self.getInjectFunction(parentProperty.propertyName, 'fnChangeItemCallback');
+    if (fnChangeItemCallback) {
+        fnChangeItemCallback.call(self, item, addingSiblingResult.parentProperty);
+    }
 };
 CompositeEditor.prototype.changeItemInList = function (list, index) {
     var item = list[index];
@@ -71,13 +77,20 @@ CompositeEditor.prototype.cleanRecursiveItem = function (item) {
     var self = this;
     if ($r.isArray(item)) {
         for (var i = 0; i < item.length; i++) {
-            self.cleanRecursiveItem(item[i]);
+            if (hasValue(item[i])) {
+                self.cleanRecursiveItem(item[i]);
+            } else {
+                item.splice(i, 1);
+                i--;
+            }
         }
     } else {
         var childPaths = $r.findChildPaths(self.root, item);
         var parentProperty = $r.findParentPropertyFromChildPaths(self.root, childPaths);
         if (self.isItemEmpty(parentProperty.propertyName, item)) {
-            self.removeItemByParentProperty(childPaths, parentProperty, item)
+            if (hasValue(item)) {
+                self.removeItemByParentProperty(childPaths, parentProperty, item);
+            }
         } else {
             for (ipropName in item) {
                 var ipropValue = item[ipropName];
@@ -173,13 +186,23 @@ CompositeEditor.prototype.getInjectFnIsItemEmpty = function (containerPropertyNa
 CompositeEditor.prototype.getInjectFnRemoveItem = function (containerPropertyName) {
     var self = this;
     var injectedFunction = self.functionsMap[containerPropertyName];
-    if (!hasValue(injectedFunction) || !hasValue(injectedFunction.fnRemoveItem)) {
+    if (!hasValue(injectedFunction) || !hasValue(injectedFunction.fnRemoveItemCallback)) {
         return function (item) {
         };
     }
-    return injectedFunction.fnRemoveItem;
+    return injectedFunction.fnRemoveItemCallback;
 };
-var InjectedFunction = function (fnIsItemEmpty, fnRemoveItem) {
+CompositeEditor.prototype.getInjectFunction = function (containerPropertyName, injectFunctionName) {
+    var self = this;
+    var injectedFunction = self.functionsMap[containerPropertyName];
+    if (!hasValue(injectedFunction) || !hasValue(injectedFunction[injectFunctionName])) {
+        return function (item) {
+        };
+    }
+    return injectedFunction[injectFunctionName];
+};
+var InjectedFunction = function (fnIsItemEmpty, fnRemoveItemCallback, fnChangeItemCallback) {
     this.fnIsItemEmpty = fnIsItemEmpty;
-    this.fnRemoveItem = fnRemoveItem;
+    this.fnRemoveItemCallback = fnRemoveItemCallback;
+    this.fnChangeItemCallback = fnChangeItemCallback;
 };

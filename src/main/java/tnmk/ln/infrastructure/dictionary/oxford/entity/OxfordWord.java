@@ -5,6 +5,7 @@ package tnmk.ln.infrastructure.dictionary.oxford.entity;
  */
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import tnmk.ln.app.common.entity.BaseMongoEntity;
@@ -24,6 +25,10 @@ public class OxfordWord extends BaseMongoEntity {
     private List<LexicalEntry> lexicalEntries = null;
     private String type;
     private String word;
+
+    @Indexed
+    private String fromRequest;
+
     @Valid
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -73,5 +78,13 @@ public class OxfordWord extends BaseMongoEntity {
 
     public void setOxfordWordId(String oxfordWordId) {
         this.oxfordWordId = oxfordWordId;
+    }
+
+    public String getFromRequest() {
+        return fromRequest;
+    }
+
+    public void setFromRequest(String fromRequest) {
+        this.fromRequest = fromRequest;
     }
 }

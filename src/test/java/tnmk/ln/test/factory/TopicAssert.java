@@ -29,28 +29,27 @@ public class TopicAssert {
         }
     }
 
-    public static void assertExpressions(Topic topic, User owner, int numExpressions) {
-        Set<Expression> expressions = topic.getExpressions();
-        Assert.assertNotNull(expressions);
-        Assert.assertEquals(numExpressions, expressions.size());
-        for (Expression expression : expressions) {
-//            Assert.assertEquals(owner, expression.getOwner());
-            Assert.assertNotNull(expression.getText());
-            List<SenseGroup> senseGroupList = expression.getSenseGroups();
-            Assert.assertTrue(senseGroupList.size() > 0);
-            for (SenseGroup senseGroup : senseGroupList) {
-                Assert.assertNotNull(senseGroup.getLexicalType());
-                Assert.assertTrue(senseGroup.getSenses().size() > 0);
-                for (Sense sense : senseGroup.getSenses()) {
-                    Assert.assertTrue(StringUtils.isNotBlank(sense.getExplanation()));
-                    Assert.assertTrue(sense.getExamples().size() > 0);
-                    for (Example example : sense.getExamples()) {
-                        Assert.assertTrue(StringUtils.isNotBlank(example.getText()));
-                    }
-                }
-            }
-        }
-    }
+//    public static void assertExpressions(Topic topic, User owner, int numExpressions) {
+//        Set<Expression> expressions = topic.getExpressions();
+//        Assert.assertNotNull(expressions);
+//        Assert.assertEquals(numExpressions, expressions.size());
+//        for (Expression expression : expressions) {
+//            Assert.assertNotNull(expression.getText());
+//            List<SenseGroup> senseGroupList = expression.getSenseGroups();
+//            Assert.assertTrue(senseGroupList.size() > 0);
+//            for (SenseGroup senseGroup : senseGroupList) {
+//                Assert.assertNotNull(senseGroup.getLexicalType());
+//                Assert.assertTrue(senseGroup.getSenses().size() > 0);
+//                for (Sense sense : senseGroup.getSenses()) {
+//                    Assert.assertTrue(StringUtils.isNotBlank(sense.getExplanation()));
+//                    Assert.assertTrue(sense.getExamples().size() > 0);
+//                    for (Example example : sense.getExamples()) {
+//                        Assert.assertTrue(StringUtils.isNotBlank(example.getText()));
+//                    }
+//                }
+//            }
+//        }
+//    }
 
     public static void assertExistCategory(Topic topic, String categoryText, boolean exist) {
         Set<Category> categorys = topic.getCategories();

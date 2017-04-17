@@ -40,7 +40,7 @@ public class QuestionRecommendationService {
         QuestionWithPracticeResult questionWithPracticeResult = new QuestionWithPracticeResult();
         questionWithPracticeResult.setQuestion(question);
 
-        ExpressionPracticeResult expressionPracticeResult = expressionPracticeResultRepository.findByOwnerIdAndExpressionId(userId, question.getFromExpression().getId());
+        ExpressionPracticeResult expressionPracticeResult = expressionPracticeResultRepository.findByOwnerIdAndExpressionId(userId, question.getFromExpressionId());
         questionWithPracticeResult.setExpressionPracticeResult(expressionPracticeResult);
 
         QuestionPracticeResult questionPracticeResult = questionPracticeResultRepository.findByOwnerIdAndQuestionId(userId, question.getId());

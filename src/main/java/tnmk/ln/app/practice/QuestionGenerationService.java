@@ -15,7 +15,6 @@ import tnmk.ln.app.practice.entity.question.QuestionType;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -57,7 +56,7 @@ public class QuestionGenerationService {
     }
 
     private List<Question> constructExpressionRecallQuestions(Expression expression) {
-        Set<Sense> senses = ExpressionUtils.getSenses(expression);
+        List<Sense> senses = ExpressionUtils.getSenses(expression);
         List<Question> questions = senses.stream().map(sense -> constructExpressionRecallQuestionIfNotExist(expression, sense)).collect(Collectors.toList());
         return questions;
     }
@@ -66,15 +65,15 @@ public class QuestionGenerationService {
         Question question = questionLoadingRepository.findOneByQuestionTypeAndFromExpressionIdAndFromSenseId(QuestionType.EXPRESSION_RECALL, expression.getId(), sense.getId());
         if (question == null) {
             question = new QuestionExpressionRecall();
-            question.setFromExpression(expression);
-            question.setFromSense(sense);
+            question.setFromExpressionId(expression.getId());
+            question.setFromSenseId(sense.getId());
         }
         return question;
     }
 
     private List<Question> constructFillBlankQuestions(Expression expression) {
         List<Question> questions = new ArrayList<>();
-        Set<Sense> senses = ExpressionUtils.getSenses(expression);
+        List<Sense> senses = ExpressionUtils.getSenses(expression);
         for (Sense sense : senses) {
             for (Example example : sense.getExamples()) {
                 questions.add(constructFillBlankQuestion(expression, sense, example));
@@ -88,9 +87,9 @@ public class QuestionGenerationService {
         if (question == null) {
             question = new QuestionFillBlank();
             question.setText(example.getText());
-            question.setFromExpression(expression);
-            question.setFromSense(sense);
-            question.setFromExample(example);
+            question.setFromExpressionId(expression.getId());
+            question.setFromSenseId(sense.getId());
+            question.setFromExampleId(example.getId());
 
             String findingExpression = expression.getText();
             List<QuestionPart> questionParts = questionFillBlankGenerator.analyzeToQuestionParts(expression.getLocaleOrDefault().getLanguage(), findingExpression, question.getText());

@@ -7,11 +7,11 @@ import org.neo4j.ogm.annotation.Transient;
 import tnmk.ln.app.common.entity.BaseNeo4jEntity;
 import tnmk.ln.app.common.entity.Cleanable;
 import tnmk.ln.app.common.entity.Possession;
-import tnmk.ln.app.dictionary.entity.Expression;
 import tnmk.ln.app.dictionary.entity.Locale;
 import tnmk.ln.infrastructure.data.neo4j.annotation.DetailLoading;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -35,9 +35,8 @@ public class Topic extends BaseNeo4jEntity implements Possession, Cleanable {
     @DetailLoading
     @Relationship(type = TOPIC_IN_LOCALE, direction = Relationship.OUTGOING)
     private Locale locale;
-    @DetailLoading
-    @Relationship(type = HAS_EXPRESSION, direction = Relationship.OUTGOING)
-    private Set<Expression> expressions;
+
+    private List<String> expressionIds;
 
     @DetailLoading
     @Relationship(type = RELATE_TO_CATEGORY, direction = Relationship.OUTGOING)
@@ -74,14 +73,6 @@ public class Topic extends BaseNeo4jEntity implements Possession, Cleanable {
         this.owner = owner;
     }
 
-    public Set<Expression> getExpressions() {
-        return expressions;
-    }
-
-    public void setExpressions(Set<Expression> expressions) {
-        this.expressions = expressions;
-    }
-
     public Set<Category> getCategories() {
         return categories;
     }
@@ -114,5 +105,11 @@ public class Topic extends BaseNeo4jEntity implements Possession, Cleanable {
         this.noteAsHtml = noteAsHtml;
     }
 
+    public List<String> getExpressionIds() {
+        return expressionIds;
+    }
 
+    public void setExpressionIds(List<String> expressionIds) {
+        this.expressionIds = expressionIds;
+    }
 }

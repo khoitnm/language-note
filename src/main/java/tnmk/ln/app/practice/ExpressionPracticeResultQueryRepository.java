@@ -19,7 +19,7 @@ public class ExpressionPracticeResultQueryRepository {
     @Autowired
     private Neo4jRepository neo4jRepository;
 
-    public ExpressionPracticeResult findByOwnerIdAndExpressionId(Long userId, Long expressionId) {
+    public ExpressionPracticeResult findByOwnerIdAndExpressionId(Long userId, String expressionId) {
         String queryString = ClassPathQueryLoader.loadQuery("/tnmk/ln/app/practice/query/load-expression-practice-result-by-owner-and-expression.cql");
         return neo4jRepository.findOne(ExpressionPracticeResult.class, queryString, userId, expressionId);
     }

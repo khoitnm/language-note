@@ -26,6 +26,9 @@ import java.util.List;
  */
 @Service
 public class OxfordService {
+    private static final String FROM_REQUEST_ENTRIES = "entries";
+    private static final String FROM_REQUEST_SENTENCES = "entries/sentences";
+
     @Value("${dictionary.oxford.app.id}")
     private String appId;
 
@@ -36,7 +39,7 @@ public class OxfordService {
     private OxfordWordRepositories oxfordWordRepositories;
 
     public OxfordWord lookUpDefinition(String sourceLanguage, String word) {
-        List<OxfordWord> oxfordWords = oxfordWordRepositories.findByLanguageAndWord(sourceLanguage, word);
+        List<OxfordWord> oxfordWords = oxfordWordRepositories.findByLanguageAndWordAndFromRequest(sourceLanguage, word, FROM_REQUEST_ENTRIES);
         if (!oxfordWords.isEmpty()) return oxfordWords.get(0);
 
         RestTemplate restTemplate = new RestTemplate();
@@ -84,6 +87,9 @@ public class OxfordService {
                         }
                     }
                 }
+                for (OxfordWord oxfordWord : oxfordWords) {
+                    oxfordWord.setFromRequest(FROM_REQUEST_ENTRIES);
+                }
             } catch (Exception ex) {
                 throw new UnexpectedException(ex.getMessage(), ex);
             } finally {
@@ -120,6 +126,9 @@ public class OxfordService {
         List<OxfordWord> oxfordWords = oxfordResponse.getResults();
         OxfordWord result = null;
         if (!oxfordWords.isEmpty()) {
+            for (OxfordWord oxfordWord : oxfordWords) {
+                oxfordWord.setFromRequest(FROM_REQUEST_SENTENCES);
+            }
             oxfordWordRepositories.save(oxfordWords);
             result = oxfordWords.get(0);
         }

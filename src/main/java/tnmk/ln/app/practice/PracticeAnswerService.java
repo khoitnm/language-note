@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tnmk.common.infrastructure.guardian.Guardian;
 import tnmk.common.util.ListUtil;
-import tnmk.ln.app.dictionary.entity.Expression;
 import tnmk.ln.app.practice.entity.question.Question;
 import tnmk.ln.app.practice.entity.result.AnswerResult;
 import tnmk.ln.app.practice.entity.result.ExpressionPracticeResult;
@@ -43,9 +42,9 @@ public class PracticeAnswerService {
         Guardian.validateNotNull(question, "Question " + questionId + " doesn't exist. Cannot answer result for it");
 
         QuestionPracticeResult questionPracticeResult = saveQuestionAnswer(user, question, answerPoint);
-        Expression expression = question.getFromExpression();
-        Guardian.validateNotNull(expression, "Expression inside question must be not null.");
-        ExpressionPracticeResult expressionPracticeResult = saveExpressionAnswer(user, expression, answerPoint);
+        String fromExpressionId = question.getFromExpressionId();
+        Guardian.validateNotNull(fromExpressionId, "Expression inside question must be not null.");
+        ExpressionPracticeResult expressionPracticeResult = saveExpressionAnswer(user, fromExpressionId, answerPoint);
         return new AnswerResult(expressionPracticeResult, questionPracticeResult);
     }
 
@@ -64,14 +63,14 @@ public class PracticeAnswerService {
         return questionPracticeResultRepository.save(practiceResult);
     }
 
-    private ExpressionPracticeResult saveExpressionAnswer(User user, Expression expression, float answerPoint) {
-        long expressionId = expression.getId();
+    private ExpressionPracticeResult saveExpressionAnswer(User user, String expressionId, float answerPoint) {
+//        long expressionId = expression.getId();
         ExpressionPracticeResult practiceResult = expressionPracticeResultQueryRepository.findByOwnerIdAndExpressionId(user.getId(), expressionId);
         if (practiceResult == null) {
             practiceResult = new ExpressionPracticeResult();
             practiceResult.setOwner(user);
             practiceResult.setAnswers(Arrays.asList(answerPoint));
-            practiceResult.setExpression(expression);
+            practiceResult.setExpressionId(expressionId);
         } else {
             ListUtil.addToListWithMaxSize(practiceResult.getAnswers(), answerPoint, MAX_POINTS_STORING);
         }

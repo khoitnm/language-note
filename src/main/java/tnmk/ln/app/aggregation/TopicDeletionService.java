@@ -3,7 +3,7 @@ package tnmk.ln.app.aggregation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import tnmk.ln.app.dictionary.entity.Expression;
+import tnmk.common.util.NumberUtil;
 import tnmk.ln.app.security.user.PossessionAuthorization;
 import tnmk.ln.app.topic.TopicRepository;
 import tnmk.ln.app.topic.TopicService;
@@ -40,21 +40,21 @@ public class TopicDeletionService {
     }
 
     @Transactional
-    public void deleteTopicAndRelations(User user, Long topicId, boolean removeExpression) {
+    public void deleteTopicAndRelations(User user, String topicId, boolean removeExpression) {
         Topic topic;
         if (removeExpression) {
             topic = topicService.findDetailById(topicId);
-            if (topic.getExpressions() != null) {
-                for (Expression expression : topic.getExpressions()) {
-                    if (possessionAuthorization.canRemovePossession(user, expression)) {
-                        expressionDeletionService.deleteExpressionAndRelations(expression.getId());
-                    }
+            if (topic.getExpressionIds() != null) {
+                for (String expressionId : topic.getExpressionIds()) {
+//                    if (possessionAuthorization.canRemovePossession(user, expression)) {
+                    expressionDeletionService.deleteExpressionAndRelations(expressionId);
+//                    }
                 }
             }
         } else {
             topic = topicService.findOneById(topicId);
         }
         possessionAuthorization.validateCanRemovePossession(user, topic);
-        topicRepository.delete(topicId);
+        topicRepository.delete(NumberUtil.toLong(topicId));
     }
 }

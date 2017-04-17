@@ -37,5 +37,4 @@ public class BaseMongoEntity {
     public void setUpdatedDateTime(Instant updatedDateTime) {
         this.updatedDateTime = updatedDateTime;
     }
-
 }

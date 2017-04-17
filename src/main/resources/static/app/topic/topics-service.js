@@ -8,7 +8,7 @@ var TopicsService = function ($http, $q) {
 
 TopicsService.prototype.init = function () {
     var self = this;
-    var topicsGet = self.$http.get(contextPath + '/api/topics/mine');
+    var topicsGet = self.$http.get(contextPath + '/api/topic-briefs/mine');
     self.$q.all([topicsGet]).then(function (arrayOfResults) {
         self.topics = arrayOfResults[0].data;
     });

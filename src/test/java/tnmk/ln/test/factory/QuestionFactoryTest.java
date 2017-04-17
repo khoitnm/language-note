@@ -13,14 +13,14 @@ public class QuestionFactoryTest {
         return questionExpressionRecall;
     }
 
-    public static QuestionExpressionRecall constructExpressionRecallQuestion(long questionId, long expressionId) {
-        QuestionExpressionRecall questionExpressionRecall = new QuestionExpressionRecall();
-        questionExpressionRecall.setId(questionId);
-
-        Expression expression = new Expression();
-        expression.setId(expressionId);
-        questionExpressionRecall.setFromExpression(expression);
-        return questionExpressionRecall;
-
-    }
+//    public static QuestionExpressionRecall constructExpressionRecallQuestion(long questionId, long expressionId) {
+//        QuestionExpressionRecall questionExpressionRecall = new QuestionExpressionRecall();
+//        questionExpressionRecall.setId(questionId);
+//
+//        Expression expression = new Expression();
+//        expression.setId(expressionId);
+//        questionExpressionRecall.setFromExpression(expression);
+//        return questionExpressionRecall;
+//
+//    }
 }

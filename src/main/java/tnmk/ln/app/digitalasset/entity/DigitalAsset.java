@@ -1,10 +1,9 @@
 package tnmk.ln.app.digitalasset.entity;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
-import tnmk.ln.infrastructure.data.neo4j.annotation.CascadeRelationship;
-import tnmk.ln.app.common.entity.BaseNeo4jEntity;
+import org.springframework.data.mongodb.core.mapping.Document;
+import tnmk.ln.app.common.entity.BaseMongoEntity;
 import tnmk.ln.app.social.entity.Like;
 
 import java.util.List;
@@ -16,15 +15,15 @@ import java.util.List;
  *
  * @author khoi.tran on 2/28/17.
  */
-@NodeEntity(label = "DigitalAsset")
-public class DigitalAsset extends BaseNeo4jEntity {
+//@NodeEntity(label = "DigitalAsset")
+@Document(collection = "DigitalAsset")
+public class DigitalAsset extends BaseMongoEntity {
     public static final String LIKE = "LIKE";
 
     @NotBlank
     private String fileItemId;
     private long likesCount;
 
-    @CascadeRelationship
     @Relationship(type = LIKE, direction = Relationship.INCOMING)
     private List<Like> likes;
 

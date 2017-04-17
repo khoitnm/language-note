@@ -3,8 +3,8 @@ package tnmk.ln.app.aggregation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import tnmk.ln.app.dictionary.ExpressionDetailRepository;
-import tnmk.ln.app.practice.QuestionDetailRepository;
+import tnmk.ln.app.dictionary.ExpressionService;
+import tnmk.ln.app.practice.QuestionCompositeService;
 import tnmk.ln.app.security.user.PossessionAuthorization;
 import tnmk.ln.app.topic.TopicRepository;
 import tnmk.ln.app.topic.TopicService;
@@ -16,11 +16,14 @@ import tnmk.ln.app.topic.TopicService;
 @Service
 public class ExpressionDeletionService {
 
-    @Autowired
-    private ExpressionDetailRepository expressionDetailRepository;
+//    @Autowired
+//    private ExpressionDetailNeo4jRepository expressionDetailNeo4jRepository;
 
     @Autowired
-    private QuestionDetailRepository questionDetailRepository;
+    private ExpressionService expressionService;
+
+    @Autowired
+    private QuestionCompositeService questionCompositeService;
 
     @Autowired
     private TopicService topicService;
@@ -37,31 +40,13 @@ public class ExpressionDeletionService {
      * @param expressionId
      */
     @Transactional
-    void deleteExpressionAndRelations(long expressionId) {
-        questionDetailRepository.removeQuestionsAndCompositionsRelatedToExpression(expressionId);
-        expressionDetailRepository.removeExpressionAndCompositions(expressionId);
+    void deleteExpressionAndRelations(String expressionId) {
+        questionCompositeService.removeQuestionsAndCompositionsRelatedToExpression(expressionId);
+        expressionService.deleteCompositeById(expressionId);
     }
-
-    @Transactional
-    void deleteSenseGroupAndRelations(long senseGroupId) {
-        questionDetailRepository.removeQuestionsAndCompositionsRelatedToSenseGroup(senseGroupId);
-        expressionDetailRepository.removeExpressionAndCompositions(senseGroupId);
-    }
-
-    @Transactional
-    void deleteSenseAndRelations(long senseId) {
-        questionDetailRepository.removeQuestionsAndCompositionsRelatedToSense(senseId);
-        expressionDetailRepository.removeSenseAndCompositions(senseId);
-    }
-
-    @Transactional
-    void deleteExampleAndRelations(long exampleId) {
-        questionDetailRepository.removeQuestionsAndCompositionsRelatedToExample(exampleId);
-        expressionDetailRepository.removeExampleAndCompositions(exampleId);
-    }
-
-    @Transactional
-    public void deletePhotoAndRelations(Long photoId) {
-        expressionDetailRepository.detachPhotoFromSense(photoId);
-    }
+//
+//    @Transactional
+//    public void deletePhotoAndRelations(Long photoId) {
+//        expressionDetailNeo4jRepository.detachPhotoFromSense(photoId);
+//    }
 }

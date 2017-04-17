@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import tnmk.ln.app.aggregation.TopicCompositeService;
 import tnmk.ln.app.aggregation.TopicDeletionService;
+import tnmk.ln.app.aggregation.model.TopicComposite;
 import tnmk.ln.app.common.entity.UriPrefixConstants;
 import tnmk.ln.app.topic.entity.Topic;
 import tnmk.ln.infrastructure.security.helper.SecurityContextHelper;
@@ -30,8 +31,8 @@ public class TopicResource {
     TopicCompositeService topicCompositeService;
 
     @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/topics/construct", method = RequestMethod.GET)
-    public Topic construct() {
-        return TopicFactory.constructSchema();
+    public TopicComposite construct() {
+        return TopicCompositeFactory.constructSchema();
     }
 
     @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/topics/mine", method = RequestMethod.GET)
@@ -41,9 +42,9 @@ public class TopicResource {
     }
 
     @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/topics/{topicId}/detail", method = RequestMethod.GET)
-    public Topic getDetailTopic(@PathVariable Long topicId) {
+    public TopicComposite getDetailTopic(@PathVariable String topicId) {
         User user = SecurityContextHelper.validateExistAuthenticatedUser();
-        return topicService.findDetailById(topicId);
+        return topicCompositeService.findDetailById(topicId);
     }
 
     @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/topics/name", method = RequestMethod.PUT)
@@ -65,14 +66,14 @@ public class TopicResource {
     }
 
     public static class RemoveRequest {
-        private long id;
+        private String id;
         private boolean removeCompositions;
 
-        public long getId() {
+        public String getId() {
             return id;
         }
 
-        public void setId(long id) {
+        public void setId(String id) {
             this.id = id;
         }
 

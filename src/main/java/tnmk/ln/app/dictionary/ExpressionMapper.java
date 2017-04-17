@@ -68,6 +68,7 @@ public class ExpressionMapper {
 
     private static List<Example> toExamples(LexicalEntry oxfordLexicalEntry, tnmk.ln.infrastructure.dictionary.oxford.entity.Sense entrySense) {
         List<tnmk.ln.infrastructure.dictionary.oxford.entity.Example> oxfordExamples = entrySense.getExamples();
+        if (oxfordExamples == null) return new ArrayList<>();
         List<Example> examples = oxfordExamples.stream().map(iexample -> toExample(iexample)).filter(iexample -> !iexample.isEmpty()).collect(Collectors.toList());
         examples.addAll(toExamplesForSense(entrySense, oxfordLexicalEntry.getSentences()));
         return examples;

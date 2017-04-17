@@ -1,10 +1,9 @@
 package tnmk.ln.app.dictionary.entity;
 
-import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
-import tnmk.ln.app.common.entity.BaseNeo4jEntity;
+import org.springframework.data.mongodb.core.mapping.Document;
+import tnmk.ln.app.common.entity.BaseMongoEntity;
 import tnmk.ln.app.common.entity.Cleanable;
-import tnmk.ln.infrastructure.data.neo4j.annotation.CascadeRelationship;
 import tnmk.ln.infrastructure.data.neo4j.annotation.DetailLoading;
 
 import java.util.Set;
@@ -14,14 +13,14 @@ import java.util.Set;
  *
  * @author khoi.tran on 2/27/17.
  */
-@NodeEntity(label = "SenseGroup")
-public class SenseGroup extends BaseNeo4jEntity implements Cleanable {
+//@NodeEntity(label = "SenseGroup")
+@Document(collection = "SenseGroup")
+public class SenseGroup extends BaseMongoEntity implements Cleanable {
     public static final String HAS_SENSES = "HAS_SENSES";
 
     private LexicalType lexicalType;
 
     @DetailLoading
-    @CascadeRelationship
     @Relationship(type = HAS_SENSES, direction = Relationship.OUTGOING)
     private Set<Sense> senses;
 

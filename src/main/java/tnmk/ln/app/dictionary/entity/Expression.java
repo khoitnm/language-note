@@ -3,10 +3,10 @@ package tnmk.ln.app.dictionary.entity;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.constraints.NotBlank;
 import org.neo4j.ogm.annotation.Index;
-import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 import org.neo4j.ogm.annotation.Transient;
-import tnmk.ln.app.common.entity.BaseNeo4jEntity;
+import org.springframework.data.mongodb.core.mapping.Document;
+import tnmk.ln.app.common.entity.BaseMongoEntity;
 import tnmk.ln.app.common.entity.Cleanable;
 import tnmk.ln.app.common.entity.Possession;
 import tnmk.ln.app.dictionary.LexicalEntryUtils;
@@ -20,8 +20,9 @@ import java.util.List;
 /**
  * @author khoi.tran on 2/18/17.
  */
-@NodeEntity(label = "Expression")
-public class Expression extends BaseNeo4jEntity implements Possession, Cleanable {
+//@NodeEntity(label = "Expression")
+@Document(collection = "Expression")
+public class Expression extends BaseMongoEntity implements Possession, Cleanable {
     public static final String HAS_LEXICAL_ENTRIES = "HAS_LEXICAL_ENTRIES";
     public static final String HAS_SENSE_GROUPS = "HAS_SENSE_GROUPS";
     public static final String HAS_MAIN_AUDIO = "HAS_MAIN_AUDIO";
