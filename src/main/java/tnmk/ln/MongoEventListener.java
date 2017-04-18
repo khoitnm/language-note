@@ -40,7 +40,6 @@ public class MongoEventListener extends AbstractMongoEventListener<Object> {
                         }
                         ObjectId id = new ObjectId(new Date());
                         baseMongoEntity.setId(id.toString());
-                        LOGGER.debug("New {}: {} ", objectValue.getClass(), id.toString());
                     }
                     return true;
                 }

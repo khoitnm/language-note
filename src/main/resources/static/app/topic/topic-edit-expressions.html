@@ -1,7 +1,15 @@
 <div ng-repeat="expression in topicEditService.topic.expressions track by $index"
-     ng-class="topicEditService.editingExpression && topicEditService.editingExpression == expression ? 'col-xs-12' : 'col-md-4'">
+     ng-class="(topicEditService.editingExpression && topicEditService.editingExpression == expression) ? 'col-xs-12' : 'col-md-4'">
     <div class="row expression-item" ng-if="topicEditService.editingExpression != expression"
          ng-include="contextPath + '/app/topic/topic-edit-expression-teaser.html'"></div>
-    <div class="row expression-item" ng-if="topicEditService.editingExpression && topicEditService.editingExpression == expression"
+    <div class="row expression-item" ng-if="(topicEditService.editingExpression && topicEditService.editingExpression == expression)"
          ng-include="contextPath + '/app/topic/topic-edit-expression-editor.html'"></div>
 </div>
+
+<!--<div ng-repeat="expression in topicEditService.topic.expressions track by $index"-->
+<!--ng-class="$index == 0 || (topicEditService.editingExpression && topicEditService.editingExpression == expression) ? 'col-xs-12' : 'col-md-4'">-->
+<!--<div class="row expression-item" ng-if="topicEditService.editingExpression != expression"-->
+<!--ng-include="contextPath + '/app/topic/topic-edit-expression-teaser.html'"></div>-->
+<!--<div class="row expression-item" ng-if="$index == 0 || (topicEditService.editingExpression && topicEditService.editingExpression == expression)"-->
+<!--ng-include="contextPath + '/app/topic/topic-edit-expression-editor.html'"></div>-->
+<!--</div>-->
