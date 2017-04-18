@@ -33,7 +33,6 @@ public class QuestionGenerationService {
 
     @Transactional
     public List<Question> createQuestionsIfNotExist(Expression expression) {
-        //TODO need to check if this expression has questions or not.
         List<Question> questions = constructQuestions(expression);
         questionRepository.save(questions);
         return questions;

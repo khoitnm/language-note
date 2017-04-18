@@ -1,5 +1,6 @@
 package tnmk.ln;
 
+import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,8 +39,10 @@ public class MongoEventListener extends AbstractMongoEventListener<Object> {
                         } else {
                             baseMongoEntity.setUpdatedDateTime(Instant.now());
                         }
-                        ObjectId id = new ObjectId(new Date());
-                        baseMongoEntity.setId(id.toString());
+                        if (StringUtils.isBlank(baseMongoEntity.getId())) {
+                            ObjectId id = new ObjectId(new Date());
+                            baseMongoEntity.setId(id.toString());
+                        }
                     }
                     return true;
                 }

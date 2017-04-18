@@ -1,18 +1,4 @@
 <div class="sense-photos dark-theme row">
-    <!--<div class="col-md-6" ng-if="(sense.photos.length > 0 && sense.photos[0].fileItemId) || sense.mainPhoto.fileItemId">-->
-    <!--<div class="row">-->
-    <!--<div class="col-md-4 images-list">-->
-    <!--<div ng-repeat="photo in sense.photos track by $index">-->
-    <!--<div class="image-item img-with-close-wrapper" class="img-explanation" ng-class="sense.mainPhoto == photo ? 'image-item-selected' : '' ">-->
-    <!--<span class="img-btn-close btn btn-xs btn-dark" ng-click="topicEditService.removeItemAndAddSkeleton(photo)"><i class="fa fa-trash-o"></i></span>-->
-    <!--<img class=""-->
-    <!--ng-click="topicEditService.selectMainPhoto(sense, photo)"-->
-    <!--ng-src="{{contextPath + '/api/files/'+photo.fileItemId}}"/>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
     <div class="col-xs-12">
         <div class="row">
             <div class="col-xs-12">
@@ -30,18 +16,6 @@
                 </div>
             </div>
         </div>
-        <!--<div class="row">-->
-        <!--<div class="col-xs-12 images-list">-->
-        <!--<div ng-repeat="photo in sense.photos track by $index">-->
-        <!--<div class="image-item img-with-close-wrapper" ng-class="sense.mainPhoto == photo ? 'image-item-selected' : '' ">-->
-        <!--<span class="img-btn-close btn btn-xs btn-dark" ng-click="topicEditService.removeItemAndAddSkeleton(photo)"><i class="fa fa-trash-o"></i></span>-->
-        <!--<img class=""-->
-        <!--ng-click="topicEditService.selectMainPhoto(sense, photo)"-->
-        <!--ng-src="{{contextPath + '/api/files/'+photo.fileItemId}}"/>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
         <div class="row" ng-if="sense.photos.length > 0">
             <div class="col-xs-12">
                 <div class="images-carousel">
@@ -51,7 +25,7 @@
                                 <div class="middle-wrapper">
                                     <div class="middle-vertical">
                                         <div class="middle-horizontal  img-with-close-wrapper">
-                                            <span class="img-btn-close btn btn-xs btn-dark" ng-click="topicEditService.removeItemAndAddSkeleton(photo)"><i class="fa fa-trash-o"></i></span>
+                                            <span class="img-btn-close btn btn-xs btn-dark" ng-click="topicEditService.topicCompositionEditor.removeItemAndAddSkeleton(photo)"><i class="fa fa-trash-o"></i></span>
                                             <img ng-src="{{contextPath + '/api/files/'+photo.fileItemId}}" ng-click="topicEditService.selectMainPhoto(sense, photo)">
                                             <!--<span>Image Name</span>-->
                                         </div>
@@ -63,12 +37,5 @@
                 </div>
             </div>
         </div>
-        <!--<div class="row">-->
-        <!--<div ng-repeat="item in topicEditService.uploader.queue" ng-if="item.sense == sense" class="col-md-3 image-profile">-->
-        <!--<span>{{ item.file.name }}</span>-->
-
-        <!--<div ng-thumb="{ file: item._file, width: 100, height: 100, 'class':'image-border' }"></div>-->
-        <!--</div>-->
-        <!--</div>-->
     </div>
 </div>

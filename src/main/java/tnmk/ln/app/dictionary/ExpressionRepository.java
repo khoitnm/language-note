@@ -13,7 +13,7 @@ import java.util.List;
 //@Neo4jRepoScanInclude
 @MongoRepoScanInclude
 public interface ExpressionRepository extends MongoRepository<Expression, String> {
-    @Query(value = "{'_id': {$in: [?0]}}")
+    @Query(value = "{'_id': {$in: ?0}}")
     List<Expression> findByIdIn(List<String> expressionIds);
 
     Expression findOneByText(String text);
