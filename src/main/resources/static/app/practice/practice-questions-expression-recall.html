@@ -9,7 +9,7 @@
                             <button ng-click="topicEditService.modeEdit(expression)" class="btn btn-xs btn-success"><i class="fa fa-star"></i></button>
                         </div>
                         <div class="pull-left" style="width: 70%">
-                            <input ng-model="questionWithPracticeResult.question.fromExpression.answerText" class="input-as-text"/>
+                            <input ng-model="questionWithPracticeResult.answer" class="input-as-text"/>
                             <span ng-if="practiceService.expressionsRecallTest.answered">{{questionWithPracticeResult.question.fromExpression.text}}</span>
                         </div>
                         <div class="pull-right">

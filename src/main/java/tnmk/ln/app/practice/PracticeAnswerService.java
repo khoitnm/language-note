@@ -5,12 +5,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tnmk.common.infrastructure.guardian.Guardian;
 import tnmk.common.util.ListUtil;
+import tnmk.ln.app.aggregation.practice.PracticeAnswerResource;
 import tnmk.ln.app.practice.entity.question.Question;
 import tnmk.ln.app.practice.entity.result.AnswerResult;
 import tnmk.ln.app.practice.entity.result.ExpressionPracticeResult;
 import tnmk.ln.app.practice.entity.result.QuestionPracticeResult;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -35,6 +37,16 @@ public class PracticeAnswerService {
 
     @Autowired
     private ExpressionPracticeResultQueryRepository expressionPracticeResultQueryRepository;
+
+    @Transactional
+    public List<AnswerResult> answerResult(User user, List<PracticeAnswerResource.PracticeAnswerRequest> practiceAnswerRequests) {
+        List<AnswerResult> results = new ArrayList<>();
+        for (PracticeAnswerResource.PracticeAnswerRequest practiceAnswerRequest : practiceAnswerRequests) {
+            AnswerResult answerResult = answerResult(user, practiceAnswerRequest.getQuestionId(), practiceAnswerRequest.getAnswerPoint());
+            results.add(answerResult);
+        }
+        return results;
+    }
 
     @Transactional
     public AnswerResult answerResult(User user, long questionId, float answerPoint) {

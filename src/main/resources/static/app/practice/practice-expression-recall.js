@@ -1,31 +1,31 @@
 // /////////////////////////////////////////////////////////////////////////////////////////////
-var QuestionsTest = function (expressionItems, questionsCount) {
-    this.expressionItems = expressionItems;
+var QuestionsTest = function (originalItems, questionsCount) {
+    this.originalItems = originalItems;
     this.answered = false;
-    this.expressionItemsForAsks = [];
+    this.askedItems = [];
     this.initTest(questionsCount);
 };
 QuestionsTest.prototype.initTest = function (questionsCount) {
-    this.expressionItemsForAsks = this.expressionItems.slice();
-    this.expressionItemsForAsks = this.expressionItemsForAsks.copyTop(questionsCount);
-    shuffleArray(this.expressionItemsForAsks);
+    this.askedItems = this.originalItems.slice();
+    this.askedItems = this.askedItems.copyTop(questionsCount);
+    shuffleArray(this.askedItems);
 };
 // /////////////////////////////////////////////////////////////////////////////////////////////
 
-var ExpressionsTest = function (expressionItems, totalQuestions) {
+var ExpressionsTest = function (questionsWithPracticeResult, totalQuestions) {
     //Call super constructor
-    QuestionsTest.call(this, expressionItems, totalQuestions);
+    QuestionsTest.call(this, questionsWithPracticeResult, totalQuestions);
 };
 inherit(QuestionsTest, ExpressionsTest);
 ExpressionsTest.prototype.checkResult = function () {
     var self = this;
     self.answered = true;
-    for (var i = 0; i < self.expressionItemsForAsks.length; i++) {
-        var question = self.expressionItemsForAsks[i];
-        if (isNotBlank(question.expressionAnswer) && question.expression == question.expressionAnswer) {
-            question.answerResult = 1;
+    for (var i = 0; i < self.askedItems.length; i++) {
+        var questionWithPracticeResult = self.askedItems[i];
+        if (isNotBlank(questionWithPracticeResult.answer) && questionWithPracticeResult.question.fromExpression.text == questionWithPracticeResult.answer) {
+            questionWithPracticeResult.answerResult = 1;
         } else {
-            question.answerResult = -1;
+            questionWithPracticeResult.answerResult = -1;
         }
     }
 };

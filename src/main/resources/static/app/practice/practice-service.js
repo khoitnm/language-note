@@ -6,9 +6,8 @@ var PracticeService = function ($http, $q, $routeParams, $sce) {
 
     //this.lessonFilter = new FilterCollection($sce, "title");
     this.topicFilter = new FilterCollection($sce, "title");
-    this.expressions = [];
     this.totalQuestions = 10;
-    this.expressionsRecallTest = new ExpressionsTest(this.expressions, this.totalQuestions);
+    this.expressionsRecallTest = undefined; //new ExpressionsTest();//just a dummy object
 };
 PracticeService.prototype.init = function () {
     var self = this;
@@ -52,12 +51,18 @@ PracticeService.prototype.getLatestFiveAnswers = function (expressionItem) {
 PracticeService.prototype.submitAnswers = function (test) {
     var self = this;
     test.checkResult();
-    self.$http.post(contextPath + "/api/expression-items/answers", self.expressions).then(function (successResponse) {
-        self.expressions = successResponse.data;
+    var answerRequest = [];
+    for (var i = 0; i < test.askedItems.length; i++) {
+        var askedItem = test.askedItems[i];
+        answerRequest.push({'questionId': askedItem.question.id, 'answerPoint': askedItem.answerResult});
+    }
+    self.$http.post(contextPath + "/api/questions/answers", answerRequest).then(function (successResponse) {
+        var answerResults = successResponse.data;
+        //TODO set to current test.
     });
 };
 PracticeService.prototype.initTestQuestions = function () {
-    this.expressionsRecallTest = new ExpressionsTest(this.expressions, this.totalQuestions);
+    this.expressionsRecallTest = new ExpressionsTest(this.questionsWithPracticeResult, this.totalQuestions);
 };
 
 //TODO this method is duplicated in file expression-item-edit-service.js
