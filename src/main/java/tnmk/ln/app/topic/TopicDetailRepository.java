@@ -4,6 +4,7 @@ package tnmk.ln.app.topic;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import tnmk.common.infrastructure.data.query.ClassPathQueryLoader;
 import tnmk.ln.app.topic.entity.Topic;
 import tnmk.ln.infrastructure.data.neo4j.repository.Neo4jRepository;
 
@@ -77,5 +78,10 @@ public class TopicDetailRepository {
                 + "optional match "
                 + "(ex)--(q:Question) detach delete n,e,sg,s,ex,q";
         return neo4jRepository.execute(query, id).getNodesDeleted();
+    }
+
+    public List<Topic> findByIdIn(List<Long> topicIds) {
+        String queryString = ClassPathQueryLoader.loadQuery("/tnmk/ln/app/practice/query/load-topics-by-ids.cql", topicIds);
+        return neo4jRepository.findList(Topic.class, queryString, topicIds);
     }
 }

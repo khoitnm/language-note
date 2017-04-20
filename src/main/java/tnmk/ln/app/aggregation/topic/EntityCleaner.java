@@ -1,4 +1,4 @@
-package tnmk.ln.app.aggregation;
+package tnmk.ln.app.aggregation.topic;
 
 import org.springframework.stereotype.Component;
 import tnmk.ln.app.common.entity.Cleanable;

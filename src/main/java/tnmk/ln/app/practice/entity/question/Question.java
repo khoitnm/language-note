@@ -16,7 +16,7 @@ import java.util.List;
  * @author khoi.tran on 2/25/17.
  */
 @NodeEntity(label = "Question")
-public abstract class Question extends BaseNeo4jEntity implements Cleanable {
+public class Question extends BaseNeo4jEntity implements Cleanable {
     public static final String FROM_EXAMPLE = "FROM_EXAMPLE";
     public static final String FROM_SENSE = "FROM_SENSE";
     public static final String FROM_EXPRESSION = "FROM_EXPRESSION";
@@ -34,15 +34,21 @@ public abstract class Question extends BaseNeo4jEntity implements Cleanable {
     @NotNull
     private String fromExpressionId;
 
+    private QuestionType questionType;
+
     @Transient
     @Override
     public boolean isEmpty() {
         return StringUtils.isBlank(this.text);
     }
 
-    public abstract QuestionType getQuestionType();
+    public QuestionType getQuestionType() {
+        return this.questionType;
+    }
 
-    public abstract void setQuestionType(QuestionType questionType);
+    public void setQuestionType(QuestionType questionType) {
+        this.questionType = questionType;
+    }
 
     public List<QuestionPart> getQuestionParts() {
         return questionParts;

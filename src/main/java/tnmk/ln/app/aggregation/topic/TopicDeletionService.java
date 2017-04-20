@@ -1,4 +1,4 @@
-package tnmk.ln.app.aggregation;
+package tnmk.ln.app.aggregation.topic;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

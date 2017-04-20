@@ -33,28 +33,28 @@ public class QuestionGenerationService {
 
     @Transactional
     public List<Question> createQuestionsIfNotExist(Expression expression) {
-        List<Question> questions = constructQuestions(expression);
+        List<Question> questions = constructQuestionsIfNotExist(expression);
         questionRepository.save(questions);
         return questions;
     }
 
     @Transactional
     public List<Question> createQuestions(Expression expression) {
-        List<Question> questions = constructQuestions(expression);
+        List<Question> questions = constructQuestionsIfNotExist(expression);
         if (!questions.isEmpty()) {
             questionRepository.save(questions);
         }
         return questions;
     }
 
-    public List<Question> constructQuestions(Expression expression) {
+    public List<Question> constructQuestionsIfNotExist(Expression expression) {
         List<Question> questions = new ArrayList<>();
-        questions.addAll(constructExpressionRecallQuestions(expression));
-        questions.addAll(constructFillBlankQuestions(expression));
+        questions.addAll(constructExpressionRecallQuestionsIfNotExist(expression));
+        questions.addAll(constructFillBlankQuestionsIfNotExist(expression));
         return questions;
     }
 
-    private List<Question> constructExpressionRecallQuestions(Expression expression) {
+    private List<Question> constructExpressionRecallQuestionsIfNotExist(Expression expression) {
         List<Sense> senses = ExpressionUtils.getSenses(expression);
         List<Question> questions = senses.stream().map(sense -> constructExpressionRecallQuestionIfNotExist(expression, sense)).collect(Collectors.toList());
         return questions;
@@ -70,18 +70,18 @@ public class QuestionGenerationService {
         return question;
     }
 
-    private List<Question> constructFillBlankQuestions(Expression expression) {
+    private List<Question> constructFillBlankQuestionsIfNotExist(Expression expression) {
         List<Question> questions = new ArrayList<>();
         List<Sense> senses = ExpressionUtils.getSenses(expression);
         for (Sense sense : senses) {
             for (Example example : sense.getExamples()) {
-                questions.add(constructFillBlankQuestion(expression, sense, example));
+                questions.add(constructFillBlankQuestionIfNotExist(expression, sense, example));
             }
         }
         return questions;
     }
 
-    private Question constructFillBlankQuestion(Expression expression, Sense sense, Example example) {
+    private Question constructFillBlankQuestionIfNotExist(Expression expression, Sense sense, Example example) {
         Question question = questionLoadingRepository.findOneByQuestionTypeAndFromExpressionIdAndFromSenseIdAndFromExampleId(QuestionType.FILL_BLANK, expression.getId(), sense.getId(), example.getId());
         if (question == null) {
             question = new QuestionFillBlank();

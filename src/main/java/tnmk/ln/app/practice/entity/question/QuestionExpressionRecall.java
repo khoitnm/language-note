@@ -11,12 +11,10 @@ public class QuestionExpressionRecall extends Question {
 
     private QuestionType questionType = QuestionType.EXPRESSION_RECALL;
 
-    @Override
     public QuestionType getQuestionType() {
         return questionType;
     }
 
-    @Override
     public void setQuestionType(QuestionType questionType) {
         this.questionType = questionType;
     }

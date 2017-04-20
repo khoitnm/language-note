@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import tnmk.common.util.IterableUtil;
 import tnmk.common.util.ObjectMapperUtil;
 import tnmk.ln.app.practice.PracticeAnswerService;
-import tnmk.ln.app.practice.QuestionRecommendationService;
+import tnmk.ln.app.aggregation.practice.QuestionRecommendationService;
 import tnmk.ln.app.practice.QuestionRepository;
 import tnmk.ln.app.practice.entity.question.Question;
 import tnmk.ln.app.practice.entity.result.AnswerResult;

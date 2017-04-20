@@ -1,9 +1,8 @@
 package tnmk.ln.app.topic;
 
 import tnmk.common.util.SetUtil;
-import tnmk.ln.app.aggregation.model.TopicComposite;
+import tnmk.ln.app.aggregation.topic.model.TopicComposite;
 import tnmk.ln.app.dictionary.ExpressionFactory;
-import tnmk.ln.app.topic.entity.Topic;
 
 import java.util.Arrays;
 

@@ -1,0 +1,39 @@
+<!-- TOP MENU -->
+<!--<div class="row" ng-include="contextPath + '/app/practice/practice-topics-filter.html'"></div>-->
+<!--<div class="ln_solid" style="margin: 10px 0px;"></div>-->
+<!-- Topic Content -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2 style="width: 100%">
+                    Topic filter
+                </h2>
+                <ul class="nav navbar-right panel_toolbox">
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <!--Topic Filter-->
+                <div class="row" ng-include="contextPath + '/app/practice/practice-topics-filter.html'"></div>
+                <div class="ln_solid"></div>
+                <!--Categories-->
+                <div class="row" ng-include="contextPath + '/app/practice/practice-categories-filter.html'"></div>
+                <div class="ln_solid"></div>
+
+                <!-- Topic Detail -->
+                <div class="text-danger alert alert-danger" ng-show="unexpectedMessage">
+                    {{unexpectedMessage}}
+                </div>
+                <div class="text-danger alert alert-danger" ng-show="userErrorMessage">
+                    {{userErrorMessage}}
+                </div>
+
+                <div class="row" ng-include="contextPath + '/app/practice/practice-questions.html'"></div>
+                <div class="ln_solid"></div>
+
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -58,6 +58,12 @@ public class ExpressionService {
 //        return expressionDetailNeo4jRepository.findOneDetailById(expressionId);
 //    }
 
+    /**
+     * @param text
+     * @return
+     * @deprecated There are many expression has the same text but different locale
+     */
+    @Deprecated
     public Expression findOneDetailByText(String text) {
         return expressionRepository.findOneByText(text);
 //        return expressionDetailNeo4jRepository.findOneDetailByText(text);
@@ -74,6 +80,12 @@ public class ExpressionService {
         return expression;
     }
 
+    /**
+     * @param text
+     * @return
+     * @deprecated There are many expression has the same text but different locale
+     */
+    @Deprecated
     public Expression findOneBriefByText(String text) {
         String trimmedText = text.trim().toLowerCase();
         return expressionRepository.findOneBriefByText(trimmedText);

@@ -18,21 +18,9 @@ function routeConfig($routeProvider) {
             templateUrl: contextPath + '/app/topic/topic-edit.html',
             controller: 'topicEditController'
         })
-        .when('/expression-edit', {
-            templateUrl: contextPath + '/app/expression/expression-edit.html',
-            controller: 'topicEditController'
-        })
-        .when('/expression-items', {
-            templateUrl: contextPath + '/app/expression-item/expression-items.html',
-            controller: 'lessonsController'
-        })
-        .when('/expression-item-edit', {
-            templateUrl: contextPath + '/app/expression-item/expression-item-edit.html',
-            controller: 'lessonEditController'
-        })
-        .when('/expression-item-test', {
-            templateUrl: contextPath + '/app/expression-item/expression-item-test.html',
-            controller: 'lessonTestController'
+        .when('/practice', {
+            templateUrl: contextPath + '/app/practice/practice.html',
+            controller: 'practiceController'
         })
         //.otherwise({
         //    redirectTo: '/expression-item-edit'

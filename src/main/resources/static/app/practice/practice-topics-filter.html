@@ -1,0 +1,30 @@
+<div>
+    <table class="table table-striped jambo_table bulk_action">
+        <thead>
+        <tr>
+            <th>
+                #
+            </th>
+            <th>
+                Topic
+            </th>
+            <th>
+                <input type="checkbox"/>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="topic in practiceService.topicFilter.originalItems track by $index">
+            <td>
+                {{$index}}
+            </td>
+            <td>
+                {{topic.title}}
+            </td>
+            <td>
+                <input type="checkbox" ng-model="topic['$checked']"/>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

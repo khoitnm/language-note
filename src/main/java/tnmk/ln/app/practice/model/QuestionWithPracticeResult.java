@@ -1,6 +1,6 @@
 package tnmk.ln.app.practice.model;
 
-import tnmk.ln.app.practice.entity.question.Question;
+import tnmk.ln.app.aggregation.practice.model.QuestionComposite;
 import tnmk.ln.app.practice.entity.result.ExpressionPracticeResult;
 import tnmk.ln.app.practice.entity.result.QuestionPracticeResult;
 
@@ -10,7 +10,7 @@ import javax.annotation.Nullable;
  * @author khoi.tran on 3/30/17.
  */
 public class QuestionWithPracticeResult {
-    private Question question;
+    private QuestionComposite question;
     /**
      * This value can be null because there's no answer for the question yet, but there may be already other answers of other questions related to the same expression.
      */
@@ -18,11 +18,11 @@ public class QuestionWithPracticeResult {
     private QuestionPracticeResult questionPracticeResult;
     private ExpressionPracticeResult expressionPracticeResult;
 
-    public Question getQuestion() {
+    public QuestionComposite getQuestion() {
         return question;
     }
 
-    public void setQuestion(Question question) {
+    public void setQuestion(QuestionComposite question) {
         this.question = question;
     }
 

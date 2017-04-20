@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import tnmk.ln.app.aggregation.TopicDeletionService;
+import tnmk.ln.app.aggregation.topic.TopicDeletionService;
 import tnmk.ln.app.common.entity.UriPrefixConstants;
 import tnmk.ln.app.dictionary.entity.Expression;
 import tnmk.ln.app.dictionary.entity.Locale;

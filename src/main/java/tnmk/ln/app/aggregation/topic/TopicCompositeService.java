@@ -1,11 +1,11 @@
-package tnmk.ln.app.aggregation;
+package tnmk.ln.app.aggregation.topic;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.util.ListUtils;
-import tnmk.ln.app.aggregation.model.TopicComposite;
-import tnmk.ln.app.aggregation.model.TopicCompositeConverter;
+import tnmk.ln.app.aggregation.topic.model.TopicComposite;
+import tnmk.ln.app.aggregation.topic.model.TopicCompositeConverter;
 import tnmk.ln.app.dictionary.ExpressionRepository;
 import tnmk.ln.app.dictionary.ExpressionService;
 import tnmk.ln.app.dictionary.entity.Expression;

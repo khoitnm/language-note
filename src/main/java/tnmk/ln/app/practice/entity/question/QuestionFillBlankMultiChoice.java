@@ -11,12 +11,10 @@ public class QuestionFillBlankMultiChoice extends Question {
 
     private QuestionType questionType = QuestionType.FILL_BLANK_MULTI_CHOICES;
 
-    @Override
     public QuestionType getQuestionType() {
         return questionType;
     }
 
-    @Override
     public void setQuestionType(QuestionType questionType) {
         this.questionType = questionType;
     }

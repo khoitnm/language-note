@@ -1,4 +1,4 @@
-package tnmk.ln.app.aggregation.model;
+package tnmk.ln.app.aggregation.topic.model;
 
 import tnmk.ln.app.dictionary.entity.Expression;
 import tnmk.ln.app.topic.entity.Topic;
