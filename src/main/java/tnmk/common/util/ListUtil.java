@@ -42,7 +42,9 @@ public final class ListUtil {
     public static <T> void addToListWithMaxSize(Collection<T> list, T newItem, int maxSize) {
         list.add(newItem);
         int removeItems = list.size() - maxSize;
-        IterableUtil.removeFirstItems(list, removeItems);
+        if (removeItems > 0) {
+            IterableUtil.removeFirstItems(list, removeItems);
+        }
     }
 
     public static <E> List<E> getTop(List<E> source, int topSize) {

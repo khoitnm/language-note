@@ -1,4 +1,4 @@
-MATCH (q:QuestionExpressionRecall)
+MATCH (q:%s)
 OPTIONAL MATCH (epr:ExpressionPracticeResult)<-[:PRACTICE]-(eprowner:User) WHERE id(eprowner)={p0} AND epr.expressionId = q.fromExpressionId
 OPTIONAL MATCH (q)<-[:RESULT_OF_QUESTION]-(qpr:QuestionPracticeResult)<-[:PRACTICE]-(eprowner:User) WHERE id(eprowner)={p0}
 WITH q

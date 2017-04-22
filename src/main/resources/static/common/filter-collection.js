@@ -9,6 +9,7 @@ var FilterCollection = function ($sce, filterField) {
 };
 FilterCollection.prototype.initByOriginalItems = function (originalItems, selectedItemId) {
     this.originalItems = originalItems;
+    this.remainItems = $r.copyArray(originalItems);
     this.filterItems();
     this.selectedItems = [];
     if (isNotBlank(selectedItemId)) {
@@ -19,8 +20,8 @@ FilterCollection.prototype.filterItems = function () {
     var self = this;
     self.filteredItems = [];
     if (isNotBlank(self.filterValue)) {
-        for (var i = 0; i < self.originalItems.length; i++) {
-            var item = self.originalItems[i];
+        for (var i = 0; i < self.remainItems.length; i++) {
+            var item = self.remainItems[i];
             if (hasValue(item)) {
                 var itemFieldValue = getField(item, self.filterField);
                 var findResult = findMatchString(itemFieldValue, self.filterValue);
@@ -33,16 +34,16 @@ FilterCollection.prototype.filterItems = function () {
             }
         }
     } else {
-        this.filteredItems = self.originalItems.slice();
+        this.filteredItems = self.remainItems.slice();
     }
 };
 FilterCollection.prototype.selectItemByField = function (itemField, itemValue) {
     var self = this;
-    var item = self.originalItems.findItemByField(itemField, itemValue);
+    var item = self.remainItems.findItemByField(itemField, itemValue);
     self.selectItem(item);
 };
 FilterCollection.prototype.clickItem = function (item) {
-    var checked = item['$checked'];
+    var checked = item['$selected'];
     if (checked) {
         this.unselectItem(item);
     } else {
@@ -51,15 +52,15 @@ FilterCollection.prototype.clickItem = function (item) {
 };
 FilterCollection.prototype.selectItem = function (item) {
     var self = this;
-    item['$checked'] = true;
-    self.originalItems.remove(item);
+    item['$selected'] = true;
+    self.remainItems.remove(item);
     self.filteredItems.remove(item);
     self.selectedItems.push(item);
 };
 FilterCollection.prototype.unselectItem = function (item) {
     var self = this;
-    item['$checked'] = false;
-    self.originalItems.push(item);
+    item['$selected'] = false;
     self.selectedItems.remove(item);
+    self.remainItems.push(item);
     self.filterItems();
 };

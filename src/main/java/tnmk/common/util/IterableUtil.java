@@ -51,6 +51,7 @@ public final class IterableUtil {
         Iterator<T> iterator = iterable.iterator();
         int i = 0;
         if (iterator.hasNext() && i < removedItems) {
+            iterator.next();
             iterator.remove();
             i++;
         }

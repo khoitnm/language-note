@@ -22,9 +22,22 @@
                 {{topic.title}}
             </td>
             <td>
-                <input type="checkbox" ng-model="topic['$checked']"/>
+                <input type="checkbox" ng-model="topic['$checked']" ng-click="practiceService.topicFilter.clickItem(topic)"/>
             </td>
         </tr>
         </tbody>
+        <!--<tfoot>-->
+        <!--<tr ng-repeat="topic in practiceService.topicFilter.selectedItems track by $index">-->
+        <!--<td>-->
+        <!--{{topic.id}}-->
+        <!--</td>-->
+        <!--<td>-->
+        <!--{{topic.title}}-->
+        <!--</td>-->
+        <!--<td>-->
+
+        <!--</td>-->
+        <!--</tr>-->
+        <!--</tfoot>-->
     </table>
 </div>

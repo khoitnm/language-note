@@ -24,9 +24,10 @@ PracticeService.prototype.init = function () {
 };
 PracticeService.prototype.filterQuestions = function () {
     var self = this;
+    var topicIds = getArrayByFields(self.topicFilter.selectedItems, "id");
     var filter = {
         questionType: 'EXPRESSION_RECALL'
-        , topicIds: getArrayByFields(self.topicFilter.selectedItems, "id")
+        , topicIds: topicIds
     };
     self.$http.post(contextPath + "/api/questions/recommendation", filter).then(function (successResponse) {
         self.questionsWithPracticeResult = successResponse.data;

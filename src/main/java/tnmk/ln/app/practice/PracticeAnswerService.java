@@ -1,5 +1,7 @@
 package tnmk.ln.app.practice;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +23,8 @@ import java.util.List;
  */
 @Service
 public class PracticeAnswerService {
+    public static final Logger LOGGER = LoggerFactory.getLogger(PracticeAnswerService.class);
+
     public static final int MAX_POINTS_STORING = 20;
     private static final int LATEST_POINTS = 2;
 
@@ -77,6 +81,7 @@ public class PracticeAnswerService {
 
     private ExpressionPracticeResult saveExpressionAnswer(User user, String expressionId, float answerPoint) {
 //        long expressionId = expression.getId();
+        LOGGER.debug("ExpressionID {}, answerPoint {}", expressionId, answerPoint);
         ExpressionPracticeResult practiceResult = expressionPracticeResultQueryRepository.findByOwnerIdAndExpressionId(user.getId(), expressionId);
         if (practiceResult == null) {
             practiceResult = new ExpressionPracticeResult();
@@ -87,12 +92,13 @@ public class PracticeAnswerService {
             ListUtil.addToListWithMaxSize(practiceResult.getAnswers(), answerPoint, MAX_POINTS_STORING);
         }
         practiceResult.setSumLatestAnswerPoint(calculateAnswerPoints(practiceResult.getAnswers(), LATEST_POINTS));
+        LOGGER.debug("ExpressionID {}, answerPoint {}, sumPoint {}, answers: {}", expressionId, answerPoint, practiceResult.getSumLatestAnswerPoint(), practiceResult.getAnswers());
         return expressionPracticeResultRepository.save(practiceResult);
     }
 
     private double calculateAnswerPoints(List<Float> answerPoints, int numPoints) {
         double result = 0;
-        int startIndex = Math.max(0, answerPoints.size() - numPoints);
+        int startIndex = Math.max(0, answerPoints.size() - numPoints - 1);
         for (int i = startIndex; i < answerPoints.size(); i++) {
             Float point = answerPoints.get(i);
             if (point != null) {

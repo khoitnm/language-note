@@ -122,6 +122,9 @@ var $r = (function (module) {
             }
             return dest;
         };
+        module.copyArray = function (array) {
+            return array.slice();
+        };
         /**
          * Copy the properties which are missing from destination.
          * @param source
