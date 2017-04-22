@@ -81,8 +81,8 @@ public class PracticeAnswerService {
 
     private ExpressionPracticeResult saveExpressionAnswer(User user, String expressionId, float answerPoint) {
 //        long expressionId = expression.getId();
-        LOGGER.debug("ExpressionID {}, answerPoint {}", expressionId, answerPoint);
         ExpressionPracticeResult practiceResult = expressionPracticeResultQueryRepository.findByOwnerIdAndExpressionId(user.getId(), expressionId);
+//        LOGGER.debug("ExpressionID {}: Before:\n answerPoint {}, sumPoint {}, answers: {}", expressionId, answerPoint, practiceResult.getSumLatestAnswerPoint(), practiceResult.getAnswers());
         if (practiceResult == null) {
             practiceResult = new ExpressionPracticeResult();
             practiceResult.setOwner(user);
@@ -92,19 +92,18 @@ public class PracticeAnswerService {
             ListUtil.addToListWithMaxSize(practiceResult.getAnswers(), answerPoint, MAX_POINTS_STORING);
         }
         practiceResult.setSumLatestAnswerPoint(calculateAnswerPoints(practiceResult.getAnswers(), LATEST_POINTS));
-        LOGGER.debug("ExpressionID {}, answerPoint {}, sumPoint {}, answers: {}", expressionId, answerPoint, practiceResult.getSumLatestAnswerPoint(), practiceResult.getAnswers());
+//        LOGGER.debug("ExpressionID {}: After:\n answerPoint {}, sumPoint {}, answers: {}", expressionId, answerPoint, practiceResult.getSumLatestAnswerPoint(), practiceResult.getAnswers());
         return expressionPracticeResultRepository.save(practiceResult);
     }
 
     private double calculateAnswerPoints(List<Float> answerPoints, int numPoints) {
         double result = 0;
-        int startIndex = Math.max(0, answerPoints.size() - numPoints - 1);
+        int startIndex = Math.max(0, answerPoints.size() - numPoints);
         for (int i = startIndex; i < answerPoints.size(); i++) {
             Float point = answerPoints.get(i);
             if (point != null) {
                 result += point;
             }//else, consider point is 0
-            i++;
         }
         return result;
     }
