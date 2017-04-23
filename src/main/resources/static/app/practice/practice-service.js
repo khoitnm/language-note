@@ -8,7 +8,9 @@ var PracticeService = function ($http, $q, $routeParams, $sce) {
     this.topicFilter = new FilterCollection($sce, "title");
     this.totalQuestions = 10;
     this.expressionsRecallTest = undefined; //new ExpressionsTest();//just a dummy object
+    CommonService.call(this);
 };
+inherit(CommonService, PracticeService);
 PracticeService.prototype.init = function () {
     var self = this;
     var topicsGet = self.$http.get(contextPath + '/api/topic-briefs/mine');

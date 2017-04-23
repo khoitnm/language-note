@@ -28,6 +28,14 @@
     border-color: rgb(238, 238, 238);
 }
 
+.input-as-text.text-danger {
+    color: #b92c28;
+}
+
+.input-as-text.text-success {
+    color: #26B99A;
+}
+
 .expression-item {
     padding: 0px 5px;
 }
@@ -456,3 +464,7 @@ datalist option {
 /*clip: rect(0, 100px, 100px, 0);*/
 /*!* clip: shape(top, right, bottom, left); NB 'rect' is the only available option *!*/
 /*}*/
+
+.question-answer {
+    font-size: 13px;
+}
