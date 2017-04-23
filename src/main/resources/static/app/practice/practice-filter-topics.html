@@ -1,4 +1,4 @@
-<div>
+<div class="col-xs-12 table-responsive">
     <table class="table table-striped jambo_table bulk_action">
         <thead>
         <tr>
@@ -7,6 +7,9 @@
             </th>
             <th>
                 Topic
+            </th>
+            <th>
+                Expressions
             </th>
             <th>
                 <input type="checkbox"/>
@@ -20,6 +23,9 @@
             </td>
             <td>
                 {{topic.title}}
+            </td>
+            <td>
+                {{topic.expressionIds.length || 0}}
             </td>
             <td>
                 <input type="checkbox" ng-model="topic['$checked']" ng-click="practiceService.topicFilter.clickItem(topic)"/>

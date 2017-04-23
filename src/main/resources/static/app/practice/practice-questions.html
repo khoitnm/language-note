@@ -11,7 +11,10 @@
                 Filter Questions
             </button>
 
-            <button ng-click="practiceService.submitAnswers(practiceService.expressionsRecallTest)" type="submit" class="btn btn-success">
+            <button ng-click="practiceService.submitAnswers(practiceService.expressionsRecallTest)"
+                    type="submit"
+                    ng-disabled="practiceService.expressionsRecallTest.answered"
+                    class="btn btn-success">
                 Submit Answers
             </button>
         </div>

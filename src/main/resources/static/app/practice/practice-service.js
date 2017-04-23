@@ -60,6 +60,12 @@ PracticeService.prototype.submitAnswers = function (test) {
     self.$http.post(contextPath + "/api/questions/answers", answerRequest).then(function (successResponse) {
         var answerResults = successResponse.data;
         //TODO set to current test.
+        for (var i = 0; i < self.questionsWithPracticeResult.length; i++) {
+            var questionsWithPracticeResult = self.questionsWithPracticeResult[i];
+            var answerResult = answerResults.findItemByField('questionPracticeResult.question.id', questionsWithPracticeResult.question.id);
+            questionsWithPracticeResult.expressionPracticeResult = answerResult.expressionPracticeResult;
+        }
+        //$r.copyProperties(answerResults, self.questionsWithPracticeResult);
     });
 };
 PracticeService.prototype.initTestQuestions = function () {
