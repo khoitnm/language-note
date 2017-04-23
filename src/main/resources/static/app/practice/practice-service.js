@@ -92,12 +92,6 @@ PracticeService.prototype.favourite = function (expressionItem) {
         }
     });
 };
-PracticeService.prototype.playSound = function (expressionItem) {
-    var audio = new Audio(contextPath + '/api/tts?text=' + expressionItem.expression);
-    audio.play();
-};
-
-
 angularApp.service('practiceService', ['$http', '$q', '$routeParams', '$sce', PracticeService]);
 angularApp.controller('practiceController', ['$scope', 'practiceService', function ($scope, practiceService) {
     $scope.practiceService = practiceService;

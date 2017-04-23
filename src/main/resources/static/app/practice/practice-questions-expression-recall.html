@@ -4,7 +4,8 @@
         <div class="col-xs-12">
             <div class="expression-teaser row">
                 <div class="col-xs-12">
-                    <div class="header row">
+                    <div class="header row"
+                         ng-mouseover="practiceService.playSound(questionWithPracticeResult.question.fromExpression)">
                         <div class="pull-left">
                             <button ng-click="topicEditService.modeEdit(expression)" class="btn btn-xs btn-success"><i class="fa fa-star"></i></button>
                         </div>
@@ -17,6 +18,13 @@
                             <span ng-repeat="ianswerResult in questionWithPracticeResult.expressionPracticeResult.answers track by $index">
                                 <i class="fa " ng-class="ianswerResult > 0 ? 'fa-check-circle-o text-success': 'fa-times-circle-o text-danger'"></i>
                             </span>
+                        </div>
+                        <div class="pull-right">
+                            <a href=""
+                               ng-show="practiceService.expressionsRecallTest.answered"
+                               ng-click="practiceService.playSound(questionWithPracticeResult.question.fromExpression)">
+                                <i class="fa fa-volume-up"></i>
+                            </a>
                         </div>
                         <div class="clearfix"></div>
                     </div>

@@ -2,7 +2,7 @@
 
     <div class="expression-teaser row">
         <div class="col-md-12">
-            <div class="header row">
+            <div class="header row" ng-mouseover="topicEditService.playSound(expression)">
                 <div class="pull-left">
                     <button ng-click="topicEditService.modeEdit(expression)" class="btn btn-xs btn-success"><i class="fa fa-edit"></i></button>
                 </div>
@@ -11,6 +11,12 @@
                            ng-change="expression.errorMessage = undefined;"
                            complete-input="topicEditService.lookUpExpression(expression)"
                            class="input-as-text"/>
+                </div>
+                <div class="pull-left">
+                    <a href=""
+                       ng-click="topicEditService.playSound(expression)">
+                        <i class="fa fa-volume-up"></i>
+                    </a>
                 </div>
                 <div class="pull-right">
                     <a href="" ng-click="topicEditService.topicCompositionEditor.removeItemAndAddSkeleton(expression)"><i class="fa fa-trash-o"></i></a>
