@@ -1,0 +1,7 @@
+[tnmk-dropdown].active .tnmk-dropdown-body {
+    display: inherit;
+}
+
+[tnmk-dropdown].inactive .tnmk-dropdown-body {
+    display: none;
+}

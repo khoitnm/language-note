@@ -63,11 +63,14 @@
                             <div ng-bind-html="topic.noteAsHtml"></div>
                             <div>
                                 <ul class="list-unstyled">
-                                    <li ng-repeat="expression in topic.expressions" ng-if="$index < 3">
-                                        <!--<i class="fa fa-language"></i> -->
-                                        {{expression.text}}
+                                    <!--<li ng-repeat="expression in topic.expressionIds" ng-if="$index < 3">-->
+                                    <!--&lt;!&ndash;<i class="fa fa-language"></i> &ndash;&gt;-->
+                                    <!--{{expression.text}}-->
+                                    <!--</li>-->
+                                    <li ng-show="topic.expressionIds.length > 0">
+                                        {{topic.expressionIds.length}} expression<span ng-show="topic.expressionIds.length > 1">s</span>
                                     </li>
-                                    <li ng-show="!topic.expressions || topic.expressions.length == 0">
+                                    <li ng-show="!topic.expressionIds || topic.expressionIds.length == 0">
                                         Empty topic
                                     </li>
                                 </ul>

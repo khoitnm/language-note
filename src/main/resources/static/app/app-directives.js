@@ -151,7 +151,63 @@ function ngKeyCodePress() {
         }
     };
 }
+angularApp.directive('clickOutside', function ($document) {
 
+    return {
+        restrict: 'A',
+        scope: {
+            clickOutside: '&'
+        },
+        link: function (scope, el, attr) {
+
+            $document.on('click', function (e) {
+                if (el !== e.target && !el[0].contains(e.target)) {
+                    scope.$apply(function () {
+                        scope.$eval(scope.clickOutside);
+                    });
+                }
+            });
+        }
+    }
+});
+angularApp.directive('tnmkDropdown', ['$document', function ($document) {
+
+    return {
+        restrict: 'A',
+        link: function (scope, element, attr) {
+            var dropdownHeader = element.find(".tnmk-dropdown-header");
+            var dropdownBody = element.find(".tnmk-dropdown-body");
+            var toggleOnOff = function (element) {
+                toggleChangeStatus(element);
+                toggleDisplay(element);
+            };
+            var toggleChangeStatus = function (element) {
+                if (element.isVisible) {
+                    element.isVisible = false;
+                } else {
+                    element.isVisible = true;
+                }
+            };
+            var toggleDisplay = function (element) {
+                if (element.isVisible) {
+                    element.addClass('active');
+                    element.removeClass('inactive');
+                    //angular.element(element).addClass('active');
+                    //angular.element(element).removeClass('inactive');
+                } else {
+                    element.removeClass('active');
+                    element.addClass('inactive');
+                    //angular.element(element).removeClass('active');
+                    //angular.element(element).addClass('inactive');
+                }
+            };
+            toggleDisplay(element);
+            element.bind('click', function (event) {
+                toggleOnOff(element);
+            });
+        }
+    };
+}]);
 angularApp.directive('ckEditor', function () {
     return {
         require: '?ngModel',

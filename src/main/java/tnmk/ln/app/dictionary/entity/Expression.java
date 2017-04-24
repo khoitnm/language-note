@@ -11,7 +11,6 @@ import tnmk.ln.app.common.entity.Cleanable;
 import tnmk.ln.app.common.entity.Possession;
 import tnmk.ln.app.dictionary.LexicalEntryUtils;
 import tnmk.ln.app.digitalasset.entity.DigitalAsset;
-import tnmk.ln.infrastructure.data.neo4j.annotation.CascadeRelationship;
 import tnmk.ln.infrastructure.data.neo4j.annotation.DetailLoading;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
 
@@ -44,6 +43,8 @@ public class Expression extends BaseMongoEntity implements Possession, Cleanable
     private String text;
     private ExpressionType expressionType;
 
+    private int favourite;
+
     // COMPOSITION RELATIONSHIPS //////////////////////////////////////////////////////////////
     @DetailLoading
     @Relationship(type = EXPRESSION_IN_LOCALE, direction = Relationship.OUTGOING)
@@ -53,17 +54,14 @@ public class Expression extends BaseMongoEntity implements Possession, Cleanable
      * If the lexicalEntries is not empty, the text will be created from lexicalEntries
      */
     @DetailLoading
-    @CascadeRelationship
     @Relationship(type = HAS_LEXICAL_ENTRIES, direction = Relationship.OUTGOING)
     private List<LexicalEntry> lexicalEntries;
 
     @DetailLoading
-    @CascadeRelationship
     @Relationship(type = HAS_SENSE_GROUPS, direction = Relationship.OUTGOING)
     private List<SenseGroup> senseGroups;
 
     @DetailLoading
-    @CascadeRelationship
     @Relationship(type = HAS_MAIN_AUDIO, direction = Relationship.OUTGOING)
     private DigitalAsset audio;
 
@@ -79,17 +77,14 @@ public class Expression extends BaseMongoEntity implements Possession, Cleanable
 
     // RELATIONSHIPS //////////////////////////////////////////////////////////////
 //    @DetailLoading
-    @CascadeRelationship
     @Relationship(type = IS_SYNONYMOUS_WITH, direction = Relationship.UNDIRECTED)
     private List<Expression> synonyms;
 
     //    @DetailLoading
-    @CascadeRelationship
     @Relationship(type = IS_ANTONYMOUS_WITH, direction = Relationship.UNDIRECTED)
     private List<Expression> antonyms;
 
     @DetailLoading
-    @CascadeRelationship
     @Relationship(type = FAMILY_WITH, direction = Relationship.UNDIRECTED)
     private List<Expression> family;
 
@@ -223,6 +218,14 @@ public class Expression extends BaseMongoEntity implements Possession, Cleanable
 
     public void setLocale(Locale locale) {
         this.locale = locale;
+    }
+
+    public int getFavourite() {
+        return favourite;
+    }
+
+    public void setFavourite(int favourite) {
+        this.favourite = favourite;
     }
 
 //    public ExpressionPracticeResult getExpressionPracticeResult() {

@@ -74,6 +74,14 @@ Array.prototype.mergeNotBlankValuesToString = function (delimiterString, fieldNa
     }
     return result;
 };
+Array.prototype.swapByIndexes = function (indexA, indexB) {
+    if (indexA < 0 || indexA >= this.length || indexB < 0 || indexB >= this.length) {
+        throw new Error("Cannot swap items inside array (" + this.length + " items): [" + indexA + ", " + indexB + "]");
+    }
+    var itemA = this[indexA];
+    this[indexA] = this[indexB];
+    this[indexB] = itemA;
+};
 /**
  * @param fieldName
  * @param asc 1 for asc, -1 for desc

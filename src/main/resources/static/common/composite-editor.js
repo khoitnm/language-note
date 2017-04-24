@@ -48,6 +48,34 @@ CompositeEditor.prototype.changeItemInList = function (list, index) {
     var item = list[index];
     this.changeItem(item);
 };
+CompositeEditor.prototype.moveUp = function (item) {
+    var self = this;
+    var analyzeChildAndParentResult = self.analyzeChildAndParentPaths(item);
+    var childPaths = analyzeChildAndParentResult.childPaths;
+    var parentProperty = analyzeChildAndParentResult.parentProperty;
+    var parent = parentProperty.propertyValue;
+    var indexOfItem = parent.indexOf(item);
+    if (indexOfItem > 0) {
+        var newIndex = indexOfItem - 1;
+        parent.swapByIndexes(indexOfItem, newIndex);
+        //parent.remove(item);
+        //parent.splice(newIndex, 0, item);
+    }
+    return analyzeChildAndParentResult;
+};
+CompositeEditor.prototype.moveDown = function (item) {
+    var self = this;
+    var analyzeChildAndParentResult = self.analyzeChildAndParentPaths(item);
+    var childPaths = analyzeChildAndParentResult.childPaths;
+    var parentProperty = analyzeChildAndParentResult.parentProperty;
+    var parent = parentProperty.propertyValue;
+    var indexOfItem = parent.indexOf(item);
+    if (indexOfItem < parent.length - 1) {
+        var newIndex = indexOfItem + 1;
+        parent.swapByIndexes(indexOfItem, newIndex);
+    }
+    return analyzeChildAndParentResult;
+};
 CompositeEditor.prototype.removeItem = function (item) {
     var self = this;
     var analyzeChildAndParentResult = self.analyzeChildAndParentPaths(item);
