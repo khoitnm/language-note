@@ -55,9 +55,22 @@
                                     <span class="small">{{topic.createdDateTime | date:'yyyy-MM-dd hh:mm:ss'}}</span>
                                 </div>
                                 <div class="col-xs-2">
-                                    <a class="btn btn-xs btn-danger" href="" ng-click="topicsService.removeTopic(topic)">
-                                        <i class="fa fa-remove"></i>
-                                    </a>
+                                    <div tnmk-dropdown>
+                                        <a class="tnmk-dropdown-header btn btn-xs btn-default" href='' title=''>
+                                            <i class="fa fa-cog"></i>
+                                        </a>
+
+                                        <div class="tnmk-dropdown-body">
+                                            <div class=" btn btn-xs btn-default">
+                                                <a href="" ng-click="topicsService.removeTopic(topic)">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--<a class="btn btn-xs btn-danger" href="" ng-click="topicsService.removeTopic(topic)">-->
+                                    <!--<i class="fa fa-remove"></i>-->
+                                    <!--</a>-->
                                 </div>
                             </div>
                             <div ng-bind-html="topic.noteAsHtml"></div>

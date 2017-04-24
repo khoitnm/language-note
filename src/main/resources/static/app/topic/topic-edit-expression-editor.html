@@ -55,10 +55,12 @@
                                                               class="input-as-text dark-theme" placeholder="sense's summary"></textarea>
 
                                                     <textarea ng-model="sense.explanation"
+                                                              rows="2"
                                                               ng-focus="topicEditService.topicCompositionEditor.changeItem(sense)"
                                                               complete-input="topicEditService.topicCompositionEditor.changeItem(sense)"
                                                               class="input-as-text dark-theme" placeholder="sense's explanation"></textarea>
                                                     <textarea ng-model="sense.detailExplanation"
+                                                              rows="3"
                                                               ng-focus="topicEditService.topicCompositionEditor.changeItem(sense)"
                                                               complete-input="topicEditService.topicCompositionEditor.changeItem(sense)"
                                                               class="input-as-text dark-theme" placeholder="sense's detail explanation"></textarea>
@@ -78,14 +80,14 @@
                                                         </a>
                                                     </div>
                                                     <div class="pull-right" tnmk-dropdown>
-                                                        <a class="tnmk-dropdown-header" href='' title=''>
-                                                            <i class="fa fa-cog dark-theme"></i>
-                                                        </a>
-                                                        <ul class="tnmk-dropdown-body">
-                                                            <li>
+                                                        <div class="tnmk-dropdown-header">
+                                                            <a class="btn btn-xs btn-dark" href='' title=''><i class="fa fa-cog dark-theme"></i></a>
+                                                        </div>
+                                                        <div class="tnmk-dropdown-body">
+                                                            <div class="btn btn-xs btn-dark">
                                                                 <a href="" ng-click="topicEditService.topicCompositionEditor.removeItemAndAddSkeleton(sense)"><i class="fa fa-trash-o dark-theme"></i></a>
-                                                            </li>
-                                                        </ul>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                     <div class="clearfix"></div>
                                                 </div>
