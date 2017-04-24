@@ -254,7 +254,7 @@ TopicEditService.prototype.saveExpression = function (expression) {
         }
     );
 };
-TopicEditService.prototype.lookUpExpression = function (expression) {
+TopicEditService.prototype.lookUpExpression = function (expression, callback) {
     var self = this;
     var expressionText = expression.text;
     var comparator = new ComparatorByFields([new FieldSort('text', 1)]);
@@ -275,6 +275,7 @@ TopicEditService.prototype.lookUpExpression = function (expression) {
             var lookupExpression = successRespond.data;
             if (hasValue(lookupExpression)) {
                 $r.copyProperties(lookupExpression, expression);
+                self.topicCompositionEditor.copyMissingSkeleton(expression);
             }
         });
     }

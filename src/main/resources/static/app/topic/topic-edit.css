@@ -169,6 +169,15 @@ datalist option {
     background: #2A3F54;
 }
 
+.expression-editor .expression-relations {
+    padding: 10px 10px 0px 10px;
+    background: #2A3F54;
+}
+
+.expression-editor .expression-relations .input-as-text {
+    width: 100%;
+}
+
 .expression-editor .sense-group {
     background: #f9f9f9;
     padding: 10px;

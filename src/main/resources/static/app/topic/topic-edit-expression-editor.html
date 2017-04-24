@@ -6,7 +6,7 @@
                 <div class="col-xs-10">
                     <input ng-model="expression.text"
                            complete-input="topicEditService.topicCompositionEditor.changeItem(expression)"
-                           ng-focus="topicEditService.topicCompositionEditor.changeItem(expression)"
+                           ng-focus="topicEditService.topicCompositionEditor.copyMissingSkeleton(expression)"
                            ng-change="topicEditService.validateNotExistExpressionText(expression)"
                            placeholder="expression"
                            ng-model-options='{ debounce: 1000 }'
@@ -22,7 +22,39 @@
                     </a>
                 </div>
             </div>
-
+            <div class="expression-relations row dark-theme">
+                <div class="col-xs-1">Family</div>
+                <div class="col-xs-2" ng-repeat="relatedExpression in expression.family">
+                    <input class="input-as-text dark-theme"
+                           ng-model="relatedExpression.text"
+                           ng-focus="topicEditService.topicCompositionEditor.copyMissingSkeleton(relatedExpression)"
+                           complete-input="topicEditService.topicCompositionEditor.changeItem(relatedExpression)"
+                           placeholder="family expression"/>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="expression-relations row dark-theme">
+                <div class="col-xs-1">Synonyms</div>
+                <div class="col-xs-2" ng-repeat="relatedExpression in expression.synonyms">
+                    <input class="input-as-text dark-theme"
+                           ng-model="relatedExpression.text"
+                           ng-focus="topicEditService.topicCompositionEditor.copyMissingSkeleton(relatedExpression)"
+                           complete-input="topicEditService.topicCompositionEditor.changeItem(relatedExpression)"
+                           placeholder="synonym"/>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="expression-relations row dark-theme">
+                <div class="col-xs-1">Antonyms</div>
+                <div class="col-xs-2" ng-repeat="relatedExpression in expression.antonyms">
+                    <input class="input-as-text dark-theme"
+                           ng-model="relatedExpression.text"
+                           ng-focus="topicEditService.topicCompositionEditor.copyMissingSkeleton(relatedExpression)"
+                           complete-input="topicEditService.topicCompositionEditor.changeItem(relatedExpression)"
+                           placeholder="antonym"/>
+                </div>
+                <div class="clearfix"></div>
+            </div>
             <!-- Expression Body: List of SenseGroups -->
             <div class="expression body row">
                 <div class="col-md-12">

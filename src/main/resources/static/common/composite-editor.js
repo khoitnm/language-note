@@ -30,13 +30,18 @@ CompositeEditor.prototype.getSkeletonByPropertyName = function (propertyName) {
     var skeletonProperty = skeletonPaths[skeletonPaths.length - 1];
     return skeletonProperty.propertyValue;
 };
-CompositeEditor.prototype.changeItem = function (item) {
+CompositeEditor.prototype.copyMissingSkeleton = function (item) {
     var self = this;
     var addingSiblingResult = self.addEmptySiblingItemIfNecessary(item);
     var itemSkeleton = addingSiblingResult.itemSkeleton;
 
     //Add an init children object to ichild
     $r.copyMissingProperties(angular.copy(itemSkeleton), item);
+    return addingSiblingResult;
+};
+CompositeEditor.prototype.changeItem = function (item) {
+    var self = this;
+    var addingSiblingResult = self.copyMissingSkeleton(item);
 
     var parentProperty = addingSiblingResult.parentProperty;
     var fnChangeItemCallback = self.getInjectFunction(parentProperty.propertyName, 'fnChangeItemCallback');
