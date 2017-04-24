@@ -365,4 +365,8 @@ function numericOnly(field) {
     if (isNaN(num))
         field.value = num.replace(string, "");
 }
-//REFLECTION ////////////////////////
+//AUDIO ////////////////////////
+Audio.prototype.stop = function () {
+    this.pause();
+    this.currentTime = 0;
+};

@@ -10,9 +10,9 @@ var TopicEditService = function ($rootScope, $http, $q, $routeParams, hotkeys, F
     this.topicCompositionEditor;
     this.topicComposite;
     this.init();
-    CommonService.call(this);
+    ExpressionService.call(this);
 };
-inherit(CommonService, TopicEditService);
+inherit(ExpressionService, TopicEditService);
 TopicEditService.prototype.init = function () {
     var self = this;
     var topicId = self.$routeParams.topicId;

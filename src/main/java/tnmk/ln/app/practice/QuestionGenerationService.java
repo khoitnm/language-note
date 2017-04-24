@@ -22,6 +22,8 @@ import java.util.stream.Collectors;
  */
 @Service
 public class QuestionGenerationService {
+    public static final int MAX_FILL_BLANK_QUESTIONS_PER_SENSE = 5;
+
     @Autowired
     QuestionRepository questionRepository;
 
@@ -74,8 +76,13 @@ public class QuestionGenerationService {
         List<Question> questions = new ArrayList<>();
         List<Sense> senses = ExpressionUtils.getSenses(expression);
         for (Sense sense : senses) {
+            int exampleIndex = 0;
             for (Example example : sense.getExamples()) {
+                if (exampleIndex >= MAX_FILL_BLANK_QUESTIONS_PER_SENSE) {
+                    break;
+                }
                 questions.add(constructFillBlankQuestionIfNotExist(expression, sense, example));
+                exampleIndex++;
             }
         }
         return questions;
