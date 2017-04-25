@@ -2,6 +2,10 @@
     color: #b92c28;
 }
 
+.text-success {
+    color: #26B99A;
+}
+
 .btn.dark-theme {
     background: #73879C;
     border: 1px solid rgba(42, 63, 84, 0.5);
@@ -501,3 +505,6 @@ datalist option {
     border-bottom-color: #c0c0c0 !important;
 }
 
+.fa-times-circle-o.text-danger {
+    color: #ccc;
+}
