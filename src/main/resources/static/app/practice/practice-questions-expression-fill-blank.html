@@ -8,25 +8,8 @@
                         <div class="pull-left">
                             <button ng-click="topicEditService.modeEdit(expression)" class="btn btn-xs btn-success"><i class="fa fa-star"></i></button>
                         </div>
-                        <div class="pull-left" style="width: 70%">
-                            <div class="pull-left" ng-repeat="questionPart in questionWithPracticeResult.question.questionParts">
-                                <span ng-if="questionPart.questionPartType != 'BLANK'">{{questionPart.text}}</span>
-                                <input ng-if="questionPart.questionPartType == 'BLANK'"
-                                       ng-model="questionPart.answer" class="input-as-text"
-                                       ng-class="practiceService.expressionTest.answered && (questionPart.answer == questionPart.text) ? 'text-success': practiceService.expressionTest.answered ? 'text-danger': ''"/>
-                                <span class="question-answer text-success" ng-if="questionPart.questionPartType == 'BLANK' && practiceService.expressionTest.answered">{{questionPart.text}}</span>
-                            </div>
-                            <!--<div class="pull-left">-->
-                            <!--<input ng-model="questionWithPracticeResult.answer" class="input-as-text"-->
-                            <!--ng-class="practiceService.expressionTest.answered && (questionWithPracticeResult.answer == questionWithPracticeResult.question.fromExpression.text) ?-->
-                            <!--'text-success':-->
-                            <!--practiceService.expressionTest.answered ? 'text-danger': ''"/>-->
-                            <!--</div>-->
-                            <!--<div class="pull-left">OK2</div>-->
-                            <div class="clearfix"></div>
-                            <span class="pull-left" ng-repeat="questionPart in questionWithPracticeResult.question.questionParts">
-                                [{{questionPart.text}}]
-                            </span>
+                        <div class="pull-left">
+                            <span ng-if="practiceService.expressionTest.answered">{{expression.text}}</span>
                         </div>
                         <div class="pull-right">
                             <a class="btn-xs" href=""
@@ -46,6 +29,21 @@
                     </div>
                     <div class="body row">
                         <div class="col-xs-12">
+                            <div class="fill-blank row">
+                                <ng-repeat ng-repeat="questionPart in questionWithPracticeResult.question.questionParts">
+                                    <span ng-if="questionPart.questionPartType != 'BLANK'">{{questionPart.text}}</span>
+                                    <input ng-if="questionPart.questionPartType == 'BLANK'"
+                                           ng-model="questionPart.answer" class="input-fill-blank input-as-text"
+                                           ng-class="practiceService.expressionTest.answered && (questionPart.answer == questionPart.text) ? 'text-success': practiceService.expressionTest.answered ? 'text-danger': ''"/>
+                                    <!--<span class="question-answer text-success" ng-if="questionPart.questionPartType == 'BLANK' && practiceService.expressionTest.answered">{{questionPart.text}}</span>-->
+                                </ng-repeat>
+                                <!--<div class="clearfix"></div>-->
+                                <!--<span class="pull-left" ng-repeat="questionPart in questionWithPracticeResult.question.questionParts">-->
+                                <!--[{{questionPart.text}}]-->
+                                <!--</span>-->
+
+                            </div>
+
                             <div ng-repeat="senseGroup in questionWithPracticeResult.question.fromExpression.senseGroups  | limitTo: 2"
                                  class="sense-group row">
                                 <div class="col-xs-12">

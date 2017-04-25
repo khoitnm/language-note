@@ -15,6 +15,13 @@
             </div>
             <div class="x_content">
                 <!--Topic Filter-->
+                <div class="question-type row">
+                    <div class="col-xs-12">
+                        <input type="radio" ng-model="practiceService.questionType" value="EXPRESSION_RECALL"> Expression Recall
+                        <input type="radio" ng-model="practiceService.questionType" value="FILL_BLANK"> Filling Blank
+                    </div>
+                </div>
+
                 <div class="row" ng-include="contextPath + '/app/practice/practice-filter-topics.html'"></div>
                 <div class="ln_solid"></div>
                 <!--Categories-->

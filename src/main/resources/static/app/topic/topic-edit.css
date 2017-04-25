@@ -10,6 +10,7 @@
 }
 
 .input-as-text {
+    background: none;
     font-size: inherit;
     line-height: inherit;
 
@@ -480,7 +481,23 @@ datalist option {
 /*clip: rect(0, 100px, 100px, 0);*/
 /*!* clip: shape(top, right, bottom, left); NB 'rect' is the only available option *!*/
 /*}*/
+.question-type {
+    padding: 10px 0px;
+}
 
 .question-answer {
     font-size: 13px;
 }
+
+.fill-blank {
+    padding: 10px;
+    background: #f9f9f9;
+    margin-top: 10px;
+    border: 1px solid #f0f0f0;
+}
+
+.input-fill-blank {
+    width: 150px;
+    border-bottom-color: #c0c0c0 !important;
+}
+

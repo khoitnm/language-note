@@ -22,10 +22,15 @@ ExpressionsFillBlankTest.prototype.checkResult = function () {
     self.answered = true;
     for (var i = 0; i < self.askedItems.length; i++) {
         var questionWithPracticeResult = self.askedItems[i];
-        if (isNotBlank(questionWithPracticeResult.answer) && questionWithPracticeResult.question.fromExpression.text == questionWithPracticeResult.answer) {
-            questionWithPracticeResult.answerResult = 1;
-        } else {
-            questionWithPracticeResult.answerResult = -1;
+        questionWithPracticeResult.answerResult = 1;
+        var questionParts = questionWithPracticeResult.question.questionParts;
+        for (var iquestionPart = 0; iquestionPart < questionParts.length; iquestionPart++) {
+            var questionPart = questionParts[iquestionPart];
+            if (questionPart.questionPartType == 'BLANK' && (isBlank(questionPart.answer) || questionPart.text != questionPart.answer)) {
+                questionWithPracticeResult.answerResult = -1;
+                break;
+            }
         }
+
     }
 };
