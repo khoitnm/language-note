@@ -9,6 +9,7 @@ import tnmk.ln.app.common.entity.Cleanable;
  * @author khoi.tran on 3/4/17.
  */
 public class QuestionPart extends BaseNeo4jEntity implements Cleanable {
+    private String lemma;
     private String text;
     private QuestionPartType questionPartType;
 
@@ -37,5 +38,13 @@ public class QuestionPart extends BaseNeo4jEntity implements Cleanable {
 
     public void setQuestionPartType(QuestionPartType questionPartType) {
         this.questionPartType = questionPartType;
+    }
+
+    public String getLemma() {
+        return lemma;
+    }
+
+    public void setLemma(String lemma) {
+        this.lemma = lemma;
     }
 }

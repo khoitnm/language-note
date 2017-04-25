@@ -35,7 +35,11 @@
                 <div class="text-danger alert alert-danger" ng-show="userErrorMessage">
                     {{userErrorMessage}}
                 </div>
-
+                <div class="questions-limit row">
+                    <div class="col-xs-12">
+                        <label>Total questions </label><input type="text" ng-model="practiceService.totalQuestions"/>
+                    </div>
+                </div>
                 <div class="row" ng-include="contextPath + '/app/practice/practice-questions.html'"></div>
                 <div class="ln_solid"></div>
 

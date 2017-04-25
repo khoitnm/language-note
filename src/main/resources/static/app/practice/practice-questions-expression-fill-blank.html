@@ -1,4 +1,4 @@
-<div ng-repeat="questionWithPracticeResult in practiceService.questionsWithPracticeResult"
+<div ng-repeat="questionWithPracticeResult in practiceService.expressionTest.askedItems"
      class="col-xs-12 col-sm-6 col-md-4">
     <div class="row expression-item">
         <div class="col-xs-12">
@@ -9,7 +9,7 @@
                             <button ng-click="topicEditService.modeEdit(expression)" class="btn btn-xs btn-success"><i class="fa fa-star"></i></button>
                         </div>
                         <div class="pull-left">
-                            <span ng-if="practiceService.expressionTest.answered">{{expression.text}}</span>
+                            <span ng-if="practiceService.expressionTest.answered">{{questionWithPracticeResult.question.fromExpression.text}}</span>
                         </div>
                         <div class="pull-right">
                             <a class="btn-xs" href=""
@@ -38,12 +38,14 @@
                                     <!--<span class="question-answer text-success" ng-if="questionPart.questionPartType == 'BLANK' && practiceService.expressionTest.answered">{{questionPart.text}}</span>-->
                                 </ng-repeat>
                                 <!--<div class="clearfix"></div>-->
-                                <!--<span class="pull-left" ng-repeat="questionPart in questionWithPracticeResult.question.questionParts">-->
-                                <!--[{{questionPart.text}}]-->
-                                <!--</span>-->
+
 
                             </div>
-
+                            <div class="fill-blank row" ng-if="practiceService.expressionTest.answered">
+                                <span ng-repeat="questionPart in questionWithPracticeResult.question.questionParts" ng-class="questionPart.questionPartType=='BLANK'?'text-success':''">
+                                    {{questionPart.text}}
+                                </span>
+                            </div>
                             <div ng-repeat="senseGroup in questionWithPracticeResult.question.fromExpression.senseGroups  | limitTo: 2"
                                  class="sense-group row">
                                 <div class="col-xs-12">

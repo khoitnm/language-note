@@ -35,7 +35,8 @@ public class QuestionFillBlankGenerator {
             }
             QuestionPart fillBlank = new QuestionPart();
             rs.add(fillBlank);
-            fillBlank.setText(lemmaSpan.getLemma());
+            fillBlank.setLemma(lemmaSpan.getLemma());
+            fillBlank.setText(lemmaSpan.getOriginalWord());
             fillBlank.setQuestionPartType(QuestionPartType.BLANK);
             previousEndingIndex = lemmaSpan.getEnd();
             if (i >= lemmaSpansCount - 1 && lemmaSpan.getEnd() < text.length()) {

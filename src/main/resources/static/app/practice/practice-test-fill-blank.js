@@ -1,16 +1,4 @@
-// /////////////////////////////////////////////////////////////////////////////////////////////
-var QuestionsTest = function (originalItems, questionsCount) {
-    this.originalItems = originalItems;
-    this.answered = false;
-    this.askedItems = [];
-    this.initTest(questionsCount);
-};
-QuestionsTest.prototype.initTest = function (questionsCount) {
-    this.askedItems = this.originalItems.slice();
-    this.askedItems = this.askedItems.copyTop(questionsCount);
-    shuffleArray(this.askedItems);
-};
-// /////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////
 
 var ExpressionsFillBlankTest = function (questionsWithPracticeResult, totalQuestions) {
     //Call super constructor
@@ -26,7 +14,7 @@ ExpressionsFillBlankTest.prototype.checkResult = function () {
         var questionParts = questionWithPracticeResult.question.questionParts;
         for (var iquestionPart = 0; iquestionPart < questionParts.length; iquestionPart++) {
             var questionPart = questionParts[iquestionPart];
-            if (questionPart.questionPartType == 'BLANK' && (isBlank(questionPart.answer) || questionPart.text != questionPart.answer)) {
+            if (questionPart.questionPartType == 'BLANK' && (isBlank(questionPart.answer) || questionPart.text.toLowerCase() != questionPart.answer.toLowerCase())) {
                 questionWithPracticeResult.answerResult = -1;
                 break;
             }

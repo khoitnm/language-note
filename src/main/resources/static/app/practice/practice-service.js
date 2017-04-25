@@ -7,7 +7,7 @@ var PracticeService = function ($http, $q, $routeParams, $sce) {
     //this.lessonFilter = new FilterCollection($sce, "title");
     this.topicFilter = new FilterCollection($sce, "title");
     this.totalQuestions = 10;
-    this.questionType = 'EXPRESSION_RECALL';
+    this.questionType = 'FILL_BLANK';
     this.expressionTest = undefined; //new ExpressionsRecallTest();//just a dummy object
     ExpressionService.call(this);
 };
