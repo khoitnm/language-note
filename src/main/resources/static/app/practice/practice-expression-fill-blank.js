@@ -12,12 +12,12 @@ QuestionsTest.prototype.initTest = function (questionsCount) {
 };
 // /////////////////////////////////////////////////////////////////////////////////////////////
 
-var ExpressionsRecallTest = function (questionsWithPracticeResult, totalQuestions) {
+var ExpressionsFillBlankTest = function (questionsWithPracticeResult, totalQuestions) {
     //Call super constructor
     QuestionsTest.call(this, questionsWithPracticeResult, totalQuestions);
 };
-inherit(QuestionsTest, ExpressionsRecallTest);
-ExpressionsRecallTest.prototype.checkResult = function () {
+inherit(QuestionsTest, ExpressionsFillBlankTest);
+ExpressionsFillBlankTest.prototype.checkResult = function () {
     var self = this;
     self.answered = true;
     for (var i = 0; i < self.askedItems.length; i++) {

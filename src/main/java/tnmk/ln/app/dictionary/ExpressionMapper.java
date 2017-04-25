@@ -14,9 +14,7 @@ import tnmk.ln.infrastructure.dictionary.oxford.entity.OxfordWord;
 import tnmk.ln.infrastructure.dictionary.oxford.entity.Sentence;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -45,8 +43,8 @@ public class ExpressionMapper {
         return senseGroups;
     }
 
-    private static Set<Sense> toSenses(LexicalEntry oxfordLexicalEntry, List<Entry> entries) {
-        Set<Sense> senses = new HashSet<>();
+    private static List<Sense> toSenses(LexicalEntry oxfordLexicalEntry, List<Entry> entries) {
+        List<Sense> senses = new ArrayList<>();
         if (entries == null) return senses;
         for (Entry entry : entries) {
             List<tnmk.ln.infrastructure.dictionary.oxford.entity.Sense> entrySenses = entry.getSenses();

@@ -70,7 +70,28 @@
                                            class="sense-group-label"/>
                                 </div>
                                 <div class="col-md-2 text-right">
-                                    <a href="" ng-click="topicEditService.topicCompositionEditor.removeItemAndAddSkeleton(senseGroup)"><i class="fa fa-trash-o dark-theme"></i></a>
+
+                                    <div class="pull-right" tnmk-dropdown>
+                                        <div class="tnmk-dropdown-header">
+                                            <a class="btn btn-xs dark-theme" href='' title=''><i class="fa fa-cog dark-theme"></i></a>
+                                        </div>
+                                        <div class="tnmk-dropdown-body">
+                                            <a class="btn btn-xs btn-dark" href="" ng-click="topicEditService.topicCompositionEditor.removeItemAndAddSkeleton(senseGroup)">
+                                                <i class="fa fa-trash-o dark-theme"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a class="btn-xs" href="">
+                                            <i class="fa fa-chevron-up dark-theme" ng-click="topicEditService.topicCompositionEditor.moveUp(senseGroup)"></i>
+                                        </a>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a class="btn-xs" href="" ng-click="topicEditService.topicCompositionEditor.moveDown(senseGroup)">
+                                            <i class="fa fa-chevron-down dark-theme"></i>
+                                        </a>
+                                    </div>
+                                    <div class="clearfix"></div>
                                 </div>
                             </div>
                             <!--SenseGroup Body-->
@@ -102,24 +123,25 @@
                                                          ng-include="contextPath + '/app/topic/topic-edit-expression-editor-photos.html'"></div>
                                                 </div>
                                                 <div class="col-xs-1 text-right">
-                                                    <div class="pull-left"><a href="">
-                                                        <i class="fa fa-chevron-up dark-theme" ng-click="topicEditService.topicCompositionEditor.moveUp(sense)"></i>
-                                                    </a>
-                                                    </div>
-                                                    <div class="pull-left">
-                                                        <a href="" ng-click="topicEditService.topicCompositionEditor.moveDown(sense)">
-                                                            <i class="fa fa-chevron-down dark-theme"></i>
-                                                        </a>
-                                                    </div>
                                                     <div class="pull-right" tnmk-dropdown>
                                                         <div class="tnmk-dropdown-header">
-                                                            <a class="btn btn-xs btn-dark" href='' title=''><i class="fa fa-cog dark-theme"></i></a>
+                                                            <a class="btn btn-xs dark-theme" href='' title=''><i class="fa fa-cog dark-theme"></i></a>
                                                         </div>
                                                         <div class="tnmk-dropdown-body">
                                                             <div class="btn btn-xs btn-dark">
                                                                 <a href="" ng-click="topicEditService.topicCompositionEditor.removeItemAndAddSkeleton(sense)"><i class="fa fa-trash-o dark-theme"></i></a>
                                                             </div>
                                                         </div>
+                                                    </div>
+                                                    <div class="pull-right">
+                                                        <a class="btn-xs" href="">
+                                                            <i class="fa fa-chevron-up dark-theme" ng-click="topicEditService.topicCompositionEditor.moveUp(sense)"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="pull-right">
+                                                        <a class="btn-xs" href="" ng-click="topicEditService.topicCompositionEditor.moveDown(sense)">
+                                                            <i class="fa fa-chevron-down dark-theme"></i>
+                                                        </a>
                                                     </div>
                                                     <div class="clearfix"></div>
                                                 </div>

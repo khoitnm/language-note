@@ -22,9 +22,9 @@ import tnmk.ln.infrastructure.security.neo4j.entity.Contributor;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
 import tnmk.ln.test.BaseTest;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author khoi.tran on 2/26/17.
@@ -98,7 +98,7 @@ public class ExpressionTest extends BaseTest {
         SenseGroup sensesGroup = new SenseGroup();
         sensesGroup.setId(id);
         sensesGroup.setLexicalType(LexicalType.NOUN);
-        Set<Sense> senseSet = new HashSet<>();
+        List<Sense> senseSet = new ArrayList<>();
         senseSet.add(constructSense("" + 199l));
         senseSet.add(constructSense("" + 196l));
         sensesGroup.setSenses(senseSet);

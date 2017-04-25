@@ -7,7 +7,8 @@ var PracticeService = function ($http, $q, $routeParams, $sce) {
     //this.lessonFilter = new FilterCollection($sce, "title");
     this.topicFilter = new FilterCollection($sce, "title");
     this.totalQuestions = 10;
-    this.expressionsRecallTest = undefined; //new ExpressionsTest();//just a dummy object
+    this.questionType = 'EXPRESSION_RECALL';
+    this.expressionTest = undefined; //new ExpressionsRecallTest();//just a dummy object
     ExpressionService.call(this);
 };
 inherit(ExpressionService, PracticeService);
@@ -28,25 +29,13 @@ PracticeService.prototype.filterQuestions = function () {
     var self = this;
     var topicIds = getArrayByFields(self.topicFilter.selectedItems, "id");
     var filter = {
-        questionType: 'EXPRESSION_RECALL'
+        questionType: self.questionType
         , topicIds: topicIds
     };
     self.$http.post(contextPath + "/api/questions/recommendation", filter).then(function (successResponse) {
         self.questionsWithPracticeResult = successResponse.data;
         self.initTestQuestions();
     });
-};
-
-PracticeService.prototype.getLatestFiveAnswers = function (expressionItem) {
-    var result;
-    var userPoint = expressionItem.userPoints[USER_ID];
-    if (hasValue(userPoint)) {
-        result = userPoint.answers;
-    } else {
-        result = [];
-    }
-    var beginIndex = Math.max(result.length - 5, 0);
-    return result.slice(beginIndex);
 };
 /**
  * @param test an instance of ExpressionTest or ExpressionMeaningTest
@@ -71,7 +60,11 @@ PracticeService.prototype.submitAnswers = function (test) {
     });
 };
 PracticeService.prototype.initTestQuestions = function () {
-    this.expressionsRecallTest = new ExpressionsTest(this.questionsWithPracticeResult, this.totalQuestions);
+    if (this.questionType == 'EXPRESSION_RECALL') {
+        this.expressionTest = new ExpressionsRecallTest(this.questionsWithPracticeResult, this.totalQuestions);
+    } else {
+        this.expressionTest = new ExpressionsFillBlankTest(this.questionsWithPracticeResult, this.totalQuestions);
+    }
 };
 
 //TODO this method is duplicated in file expression-item-edit-service.js

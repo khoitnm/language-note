@@ -12,14 +12,24 @@
                            complete-input="topicEditService.lookUpExpression(expression)"
                            class="input-as-text"/>
                 </div>
-                <div class="pull-left">
-                    <a href=""
+                <div class="pull-right">
+                    <div tnmk-dropdown>
+                        <a class="tnmk-dropdown-header btn btn-xs btn-default" href='' title=''>
+                            <i class="fa fa-cog"></i>
+                        </a>
+
+                        <div class="tnmk-dropdown-body">
+                            <div class=" btn btn-xs btn-default">
+                                <a href="" ng-click="topicEditService.topicCompositionEditor.removeItemAndAddSkeleton(expression)"><i class="fa fa-trash-o"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pull-right">
+                    <a class="btn btn-xs" href=""
                        ng-click="topicEditService.playSound(expression)">
                         <i class="fa fa-volume-up"></i>
                     </a>
-                </div>
-                <div class="pull-right">
-                    <a href="" ng-click="topicEditService.topicCompositionEditor.removeItemAndAddSkeleton(expression)"><i class="fa fa-trash-o"></i></a>
                 </div>
                 <div class="clearfix"></div>
             </div>

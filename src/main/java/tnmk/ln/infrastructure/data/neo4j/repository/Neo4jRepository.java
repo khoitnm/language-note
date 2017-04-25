@@ -102,8 +102,14 @@ public class Neo4jRepository {
         DetailLoadingRelationship detailLoadingRelationship = getRelationshipTypesWithDetailLoadingMultiLevels(resultClass);
         String relTypes = detailLoadingRelationship.getRelationshipTypes().stream().collect(Collectors.joining(" | :"));
         int relDepth = detailLoadingRelationship.getDepth();
+        String relQuery;
+        if (relDepth > 0) {
+            relQuery = String.join("", "-[:", relTypes, "*0..", "" + relDepth, "]-(m)");
+        } else {
+            relQuery = "";
+        }
         String sb = String.join("",
-                "MATCH (n) WHERE ID(n) IN {p0} WITH n MATCH p=(n)-[:", relTypes, "*0..", "" + relDepth, "]-(m) RETURN p"
+                "MATCH (n) WHERE ID(n) IN {p0} WITH n MATCH p=(n)", relQuery, " RETURN p"
         );
         LOGGER.debug("QueryOneDetail: \n" + sb);
         Set<Long> uniqueIds = new HashSet<>();

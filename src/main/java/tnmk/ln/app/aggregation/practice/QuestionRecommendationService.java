@@ -1,6 +1,7 @@
 package tnmk.ln.app.aggregation.practice;
 
 import org.apache.commons.lang3.RandomUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tnmk.ln.app.aggregation.practice.model.QuestionComposite;
@@ -8,8 +9,10 @@ import tnmk.ln.app.aggregation.practice.model.QuestionConverter;
 import tnmk.ln.app.dictionary.ExpressionService;
 import tnmk.ln.app.dictionary.entity.Expression;
 import tnmk.ln.app.practice.ExpressionPracticeResultQueryRepository;
+import tnmk.ln.app.practice.QuestionPartsRepository;
 import tnmk.ln.app.practice.QuestionPracticeResultQueryRepository;
 import tnmk.ln.app.practice.entity.question.Question;
+import tnmk.ln.app.practice.entity.question.QuestionParts;
 import tnmk.ln.app.practice.entity.question.QuestionType;
 import tnmk.ln.app.practice.entity.result.ExpressionPracticeResult;
 import tnmk.ln.app.practice.entity.result.QuestionPracticeResult;
@@ -34,6 +37,9 @@ public class QuestionRecommendationService {
     private ExpressionService expressionService;
 
     @Autowired
+    private QuestionPartsRepository questionPartsRepository;
+
+    @Autowired
     private QuestionRecommendationRepository questionRecommendationRepository;
 
     @Autowired
@@ -48,12 +54,12 @@ public class QuestionRecommendationService {
     public List<QuestionWithPracticeResult> loadQuestionsByTopics(long userId, QuestionType questionType, List<Long> topicIds) {
         List<Long> questionIds = questionRecommendationRepository.findQuestionIdsByRecommendedExpressions(userId, questionType, topicIds);
         List<Question> questions = neo4jRepository.findDetails(questionType.getQuestionClass(), questionIds);
-        questions = filterQuestionsWithFromSameExpression(questions);
+        questions = filterQuestionsDistintExpression(questions);
         List<QuestionWithPracticeResult> result = questions.stream().map(question -> mapToQuestionWithPracticeResult(userId, question)).filter(questionWithPracticeResult -> questionWithPracticeResult != null).collect(Collectors.toList());
         return result;
     }
 
-    private List<Question> filterQuestionsWithFromSameExpression(List<Question> questions) {
+    private List<Question> filterQuestionsDistintExpression(List<Question> questions) {
         List<Question> result = new ArrayList<>();
         Map<String, List<Question>> questionsGroupByExpression = new HashMap<>();
         for (Question question : questions) {
@@ -68,6 +74,12 @@ public class QuestionRecommendationService {
         for (List<Question> questionsGroup : questionsGroupByExpression.values()) {
             int index = RandomUtils.nextInt(0, questionsGroup.size());
             result.add(questionsGroup.get(index));
+        }
+        for (Question question : result) {
+            if (StringUtils.isNotBlank(question.getQuestionPartsId())) {
+                QuestionParts questionParts = questionPartsRepository.findOne(question.getQuestionPartsId());
+                question.setQuestionParts(questionParts.getItems());
+            }
         }
         return result;
     }

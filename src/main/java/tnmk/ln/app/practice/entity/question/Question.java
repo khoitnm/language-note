@@ -4,7 +4,6 @@ package tnmk.ln.app.practice.entity.question;
 
 import org.apache.commons.lang3.StringUtils;
 import org.neo4j.ogm.annotation.NodeEntity;
-import org.neo4j.ogm.annotation.Relationship;
 import org.neo4j.ogm.annotation.Transient;
 import tnmk.ln.app.common.entity.BaseNeo4jEntity;
 import tnmk.ln.app.common.entity.Cleanable;
@@ -24,8 +23,15 @@ public class Question extends BaseNeo4jEntity implements Cleanable {
 
     private String text;
 
-    @Relationship(type = HAS_QUESTION_PARTS, direction = Relationship.OUTGOING)
+    //    @Relationship(type = HAS_QUESTION_PARTS, direction = Relationship.OUTGOING)
+    /**
+     * This field is not stored in Neo4j because of the order of elements is not fixed. The order is changed quite frequently when saving or loading.
+     * So the questionParts are stored in MongoDB {@link #questionPartsId}
+     */
+    @Transient
     private List<QuestionPart> questionParts;
+
+    private String questionPartsId;
 
     private String fromExampleId;
 
@@ -48,14 +54,6 @@ public class Question extends BaseNeo4jEntity implements Cleanable {
 
     public void setQuestionType(QuestionType questionType) {
         this.questionType = questionType;
-    }
-
-    public List<QuestionPart> getQuestionParts() {
-        return questionParts;
-    }
-
-    public void setQuestionParts(List<QuestionPart> questionParts) {
-        this.questionParts = questionParts;
     }
 
     public String getText() {
@@ -88,5 +86,21 @@ public class Question extends BaseNeo4jEntity implements Cleanable {
 
     public void setFromExpressionId(String fromExpressionId) {
         this.fromExpressionId = fromExpressionId;
+    }
+
+    public String getQuestionPartsId() {
+        return questionPartsId;
+    }
+
+    public void setQuestionPartsId(String questionPartsId) {
+        this.questionPartsId = questionPartsId;
+    }
+
+    public List<QuestionPart> getQuestionParts() {
+        return questionParts;
+    }
+
+    public void setQuestionParts(List<QuestionPart> questionParts) {
+        this.questionParts = questionParts;
     }
 }

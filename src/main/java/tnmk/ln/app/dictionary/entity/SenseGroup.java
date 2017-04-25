@@ -6,7 +6,7 @@ import tnmk.ln.app.common.entity.BaseMongoEntity;
 import tnmk.ln.app.common.entity.Cleanable;
 import tnmk.ln.infrastructure.data.neo4j.annotation.DetailLoading;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * The group of senses which have the common lexical type.
@@ -22,7 +22,7 @@ public class SenseGroup extends BaseMongoEntity implements Cleanable {
 
     @DetailLoading
     @Relationship(type = HAS_SENSES, direction = Relationship.OUTGOING)
-    private Set<Sense> senses;
+    private List<Sense> senses;
 
     @Override
     public boolean isEmpty() {
@@ -42,11 +42,11 @@ public class SenseGroup extends BaseMongoEntity implements Cleanable {
         this.lexicalType = lexicalType;
     }
 
-    public Set<Sense> getSenses() {
+    public List<Sense> getSenses() {
         return senses;
     }
 
-    public void setSenses(Set<Sense> senses) {
+    public void setSenses(List<Sense> senses) {
         this.senses = senses;
     }
 }

@@ -3,6 +3,7 @@ package tnmk.ln.app.practice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tnmk.ln.app.aggregation.practice.model.QuestionComposite;
 import tnmk.ln.app.dictionary.ExpressionUtils;
 import tnmk.ln.app.dictionary.entity.Example;
 import tnmk.ln.app.dictionary.entity.Expression;
@@ -25,7 +26,7 @@ public class QuestionGenerationService {
     public static final int MAX_FILL_BLANK_QUESTIONS_PER_SENSE = 5;
 
     @Autowired
-    QuestionRepository questionRepository;
+    QuestionCompositeRepository questionCompositeRepository;
 
     @Autowired
     QuestionLoadingRepository questionLoadingRepository;
@@ -36,7 +37,7 @@ public class QuestionGenerationService {
     @Transactional
     public List<Question> createQuestionsIfNotExist(Expression expression) {
         List<Question> questions = constructQuestionsIfNotExist(expression);
-        questionRepository.save(questions);
+        questionCompositeRepository.save(questions);
         return questions;
     }
 
@@ -44,7 +45,7 @@ public class QuestionGenerationService {
     public List<Question> createQuestions(Expression expression) {
         List<Question> questions = constructQuestionsIfNotExist(expression);
         if (!questions.isEmpty()) {
-            questionRepository.save(questions);
+            questionCompositeRepository.save(questions);
         }
         return questions;
     }

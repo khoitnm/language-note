@@ -17,9 +17,9 @@ ExpressionService.prototype.playSound = function (expression) {
         var senses = senseGroup.senses;
         for (var j = 0; j < senses.length; j++) {
             var sense = senses[j];
-            texts.push(sense.explanation);
+            //texts.push(sense.explanation);
             var examples = sense.examples;
-            for (var iexample = 0; iexample < examples.length && iexample < 1; iexample++) {
+            for (var iexample = 0; iexample < examples.length && iexample < 2; iexample++) {
                 var example = examples[iexample];
                 texts.push(example.text);
             }

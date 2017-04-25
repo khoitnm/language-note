@@ -2,6 +2,13 @@
     color: #b92c28;
 }
 
+.btn.dark-theme {
+    background: #73879C;
+    border: 1px solid rgba(42, 63, 84, 0.5);
+
+    box-shadow: inset 1px 1px 0px rgba(175, 191, 208, 0.7), 1px 1px 0px rgba(175, 191, 208, 0.7);
+}
+
 .input-as-text {
     font-size: inherit;
     line-height: inherit;

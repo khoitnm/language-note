@@ -1,7 +1,8 @@
 package tnmk.ln.app.dictionary;
 
-import tnmk.common.util.SetUtil;
 import tnmk.ln.app.dictionary.entity.SenseGroup;
+
+import java.util.Arrays;
 
 /**
  * @author khoi.tran on 3/4/17.
@@ -9,7 +10,7 @@ import tnmk.ln.app.dictionary.entity.SenseGroup;
 public class SenseGroupFactory {
     public static SenseGroup constructSchema() {
         SenseGroup senseGroup = new SenseGroup();
-        senseGroup.setSenses(SetUtil.constructSet(SenseFactory.constructSchema()));
+        senseGroup.setSenses(Arrays.asList(SenseFactory.constructSchema()));
         return senseGroup;
     }
 }

@@ -49,6 +49,10 @@ Spring Data Neo4j doesn't support any built-in way for updating (replacing) rela
 So in this project, we build a common method in `OgmRepository` for doing that with 1 depth query.
 In the future, the annotation `@CascadeRelationship` will be there for supporting multi-depth updating (not implemented yet).
 
+#### Relationships order
+The order of relationships are not fixed, they will be changed when we update/change items in the relationships list.
+http://stackoverflow.com/questions/33263822/cypher-store-order-of-node-relationships-of-the-same-label-when-i-create
+
 #### Query
 By default, Spring Data Neo4j support querying by depth. But there's some relationships we don't want to load.
 So we will use ``@EagerRelationship`` for eager loading children nodes. (not implemented yet)

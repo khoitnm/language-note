@@ -9,16 +9,16 @@ import tnmk.ln.app.common.entity.BaseNeo4jEntity;
 import tnmk.ln.app.common.entity.Cleanable;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author khoi.tran on 2/26/17.
  */
 @NodeEntity
-public class QuestionSet extends BaseNeo4jEntity implements Cleanable{
+public class QuestionSet extends BaseNeo4jEntity implements Cleanable {
     private User owner;
     private String topicAsHtml;
-    private Set<Question> questions;
+    private List<Question> questions;
 
     @Transient
     @Override
@@ -26,11 +26,11 @@ public class QuestionSet extends BaseNeo4jEntity implements Cleanable{
         return StringUtils.isBlank(this.topicAsHtml);
     }
 
-    public Set<Question> getQuestions() {
+    public List<Question> getQuestions() {
         return questions;
     }
 
-    public void setQuestions(Set<Question> questions) {
+    public void setQuestions(List<Question> questions) {
         this.questions = questions;
     }
 
