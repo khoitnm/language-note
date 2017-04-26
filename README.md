@@ -86,14 +86,17 @@ a. Composite: means that you can update, save, delete a child entity. When delet
 Note: in case of needing to query (high performance) on a child criteria, Neo4j is still a good choice, should reconsider very carefully if you want to use MongoDB.
  
 b. Disadvantages:
- + It's extremely difficult to handle the order of children. For example:
- At first, parent.children = [1, 2, 3]. Then you update parent.children = [3, 1, 2]. However, when you select data, it still shown parent.chidlren is unchanged [1, 2, 3]
- + It's very complicated to query when there is a cycling reference (problem with Spring OGM). For example:
- Word[1].synonyms = [2 ,3] -> query all detail of word[1], it will cause stack overflow:
- Word[1] -> load synonyms [2, 3] -> load word[2] -> synonyms[1, 3] -> load word[1] -> synonyms[2, 3]
- + The aggregation query is slower compare to the query of MongoDB.
- + You have to handle cascading CRUD.
++ It's extremely difficult to handle the order of children. For example:
+At first, parent.children = [1, 2, 3]. Then you update parent.children = [3, 1, 2]. However, when you select data, it still shown parent.chidlren is unchanged [1, 2, 3]
++ It's very complicated to query when there is a cycling reference (problem with Spring OGM). For example:
+Word[1].synonyms = [2 ,3] -> query all detail of word[1], it will cause stack overflow:
+Word[1] -> load synonyms [2, 3] -> load word[2] -> synonyms[1, 3] -> load word[1] -> synonyms[2, 3]
++ The aggregation query is slower compare to the query of MongoDB.
++ You have to handle cascading CRUD.
  
- ### Difficulty with MongoDB
- + Indexing and Sort
- + Question: what do we need to sort?
+### Difficulty with MongoDB
++ Indexing and Sort
++ Question: what do we need to sort?
+ 
+## References
+https://quizlet.com/11272763/barrons-essential-words-for-the-ielts-logging-flash-cards/

@@ -52,6 +52,9 @@
     padding: 0px 5px;
 }
 
+/**
+// EXPRESSION TEASER //////////////////////////////////////////////////////////////////////////////////////////////
+**/
 .expression-teaser {
     min-height: 20px;
     margin-bottom: 20px;
@@ -59,21 +62,22 @@
     border-radius: 4px;
     -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
     box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    background: #F5F5F5;
 }
 
 .expression-teaser .header {
     padding: 10px;
-    background-color: #f7f7f7;
+    background-color: #e9e9e9;
     /*font-style: italic;*/
     font-weight: bold;
     font-size: 110%;
-    border-bottom: 1px solid #f0f0f0;
 
     border-top-right-radius: 4px;
     border-top-left-radius: 4px;
     -moz-border-radius-topleft: 4px;
     -moz-border-radius-topright: 4px;
 
+    border-bottom: 1px solid #e2e2e2;
     -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
     box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
 }
@@ -81,6 +85,7 @@
 .expression-teaser .header .input-as-text {
     width: 100%;
     background: transparent;
+    border-bottom-color: #c9c9c9;
 }
 
 .expression-teaser .body {
@@ -94,8 +99,8 @@
     border-radius: 4px;
     -moz-border-radius: 4px;
 
-    background: #f0f0f0;
-    border: 1px solid #e3e3e3;
+    background: #e5e5e5;
+    border: 1px solid #d0d0d0;
     color: #5A738E;
     min-width: 50px;
     width: 50px;
@@ -104,6 +109,12 @@
 .expression-teaser .sense-image {
     max-width: 100%;
     max-height: 200px;
+}
+
+.expression-teaser .image-border {
+    background: transparent;
+    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.05);
+    border: 1px solid #f9f9f9;
 }
 
 .expression-teaser .footer {
@@ -123,8 +134,14 @@
     -moz-border-radius-bottomright: 4px;
 }
 
+.expression-teaser .sense-group:not(:last-child) {
+    border-bottom: 1px solid #e3e3e3;
+    box-shadow: 0 1px 0 white;
+}
+
 .expression-teaser .sense:not(:last-child) {
-    border-bottom: 1px solid #f3f3f3;
+    border-bottom: 1px solid #e3e3e3;
+    box-shadow: 0 1px 0 white;
 }
 
 .expression-teaser .sense-header {
