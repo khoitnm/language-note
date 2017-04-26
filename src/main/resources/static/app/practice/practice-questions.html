@@ -1,24 +1,6 @@
 <div class="col-xs-12">
+
     <div class="row" ng-if="practiceService.questionType == 'EXPRESSION_RECALL'" ng-include="contextPath + '/app/practice/practice-questions-expression-recall.html'"></div>
     <div class="row" ng-if="practiceService.questionType == 'FILL_BLANK'" ng-include="contextPath + '/app/practice/practice-questions-expression-fill-blank.html'"></div>
 
-
-    <!--Save button-->
-    <div class="form-group">
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <button ng-disabled="isRunning || practiceService.topic.isSaving"
-                    ng-click="practiceService.filterQuestions()"
-                    type="submit" class="btn btn-success"
-                    title="Ctrl+S, Command+S">
-                Filter Questions
-            </button>
-
-            <button ng-click="practiceService.submitAnswers(practiceService.expressionTest)"
-                    type="submit"
-                    ng-disabled="practiceService.expressionTest.answered"
-                    class="btn btn-success">
-                Submit Answers
-            </button>
-        </div>
-    </div>
 </div>

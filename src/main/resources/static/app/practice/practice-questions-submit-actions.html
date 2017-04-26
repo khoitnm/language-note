@@ -1,0 +1,13 @@
+<button ng-disabled="isRunning || practiceService.topic.isSaving"
+        ng-click="practiceService.filterQuestions()"
+        type="submit" class="btn btn-success"
+        title="Ctrl+S, Command+S">
+    Filter Questions
+</button>
+
+<button ng-click="practiceService.submitAnswers(practiceService.expressionTest)"
+        type="submit"
+        ng-disabled="practiceService.expressionTest.answered"
+        class="btn btn-success">
+    Submit Answers
+</button>

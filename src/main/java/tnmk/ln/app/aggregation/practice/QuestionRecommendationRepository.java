@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.thymeleaf.util.ListUtils;
 import tnmk.common.infrastructure.data.query.ClassPathQueryLoader;
 import tnmk.common.util.IterableUtil;
+import tnmk.ln.app.practice.entity.question.Question;
 import tnmk.ln.app.practice.entity.question.QuestionType;
 import tnmk.ln.app.topic.TopicDetailRepository;
 import tnmk.ln.app.topic.entity.Topic;
@@ -35,16 +36,16 @@ public class QuestionRecommendationRepository {
      * @param topicIds
      * @return this request will get questions based on the aggregated result of expressions, not the result of senses or examples.
      */
-    public List<Long> findQuestionIdsByRecommendedExpressions(long resultOwnerId, QuestionType questionType, List<Long> topicIds) {
+    public List<Question> findQuestionIdsByRecommendedExpressions(long resultOwnerId, QuestionType questionType, List<Long> topicIds) {
         String queryString;
         if (ListUtils.isEmpty(topicIds)) {
             queryString = ClassPathQueryLoader.loadQuery("/tnmk/ln/app/practice/query/load-question-ids-by-recommended-expressions.cql", questionType.getLogicName());
-            return IterableUtil.toList(neo4jRepository.findList(Long.class, queryString, resultOwnerId));
+            return IterableUtil.toList(neo4jRepository.findList(Question.class, queryString, resultOwnerId));
         } else {
             List<Topic> topics = topicDetailRepository.findByIdIn(topicIds);
             List<String> expressionIdsInTopics = topics.stream().flatMap(itopic -> itopic.getExpressionIds().stream()).collect(Collectors.toList());
             queryString = ClassPathQueryLoader.loadQuery("/tnmk/ln/app/practice/query/load-question-ids-by-recommended-expressions-in-list.cql", questionType.getLogicName());
-            return IterableUtil.toList(neo4jRepository.findList(Long.class, queryString, resultOwnerId, expressionIdsInTopics));
+            return IterableUtil.toList(neo4jRepository.findList(Question.class, queryString, resultOwnerId, expressionIdsInTopics));
         }
     }
 

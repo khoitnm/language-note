@@ -5,4 +5,4 @@ WITH q
     ,CASE epr.sumLatestAnswerPoint WHEN null THEN 0 END AS epr_answer_points
     ,CASE qpr.sumLatestAnswerPoint WHEN null THEN 0 END AS qpr_answer_points
 ORDER BY epr_answer_points, q.fromExpressionId, qpr_answer_points ASC
-RETURN id(q)
+RETURN q

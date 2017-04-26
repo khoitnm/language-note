@@ -17,10 +17,9 @@ import tnmk.ln.app.practice.entity.question.QuestionType;
 import tnmk.ln.app.practice.entity.result.ExpressionPracticeResult;
 import tnmk.ln.app.practice.entity.result.QuestionPracticeResult;
 import tnmk.ln.app.practice.model.QuestionWithPracticeResult;
-import tnmk.ln.infrastructure.data.neo4j.repository.Neo4jRepository;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -48,21 +47,18 @@ public class QuestionRecommendationService {
     @Autowired
     private QuestionPracticeResultQueryRepository questionPracticeResultRepository;
 
-    @Autowired
-    private Neo4jRepository neo4jRepository;
-
     public List<QuestionWithPracticeResult> loadQuestionsByTopics(long userId, QuestionType questionType, List<Long> topicIds) {
-        List<Long> questionIds = questionRecommendationRepository.findQuestionIdsByRecommendedExpressions(userId, questionType, topicIds);
-        List<Question> questions = neo4jRepository.findDetails(questionType.getQuestionClass(), questionIds);
-        questions = filterQuestionsDistintExpression(questions);
-        List<QuestionWithPracticeResult> result = questions.stream().map(question -> mapToQuestionWithPracticeResult(userId, question)).filter(questionWithPracticeResult -> questionWithPracticeResult != null).collect(Collectors.toList());
-        //TODO order by questionIds
+        List<Question> questions = questionRecommendationRepository.findQuestionIdsByRecommendedExpressions(userId, questionType, topicIds);
+        List<Question> distinctQuestions = filterQuestionsDistintExpression(questions);
+        List<QuestionWithPracticeResult> result = distinctQuestions.stream().map(question -> mapToQuestionWithPracticeResult(userId, question)).filter(questionWithPracticeResult -> questionWithPracticeResult != null).collect(Collectors.toList());
         return result;
     }
 
     private List<Question> filterQuestionsDistintExpression(List<Question> questions) {
         List<Question> result = new ArrayList<>();
-        Map<String, List<Question>> questionsGroupByExpression = new HashMap<>();
+        //Initiate the grouping map and put value into groups
+        //We need to keep the inserting order, that's why LinkedHashMap is the chosen data structure.
+        Map<String, List<Question>> questionsGroupByExpression = new LinkedHashMap<>();
         for (Question question : questions) {
             List<Question> group = questionsGroupByExpression.get(question.getFromExpressionId());
             if (group == null) {
@@ -72,6 +68,7 @@ public class QuestionRecommendationService {
             group.add(question);
         }
 
+        //Select a random item inside each group.
         for (List<Question> questionsGroup : questionsGroupByExpression.values()) {
             int index = RandomUtils.nextInt(0, questionsGroup.size());
             result.add(questionsGroup.get(index));
@@ -96,10 +93,6 @@ public class QuestionRecommendationService {
         questionWithPracticeResult.setQuestion(questionComposite);
 
         ExpressionPracticeResult expressionPracticeResult = expressionPracticeResultRepository.findByOwnerIdAndExpressionId(userId, question.getFromExpressionId());
-//        ExpressionPracticeResultComposite expressionPracticeResultComposite = expressionPracticeResultConverter.toModel(expressionPracticeResult);
-//        if (expressionPracticeResultComposite != null) {
-//            expressionPracticeResultComposite.setExpression(expression);
-//        }
         questionWithPracticeResult.setExpressionPracticeResult(expressionPracticeResult);
 
         QuestionPracticeResult questionPracticeResult = questionPracticeResultRepository.findByOwnerIdAndQuestionId(userId, question.getId());

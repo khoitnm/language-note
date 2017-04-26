@@ -16,9 +16,27 @@
             <div class="x_content">
                 <!--Topic Filter-->
                 <div class="question-type row">
-                    <div class="col-xs-12">
-                        <input type="radio" ng-model="practiceService.questionType" value="EXPRESSION_RECALL"> Expression Recall
-                        <input type="radio" ng-model="practiceService.questionType" value="FILL_BLANK"> Filling Blank
+                    <div class="col-xs-12 col-sm-6 col-md-4">
+                        <form class="form-horizontal form-label-left">
+                            <div class="form-group">
+                                <label class="col-md-4 col-sm-6 col-xs-12 control-label">
+                                    Question Types
+                                </label>
+
+                                <div class="col-md-8 col-sm-6 col-xs-12">
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" ng-model="practiceService.questionType" value="FILL_BLANK"> Filling Blank
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" ng-model="practiceService.questionType" value="EXPRESSION_RECALL"> Expression Recall
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
 
@@ -37,13 +55,39 @@
                 </div>
                 <div class="questions-limit row">
                     <div class="col-xs-12">
-                        <label>Total questions </label><input type="text" ng-model="practiceService.totalQuestions"/>
+                        <form class="form-horizontal form-label-left">
+                            <div class="col-xs-12 col-sm-6 col-md-4 form-group has-feedback">
+                                <label class="control-label col-xs-4">Total Questions </label>
+
+                                <div class="input-group">
+                                    <input type="text" class="form-control" ng-model="practiceService.totalQuestions"/>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-success" title="Filter Questions"><i class="fa fa-search"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 cold-sm-6 col-md-8">
+                                <button ng-click="practiceService.submitAnswers(practiceService.expressionTest)"
+                                        type="submit"
+                                        ng-disabled="practiceService.expressionTest.answered"
+                                        class="btn btn-success">
+                                    Submit Answers
+                                </button>
+                            </div>
+                            <!--<div class="pull-left" ng-include="contextPath + '/app/practice/practice-questions-submit-actions.html'">-->
+                            <!--</div>-->
+                            <!--<div class="clearfix"></div>-->
+                        </form>
+
                     </div>
                 </div>
                 <div class="row" ng-include="contextPath + '/app/practice/practice-questions.html'"></div>
                 <div class="ln_solid"></div>
 
-
+                <div class="row">
+                    <div class="col-xs-12" ng-include="contextPath + '/app/practice/practice-questions-submit-actions.html'">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
