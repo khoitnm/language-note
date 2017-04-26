@@ -505,6 +505,6 @@ datalist option {
     border-bottom-color: #c0c0c0 !important;
 }
 
-.fa-times-circle-o.text-danger {
+.answer-point.text-danger {
     color: #ccc;
 }

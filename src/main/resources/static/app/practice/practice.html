@@ -62,7 +62,10 @@
                                 <div class="input-group">
                                     <input type="text" class="form-control" ng-model="practiceService.totalQuestions"/>
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-success" title="Filter Questions"><i class="fa fa-search"></i></button>
+                                        <button type="button"
+                                                ng-disabled="isRunning || practiceService.topic.isSaving"
+                                                ng-click="practiceService.filterQuestions()"
+                                                class="btn btn-success" title="Filter Questions"><i class="fa fa-search"></i></button>
                                     </span>
                                 </div>
                             </div>

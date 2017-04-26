@@ -235,6 +235,7 @@ TopicEditService.prototype.saveTopic = function (callback) {
     var self = this;
     self.topic.isSaving = true;
     self.topicCompositionEditor.cleanRecursiveRoot();
+    //TODO sort expressions by text.
     self.$http.post(contextPath + '/api/topic-composites', self.topic).then(
         function (successResponse) {
             //Update id of topic and composites fields.
@@ -302,5 +303,6 @@ TopicEditService.prototype.validateNotExistExpressionText = function (expression
 angularApp.service('topicEditService', ['$rootScope', '$http', '$q', '$routeParams', 'hotkeys', 'FileUploader', TopicEditService]);
 angularApp.controller('topicEditController', ['$rootScope', '$scope', '$http', '$q', '$location', '$routeParams', 'topicEditService', 'hotkeys', 'FileUploader', function ($rootScope, $scope, $http, $q, $location, $routeParams, topicEditService, hotkeys, FileUploader) {
     $scope.topicEditService = topicEditService;
+    topicEditService.init();
 }]);
 
