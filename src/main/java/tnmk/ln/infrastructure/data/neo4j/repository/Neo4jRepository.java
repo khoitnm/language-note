@@ -55,6 +55,7 @@ public class Neo4jRepository {
     }
 
     public <T> List<T> findList(Class<T> entityClass, String queryString, Object... paramValues) {
+        LOGGER.trace("Query:\n {}", queryString);
         Map<String, Object> params = constructParams(paramValues);
         return IterableUtil.toList(session.query(entityClass, queryString, params));
     }

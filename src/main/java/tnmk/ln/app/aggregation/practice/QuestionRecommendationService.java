@@ -56,6 +56,7 @@ public class QuestionRecommendationService {
         List<Question> questions = neo4jRepository.findDetails(questionType.getQuestionClass(), questionIds);
         questions = filterQuestionsDistintExpression(questions);
         List<QuestionWithPracticeResult> result = questions.stream().map(question -> mapToQuestionWithPracticeResult(userId, question)).filter(questionWithPracticeResult -> questionWithPracticeResult != null).collect(Collectors.toList());
+        //TODO order by questionIds
         return result;
     }
 
