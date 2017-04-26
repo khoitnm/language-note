@@ -1,0 +1,36 @@
+{
+    "name": "Language Note - Expression Look Up",
+    "description": "Quickly adding expression into our topics",
+    "version": "0.0",
+    "icons": {
+        "128": "browser-action/images/books-headphone.png"
+    },
+    "permissions": [
+        "sessions",
+        "tabs",
+        "contextMenus",
+        "http://*/",
+        "https://*/"
+    ],
+    "browser_action": {
+        "default_icon": "browser-action/images/books-headphone.png",
+        "default_popup": "browser-action/popup.html"
+    },
+    "background": {
+        "scripts": [
+            "context-menu/background/menu-creation.js"
+        ]
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "http://*/*",
+                "https://*/*"
+            ],
+            "js": [
+                "context-menu/content/context-menu.js"
+            ]
+        }
+    ],
+    "manifest_version": 2
+}

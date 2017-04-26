@@ -56,7 +56,7 @@ import java.util.Map;
 @EnableOAuth2Client
 @EnableAuthorizationServer
 @Order(6)
-public class SocialApplication extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserAuthenticationService userAuthenticationService;
 
@@ -87,7 +87,7 @@ public class SocialApplication extends WebSecurityConfigurerAdapter {
                         "/**/*.jpg", "/**/fonts/**").permitAll()
 
                 //The home page and login endpoints are explicitly excluded
-                .antMatchers("/", "/web/login**", "/login**", "/web/register**", "/webjars/**", "/api/users").permitAll()
+                .antMatchers("/", "/project-info**", "/swagger-ui.html**", "/web/login**", "/login**", "/web/register**", "/webjars/**", "/api/users").permitAll()
 
                 //All other endpoints require an authenticated user
                 .anyRequest().authenticated()
@@ -170,21 +170,22 @@ public class SocialApplication extends WebSecurityConfigurerAdapter {
         return filter;
     }
 
-}
+    public static class ClientResources {
 
-class ClientResources {
+        @NestedConfigurationProperty
+        private AuthorizationCodeResourceDetails client = new AuthorizationCodeResourceDetails();
 
-    @NestedConfigurationProperty
-    private AuthorizationCodeResourceDetails client = new AuthorizationCodeResourceDetails();
+        @NestedConfigurationProperty
+        private ResourceServerProperties resource = new ResourceServerProperties();
 
-    @NestedConfigurationProperty
-    private ResourceServerProperties resource = new ResourceServerProperties();
+        public AuthorizationCodeResourceDetails getClient() {
+            return client;
+        }
 
-    public AuthorizationCodeResourceDetails getClient() {
-        return client;
+        public ResourceServerProperties getResource() {
+            return resource;
+        }
     }
 
-    public ResourceServerProperties getResource() {
-        return resource;
-    }
 }
+
