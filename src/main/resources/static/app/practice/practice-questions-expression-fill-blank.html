@@ -31,19 +31,15 @@
                     </div>
                     <div class="body row">
                         <div class="col-xs-12">
-                            <div class="fill-blank row">
+                            <div class="fill-blank row" ng-if="questionWithPracticeResult.question.questionParts">
                                 <ng-repeat ng-repeat="questionPart in questionWithPracticeResult.question.questionParts">
                                     <span ng-if="questionPart.questionPartType != 'BLANK'">{{questionPart.text}}</span>
                                     <input ng-if="questionPart.questionPartType == 'BLANK'"
                                            ng-model="questionPart.answer" class="input-fill-blank input-as-text"
                                            ng-class="practiceService.expressionTest.answered && (questionPart.answer == questionPart.text) ? 'text-success': practiceService.expressionTest.answered ? 'text-danger': ''"/>
-                                    <!--<span class="question-answer text-success" ng-if="questionPart.questionPartType == 'BLANK' && practiceService.expressionTest.answered">{{questionPart.text}}</span>-->
                                 </ng-repeat>
-                                <!--<div class="clearfix"></div>-->
-
-
                             </div>
-                            <div class="fill-blank row" ng-if="practiceService.expressionTest.answered">
+                            <div class="fill-blank row" ng-if="practiceService.expressionTest.answered && questionWithPracticeResult.question.questionParts">
                                 <span ng-repeat="questionPart in questionWithPracticeResult.question.questionParts" ng-class="questionPart.questionPartType=='BLANK'?'text-success':''">
                                     {{questionPart.text}}
                                 </span>
