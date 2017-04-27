@@ -2,6 +2,21 @@
     color: #b92c28;
 }
 
+.input-btn-text-left {
+    border-bottom-left-radius: 25px;
+    border-top-left-radius: 25px;
+    border-right: 0px;
+    box-shadow: inset -1px 0px 1px rgba(0, 0, 0, 0.25);
+}
+
+.input-btn-right {
+    border-bottom-right-radius: 25px;
+    border-top-right-radius: 25px;
+    border-left: 0px;
+    background: #ededed;
+    box-shadow: inset -1px 1px 1px rgba(255, 255, 255, 0.6);
+}
+
 .text-success {
     color: #26B99A;
 }

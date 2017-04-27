@@ -2,7 +2,7 @@
 
     <div class="expression-teaser row">
         <div class="col-md-12">
-            <div class="header row" ng-mouseover="topicEditService.playSound(expression)">
+            <div class="header row" ng-mouseover="topicEditService.playSoundAutomatically(expression)">
                 <div class="pull-left">
                     <button ng-click="topicEditService.modeEdit(expression)" class="btn btn-xs btn-success"><i class="fa fa-edit"></i></button>
                 </div>
@@ -26,7 +26,13 @@
                     </div>
                 </div>
                 <div class="pull-right">
-                    <a class="btn btn-xs" href=""
+                    <a href="" class="btn btn-xs"
+                       ng-if="topicEditService.isPlayingSound"
+                       ng-click="topicEditService.stopSound(expression)">
+                        <i class="fa fa-volume-off"></i>
+                    </a>
+                    <a href="" class="btn btn-xs"
+                       ng-if="!(topicEditService.isPlayingSound)"
                        ng-click="topicEditService.playSound(expression)">
                         <i class="fa fa-volume-up"></i>
                     </a>

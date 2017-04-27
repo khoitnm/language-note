@@ -1,16 +1,32 @@
 var ExpressionService = function () {
     CommonService.call(this);
+    this.isPlayingSound = undefined;
+    this.isForceStopSound = undefined;
+    this.audio = undefined;
 };
 inherit(CommonService, ExpressionService);
+ExpressionService.prototype.stopSound = function (expression) {
+    this.isPlayingSound = undefined;
+    this.isForceStopSound = true;
+    this.audio.stop();
+};
+ExpressionService.prototype.playSoundAutomatically = function (expression) {
+    if (this.isForceStopSound) return;
+    this.playSound(expression);
+};
 ExpressionService.prototype.playSound = function (expression) {
     var self = this;
     if (isBlank(expression.text) || self.isPlayingSound == expression.text) return;
     self.isPlayingSound = expression.text;
+    self.isForceStopSound = undefined;
+
     if (self.audio) self.audio.stop();
 
     var localeString = this.getExpressionLocaleString(expression);
 
     var texts = [];
+    texts.push(expression.text);
+    texts.push(expression.text);
     texts.push(expression.text);
     for (var i = 0; i < expression.senseGroups.length; i++) {
         var senseGroup = expression.senseGroups[i];
@@ -59,6 +75,12 @@ ExpressionService.prototype.getSoundUrlFromText = function (localeString, text) 
     }
     return url;
 };
+/**
+ * @deprecated Not use because cannot play many texts
+ * @param localeString
+ * @param text
+ * @param callback
+ */
 ExpressionService.prototype.playSoundOfText = function (localeString, text, callback) {
     var self = this;
     if (isBlank(text)) {

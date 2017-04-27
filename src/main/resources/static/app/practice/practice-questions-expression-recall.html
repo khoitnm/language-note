@@ -17,9 +17,14 @@
                         </div>
                         <div class="pull-right">
                             <a class="btn-xs" href=""
-                               ng-show="practiceService.expressionTest.answered"
+                               ng-show="practiceService.expressionTest.answered && !(practiceService.isPlayingSound)"
                                ng-click="practiceService.playSound(questionWithPracticeResult.question.fromExpression)">
                                 <i class="fa fa-volume-up"></i>
+                            </a>
+                            <a class="btn-xs" href=""
+                               ng-show="practiceService.expressionTest.answered && practiceService.isPlayingSound"
+                               ng-click="practiceService.stopSound(questionWithPracticeResult.question.fromExpression)">
+                                <i class="fa fa-volume-off"></i>
                             </a>
                         </div>
                         <div class="pull-right">

@@ -4,7 +4,7 @@
         <div class="nav toggle">
             <a id="menu_toggle"><i class="fa fa-bars"></i></a>
         </div>
-        <ul class="nav navbar-nav navbar-left">
+        <ul class="nav navbar-nav pull-left">
             <li>
                 <a href="#!/topics"><i class="fa fa-file-text"></i> Topics</a>
             </li>
@@ -12,10 +12,24 @@
                 <a href="#!/practice"><i class="fa fa-tasks"></i> Practice</a>
             </li>
             <li>
-                <a href="#!/practice"><i class="fa fa-search"></i> Loop up</a>
+                <a href="#!/practice">
+                    <form class="form-horizontal form-label-left">
+                        <div class="form-group" style="margin-bottom: 0px;">
+                            <div class="pull-left" style="width: 70%">
+                                <input class="form-control input-btn-text-left" type="text" placeholder="Loop up" style="border-bottom-left-radius: 25px;border-top-left-radius: 25px; border-right: 0px"/>
+                            </div>
+                            <div class="pull-right" style="width: 30%">
+                                <button class="btn btn-default input-btn-right" type="submit">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </form>
+                </a>
             </li>
         </ul>
-        <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav pull-right">
 
             <li class="">
                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -29,6 +43,7 @@
             </li>
 
         </ul>
+        <div class="clearfix"></div>
     </nav>
 </div>
 </html>
