@@ -43,26 +43,8 @@ public class OxfordService {
         if (!oxfordWords.isEmpty()) return oxfordWords.get(0);
 
         RestTemplate restTemplate = new RestTemplate();
-
-        MultiValueMap<String, Object> translateBody = new LinkedMultiValueMap<>();
-//        String translateLanguage = sourceLanguage + "-" + destLanguage;
-//        translateBody.add("text", originalText);
-//        translateBody.add("lang", translateLanguage);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Type", "application/x-www-form-urlencoded");
-        headers.add("Accept", "application/json");
-        headers.add("app_id", appId);
-        headers.add("app_key", appKey);
-
-        URI uri;
-        try {
-            String uriString = String.format("https://od-api.oxforddictionaries.com/api/v1/entries/%s/%s", sourceLanguage, word);
-            uri = new URI(uriString);
-        } catch (URISyntaxException e) {
-            throw new UnexpectedException(e.getMessage(), e);
-        }
-        RequestEntity<MultiValueMap<String, Object>> requestEntity = new RequestEntity<>(translateBody, headers, HttpMethod.GET, uri);
+        String uriString = String.format("https://od-api.oxforddictionaries.com/api/v1/entries/%s/%s", sourceLanguage, word);
+        RequestEntity<MultiValueMap<String, Object>> requestEntity = createRequestEntity(uriString);
         ResponseEntity<OxfordResponse> responseEntity = restTemplate.exchange(requestEntity, OxfordResponse.class);
         if (responseEntity.getStatusCode().equals(HttpStatus.NOT_FOUND)) {
             return null;
@@ -101,23 +83,8 @@ public class OxfordService {
 
     public OxfordWord findSentenceExamples(String sourceLanguage, String wordId) {
         RestTemplate restTemplate = new RestTemplate();
-
-        MultiValueMap<String, Object> translateBody = new LinkedMultiValueMap<>();
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Type", "application/x-www-form-urlencoded");
-        headers.add("Accept", "application/json");
-        headers.add("app_id", appId);
-        headers.add("app_key", appKey);
-
-        URI uri;
-        try {
-            String uriString = String.format("https://od-api.oxforddictionaries.com/api/v1/entries/%s/%s/sentences", sourceLanguage, wordId);
-            uri = new URI(uriString);
-        } catch (URISyntaxException e) {
-            throw new UnexpectedException(e.getMessage(), e);
-        }
-        RequestEntity<MultiValueMap<String, Object>> requestEntity = new RequestEntity<>(translateBody, headers, HttpMethod.GET, uri);
+        String uriString = String.format("https://od-api.oxforddictionaries.com/api/v1/entries/%s/%s/sentences", sourceLanguage, wordId);
+        RequestEntity<MultiValueMap<String, Object>> requestEntity = createRequestEntity(uriString);
         ResponseEntity<OxfordResponse> responseEntity = restTemplate.exchange(requestEntity, OxfordResponse.class);
         if (responseEntity.getStatusCode().equals(HttpStatus.NOT_FOUND)) {
             return null;
@@ -133,5 +100,47 @@ public class OxfordService {
             result = oxfordWords.get(0);
         }
         return result;
+    }
+
+    public OxfordWord getPronunciation(String sourceLanguage, String word) {
+        String uriString = String.format("https://od-api.oxforddictionaries.com/api/v1/entries/%s/%s/pronunciations", sourceLanguage, word);
+        RestTemplate restTemplate = new RestTemplate();
+        RequestEntity<MultiValueMap<String, Object>> requestEntity = createRequestEntity(uriString);// new RequestEntity<>(translateBody, headers, HttpMethod.GET, uri);
+        ResponseEntity<OxfordResponse> responseEntity = restTemplate.exchange(requestEntity, OxfordResponse.class);
+        if (responseEntity.getStatusCode().equals(HttpStatus.NOT_FOUND)) {
+            return null;
+        }
+        OxfordResponse oxfordResponse = responseEntity.getBody();
+        List<OxfordWord> oxfordWords = oxfordResponse.getResults();
+        OxfordWord result = null;
+        if (!oxfordWords.isEmpty()) {
+            for (OxfordWord oxfordWord : oxfordWords) {
+                oxfordWord.setFromRequest(FROM_REQUEST_SENTENCES);
+            }
+            oxfordWordRepositories.save(oxfordWords);
+            result = oxfordWords.get(0);
+        }
+        return result;
+
+    }
+
+    private RequestEntity<MultiValueMap<String, Object>> createRequestEntity(String uriString) {
+
+        MultiValueMap<String, Object> translateBody = new LinkedMultiValueMap<>();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/x-www-form-urlencoded");
+        headers.add("Accept", "application/json");
+        headers.add("app_id", appId);
+        headers.add("app_key", appKey);
+
+        URI uri;
+        try {
+            uri = new URI(uriString);
+        } catch (URISyntaxException e) {
+            throw new UnexpectedException(e.getMessage(), e);
+        }
+        RequestEntity<MultiValueMap<String, Object>> requestEntity = new RequestEntity<>(translateBody, headers, HttpMethod.GET, uri);
+        return requestEntity;
     }
 }
