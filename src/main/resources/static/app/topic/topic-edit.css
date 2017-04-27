@@ -14,7 +14,7 @@
 }
 
 .input-as-text {
-    background: none;
+    background: transparent;
     font-size: inherit;
     line-height: inherit;
 
@@ -24,20 +24,23 @@
     font-size: 13px;
     box-shadow: none;
     line-height: 20px;
-}
 
-.input-as-text:not(:focus) {
     padding: 1px 1px 0px 0px; /* Top-Right-Bottom-Left: The bottom has border, so it doesn't need padding anymore*/
     border-width: 0px 0px 1px 1px;
     border-style: dotted;
-    border-color: #ECF0F1 #ECF0F1 #F1F1F1 #F7F7F7;
+    border-left-color: rgba(0, 0, 0, 0.05);
+    outline-color: transparent;
+}
+
+.input-as-text:not(:focus) {
+    border-bottom-color: rgba(0, 0, 0, 0.15);
 }
 
 .input-as-text:focus {
-    padding: 1px 0px 0px 0px; /* The bottom has border, so it doesn't need padding anymore*/
-    border-width: 0px 1px 1px 1px;
-    border-style: solid;
-    border-color: rgb(238, 238, 238);
+    /*padding: 1px 0px 0px 0px; !* The bottom has border, so it doesn't need padding anymore*!*/
+    /*border-width: 0px 1px 1px 1px;*/
+    /*border-style: solid;*/
+    border-bottom-color: rgba(0, 0, 0, 0.5);
 }
 
 .input-as-text.text-danger {
@@ -84,8 +87,8 @@
 
 .expression-teaser .header .input-as-text {
     width: 100%;
-    background: transparent;
-    border-bottom-color: #c9c9c9;
+    /*background: transparent;*/
+    /*border-bottom-color: #c9c9c9;*/
 }
 
 .expression-teaser .body {
@@ -269,11 +272,6 @@ datalist option {
     box-shadow: inset 0 1px 0px rgba(175, 191, 208, 0.7);
 }
 
-.expression-editor .input-as-text {
-    background: transparent;
-    /*border-bottom: 1px dotted #5A738E;*/
-}
-
 .expression-editor .input-as-text::-webkit-input-placeholder {
     color: #d0d0d0;
     font-weight: lighter;
@@ -410,7 +408,12 @@ datalist option {
 
 .input-as-text.dark-theme {
     color: #E7E7E7;
-    border-color: #5A738E #5A738E #5A738E #5A738E;
+    border-color: #5A738E;
+    /*border-color: rgba(255, 255, 255, 0.25);*/
+}
+
+.input-as-text.dark-theme:focus {
+    border-width: 0px 0px 1px 1px;
 }
 
 .input-as-text.dark-theme::-webkit-input-placeholder {

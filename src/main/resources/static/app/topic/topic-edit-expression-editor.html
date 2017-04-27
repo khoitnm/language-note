@@ -12,15 +12,23 @@
                            ng-model-options='{ debounce: 1000 }'
                            class="input-as-text dark-theme"/>
                 </div>
-                <div class="col-xs-1 text-right">
-                    <a href="" ng-click="topicEditService.topicCompositionEditor.removeItemAndAddSkeleton(expression)"><i class="fa fa-trash-o dark-theme"></i></a>
+                <div class="pull-right" tnmk-dropdown>
+                    <div class="tnmk-dropdown-header">
+                        <a class="btn btn-xs" href='' title=''><i class="fa fa-cog dark-theme"></i></a>
+                    </div>
+                    <div class="tnmk-dropdown-body">
+                        <a class="btn btn-xs dark-theme" href="" ng-click="topicEditService.topicCompositionEditor.removeItemAndAddSkeleton(expression)">
+                            <i class="fa fa-trash-o dark-theme"></i>
+                        </a>
+                    </div>
                 </div>
-                <div class="col-xs-1">
-                    <a href=""
+                <div class="pull-right">
+                    <a href="" class="btn btn-xs"
                        ng-click="topicEditService.playSound(expression)">
-                        <i class="fa fa-volume-up"></i>
+                        <i class="fa fa-volume-up dark-theme"></i>
                     </a>
                 </div>
+                <div class="clearfix"></div>
             </div>
             <div class="expression-relations row dark-theme">
                 <div class="col-xs-1">Family</div>
@@ -73,10 +81,10 @@
 
                                     <div class="pull-right" tnmk-dropdown>
                                         <div class="tnmk-dropdown-header">
-                                            <a class="btn btn-xs dark-theme" href='' title=''><i class="fa fa-cog dark-theme"></i></a>
+                                            <a class="btn btn-xs" href='' title=''><i class="fa fa-cog dark-theme"></i></a>
                                         </div>
                                         <div class="tnmk-dropdown-body">
-                                            <a class="btn btn-xs btn-dark" href="" ng-click="topicEditService.topicCompositionEditor.removeItemAndAddSkeleton(senseGroup)">
+                                            <a class="btn btn-xs dark-theme" href="" ng-click="topicEditService.topicCompositionEditor.removeItemAndAddSkeleton(senseGroup)">
                                                 <i class="fa fa-trash-o dark-theme"></i>
                                             </a>
                                         </div>
@@ -125,10 +133,10 @@
                                                 <div class="col-xs-1 text-right">
                                                     <div class="pull-right" tnmk-dropdown>
                                                         <div class="tnmk-dropdown-header">
-                                                            <a class="btn btn-xs dark-theme" href='' title=''><i class="fa fa-cog dark-theme"></i></a>
+                                                            <a class="btn btn-xs" href='' title=''><i class="fa fa-cog dark-theme"></i></a>
                                                         </div>
                                                         <div class="tnmk-dropdown-body">
-                                                            <div class="btn btn-xs btn-dark">
+                                                            <div class="btn btn-xs dark-theme">
                                                                 <a href="" ng-click="topicEditService.topicCompositionEditor.removeItemAndAddSkeleton(sense)"><i class="fa fa-trash-o dark-theme"></i></a>
                                                             </div>
                                                         </div>
