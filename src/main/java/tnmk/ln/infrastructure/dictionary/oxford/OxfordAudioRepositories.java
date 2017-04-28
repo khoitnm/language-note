@@ -14,4 +14,6 @@ import java.util.List;
 @Repository
 public interface OxfordAudioRepositories extends MongoRepository<OxfordAudio, String> {
     List<OxfordAudio> findByLanguageAndWord(String sourceLanguage, String word);
+
+    OxfordAudio findByOriginalUrl(String audioUrl);
 }

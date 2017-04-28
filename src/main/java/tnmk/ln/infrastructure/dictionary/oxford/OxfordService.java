@@ -1,5 +1,6 @@
 package tnmk.ln.infrastructure.dictionary.oxford;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -84,9 +85,7 @@ public class OxfordService {
                 }
                 for (OxfordWord oxfordWord : oxfordWords) {
                     oxfordWord.setFromRequest(FROM_REQUEST_ENTRIES);
-
-                    List<OxfordAudio> oxfordAudios = downloadAudio(oxfordWord);
-                    oxfordAudioRepositories.save(oxfordAudios);
+                    downloadAndSaveAudios(oxfordWord);
                 }
             } catch (Exception ex) {
                 throw new UnexpectedException(ex.getMessage(), ex);
@@ -118,20 +117,35 @@ public class OxfordService {
         return result;
     }
 
-    private List<OxfordAudio> downloadAudio(OxfordWord oxfordWord) {
+    public List<OxfordAudio> downloadAndSaveAudios(OxfordWord oxfordWord) {
         List<OxfordAudio> result = new ArrayList<>();
         List<LexicalEntry> lexicalEntries = oxfordWord.getLexicalEntries();
         for (LexicalEntry lexicalEntry : lexicalEntries) {
             List<Pronunciation> pronunciations = lexicalEntry.getPronunciations();
+            if (pronunciations == null) continue;
             for (Pronunciation pronunciation : pronunciations) {
-                OxfordAudio oxfordAudio = createOxfordAudio(oxfordWord, lexicalEntry, pronunciation);
+                if (pronunciation == null || StringUtils.isBlank(pronunciation.getAudioFile())) continue;
+                OxfordAudio oxfordAudio = downloadOxfordAudio(oxfordWord, lexicalEntry, pronunciation);
                 result.add(oxfordAudio);
             }
         }
+        oxfordAudioRepositories.save(result);
         return result;
     }
 
-    private OxfordAudio createOxfordAudio(OxfordWord oxfordWord, LexicalEntry lexicalEntry, Pronunciation pronunciation) {
+    /**
+     * If not exist in DB, download form OxfordDictionary.
+     *
+     * @param oxfordWord
+     * @param lexicalEntry
+     * @param pronunciation
+     * @return
+     */
+    private OxfordAudio downloadOxfordAudio(OxfordWord oxfordWord, LexicalEntry lexicalEntry, Pronunciation pronunciation) {
+        String fileUrl = pronunciation.getAudioFile();
+        OxfordAudio oxfordAudio = oxfordAudioRepositories.findByOriginalUrl(fileUrl);
+        if (oxfordAudio != null) return oxfordAudio;
+
         OxfordAudio result = new OxfordAudio();
         String cleanWord = cleanupText(oxfordWord.getWord());
         result.setWord(cleanWord);
@@ -141,7 +155,6 @@ public class OxfordService {
         result.setPhoneticNotation(pronunciation.getPhoneticNotation());
         result.setPhoneticSpelling(pronunciation.getPhoneticSpelling());
 
-        String fileUrl = pronunciation.getAudioFile();
         byte[] fileBinary = downloadFile(fileUrl);
         String fileExtension = FileUtil.getFileExtension(fileUrl);
         String fileMimeType = MimeTypeUtil.getMimeTypeFromFileExtension(fileExtension);
