@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -13,12 +14,18 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import tnmk.common.exception.UnexpectedException;
+import tnmk.common.util.FileUtil;
+import tnmk.common.util.MimeTypeUtil;
 import tnmk.ln.infrastructure.dictionary.oxford.entity.LexicalEntry;
 import tnmk.ln.infrastructure.dictionary.oxford.entity.OxfordResponse;
 import tnmk.ln.infrastructure.dictionary.oxford.entity.OxfordWord;
+import tnmk.ln.infrastructure.dictionary.oxford.entity.Pronunciation;
+import tnmk.ln.infrastructure.filestorage.entity.FileItem;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -26,6 +33,9 @@ import java.util.List;
  */
 @Service
 public class OxfordService {
+    /**
+     * This is the Oxford API which the result was got from.
+     */
     private static final String FROM_REQUEST_ENTRIES = "entries";
     private static final String FROM_REQUEST_SENTENCES = "entries/sentences";
 
@@ -37,6 +47,9 @@ public class OxfordService {
 
     @Autowired
     private OxfordWordRepositories oxfordWordRepositories;
+
+    @Autowired
+    private OxfordAudioRepositories oxfordAudioRepositories;
 
     public OxfordWord lookUpDefinition(String sourceLanguage, String word) {
         List<OxfordWord> oxfordWords = oxfordWordRepositories.findByLanguageAndWordAndFromRequest(sourceLanguage, word, FROM_REQUEST_ENTRIES);
@@ -71,6 +84,9 @@ public class OxfordService {
                 }
                 for (OxfordWord oxfordWord : oxfordWords) {
                     oxfordWord.setFromRequest(FROM_REQUEST_ENTRIES);
+
+                    List<OxfordAudio> oxfordAudios = downloadAudio(oxfordWord);
+                    oxfordAudioRepositories.save(oxfordAudios);
                 }
             } catch (Exception ex) {
                 throw new UnexpectedException(ex.getMessage(), ex);
@@ -102,26 +118,55 @@ public class OxfordService {
         return result;
     }
 
-    public OxfordWord getPronunciation(String sourceLanguage, String word) {
-        String uriString = String.format("https://od-api.oxforddictionaries.com/api/v1/entries/%s/%s/pronunciations", sourceLanguage, word);
-        RestTemplate restTemplate = new RestTemplate();
-        RequestEntity<MultiValueMap<String, Object>> requestEntity = createRequestEntity(uriString);// new RequestEntity<>(translateBody, headers, HttpMethod.GET, uri);
-        ResponseEntity<OxfordResponse> responseEntity = restTemplate.exchange(requestEntity, OxfordResponse.class);
-        if (responseEntity.getStatusCode().equals(HttpStatus.NOT_FOUND)) {
-            return null;
-        }
-        OxfordResponse oxfordResponse = responseEntity.getBody();
-        List<OxfordWord> oxfordWords = oxfordResponse.getResults();
-        OxfordWord result = null;
-        if (!oxfordWords.isEmpty()) {
-            for (OxfordWord oxfordWord : oxfordWords) {
-                oxfordWord.setFromRequest(FROM_REQUEST_SENTENCES);
+    private List<OxfordAudio> downloadAudio(OxfordWord oxfordWord) {
+        List<OxfordAudio> result = new ArrayList<>();
+        List<LexicalEntry> lexicalEntries = oxfordWord.getLexicalEntries();
+        for (LexicalEntry lexicalEntry : lexicalEntries) {
+            List<Pronunciation> pronunciations = lexicalEntry.getPronunciations();
+            for (Pronunciation pronunciation : pronunciations) {
+                OxfordAudio oxfordAudio = createOxfordAudio(oxfordWord, lexicalEntry, pronunciation);
+                result.add(oxfordAudio);
             }
-            oxfordWordRepositories.save(oxfordWords);
-            result = oxfordWords.get(0);
         }
         return result;
+    }
 
+    private OxfordAudio createOxfordAudio(OxfordWord oxfordWord, LexicalEntry lexicalEntry, Pronunciation pronunciation) {
+        OxfordAudio result = new OxfordAudio();
+        String cleanWord = cleanupText(oxfordWord.getWord());
+        result.setWord(cleanWord);
+        result.setLanguage(lexicalEntry.getLanguage());
+        result.setLexicalCategory(lexicalEntry.getLexicalCategory());
+        result.setDialects(pronunciation.getDialects());
+        result.setPhoneticNotation(pronunciation.getPhoneticNotation());
+        result.setPhoneticSpelling(pronunciation.getPhoneticSpelling());
+
+        String fileUrl = pronunciation.getAudioFile();
+        byte[] fileBinary = downloadFile(fileUrl);
+        String fileExtension = FileUtil.getFileExtension(fileUrl);
+        String fileMimeType = MimeTypeUtil.getMimeTypeFromFileExtension(fileExtension);
+
+        FileItem fileItem = new FileItem();
+        fileItem.setBytesContent(fileBinary);
+        fileItem.setFileSize((long) fileBinary.length);
+        fileItem.setMimeType(fileMimeType);
+        fileItem.setName(cleanWord);
+
+        result.setOriginalUrl(fileUrl);
+        result.setFileItem(fileItem);
+        return result;
+    }
+
+    public String cleanupText(String originalText) {
+        return originalText.trim().toLowerCase();
+    }
+
+    public byte[] downloadFile(String url) {
+        RequestEntity<MultiValueMap<String, Object>> requestEntity = createRequestDownloadFile(url);
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<byte[]> responseEntity = restTemplate.exchange(requestEntity, byte[].class);
+        byte[] data = responseEntity.getBody();
+        return data;
     }
 
     private RequestEntity<MultiValueMap<String, Object>> createRequestEntity(String uriString) {
@@ -129,18 +174,36 @@ public class OxfordService {
         MultiValueMap<String, Object> translateBody = new LinkedMultiValueMap<>();
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Type", "application/x-www-form-urlencoded");
-        headers.add("Accept", "application/json");
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         headers.add("app_id", appId);
         headers.add("app_key", appKey);
 
-        URI uri;
+        URI uri = createUri(uriString);
+        RequestEntity<MultiValueMap<String, Object>> requestEntity = new RequestEntity<>(translateBody, headers, HttpMethod.GET, uri);
+        return requestEntity;
+    }
+
+    private RequestEntity<MultiValueMap<String, Object>> createRequestDownloadFile(String uriString) {
+
+        MultiValueMap<String, Object> translateBody = new LinkedMultiValueMap<>();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_OCTET_STREAM));
+        headers.add("app_id", appId);
+        headers.add("app_key", appKey);
+
+        URI uri = createUri(uriString);
+        RequestEntity<MultiValueMap<String, Object>> requestEntity = new RequestEntity<>(translateBody, headers, HttpMethod.GET, uri);
+        return requestEntity;
+    }
+
+    private URI createUri(String uriString) {
         try {
-            uri = new URI(uriString);
+            return new URI(uriString);
         } catch (URISyntaxException e) {
             throw new UnexpectedException(e.getMessage(), e);
         }
-        RequestEntity<MultiValueMap<String, Object>> requestEntity = new RequestEntity<>(translateBody, headers, HttpMethod.GET, uri);
-        return requestEntity;
     }
 }

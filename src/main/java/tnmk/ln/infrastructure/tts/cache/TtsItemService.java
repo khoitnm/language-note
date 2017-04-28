@@ -17,18 +17,23 @@ public class TtsItemService {
     @Autowired
     private TtsItemRepository ttsItemRepository;
 
-    public TtsItem findText(String sourceLanguage, String originalText) {
+    /**
+     * @param locale       en-us, en-in,...
+     * @param originalText
+     * @return
+     */
+    public TtsItem findText(String locale, String originalText) {
         String text = cleanupText(originalText);
-        return ttsItemRepository.findOneByLocaleAndText(sourceLanguage, text);
+        return ttsItemRepository.findOneByLocaleAndText(locale, text);
     }
 
     public String cleanupText(String originalText) {
         return originalText.trim().toLowerCase();
     }
 
-    public TtsItem putText(String sourceLanguage, String originalText, byte[] mp3Data) {
+    public TtsItem putText(String locale, String originalText, byte[] mp3Data) {
         String text = cleanupText(originalText);
-        TtsItem ttsItem = findText(sourceLanguage, text);
+        TtsItem ttsItem = findText(locale, text);
         if (ttsItem == null) {
             ttsItem = new TtsItem();
         }
@@ -38,10 +43,10 @@ public class TtsItemService {
             fileItemService.remove(oldFileItem.getId());
         }
 
-        FileItem newFileItem = fileItemService.save(text + "_" + sourceLanguage + ".mp3", MIMETYPE_MP3, mp3Data, mp3Data.length);
+        FileItem newFileItem = fileItemService.save(text + "_" + locale + ".mp3", MIMETYPE_MP3, mp3Data, mp3Data.length);
         ttsItem.setFileItem(newFileItem);
         ttsItem.setText(text);
-        ttsItem.setLocale(sourceLanguage);
+        ttsItem.setLocale(locale);
         return ttsItemRepository.save(ttsItem);
     }
 }

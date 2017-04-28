@@ -114,9 +114,6 @@ public class StringUtil {
     }
 
     public static String[] toWords(String text) {
-//        org.springframework.util.StringUtils.
-//        org.apache.commons.codec.binary.StringUtils.
-        //TODO
-        return null;
+        return text.split("\\w+");
     }
 }
