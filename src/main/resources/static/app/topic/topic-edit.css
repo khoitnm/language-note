@@ -196,11 +196,11 @@ datalist option {
 
 .expression-editor .expression.header {
     padding: 10px;
-    background-color: #73879C;
+    background-color: #3e5369;
     font-style: italic;
     font-weight: bold;
     font-size: 110%;
-    border-bottom: 1px solid #5A738E;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
     border-top-right-radius: 4px;
     border-top-left-radius: 4px;
@@ -440,7 +440,11 @@ datalist option {
 }
 
 .fa.dark-theme {
-    color: #E7E7E7;
+    color: rgba(255, 255, 255, 0.25);
+}
+
+a .fa.dark-theme:hover {
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .file-upload-drop-zone {
@@ -555,9 +559,23 @@ datalist option {
     z-index: 9999;
     top: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(30, 30, 30, 0.95);
     overflow-x: hidden;
     transition: 0.5s;
+}
+
+.overlay .overlay-btn-close {
+    position: absolute;
+    top: 6px;
+    right: 20px;
+    font-size: 18px;
+    color: #999;
+    /*color: #222;*/
+    /*text-shadow: -1px -1px 0px #000, 0px 0.5px 1px #999;*/
+}
+
+.overlay .overlay-btn-close:hover {
+    color: #ddd;
 }
 
 .overlay-content {
@@ -567,18 +585,6 @@ datalist option {
     padding: 0px 20px 20px 20px;
     width: 100%;
     text-align: center;
-}
-
-.overlay .overlay-btn-close {
-    position: absolute;
-    top: 6px;
-    right: 20px;
-    font-size: 18px;
-    color: #85909d;
-}
-
-.overlay .overlay-btn-close:hover {
-    color: #aaa;
 }
 
 @media screen and (max-height: 450px) {
