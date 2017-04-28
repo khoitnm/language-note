@@ -21,7 +21,7 @@ import java.util.List;
  */
 //@NodeEntity(label = "Expression")
 @Document(collection = "Expression")
-public class Expression extends BaseMongoEntity implements Possession, Cleanable {
+public class Expression extends BaseMongoEntity implements Possession, Cleanable, BaseExpression {
     public static final String HAS_LEXICAL_ENTRIES = "HAS_LEXICAL_ENTRIES";
     public static final String HAS_SENSE_GROUPS = "HAS_SENSE_GROUPS";
     public static final String HAS_MAIN_AUDIO = "HAS_MAIN_AUDIO";
@@ -81,15 +81,15 @@ public class Expression extends BaseMongoEntity implements Possession, Cleanable
      * In related expressions, they only contains text and id. That's it!
      */
     @Relationship(type = IS_SYNONYMOUS_WITH, direction = Relationship.UNDIRECTED)
-    private List<Expression> synonyms;
+    private List<RelatedExpression> synonyms;
 
     //    @DetailLoading
     @Relationship(type = IS_ANTONYMOUS_WITH, direction = Relationship.UNDIRECTED)
-    private List<Expression> antonyms;
+    private List<RelatedExpression> antonyms;
 
     @DetailLoading
     @Relationship(type = FAMILY_WITH, direction = Relationship.UNDIRECTED)
-    private List<Expression> family;
+    private List<RelatedExpression> family;
 
     // PARENT RELATIONSHIPS //////////////////////////////////////////////////////////////
     /**
@@ -150,27 +150,27 @@ public class Expression extends BaseMongoEntity implements Possession, Cleanable
         return lexicalEntries;
     }
 
-    public List<Expression> getSynonyms() {
+    public List<RelatedExpression> getSynonyms() {
         return synonyms;
     }
 
-    public void setSynonyms(List<Expression> synonyms) {
+    public void setSynonyms(List<RelatedExpression> synonyms) {
         this.synonyms = synonyms;
     }
 
-    public List<Expression> getAntonyms() {
+    public List<RelatedExpression> getAntonyms() {
         return antonyms;
     }
 
-    public void setAntonyms(List<Expression> antonyms) {
+    public void setAntonyms(List<RelatedExpression> antonyms) {
         this.antonyms = antonyms;
     }
 
-    public List<Expression> getFamily() {
+    public List<RelatedExpression> getFamily() {
         return family;
     }
 
-    public void setFamily(List<Expression> family) {
+    public void setFamily(List<RelatedExpression> family) {
         this.family = family;
     }
 

@@ -15,6 +15,7 @@ import tnmk.ln.app.aggregation.topic.model.TopicComposite;
 import tnmk.ln.app.aggregation.topic.model.TopicCompositeConverter;
 import tnmk.ln.app.dictionary.ExpressionRepository;
 import tnmk.ln.app.dictionary.ExpressionService;
+import tnmk.ln.app.dictionary.entity.BaseExpression;
 import tnmk.ln.app.dictionary.entity.Expression;
 import tnmk.ln.app.practice.QuestionGenerationService;
 import tnmk.ln.app.topic.CategoryService;
@@ -90,13 +91,13 @@ public class TopicCompositeService {
     }
 
     private void setRelatedExpressions(Expression expression, String relationshipPropertyName) {
-        List<Expression> relatedExpressions = (List<Expression>) ReflectionUtils.readProperty(expression, relationshipPropertyName);
+        List<BaseExpression> relatedExpressions = (List<BaseExpression>) ReflectionUtils.readProperty(expression, relationshipPropertyName);
         //Don't need because its saving will be override by later saving!
 //        removeCascadeExpressionFromRelatedListOfItsRelations(expression, relatedExpressions, relationshipPropertyName);
 
         //Handling new related items
         if (CollectionUtils.isEmpty(relatedExpressions)) return;
-        for (Expression relatedExpression : relatedExpressions) {
+        for (BaseExpression relatedExpression : relatedExpressions) {
             if (StringUtils.isEmpty(relatedExpression.getText()) || StringUtils.isNotBlank(relatedExpression.getId())) continue;
             //Update id of related expression into its properties
             Expression savedRelatedExpression = expressionRepository.findOneByLocaleAndText(expression.getLocale().getLanguage(), expression.getLocale().getCountry(), relatedExpression.getText());
@@ -110,23 +111,23 @@ public class TopicCompositeService {
         }
     }
 
-    private void removeCascadeExpressionFromRelatedListOfItsRelations(Expression expression, List<Expression> relatedExpressions, String relationshipPropertyName) {
+    private void removeCascadeExpressionFromRelatedListOfItsRelations(BaseExpression expression, List<BaseExpression> relatedExpressions, String relationshipPropertyName) {
         //Handling removed related items
         if (StringUtils.isNotBlank(expression.getId())) {
-            Expression oldExpression = expressionRepository.findOne(expression.getId());
+            BaseExpression oldExpression = expressionRepository.findOne(expression.getId());
             Guardian.validateNotNull(oldExpression, "Not found the old expression with id " + expression.getId());
 
-            List<Expression> oldRelatedExpressions = (List<Expression>) ReflectionUtils.readProperty(oldExpression, relationshipPropertyName);
-            List<Expression> removedItems = IterableUtil.findItemsNotInFirstListByField(relatedExpressions, oldRelatedExpressions, "text");
-            for (Expression removedItem : removedItems) {
-                removeItemFromRelatedItems(removedItem, relationshipPropertyName, expression);
+            List<BaseExpression> oldRelatedExpressions = (List<BaseExpression>) ReflectionUtils.readProperty(oldExpression, relationshipPropertyName);
+            List<BaseExpression> removedItems = IterableUtil.findItemsNotInFirstListByField(relatedExpressions, oldRelatedExpressions, "text");
+            for (BaseExpression removedItem : removedItems) {
+                removeItemFromRelatedItems(removedItem.getId(), relationshipPropertyName, expression);
             }
         }
     }
 
-    private void removeItemFromRelatedItems(Expression expression, String relationshipPropertyName, Expression relatedExpression) {
-        expression = expressionRepository.findOne(expression.getId());
-        List<Expression> relatedExpressions = (List<Expression>) ReflectionUtils.readProperty(expression, relationshipPropertyName);
+    private void removeItemFromRelatedItems(String expressionId, String relationshipPropertyName, BaseExpression relatedExpression) {
+        Expression expression = expressionRepository.findOne(expressionId);
+        List<BaseExpression> relatedExpressions = (List<BaseExpression>) ReflectionUtils.readProperty(expression, relationshipPropertyName);
         if (!CollectionUtils.isEmpty(relatedExpressions)) {
             IterableUtil.removeItemsByFieldValue(relatedExpressions, relatedExpression, "text");
             ReflectionUtils.writeProperty(expression, relationshipPropertyName, relatedExpressions);
@@ -134,14 +135,14 @@ public class TopicCompositeService {
         expressionRepository.save(expression);
     }
 
-    private void addCascadeRelatedExpressionsIfNotExist(Expression expression, String relationshipPropertyName, Expression relatedExpression) {
-        List<Expression> relatedExpressions = (List<Expression>) ReflectionUtils.readProperty(expression, relationshipPropertyName);
+    private void addCascadeRelatedExpressionsIfNotExist(Expression expression, String relationshipPropertyName, BaseExpression relatedExpression) {
+        List<BaseExpression> relatedExpressions = (List<BaseExpression>) ReflectionUtils.readProperty(expression, relationshipPropertyName);
         if (relatedExpressions == null) {
             relatedExpressions = new ArrayList<>();
         }
         //Compare by {@link Expression#text} field.
-        Expression itemHasSameFieldValue = IterableUtil.findItemHasSameFieldValue(relatedExpressions, relatedExpression, "text");
-        Expression addedExpression;
+        BaseExpression itemHasSameFieldValue = IterableUtil.findItemHasSameFieldValue(relatedExpressions, relatedExpression, "text");
+        BaseExpression addedExpression;
         if (itemHasSameFieldValue == null) {
             addedExpression = new Expression();
             relatedExpressions.add(addedExpression);

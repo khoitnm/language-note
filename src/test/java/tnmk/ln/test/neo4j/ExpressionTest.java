@@ -68,30 +68,30 @@ public class ExpressionTest extends BaseTest {
 
     @Test
     public void testUdate() {
-        User account = accountRepository.findOne(220l);
-        account.setUsername("contributor1");
-
-        Expression antonym1 = expressionService.findById("" + 192);
-        antonym1.setText("antonym1");
-
-        Expression synonym2 = expressionService.findById("" + 224);
-        synonym2.setText("synonym2");
-        synonym2.setAntonyms(Arrays.asList(antonym1));
-        Expression synonym3 = expressionService.findById("" + 191);
-        synonym3.setText("synonym3");
-        synonym3.setSenseGroups(Arrays.asList(constructSensesGroup("" + 201l), constructSensesGroup("" + 197l)));
-
-        antonym1.setAntonyms(Arrays.asList(synonym3));
-
-        Expression expression = expressionService.findById(MAIN_EXPRESSION_ID);
-        expression.setText("main");
-        expression.setSynonyms(Arrays.asList(synonym2, synonym3));
-        expression.setAntonyms(Arrays.asList(antonym1));
-        expression.setOwner(account);
-        expressionService.save(expression);
-
-        expression = expressionService.findById(MAIN_EXPRESSION_ID);
-        LOGGER.info(ObjectMapperUtil.toStringMultiLine(expression));
+//        User account = accountRepository.findOne(220l);
+//        account.setUsername("contributor1");
+//
+//        Expression antonym1 = expressionService.findById("" + 192);
+//        antonym1.setText("antonym1");
+//
+//        Expression synonym2 = expressionService.findById("" + 224);
+//        synonym2.setText("synonym2");
+//        synonym2.setAntonyms(Arrays.asList(antonym1));
+//        Expression synonym3 = expressionService.findById("" + 191);
+//        synonym3.setText("synonym3");
+//        synonym3.setSenseGroups(Arrays.asList(constructSensesGroup("" + 201l), constructSensesGroup("" + 197l)));
+//
+//        antonym1.setAntonyms(Arrays.asList(synonym3));
+//
+//        Expression expression = expressionService.findById(MAIN_EXPRESSION_ID);
+//        expression.setText("main");
+//        expression.setSynonyms(Arrays.asList(synonym2, synonym3));
+//        expression.setAntonyms(Arrays.asList(antonym1));
+//        expression.setOwner(account);
+//        expressionService.save(expression);
+//
+//        expression = expressionService.findById(MAIN_EXPRESSION_ID);
+//        LOGGER.info(ObjectMapperUtil.toStringMultiLine(expression));
     }
 
     private SenseGroup constructSensesGroup(String id) {

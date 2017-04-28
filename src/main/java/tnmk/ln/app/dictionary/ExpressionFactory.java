@@ -3,6 +3,7 @@ package tnmk.ln.app.dictionary;
 import tnmk.ln.app.dictionary.entity.Expression;
 import tnmk.ln.app.dictionary.entity.ExpressionType;
 import tnmk.ln.app.dictionary.entity.LexicalEntry;
+import tnmk.ln.app.dictionary.entity.RelatedExpression;
 
 import java.util.Arrays;
 
@@ -17,9 +18,9 @@ public class ExpressionFactory {
         expression.setSenseGroups(Arrays.asList(SenseGroupFactory.constructSchema()));
 
         //Don't add Expression.constructSchema() here. Otherwise, it will cause endless-loop.
-        expression.setAntonyms(Arrays.asList(new Expression()));
-        expression.setSynonyms(Arrays.asList(new Expression()));
-        expression.setFamily(Arrays.asList(new Expression()));
+        expression.setAntonyms(Arrays.asList(new RelatedExpression()));
+        expression.setSynonyms(Arrays.asList(new RelatedExpression()));
+        expression.setFamily(Arrays.asList(new RelatedExpression()));
         return expression;
     }
 }
