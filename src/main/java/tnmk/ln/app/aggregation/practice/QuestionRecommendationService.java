@@ -2,8 +2,11 @@ package tnmk.ln.app.aggregation.practice;
 
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tnmk.common.util.ListUtil;
 import tnmk.ln.app.aggregation.practice.model.QuestionComposite;
 import tnmk.ln.app.aggregation.practice.model.QuestionConverter;
 import tnmk.ln.app.dictionary.ExpressionService;
@@ -29,6 +32,8 @@ import java.util.stream.Collectors;
  */
 @Service
 public class QuestionRecommendationService {
+    public static final Logger LOGGER = LoggerFactory.getLogger(QuestionRecommendationService.class);
+
     @Autowired
     private QuestionConverter questionConverter;
 
@@ -49,9 +54,26 @@ public class QuestionRecommendationService {
 
     public List<QuestionWithPracticeResult> loadQuestionsByTopics(long userId, QuestionType questionType, List<Long> topicIds) {
         List<Question> questions = questionRecommendationRepository.findQuestionIdsByRecommendedExpressions(userId, questionType, topicIds);
+//        List<String> questionIds = questions.stream().map(question -> String.format("{q:%s, e:%s}", question.getId(), question.getFromExpressionId())).collect(Collectors.toList());
+//        LOGGER.debug("Question Ids:" + questionIds.toString());
+
         List<Question> distinctQuestions = filterQuestionsDistintExpression(questions);
         List<QuestionWithPracticeResult> result = distinctQuestions.stream().map(question -> mapToQuestionWithPracticeResult(userId, question)).filter(questionWithPracticeResult -> questionWithPracticeResult != null).collect(Collectors.toList());
+        //TODO we have to use this sort because it looks like the CQL is not effective??
+        ListUtil.sortByFields(result, "expressionPracticeResult.sumLatestAnswerPoint", "expressionPracticeResult.answers.size()", "expressionPracticeResult.sumTotalAnswerPoint");
+//        log("After sort", result);
         return result;
+    }
+
+    private void log(String message, List<QuestionWithPracticeResult> result) {
+        String questionAndPoints = result.stream()
+                .map(question -> String.format("{question:%s,\t points:%s,\t answrtimes: %s,\t total points: %s}",
+                        question.getQuestion().getId(),
+                        question.getExpressionPracticeResult().getSumLatestAnswerPoint(),
+                        question.getExpressionPracticeResult().getAnswers().size(),
+                        question.getExpressionPracticeResult().getSumTotalAnswerPoint()))
+                .collect(Collectors.joining("\n\t"));
+        LOGGER.debug("Questions And Points: {} \n\t {}", message, questionAndPoints);
     }
 
     private List<Question> filterQuestionsDistintExpression(List<Question> questions) {

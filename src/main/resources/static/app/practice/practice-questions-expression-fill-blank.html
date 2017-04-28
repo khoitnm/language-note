@@ -24,7 +24,7 @@
                             </a>
                         </div>
                         <div class="pull-right">
-                            <span ng-repeat="ianswerResult in questionWithPracticeResult.expressionPracticeResult.answers track by $index">
+                            <span ng-repeat="ianswerResult in questionWithPracticeResult.expressionPracticeResult.answers track by $index" title="{{questionWithPracticeResult.expressionPracticeResult.sumLatestAnswerPoint}}">
                                 <i class="answer-point fa " ng-class="ianswerResult > 0 ? 'fa-dot-circle-o text-success': 'fa-circle-o text-danger'"></i>
                             </span>
                         </div>

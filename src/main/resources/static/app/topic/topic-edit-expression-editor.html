@@ -4,9 +4,9 @@
     </a>
 
     <div class="overlay-content">
-        <div class="col-md-12">
+        <div class="col-xs-12">
             <div class="expression-editor row">
-                <div class="col-md-12">
+                <div class="col-xs-12">
                     <!-- Expression Header-->
                     <div class="expression header row">
                         <div class="col-xs-10">
@@ -77,10 +77,10 @@
                     </div>
                     <!-- Expression Body: List of SenseGroups -->
                     <div class="expression body row">
-                        <div class="col-md-12">
+                        <div class="col-xs-12">
                             <!--SenseGroup-->
                             <div ng-repeat="senseGroup in expression.senseGroups" class="sense-group dark-theme row">
-                                <div class="col-md-12">
+                                <div class="col-xs-12">
                                     <!--SenseGroup Header-->
                                     <div class="sense-group-header row">
                                         <div class="col-md-10">
@@ -169,16 +169,16 @@
                                                         </div>
                                                     </div>
                                                     <div ng-repeat="example in sense.examples" class="row">
-                                                        <div class="col-md-12">
+                                                        <div class="col-xs-12">
                                                             <div class="example row">
-                                                                <div class="col-md-11">
+                                                                <div class="col-xs-11">
                                                             <textarea ng-model="example.text"
                                                                       ng-focus="topicEditService.topicCompositionEditor.changeItem(example)"
                                                                       complete-input="topicEditService.topicCompositionEditor.changeItem(example)"
                                                                       class="input-as-text dark-theme" placeholder="Example">
                                                             </textarea>
                                                                 </div>
-                                                                <div class="col-md-1 text-left">
+                                                                <div class="col-xs-1 text-left">
                                                                     <a href="" ng-click="topicEditService.topicCompositionEditor.removeItemAndAddSkeleton(example)"><i class="fa fa-trash-o dark-theme"></i></a>
                                                                 </div>
                                                             </div>

@@ -92,7 +92,7 @@ public class PracticeAnswerService {
             ListUtil.addToListWithMaxSize(practiceResult.getAnswers(), answerPoint, MAX_POINTS_STORING);
         }
         practiceResult.setSumLatestAnswerPoint(calculateAnswerPoints(practiceResult.getAnswers(), LATEST_POINTS));
-//        LOGGER.debug("ExpressionID {}: After:\n answerPoint {}, sumPoint {}, answers: {}", expressionId, answerPoint, practiceResult.getSumLatestAnswerPoint(), practiceResult.getAnswers());
+        practiceResult.setSumTotalAnswerPoint(calculateAnswerPoints(practiceResult.getAnswers(), practiceResult.getAnswers().size()));
         return expressionPracticeResultRepository.save(practiceResult);
     }
 

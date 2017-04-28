@@ -29,6 +29,8 @@ public abstract class BasePracticeResult extends BaseNeo4jEntity implements Poss
      */
     private double sumLatestAnswerPoint;
 
+    private double sumTotalAnswerPoint;
+
     @Transient
     @Override
     public boolean isEmpty() {
@@ -58,5 +60,13 @@ public abstract class BasePracticeResult extends BaseNeo4jEntity implements Poss
 
     public void setAnswers(List<Float> answers) {
         this.answers = answers;
+    }
+
+    public double getSumTotalAnswerPoint() {
+        return sumTotalAnswerPoint;
+    }
+
+    public void setSumTotalAnswerPoint(double sumTotalAnswerPoint) {
+        this.sumTotalAnswerPoint = sumTotalAnswerPoint;
     }
 }

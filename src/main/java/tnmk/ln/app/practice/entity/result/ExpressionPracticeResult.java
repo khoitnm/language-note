@@ -20,14 +20,4 @@ public class ExpressionPracticeResult extends BasePracticeResult {
     public void setExpressionId(String expressionId) {
         this.expressionId = expressionId;
     }
-//    @Relationship(type = RESULT_OF_EXPRESSION, direction = Relationship.OUTGOING)
-//    private Expression expression;
-//
-//    public Expression getExpression() {
-//        return expression;
-//    }
-//
-//    public void setExpression(Expression expression) {
-//        this.expression = expression;
-//    }
 }

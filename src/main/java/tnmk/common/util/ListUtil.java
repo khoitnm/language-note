@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
@@ -45,6 +46,11 @@ public final class ListUtil {
         if (removeItems > 0) {
             IterableUtil.removeFirstItems(list, removeItems);
         }
+    }
+
+    public static <T> void sortByFields(List<T> list, String... fields) {
+        ComparatorByFields<T> comparatorByFields = new ComparatorByFields(fields);
+        Collections.sort(list, comparatorByFields);
     }
 
     public static <E> List<E> getTop(List<E> source, int topSize) {
