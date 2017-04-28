@@ -77,6 +77,9 @@ public class Expression extends BaseMongoEntity implements Possession, Cleanable
 
     // RELATIONSHIPS //////////////////////////////////////////////////////////////
 //    @DetailLoading
+    /**
+     * In related expressions, they only contains text and id. That's it!
+     */
     @Relationship(type = IS_SYNONYMOUS_WITH, direction = Relationship.UNDIRECTED)
     private List<Expression> synonyms;
 

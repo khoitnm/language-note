@@ -3,7 +3,6 @@ package tnmk.ln.app.dictionary;
 import tnmk.ln.app.dictionary.entity.Expression;
 import tnmk.ln.app.dictionary.entity.ExpressionType;
 import tnmk.ln.app.dictionary.entity.LexicalEntry;
-import tnmk.ln.app.digitalasset.entity.DigitalAssetFactory;
 
 import java.util.Arrays;
 

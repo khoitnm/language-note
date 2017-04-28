@@ -1,9 +1,16 @@
 package tnmk.ln.app.aggregation.topic;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.util.ListUtils;
+import tnmk.common.infrastructure.guardian.Guardian;
+import tnmk.common.util.IterableUtil;
+import tnmk.common.util.ReflectionUtils;
 import tnmk.ln.app.aggregation.topic.model.TopicComposite;
 import tnmk.ln.app.aggregation.topic.model.TopicCompositeConverter;
 import tnmk.ln.app.dictionary.ExpressionRepository;
@@ -26,6 +33,7 @@ import java.util.stream.Collectors;
  */
 @Service
 public class TopicCompositeService {
+    public static final Logger LOGGER = LoggerFactory.getLogger(TopicCompositeService.class);
 
     @Autowired
     private TopicCompositeConverter topicCompositeConverter;
@@ -59,7 +67,7 @@ public class TopicCompositeService {
         categoryService.saveIfNecessaryByTextAndOwner(user, topicComposite.getCategories());
 
         if (expressions != null) {
-            expressions.stream().forEach(expression -> expression.setOwner(user));
+            expressions.stream().forEach(expression -> prepareForSavingExpression(user, expression));
         }
         expressions = expressionRepository.save(expressions);
         topicComposite.setExpressionIds(expressions.stream().map(iexpression -> iexpression.getId()).collect(Collectors.toList()));
@@ -72,6 +80,78 @@ public class TopicCompositeService {
             expressions.stream().forEach(expression -> questionService.createQuestionsIfNotExist(expression));
         }
         return topicComposite;
+    }
+
+    private void prepareForSavingExpression(User user, Expression expression) {
+        expression.setOwner(user);
+        setRelatedExpressions(expression, "synonyms");
+        setRelatedExpressions(expression, "antonyms");
+        setRelatedExpressions(expression, "family");
+    }
+
+    private void setRelatedExpressions(Expression expression, String relationshipPropertyName) {
+        List<Expression> relatedExpressions = (List<Expression>) ReflectionUtils.readProperty(expression, relationshipPropertyName);
+        //Don't need because its saving will be override by later saving!
+//        removeCascadeExpressionFromRelatedListOfItsRelations(expression, relatedExpressions, relationshipPropertyName);
+
+        //Handling new related items
+        if (CollectionUtils.isEmpty(relatedExpressions)) return;
+        for (Expression relatedExpression : relatedExpressions) {
+            if (StringUtils.isEmpty(relatedExpression.getText()) || StringUtils.isNotBlank(relatedExpression.getId())) continue;
+            //Update id of related expression into its properties
+            Expression savedRelatedExpression = expressionRepository.findOneByLocaleAndText(expression.getLocale().getLanguage(), expression.getLocale().getCountry(), relatedExpression.getText());
+            if (savedRelatedExpression != null) {
+                relatedExpression.setId(savedRelatedExpression.getId());
+
+                //Also update this expression into the list of relatedExpression.relatedItems
+                //Don't need because its saving will be override by later saving!
+//                addCascadeRelatedExpressionsIfNotExist(savedRelatedExpression, relationshipPropertyName, expression);
+            }
+        }
+    }
+
+    private void removeCascadeExpressionFromRelatedListOfItsRelations(Expression expression, List<Expression> relatedExpressions, String relationshipPropertyName) {
+        //Handling removed related items
+        if (StringUtils.isNotBlank(expression.getId())) {
+            Expression oldExpression = expressionRepository.findOne(expression.getId());
+            Guardian.validateNotNull(oldExpression, "Not found the old expression with id " + expression.getId());
+
+            List<Expression> oldRelatedExpressions = (List<Expression>) ReflectionUtils.readProperty(oldExpression, relationshipPropertyName);
+            List<Expression> removedItems = IterableUtil.findItemsNotInFirstListByField(relatedExpressions, oldRelatedExpressions, "text");
+            for (Expression removedItem : removedItems) {
+                removeItemFromRelatedItems(removedItem, relationshipPropertyName, expression);
+            }
+        }
+    }
+
+    private void removeItemFromRelatedItems(Expression expression, String relationshipPropertyName, Expression relatedExpression) {
+        expression = expressionRepository.findOne(expression.getId());
+        List<Expression> relatedExpressions = (List<Expression>) ReflectionUtils.readProperty(expression, relationshipPropertyName);
+        if (!CollectionUtils.isEmpty(relatedExpressions)) {
+            IterableUtil.removeItemsByFieldValue(relatedExpressions, relatedExpression, "text");
+            ReflectionUtils.writeProperty(expression, relationshipPropertyName, relatedExpressions);
+        }
+        expressionRepository.save(expression);
+    }
+
+    private void addCascadeRelatedExpressionsIfNotExist(Expression expression, String relationshipPropertyName, Expression relatedExpression) {
+        List<Expression> relatedExpressions = (List<Expression>) ReflectionUtils.readProperty(expression, relationshipPropertyName);
+        if (relatedExpressions == null) {
+            relatedExpressions = new ArrayList<>();
+        }
+        //Compare by {@link Expression#text} field.
+        Expression itemHasSameFieldValue = IterableUtil.findItemHasSameFieldValue(relatedExpressions, relatedExpression, "text");
+        Expression addedExpression;
+        if (itemHasSameFieldValue == null) {
+            addedExpression = new Expression();
+            relatedExpressions.add(addedExpression);
+        } else {
+            addedExpression = itemHasSameFieldValue;
+        }
+        addedExpression.setId(relatedExpression.getId());
+        addedExpression.setText(relatedExpression.getText());
+        ReflectionUtils.writeProperty(expression, relationshipPropertyName, relatedExpressions);
+        expressionRepository.save(expression);
     }
 
     @Transactional

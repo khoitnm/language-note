@@ -110,11 +110,27 @@ public class ReflectionUtils {
         return readProperty(object, propertyDescriptor);
     }
 
+    public static void writeProperty(Object object, String propertyName, Object propertyValue) {
+        if (object == null) return;
+        PropertyDescriptor propertyDescriptor = getPropertyDescriptor(object.getClass(), propertyName);
+        writeProperty(object, propertyDescriptor, propertyValue);
+    }
+
     public static Object readProperty(Object object, PropertyDescriptor propertyDescriptor) {
         Method method = propertyDescriptor.getReadMethod();
         Assert.notNull(method, "The field " + propertyDescriptor.getName() + " of object " + object + " doesn't have getter");
         try {
             return method.invoke(object);
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            throw new UnexpectedException(e.getMessage(), e);
+        }
+    }
+
+    public static void writeProperty(Object object, PropertyDescriptor propertyDescriptor, Object propertyValue) {
+        Method method = propertyDescriptor.getWriteMethod();
+        Assert.notNull(method, "The field " + propertyDescriptor.getName() + " of object " + object + " doesn't have setter");
+        try {
+            method.invoke(object, propertyValue);
         } catch (IllegalAccessException | InvocationTargetException e) {
             throw new UnexpectedException(e.getMessage(), e);
         }

@@ -40,7 +40,7 @@ public class Neo4jRepository {
     public void removeRelationship(Long idA, Long idB, String relationshipType, RelationshipDirection relationshipDirection) {
         String queryString = String.join("",
                 "MATCH (a)-[rel:", relationshipType, "]-(b) WHERE id(a)={idA} and id(b)={idB} DELETE rel");
-        LOGGER.debug(queryString);
+        LOGGER.trace(queryString);
         Map<String, Object> params = new HashMap<>();
         params.put("idA", idA);
         params.put("idB", idB);
@@ -87,7 +87,7 @@ public class Neo4jRepository {
                 "MATCH (n) WHERE ID(n) = {p0} WITH n MATCH p=(n)-[:", relTypes, "*0..", "" + relDepth, "]-(m) RETURN p"
         );
         T result = null;
-        LOGGER.debug("QueryOneDetail: \n" + sb);
+        LOGGER.trace("QueryOneDetail: \n" + sb);
         Iterable<T> iterable = session.query(resultClass, sb, constructParams(id));
         for (T entity : iterable) {
             Long entityId = Neo4jUtils.getId(entity);
@@ -112,7 +112,7 @@ public class Neo4jRepository {
         String sb = String.join("",
                 "MATCH (n) WHERE ID(n) IN {p0} WITH n MATCH p=(n)", relQuery, " RETURN p"
         );
-        LOGGER.debug("QueryOneDetail: \n" + sb);
+        LOGGER.trace("QueryOneDetail: \n" + sb);
         Set<Long> uniqueIds = new HashSet<>();
         uniqueIds.addAll(ids);
         Iterable<T> iterable = session.query(resultClass, sb, constructParams(uniqueIds));

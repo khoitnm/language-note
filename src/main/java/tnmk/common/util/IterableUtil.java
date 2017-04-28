@@ -1,5 +1,7 @@
 package tnmk.common.util;
 
+import org.springframework.util.CollectionUtils;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -67,5 +69,93 @@ public final class IterableUtil {
             }
             return result;
         }
+    }
+
+    //TODO should reflection with comparator
+    public static <T> boolean containsByField(Iterable<T> items, T findingItem, String byPropertyName) {
+        Iterator<T> iterator = items.iterator();
+        while (iterator.hasNext()) {
+            T iItem = iterator.next();
+            if (iItem == null) continue;
+            if (isEqualsByFieldValueExcludeNull(iItem, findingItem, byPropertyName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static <T> T findItemHasSameFieldValue(Iterable<T> items, T findingItem, String byPropertyName) {
+        Iterator<T> iterator = items.iterator();
+        while (iterator.hasNext()) {
+            T iItem = iterator.next();
+            if (iItem == null) continue;
+            if (isEqualsByFieldValueExcludeNull(iItem, findingItem, byPropertyName)) {
+                return iItem;
+            }
+        }
+        return null;
+    }
+
+    public static <T> void removeItemsByFieldValue(Iterable<T> items, T findingItem, String byPropertyName) {
+        Iterator<T> iterator = items.iterator();
+        while (iterator.hasNext()) {
+            T iItem = iterator.next();
+            if (iItem == null) continue;
+            if (isEqualsByFieldValueExcludeNull(iItem, findingItem, byPropertyName)) {
+                iterator.remove();
+            }
+        }
+    }
+
+    private static boolean isEqualsByFieldValueIncludingNull(Object a, Object b, String byPropertyName) {
+        Object iItemPropertyValue = ReflectionUtils.readProperty(a, byPropertyName);
+        Object findingItemPropertyValue = ReflectionUtils.readProperty(b, byPropertyName);
+        if (iItemPropertyValue == null) {
+            if (findingItemPropertyValue == null) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            if (findingItemPropertyValue == null) {
+                return false;
+            } else {
+                return iItemPropertyValue.equals(findingItemPropertyValue);
+            }
+        }
+    }
+
+    private static boolean isEqualsByFieldValueExcludeNull(Object a, Object b, String byPropertyName) {
+        Object iItemPropertyValue = ReflectionUtils.readProperty(a, byPropertyName);
+        Object findingItemPropertyValue = ReflectionUtils.readProperty(b, byPropertyName);
+        if (iItemPropertyValue == null || findingItemPropertyValue == null) {
+            return false;
+        } else {
+            return iItemPropertyValue.equals(findingItemPropertyValue);
+        }
+    }
+
+    /**
+     * Find items exist in B but not in A
+     *
+     * @param itemAs
+     * @param itemBs
+     * @param byPropertyName
+     * @return
+     */
+    public static <T> List<T> findItemsNotInFirstListByField(List<T> itemAs, List<T> itemBs, String byPropertyName) {
+        List<T> addedItems = new ArrayList<>();
+        if (CollectionUtils.isEmpty(itemAs)) {
+            if (!CollectionUtils.isEmpty(itemBs)) {
+                addedItems.addAll(itemBs);
+            }
+        } else {
+            for (T itemB : itemBs) {
+                if (!containsByField(itemAs, itemB, byPropertyName)) {
+                    addedItems.add(itemB);
+                }
+            }
+        }
+        return addedItems;
     }
 }

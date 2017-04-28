@@ -18,6 +18,9 @@ public interface ExpressionRepository extends MongoRepository<Expression, String
 
     Expression findOneByText(String text);
 
+    @Query(value = "{'text': ?2, 'locale.language': ?0, 'locale.country': ?1}")
+    Expression findOneByLocaleAndText(String language, String country, String text);
+
     @Query(value = "{'text': ?0}", fields = "{'_id':1, 'text':1}")
     Expression findOneBriefByText(String trimmedText);
 }

@@ -22,7 +22,7 @@ public class LogUtil {
         long runTimeMilli = now.toEpochMilli() - startTime.toEpochMilli();
         double runTimeSeconds = (double) runTimeMilli / 1000;
         //TODO should change to debug
-        LOGGER.info(String.format("\n%s\n\tStart time: %s, End time: %s\n\tRuntime: %s ms ~ %.2f s", msg, startTime, now, runTimeMilli, runTimeSeconds));
+        LOGGER.trace(String.format("\n%s\n\tStart time: %s, End time: %s\n\tRuntime: %s ms ~ %.2f s", msg, startTime, now, runTimeMilli, runTimeSeconds));
         return now;
     }
 
@@ -34,7 +34,7 @@ public class LogUtil {
         sb.append("\n\tParams: ").append(toStringRequestParams(request));
         sb.append("\n\tStart time: ").append(startTime);
         //TODO should change to debug
-        LOGGER.info(sb.toString());
+        LOGGER.trace(sb.toString());
         return startTime;
     }
 

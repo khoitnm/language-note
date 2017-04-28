@@ -33,7 +33,7 @@
 
     </appender>
 
-    <logger name="tnmk" level="trace"/>
+    <logger name="tnmk" level="debug"/>
     <logger name="org.springframework" level="warn"/>
     <logger name="org.apache.http" level="warn"/>
     <logger name="org.neo4j.ogm" level="warn"/>
