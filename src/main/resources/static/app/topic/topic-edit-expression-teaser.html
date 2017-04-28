@@ -4,7 +4,7 @@
         <div class="col-md-12">
             <div class="header row" ng-mouseover="topicEditService.playSoundAutomatically(expression)">
                 <div class="pull-left">
-                    <button ng-click="topicEditService.modeEdit(expression)" class="btn btn-xs btn-success"><i class="fa fa-edit"></i></button>
+                    <button ng-click="topicEditService.modeEdit(expression)" class="btn btn-xs btn-success" title="{{$index+1}}"><i class="fa fa-edit"></i></button>
                 </div>
                 <div class="pull-left" style="width: 70%">
                     <input ng-model="expression.text"

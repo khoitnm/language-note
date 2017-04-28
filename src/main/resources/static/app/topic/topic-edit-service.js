@@ -235,7 +235,7 @@ TopicEditService.prototype.saveTopic = function (callback) {
     var self = this;
     self.topic.isSaving = true;
     self.topicCompositionEditor.cleanRecursiveRoot();
-    //TODO sort expressions by text.
+    self.topicCompositionEditor.root.expressions.sortByField('text', 1);
     self.$http.post(contextPath + '/api/topic-composites', self.topic).then(
         function (successResponse) {
             //Update id of topic and composites fields.

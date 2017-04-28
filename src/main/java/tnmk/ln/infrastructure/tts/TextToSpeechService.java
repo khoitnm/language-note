@@ -20,6 +20,9 @@ import java.util.List;
  */
 @Service
 public class TextToSpeechService {
+    public static final String TTS_SOURCE_OXFORD_DICTIONARY = "OxfordDictionary";
+    public static final String TTS_SOURCE_VOICE_RSS = "VoiceRss";
+
     @Autowired
     private TtsItemService ttsItemService;
 
@@ -33,8 +36,8 @@ public class TextToSpeechService {
         String cleanText = cleanupText(originalText);
         TtsItem ttsItem = ttsItemService.findText(locale, cleanText);
         if (ttsItem != null) return ttsItem;
-        byte[] mp3Data = toSpeechBytes(locale, cleanText);
-        ttsItem = ttsItemService.putText(locale, cleanText, mp3Data);
+        TTSResult ttsResult = toSpeechBytes(locale, cleanText);
+        ttsItem = ttsItemService.putText(locale, cleanText, ttsResult.source, ttsResult.data);
         return ttsItem;
     }
 
@@ -43,21 +46,44 @@ public class TextToSpeechService {
     }
 
     //TODO, if originalText is only one word, lookup in the Oxford Audio (from Oxford Dictionary)
-    private byte[] toSpeechBytes(String locale, String cleanText) {
+    private TTSResult toSpeechBytes(String locale, String cleanText) {
+        TTSResult result = new TTSResult();
         String[] words = StringUtil.toWords(cleanText);
-        byte[] result = null;
         if (words.length == 1) {
             String[] localParts = locale.split("-");
             String language = localParts[0].toLowerCase();
             List<OxfordAudio> oxfordAudios = oxfordAudioRepositories.findByLanguageAndWord(language, cleanText);
             OxfordAudio oxfordAudio = IterableUtil.getFirst(oxfordAudios);
             if (oxfordAudio != null) {
-                result = oxfordAudio.getFileItem().getBytesContent();
+                result.data = oxfordAudio.getFileItem().getBytesContent();
             }
+            result.source = TTS_SOURCE_OXFORD_DICTIONARY;
         }
-        if (result == null) {
-            result = voiceRssService.toSpeech(locale, cleanText);
+        if (result.data == null) {
+            result.data = voiceRssService.toSpeech(locale, cleanText);
+            result.source = TTS_SOURCE_VOICE_RSS;
         }
         return result;
+    }
+
+    public static class TTSResult {
+        public byte[] getData() {
+            return data;
+        }
+
+        public void setData(byte[] data) {
+            this.data = data;
+        }
+
+        private byte[] data;
+        private String source;
+
+        public String getSource() {
+            return source;
+        }
+
+        public void setSource(String source) {
+            this.source = source;
+        }
     }
 }

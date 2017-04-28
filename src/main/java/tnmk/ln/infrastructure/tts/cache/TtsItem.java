@@ -19,6 +19,7 @@ public class TtsItem extends BaseMongoEntity {
     @Indexed
     private String locale;
 
+    private String source;
     @DBRef
     private FileItem fileItem;
 
@@ -44,5 +45,13 @@ public class TtsItem extends BaseMongoEntity {
 
     public void setLocale(String locale) {
         this.locale = locale;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
     }
 }

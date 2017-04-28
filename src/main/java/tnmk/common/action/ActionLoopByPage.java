@@ -30,6 +30,10 @@ public abstract class ActionLoopByPage<E> {
         this.name = name;
     }
 
+    public List<E> executeSinceLastItem(int totalItems) {
+        return executePages(totalItems - 1, 1, null);
+    }
+
     public List<E> executeAllPages(int pageSize) {
         return executeAllPages(pageSize, null);
     }
@@ -44,7 +48,11 @@ public abstract class ActionLoopByPage<E> {
      * @param sort     sort for elements. Can be null.
      */
     public List<E> executeAllPages(int pageSize, Sort sort) {
-        int page = 0;
+        return executePages(0, pageSize, sort);
+    }
+
+    public List<E> executePages(int startingPage, int pageSize, Sort sort) {
+        int page = startingPage;
         List<E> all = new ArrayList<>();
         boolean isContinue = true;
         while (isContinue) {

@@ -18,7 +18,6 @@ public class FileItemService {
         fileItem.setName(fileName);
         fileItem.setMimeType(mimeType);
         fileItem.setFileSize(size);
-
         return save(fileItem);
     }
 

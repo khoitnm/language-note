@@ -1,6 +1,8 @@
 package tnmk.ln.infrastructure.dictionary.oxford;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -22,6 +24,8 @@ import tnmk.ln.infrastructure.dictionary.oxford.entity.OxfordResponse;
 import tnmk.ln.infrastructure.dictionary.oxford.entity.OxfordWord;
 import tnmk.ln.infrastructure.dictionary.oxford.entity.Pronunciation;
 import tnmk.ln.infrastructure.filestorage.entity.FileItem;
+import tnmk.ln.infrastructure.tts.TextToSpeechService;
+import tnmk.ln.infrastructure.tts.cache.TtsItemService;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -34,6 +38,7 @@ import java.util.List;
  */
 @Service
 public class OxfordService {
+    public static final Logger LOGGER = LoggerFactory.getLogger(OxfordService.class);
     /**
      * This is the Oxford API which the result was got from.
      */
@@ -51,6 +56,10 @@ public class OxfordService {
 
     @Autowired
     private OxfordAudioRepositories oxfordAudioRepositories;
+
+    //TODO should not involved in TextToSpeechService. It should be put in another aggregated service.
+    @Autowired
+    private TtsItemService ttsItemService;
 
     public OxfordWord lookUpDefinition(String sourceLanguage, String word) {
         List<OxfordWord> oxfordWords = oxfordWordRepositories.findByLanguageAndWordAndFromRequest(sourceLanguage, word, FROM_REQUEST_ENTRIES);
@@ -167,7 +176,21 @@ public class OxfordService {
 
         result.setOriginalUrl(fileUrl);
         result.setFileItem(fileItem);
+
+        replaceTTSByOxford(result);
         return result;
+    }
+
+    public void replaceTTSByOxford(OxfordAudio oxfordAudio) {
+        String ttsLocale;
+        String oxfordWordLanguage = oxfordAudio.getLanguage();
+        if (oxfordWordLanguage.equalsIgnoreCase("en")) {
+            ttsLocale = "en-us";
+        } else {
+            return;
+        }
+        LOGGER.debug("Replace tts \nLanguage: {}, Locale: {}, text: {}", oxfordWordLanguage, ttsLocale, oxfordAudio.getWord());
+        ttsItemService.putText(ttsLocale, oxfordAudio.getWord(), TextToSpeechService.TTS_SOURCE_OXFORD_DICTIONARY, oxfordAudio.getFileItem().getBytesContent());
     }
 
     public String cleanupText(String originalText) {

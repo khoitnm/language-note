@@ -31,7 +31,7 @@ public class TtsItemService {
         return originalText.trim().toLowerCase();
     }
 
-    public TtsItem putText(String locale, String originalText, byte[] mp3Data) {
+    public TtsItem putText(String locale, String originalText, String source, byte[] mp3Data) {
         String text = cleanupText(originalText);
         TtsItem ttsItem = findText(locale, text);
         if (ttsItem == null) {
@@ -44,6 +44,7 @@ public class TtsItemService {
         }
 
         FileItem newFileItem = fileItemService.save(text + "_" + locale + ".mp3", MIMETYPE_MP3, mp3Data, mp3Data.length);
+        ttsItem.setSource(source);
         ttsItem.setFileItem(newFileItem);
         ttsItem.setText(text);
         ttsItem.setLocale(locale);
