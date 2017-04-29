@@ -70,7 +70,7 @@ public class QuestionRecommendationService {
                 .map(question -> String.format("{question:%s,\t points:%s,\t answrtimes: %s,\t total points: %s}",
                         question.getQuestion().getId(),
                         question.getExpressionPracticeResult().getSumLatestAnswerPoint(),
-                        question.getExpressionPracticeResult().getAnswers().size(),
+                        question.getExpressionPracticeResult().getAnswers() != null ? question.getExpressionPracticeResult().getAnswers().size() : 0,
                         question.getExpressionPracticeResult().getSumTotalAnswerPoint()))
                 .collect(Collectors.joining("\n\t"));
         LOGGER.debug("Questions And Points: {} \n\t {}", message, questionAndPoints);
