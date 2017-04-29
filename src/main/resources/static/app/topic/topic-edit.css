@@ -482,6 +482,15 @@ a .fa.dark-theme:hover {
 
 }
 
+/*.images-carousel ::-webkit-scrollbar {*/
+/*!*width: 0px;*!*/
+/*}*/
+
+/*.images-carousel ::-webkit-scrollbar-track-piece {*/
+/*background-color: transparent;*/
+/*-webkit-border-radius: 6px;*/
+/*}*/
+
 .images-carousel ul {
     float: left;
     margin-right: -999em;
@@ -497,8 +506,6 @@ a .fa.dark-theme:hover {
     display: inline;
     height: 90px;
     padding: 0px 5px 0px 6px;
-    border-right: 1px solid rgb(79, 99, 120);
-    box-shadow: 1px 0 0 rgba(255, 255, 255, 0.15);
 }
 
 .images-carousel a {
@@ -512,6 +519,36 @@ a .fa.dark-theme:hover {
     max-width: 400px;
     max-height: 80px;
 
+}
+
+/* Carousel: Expression Editor */
+.expression-editor .images-carousel li:not(:last-child) {
+    border-right: 1px solid rgb(79, 99, 120);
+    box-shadow: 1px 0 0 rgba(255, 255, 255, 0.15);
+}
+
+/* Carousel: Expression Teaser */
+.expression-teaser .images-carousel {
+    height: 200px;
+    margin: 0px auto;
+    border-top: 0;
+    border-bottom: 0;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.expression-teaser .images-carousel li {
+    height: 200px;
+    padding: 0px 5px 0px 6px;
+}
+
+.expression-teaser .images-carousel li:not(:last-child) {
+    border-right: 1px solid rgba(0, 0, 0, 0.075);
+    box-shadow: 1px 0 0 rgba(255, 255, 255, 1);
+}
+
+.expression-teaser .images-carousel img {
+    max-width: 800px;
+    max-height: 190px;
 }
 
 /*.images-carousel span {*/
@@ -564,19 +601,21 @@ a .fa.dark-theme:hover {
     transition: 0.5s;
 }
 
-
 .overlay .overlay-btn {
     font-size: 18px;
     color: #999;
 }
+
 .overlay .overlay-btn:hover {
     color: #ddd;
 }
+
 .overlay .overlay-btn-close {
     position: absolute;
     top: 6px;
     right: 20px;
 }
+
 .overlay .overlay-btn-save {
     position: absolute;
     top: 6px;
