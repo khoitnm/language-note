@@ -564,18 +564,23 @@ a .fa.dark-theme:hover {
     transition: 0.5s;
 }
 
+
+.overlay .overlay-btn {
+    font-size: 18px;
+    color: #999;
+}
+.overlay .overlay-btn:hover {
+    color: #ddd;
+}
 .overlay .overlay-btn-close {
     position: absolute;
     top: 6px;
     right: 20px;
-    font-size: 18px;
-    color: #999;
-    /*color: #222;*/
-    /*text-shadow: -1px -1px 0px #000, 0px 0.5px 1px #999;*/
 }
-
-.overlay .overlay-btn-close:hover {
-    color: #ddd;
+.overlay .overlay-btn-save {
+    position: absolute;
+    top: 6px;
+    left: 20px;
 }
 
 .overlay-content {

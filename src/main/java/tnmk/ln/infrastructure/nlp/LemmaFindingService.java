@@ -30,10 +30,10 @@ public class LemmaFindingService {
         if (StringUtils.isBlank(findingLemma)) {
             return result;
         }
-        LOGGER.debug("Finding lemma: " + findingLemma);
+        LOGGER.trace("Finding lemma: " + findingLemma);
 
         List<LemmaSpan> lemmaSpans = standfordNLPService.analyzeLemmas(language, text);
-        LOGGER.debug("Analyze lemmas: " + lemmaSpans.toString());
+        LOGGER.trace("Analyze lemmas: " + lemmaSpans.toString());
         for (LemmaSpan lemmaSpan : lemmaSpans) {
             if (findingLemma.equals(lemmaSpan.getLemma())) {
                 result.add(lemmaSpan);

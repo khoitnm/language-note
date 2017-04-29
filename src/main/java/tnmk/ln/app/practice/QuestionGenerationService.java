@@ -1,9 +1,11 @@
 package tnmk.ln.app.practice;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import tnmk.ln.app.aggregation.practice.model.QuestionComposite;
 import tnmk.ln.app.dictionary.ExpressionUtils;
 import tnmk.ln.app.dictionary.entity.Example;
 import tnmk.ln.app.dictionary.entity.Expression;
@@ -23,6 +25,8 @@ import java.util.stream.Collectors;
  */
 @Service
 public class QuestionGenerationService {
+    public static final Logger LOGGER = LoggerFactory.getLogger(QuestionGenerationService.class);
+
     public static final int MAX_FILL_BLANK_QUESTIONS_PER_SENSE = 5;
 
     @Autowired
@@ -34,6 +38,7 @@ public class QuestionGenerationService {
     @Autowired
     QuestionFillBlankGenerator questionFillBlankGenerator;
 
+    @Async
     @Transactional
     public List<Question> createQuestionsIfNotExist(Expression expression) {
         List<Question> questions = constructQuestionsIfNotExist(expression);

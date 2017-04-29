@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import tnmk.common.action.ActionLoopByPage;
 import tnmk.ln.infrastructure.dictionary.oxford.OxfordAudio;
 import tnmk.ln.infrastructure.dictionary.oxford.OxfordAudioRepositories;
+import tnmk.ln.infrastructure.dictionary.oxford.OxfordAudioService;
 import tnmk.ln.infrastructure.dictionary.oxford.OxfordService;
 import tnmk.ln.infrastructure.dictionary.oxford.OxfordWordRepositories;
 import tnmk.ln.infrastructure.dictionary.oxford.entity.OxfordWord;
@@ -34,6 +35,9 @@ public class MigrateWordPronunciationToText {
     @Autowired
     private OxfordService oxfordService;
 
+    @Autowired
+    private OxfordAudioService oxfordAudioService;
+
     @PostConstruct
     public void migrateAudio() {
 //        downloadOxfordAudios();
@@ -47,7 +51,7 @@ public class MigrateWordPronunciationToText {
             protected List<OxfordWord> executeEachPageData(Pageable pageRequest) {
                 List<OxfordWord> oxfordWords = oxfordWordRepositories.findAll(pageRequest).getContent();
                 for (OxfordWord oxfordWord : oxfordWords) {
-                    oxfordService.downloadAndSaveAudios(oxfordWord);
+                    oxfordAudioService.downloadAndSaveAudios(oxfordWord);
                 }
                 List<String> audioWords = oxfordWords.stream().map(oxfordWord -> oxfordWord.getWord()).collect(Collectors.toList());
                 LOGGER.debug("Download audio for oxfordWords: {}", audioWords);
@@ -65,7 +69,7 @@ public class MigrateWordPronunciationToText {
             protected List<OxfordAudio> executeEachPageData(Pageable pageRequest) {
                 List<OxfordAudio> oxfordAudios = oxfordAudioRepositories.findAll(pageRequest).getContent();
                 for (OxfordAudio oxfordAudio : oxfordAudios) {
-                    oxfordService.replaceTTSByOxford(oxfordAudio);
+                    oxfordAudioService.replaceTTSByOxford(oxfordAudio);
                 }
                 return oxfordAudios;
             }

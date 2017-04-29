@@ -1,6 +1,12 @@
 <div class="overlay">
-    <a href="" ng-click="topicEditService.modeEdit(expression)" class="overlay-btn-close">
+    <a href="" ng-click="topicEditService.modeEdit(expression)" class="overlay-btn overlay-btn-close">
         <i class="fa fa-close"></i>
+    </a>
+    <a href=""
+       title="Ctrl+S, Command+S"
+       ng-disabled="isRunning || topicEditService.topic.isSaving"
+       ng-click="topicEditService.saveTopic()" class="overlay-btn overlay-btn-save">
+        <i class="fa fa-check"></i>
     </a>
 
     <div class="overlay-content">

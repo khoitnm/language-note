@@ -39,7 +39,7 @@
     <logger name="org.neo4j.ogm" level="warn"/>
     <logger name="org.mongodb" level="warn"/>
     <logger name="org.thymeleaf" level="warn"/>
-
+    <logger name="edu.stanford.nlp" level="warn"/>
 
     <root level="debug">
         <appender-ref ref="FILE-AUDIT"/>

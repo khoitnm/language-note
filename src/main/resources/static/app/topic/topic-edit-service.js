@@ -255,9 +255,20 @@ TopicEditService.prototype.saveExpression = function (expression) {
         }
     );
 };
+TopicEditService.prototype.saveOriginalExpressionText = function (expression) {
+    expression.originalText = expression.text;
+};
 TopicEditService.prototype.lookUpExpression = function (expression, callback) {
     var self = this;
     var expressionText = expression.text;
+    if (expression.text == expression.originalText) {
+        console.log("Same as original text, nothing change");
+        return;
+    } else {
+        console.log("Different from the original text, will update it: '" + expression.text + "' vs. '" + expression.originalText + "'");
+        self.saveOriginalExpressionText(expression);
+    }
+
     var comparator = new ComparatorByFields([new FieldSort('text', 1)]);
     if ($list.hasDuplication(self.topic.expressions, expression, comparator)) {
         expression.errorMessage = "The expression '" + expressionText + "' was already used in this topic.";
