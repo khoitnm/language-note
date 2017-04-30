@@ -8,7 +8,7 @@
         <div class="x_panel">
             <div class="x_title">
                 <h2 style="width: 100%">
-                    <input ng-model="topicEditService.topic.title"
+                    <input ng-model="service.topic.title"
                            type="text"
                            placeholder="Topic" class="input-as-text"/>
                 </h2>
@@ -38,14 +38,14 @@
                 <!--Save button-->
                 <div class="form-group">
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <button ng-disabled="isRunning || topicEditService.topic.isSaving"
-                                ng-click="topicEditService.saveTopic()"
+                        <button ng-disabled="isRunning || service.topic.isSaving"
+                                ng-click="service.saveTopic()"
                                 type="submit" class="btn btn-success"
                                 title="Ctrl+S, Command+S">
                             Save
                         </button>
 
-                        <button ng-click="topicEditService.cleanTopic()" type="submit" class="btn btn-success">
+                        <button ng-click="service.cleanTopic()" type="submit" class="btn btn-success">
                             Clean up topic
                         </button>
                     </div>

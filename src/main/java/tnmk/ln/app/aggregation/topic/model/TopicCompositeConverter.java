@@ -26,17 +26,17 @@ public class TopicCompositeConverter extends BaseConverter<Topic, TopicComposite
         if (ListUtils.isEmpty(expressions)) {
             topicComposite.setExpressions((List<ExpressionComposite>) expressions);
         } else {
-            Expression firstExpression = expressions.get(0);
-            if (firstExpression instanceof ExpressionComposite) {
-                topicComposite.setExpressions((List<ExpressionComposite>) expressions);
-            } else {
+//            Expression firstExpression = expressions.get(0);
+//            if (firstExpression instanceof ExpressionComposite) {
+//                topicComposite.setExpressions((List<ExpressionComposite>) expressions);
+//            } else {
                 //find favourite
                 List<ExpressionComposite> expressionComposites = new ArrayList<>();
                 for (Expression expression : expressions) {
                     expressionComposites.add(expressionCompositeConverter.toExpressionComposite(user.getId(), expression));
                 }
                 topicComposite.setExpressions(expressionComposites);
-            }
+//            }
         }
         return topicComposite;
     }

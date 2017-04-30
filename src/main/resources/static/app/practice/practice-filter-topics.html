@@ -17,7 +17,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="topic in practiceService.topicFilter.originalItems track by $index">
+        <tr ng-repeat="topic in service.topicFilter.originalItems track by $index">
             <td>
                 {{$index}}
             </td>
@@ -28,12 +28,12 @@
                 {{topic.expressionIds.length || 0}}
             </td>
             <td>
-                <input type="checkbox" ng-model="topic['$checked']" ng-click="practiceService.topicFilter.clickItem(topic)"/>
+                <input type="checkbox" ng-model="topic['$checked']" ng-click="service.topicFilter.clickItem(topic)"/>
             </td>
         </tr>
         </tbody>
         <!--<tfoot>-->
-        <!--<tr ng-repeat="topic in practiceService.topicFilter.selectedItems track by $index">-->
+        <!--<tr ng-repeat="topic in service.topicFilter.selectedItems track by $index">-->
         <!--<td>-->
         <!--{{topic.id}}-->
         <!--</td>-->

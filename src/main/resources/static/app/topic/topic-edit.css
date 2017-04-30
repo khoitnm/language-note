@@ -22,10 +22,9 @@
 }
 
 .btn.dark-theme {
-    background: #73879C;
-    border: 1px solid rgba(42, 63, 84, 0.5);
-
-    box-shadow: inset 1px 1px 0px rgba(175, 191, 208, 0.7), 1px 1px 0px rgba(175, 191, 208, 0.7);
+    /*background: #73879C;*/
+    border: 1px solid rgba(175, 191, 208, 0.3);
+    /*box-shadow: inset 1px 1px 0px rgba(175, 191, 208, 0.7), 1px 1px 0px rgba(175, 191, 208, 0.7);*/
 }
 
 .input-as-text {
@@ -192,6 +191,7 @@ datalist option {
     border-radius: 4px;
     -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
     box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    background: #2A3F54;
 }
 
 .expression-editor .expression.header {
@@ -213,7 +213,6 @@ datalist option {
 
 .expression-editor .expression.body {
     padding: 10px;
-    background: #2A3F54;
 }
 
 .expression-editor .expression-relations {
@@ -596,9 +595,17 @@ a .fa.dark-theme:hover {
     z-index: 9999;
     top: 0;
     left: 0;
-    background-color: rgba(30, 30, 30, 0.95);
+    background-color: rgba(40, 40, 40, 1);
     overflow-x: hidden;
     transition: 0.5s;
+}
+
+.overlay .overlay-header {
+    position: fixed;
+    background: rgba(40, 40, 40, 1);
+    z-index: 1;
+    height: 40px;
+    width: 100%;
 }
 
 .overlay .overlay-btn {
@@ -613,7 +620,8 @@ a .fa.dark-theme:hover {
 .overlay .overlay-btn-close {
     position: absolute;
     top: 6px;
-    right: 20px;
+    right: 34px;
+    /* body-padding-left(20px) + this-width(14px) */
 }
 
 .overlay .overlay-btn-save {
@@ -644,24 +652,24 @@ a .fa.dark-theme:hover {
 }
 
 /**
- * RATING /////////////////////////////////////////
+ * RATING //////////////////////////////////////////////////////////////////////////////
+ * -------------------------------------------------------------------------------------
  * View more at https://css-tricks.com/star-ratings/
  */
 .rating-container, .rating-empty-container {
+    padding-top: 5px;
     font-size: 14px;
     font-weight: lighter;
     -webkit-font-smoothing: antialiased;
     line-height: 14px;
-    color: #aaa;
-}
-
-.rating-empty-container {
-    padding-right: 7px;
+    color: #ccc;
+    font-style: normal;
+    text-align: left;
+    /*text-shadow: 1px 0 0 rgba(255, 255, 255, 0.8);*/
 }
 
 .rating-container {
     direction: rtl;
-    text-align: left;
 }
 
 .rating-item {
@@ -669,6 +677,7 @@ a .fa.dark-theme:hover {
     display: inline-block;
     position: relative;
     width: 3em;
+    cursor: pointer;
 }
 
 .rating-item:before {
@@ -677,23 +686,45 @@ a .fa.dark-theme:hover {
 
 .rating-item:hover {
     color: #26B99A;
+    text-shadow: none;
+}
+
+.rating-empty-container .rating-item:before {
+    content: "\f1db"; /* fa-circle-thin */
 }
 
 .rating-container .rating-item:hover:before,
 .rating-container .rating-item:hover ~ .rating-item:before {
     content: "\f005";
     color: #26B99A;
+    text-shadow: none;
 }
 
 /** selected item */
 .rating-item.selected {
     color: rgb(115, 135, 156);
+    text-shadow: none;
+}
+
+.rating-item.selected:hover {
+    color: #26B99A;
 }
 
 .rating-empty-container .rating-item.selected:before {
-    content: "\f006";
+    content: "\f1db"; /* fa-circle-thin */
+    /*content: "\f10c"; !* fa-circle-o *!*/
+    /*content: "\f006";*/ /*Empty Star*/
 }
 
 .rating-container .rating-item.selected:before {
     content: "\f005";
+}
+
+/*Dark theme*/
+.dark-theme .rating-container, .dark-theme .rating-empty-container {
+    color: rgb(115, 135, 156);
+}
+
+.dark-theme .rating-item.selected {
+    color: whitesmoke;
 }

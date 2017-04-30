@@ -29,7 +29,6 @@ public class TopicService {
     private CategoryService categoryService;
 
     public Topic findOneById(String topicId) {
-
         return topicRepository.findOne(NumberUtil.toLong(topicId));
     }
 

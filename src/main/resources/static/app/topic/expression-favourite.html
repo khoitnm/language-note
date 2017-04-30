@@ -1,40 +1,9 @@
-<!--<a class="btn-xs" href=""-->
-<!--ng-mouseover="expression.favouriteHover = 0"-->
-<!--ng-click="topicEditService.favour(expression, 0)">-->
-<!--<i class="fa fa-star-o"-->
-<!--ng-class="expression.favouriteHover == 0 ? 'text-success': ''">-->
-<!--</i>-->
-<!--</a>-->
-<!--<a class="btn-xs" href=""-->
-<!--ng-mouseover="expression.favouriteHover = 2"-->
-<!--ng-click="topicEditService.favour(expression, 2)">-->
-<!--<i class="fa fa-star"-->
-<!--ng-class="expression.favouriteHover >= 2 ? 'text-success': ''">-->
-<!--</i>-->
-<!--</a>-->
-<!--<a class="btn-xs" href=""-->
-<!--ng-mouseover="expression.favouriteHover = 3"-->
-<!--ng-click="topicEditService.favour(expression, 3)">-->
-<!--<i class="fa fa-star"-->
-<!--ng-class="expression.favouriteHover >= 3 ? 'text-success': ''">-->
-<!--</i>-->
-<!--</a>-->
-<!--<a class="btn-xs" href=""-->
-<!--ng-mouseover="expression.favouriteHover = 4"-->
-<!--ng-click="topicEditService.favour(expression, 4)">-->
-<!--<i class="fa fa-star"-->
-<!--ng-class="expression.favouriteHover >= 4 ? 'text-success': ''">-->
-<!--</i>-->
-<!--</a>-->
 <div class="pull-left rating-empty-container">
-    <span class="rating-item" ng-class="expression.favourite == 0 ? 'selected': ''" ng-click="topicEditService.favour(expression, 0)"></span>
+    <span class="rating-item" ng-class="expression.favourite == 0 ? 'selected': ''" ng-click="service.favour(expression, 0)"></span>
 </div>
 <div class="pull-left rating-container">
-    <span class="rating-item" ng-class="expression.favourite >= 4 ? 'selected': ''" ng-click="topicEditService.favour(expression, 4)"></span>
-    <span class="rating-item" ng-class="expression.favourite >= 3 ? 'selected': ''" ng-click="topicEditService.favour(expression, 3)"></span>
-    <span class="rating-item" ng-class="expression.favourite >= 2 ? 'selected': ''" ng-click="topicEditService.favour(expression, 2)"></span>
-</div>
-<div class="pull-left ">
-    {{expression.favourite}}
+    <span class="rating-item" ng-class="expression.favourite >= 4 ? 'selected': ''" ng-click="service.favour(expression, 4)"></span>
+    <span class="rating-item" ng-class="expression.favourite >= 3 ? 'selected': ''" ng-click="service.favour(expression, 3)"></span>
+    <span class="rating-item" ng-class="expression.favourite >= 2 ? 'selected': ''" ng-click="service.favour(expression, 2)"></span>
 </div>
 <div class="clearfix"></div>

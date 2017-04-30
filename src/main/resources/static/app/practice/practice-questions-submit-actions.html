@@ -1,13 +1,13 @@
-<button ng-disabled="isRunning || practiceService.topic.isSaving"
-        ng-click="practiceService.filterQuestions()"
+<button ng-disabled="isRunning || service.topic.isSaving"
+        ng-click="service.filterQuestions()"
         type="button" class="btn btn-success"
         title="Ctrl+S, Command+S">
     Filter Questions
 </button>
 
-<button ng-click="practiceService.submitAnswers(practiceService.expressionTest)"
+<button ng-click="service.submitAnswers(service.expressionTest)"
         type="button"
-        ng-disabled="practiceService.expressionTest.answered"
+        ng-disabled="service.expressionTest.answered"
         class="btn btn-success">
     Submit Answers
 </button>

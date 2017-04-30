@@ -89,7 +89,7 @@ PracticeService.prototype.favourite = function (expressionItem) {
 };
 angularApp.service('practiceService', ['$http', '$q', '$routeParams', '$sce', PracticeService]);
 angularApp.controller('practiceController', ['$scope', 'practiceService', function ($scope, practiceService) {
-    $scope.practiceService = practiceService;
+    $scope.service = practiceService;
     $scope.USER_ID = USER_ID;
     practiceService.init();
 }]);

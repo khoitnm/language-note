@@ -1,18 +1,18 @@
 <div class="col-lg-11">
-    <div ng-repeat="category in topicEditService.topic.categories track by $index"
+    <div ng-repeat="category in service.topic.categories track by $index"
          class="col-md-2 wrap-dd-menu">
 
         <input type="text"
                ng-model="category.text"
-               ng-blur="topicEditService.topicCompsiteEditor.changeItem(category)"
+               ng-blur="service.topicCompsiteEditor.changeItem(category)"
                placeholder="Category"
                list="autocomplete_{{$index}}"
                style="width: 100%"/>
         <datalist id="autocomplete_{{$index}}">
-            <select ng-options="category as category.text for category in topicEditService.categories track by category.text" ng-model="selected"></select>
+            <select ng-options="category as category.text for category in service.categories track by category.text" ng-model="selected"></select>
         </datalist>
     </div>
 </div>
 <div class="col-lg-1">
-    <a class="close-link"><i class="fa fa-plus" ng-click="topicEditService.topicCompsiteEditor.addItem('categories')"></i></a>
+    <a class="close-link"><i class="fa fa-plus" ng-click="service.topicCompsiteEditor.addItem('categories')"></i></a>
 </div>

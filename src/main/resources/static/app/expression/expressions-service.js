@@ -112,6 +112,7 @@ ExpressionService.prototype.getExpressionLocaleString = function (expression) {
 ExpressionService.prototype.favour = function (expression, favourite) {
     var self = this;
     expression.favourite = favourite;
+    if (isBlank(expression.id)) return;
     var favouriteData = {
         expressionId: expression.id
         , favourite: expression.favourite

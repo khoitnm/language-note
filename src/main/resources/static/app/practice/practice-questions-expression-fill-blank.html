@@ -1,30 +1,27 @@
-<div ng-repeat="questionWithPracticeResult in practiceService.expressionTest.askedItems"
+<div ng-repeat="questionWithPracticeResult in service.expressionTest.askedItems"
      class="col-xs-12 col-sm-6 col-md-4">
-    <div class="row expression-item">
+    <div class="row expression-item"
+         ng-init="expression = questionWithPracticeResult.question.fromExpression">
         <div class="col-xs-12">
             <div class="expression-teaser row">
                 <div class="col-xs-12">
                     <div class="header row">
                         <div class="pull-left">
-                            <button ng-click="topicEditService.modeEdit(expression)" class="btn btn-xs btn-success"><i class="fa fa-star"></i></button>
+                            <button ng-click="service.modeEdit(expression)" class="btn btn-xs btn-success"><i class="fa fa-star"></i></button>
                         </div>
                         <div class="pull-left">
-                            <span ng-if="practiceService.expressionTest.answered">{{questionWithPracticeResult.question.fromExpression.text}}</span>
+                            <span ng-if="service.expressionTest.answered">{{questionWithPracticeResult.question.fromExpression.text}}</span>
                         </div>
                         <div class="pull-right">
                             <a class="btn-xs" href=""
-                               ng-show="practiceService.expressionTest.answered && !(practiceService.isPlayingSound)"
-                               ng-click="practiceService.playSound(questionWithPracticeResult.question.fromExpression)">
+                               ng-show="service.expressionTest.answered && !(service.isPlayingSound)"
+                               ng-click="service.playSound(questionWithPracticeResult.question.fromExpression)">
                                 <i class="fa fa-volume-up"></i>
                             </a>
                             <a class="btn-xs" href=""
-                               ng-show="practiceService.expressionTest.answered && practiceService.isPlayingSound"
-                               ng-click="practiceService.stopSound(questionWithPracticeResult.question.fromExpression)">
+                               ng-show="service.expressionTest.answered && service.isPlayingSound"
+                               ng-click="service.stopSound(questionWithPracticeResult.question.fromExpression)">
                                 <i class="fa fa-volume-off"></i>
-                            </a>
-                            <a class="btn-xs" href=""
-                               ng-click="practiceService.favour(questionWithPracticeResult.question.fromExpression, 1)">
-                                <i class="fa fa-star-o"></i> {{questionWithPracticeResult.question.fromExpression.favourite}}
                             </a>
                         </div>
                         <div class="pull-right">
@@ -34,6 +31,8 @@
                         </div>
 
                         <div class="clearfix"></div>
+                        <div class="col-xs-12"
+                             ng-include="contextPath + '/app/topic/expression-favourite.html'" style="padding-left: 29px;"></div>
                     </div>
                     <div class="body row">
                         <div class="col-xs-12">
@@ -42,10 +41,10 @@
                                     <span ng-if="questionPart.questionPartType != 'BLANK'">{{questionPart.text}}</span>
                                     <input ng-if="questionPart.questionPartType == 'BLANK'"
                                            ng-model="questionPart.answer" class="input-fill-blank input-as-text"
-                                           ng-class="practiceService.expressionTest.answered && (questionPart.answer == questionPart.text) ? 'text-success': practiceService.expressionTest.answered ? 'text-danger': ''"/>
+                                           ng-class="service.expressionTest.answered && (questionPart.answer == questionPart.text) ? 'text-success': service.expressionTest.answered ? 'text-danger': ''"/>
                                 </ng-repeat>
                             </div>
-                            <div class="fill-blank row" ng-if="practiceService.expressionTest.answered && questionWithPracticeResult.question.questionParts">
+                            <div class="fill-blank row" ng-if="service.expressionTest.answered && questionWithPracticeResult.question.questionParts">
                                 <span ng-repeat="questionPart in questionWithPracticeResult.question.questionParts" ng-class="questionPart.questionPartType=='BLANK'?'text-success':''">
                                     {{questionPart.text}}
                                 </span>

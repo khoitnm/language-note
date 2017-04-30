@@ -318,7 +318,7 @@ TopicEditService.prototype.validateNotExistExpressionText = function (expression
 //Use AngularFileUpload
 angularApp.service('topicEditService', ['$rootScope', '$http', '$q', '$routeParams', 'hotkeys', 'FileUploader', TopicEditService]);
 angularApp.controller('topicEditController', ['$rootScope', '$scope', '$http', '$q', '$location', '$routeParams', 'topicEditService', 'hotkeys', 'FileUploader', function ($rootScope, $scope, $http, $q, $location, $routeParams, topicEditService, hotkeys, FileUploader) {
-    $scope.topicEditService = topicEditService;
+    $scope.service = topicEditService;
     topicEditService.init();
 }]);
 
