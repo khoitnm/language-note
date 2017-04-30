@@ -1,9 +1,7 @@
 package tnmk.ln.app.practice;
 
-//import org.springframework.data.neo4j.repository.GraphRepository; import tnmk.ln.app.practice.entity.PracticeResult;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 import tnmk.common.util.IterableUtil;
 import tnmk.ln.app.practice.entity.favourite.PracticeFavourite;
 import tnmk.ln.infrastructure.data.neo4j.repository.Neo4jRepository;
@@ -11,7 +9,7 @@ import tnmk.ln.infrastructure.data.neo4j.repository.Neo4jRepository;
 /**
  * @author khoi.tran on 2/26/17.
  */
-@Service
+@Repository
 public class PracticeFavouriteCustomRepository {
     @Autowired
     Neo4jRepository neo4jRepository;
