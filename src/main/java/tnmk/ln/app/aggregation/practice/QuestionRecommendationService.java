@@ -60,7 +60,7 @@ public class QuestionRecommendationService {
         List<Question> distinctQuestions = filterQuestionsDistintExpression(questions);
         List<QuestionWithPracticeResult> result = distinctQuestions.stream().map(question -> mapToQuestionWithPracticeResult(userId, question)).filter(questionWithPracticeResult -> questionWithPracticeResult != null).collect(Collectors.toList());
         //TODO we have to use this sort because it looks like the CQL is not effective??
-        ListUtil.sortByFields(result, "expressionPracticeResult.sumLatestAnswerPoint", "expressionPracticeResult.answers.size()", "expressionPracticeResult.sumTotalAnswerPoint");
+        ListUtil.sortByFields(result, "expressionPracticeResult.sumLatestAnswerPoint", "#expressionPracticeResult != null ? (expressionPracticeResult.answers != null ? expressionPracticeResult.answers.size() : 0) : 0", "expressionPracticeResult.sumTotalAnswerPoint");
         log("After sort", result);
         return result;
     }

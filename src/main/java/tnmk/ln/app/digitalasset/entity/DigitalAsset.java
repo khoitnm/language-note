@@ -22,6 +22,7 @@ public class DigitalAsset extends BaseMongoEntity {
 
     @NotBlank
     private String fileItemId;
+    private String externalUrl;
     private long likesCount;
 
     @Relationship(type = LIKE, direction = Relationship.INCOMING)
@@ -49,5 +50,13 @@ public class DigitalAsset extends BaseMongoEntity {
 
     public void setLikes(List<Like> likes) {
         this.likes = likes;
+    }
+
+    public String getExternalUrl() {
+        return externalUrl;
+    }
+
+    public void setExternalUrl(String externalUrl) {
+        this.externalUrl = externalUrl;
     }
 }

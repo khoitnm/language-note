@@ -63,6 +63,11 @@
                                          ng-include="contextPath + '/app/topic/topic-edit-expression-teaser-many-photos.html'"
                                          class="image-border row">
                                     </div>
+                                    <div class="row" ng-if="sense.videos.length > 0">
+                                        <iframe class="image-border" ng-if="sense.videos[0].externalUrl"
+                                                width="100%" height="300" ng-src="{{'https://www.youtube.com/embed/'+sense.videos[0].externalUrl}}" frameborder="0" allowfullscreen>
+                                        </iframe>
+                                    </div>
                                     <div class="sense-explanation row" ng-show="sense.shortExplanation">
                                         <div class="col-xs-12">
                                             {{sense.explanation}}

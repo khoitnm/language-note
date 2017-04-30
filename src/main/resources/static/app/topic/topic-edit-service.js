@@ -123,6 +123,11 @@ TopicEditService.prototype.initData = function (topicId) {
                 //    })
                 //}
             )
+            , 'videos': new InjectedFunction(
+                function (item) {
+                    return !hasValue(item) || (isBlank(item.fileItemId) && isBlank(item.externalUrl));
+                }
+            )
             , 'examples': new InjectedFunction(
                 function (item) {
                     return !hasValue(item) || isBlank(item.text);

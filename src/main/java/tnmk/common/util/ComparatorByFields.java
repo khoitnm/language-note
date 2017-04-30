@@ -28,7 +28,9 @@ public class ComparatorByFields<T> implements Comparator<T> {
     @Override
     public int compare(T objectA, T objectB) {
         if (objectA == null && objectB == null) return 0;
-        int result = 0;
+        Integer result = ComparatorUtil.compareIfNull(objectA, objectB, 1);
+        if (result != null) return result;
+
         for (Expression fieldExpression : fieldExpressions) {
             Object valA = fieldExpression.getValue(evaluationContext, objectA);
             Object valB = fieldExpression.getValue(evaluationContext, objectB);

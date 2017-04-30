@@ -1,4 +1,5 @@
 var CommonService = function () {
+    this.$y = $y;
     this.userErrorMessage = undefined;
 };
 CommonService.prototype.showErrorMessage = function (msg) {
