@@ -10,6 +10,7 @@ import tnmk.common.util.ListUtil;
 import tnmk.ln.app.aggregation.practice.PracticeAnswerResource;
 import tnmk.ln.app.practice.entity.question.Question;
 import tnmk.ln.app.practice.entity.result.AnswerResult;
+import tnmk.ln.app.practice.entity.result.BasePracticeResult;
 import tnmk.ln.app.practice.entity.result.ExpressionPracticeResult;
 import tnmk.ln.app.practice.entity.result.QuestionPracticeResult;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
@@ -41,6 +42,9 @@ public class PracticeAnswerService {
 
     @Autowired
     private ExpressionPracticeResultQueryRepository expressionPracticeResultQueryRepository;
+
+    @Autowired
+    private PracticeFavouriteService practiceFavouriteService;
 
     @Transactional
     public List<AnswerResult> answerResult(User user, List<PracticeAnswerResource.PracticeAnswerRequest> practiceAnswerRequests) {
@@ -75,7 +79,7 @@ public class PracticeAnswerService {
         } else {
             ListUtil.addToListWithMaxSize(practiceResult.getAnswers(), answerPoint, MAX_POINTS_STORING);
         }
-        practiceResult.setSumLatestAnswerPoint(calculateAnswerPoints(practiceResult.getAnswers(), LATEST_POINTS));
+        practiceResult.setSumLatestAnswerPoint(totalAnswerPoints(practiceResult.getAnswers(), LATEST_POINTS));
         return questionPracticeResultRepository.save(practiceResult);
     }
 
@@ -91,12 +95,18 @@ public class PracticeAnswerService {
         } else {
             ListUtil.addToListWithMaxSize(practiceResult.getAnswers(), answerPoint, MAX_POINTS_STORING);
         }
-        practiceResult.setSumLatestAnswerPoint(calculateAnswerPoints(practiceResult.getAnswers(), LATEST_POINTS));
-        practiceResult.setSumTotalAnswerPoint(calculateAnswerPoints(practiceResult.getAnswers(), practiceResult.getAnswers().size()));
+        int favourite = practiceFavouriteService.findExpressionFavourite(user, expressionId);
+        practiceResult.setAdditionalPoints(-favourite);
+        calculateAnswerPoints(practiceResult);
         return expressionPracticeResultRepository.save(practiceResult);
     }
 
-    private double calculateAnswerPoints(List<Float> answerPoints, int numPoints) {
+    private void calculateAnswerPoints(BasePracticeResult practiceResult) {
+        practiceResult.setSumLatestAnswerPoint(totalAnswerPoints(practiceResult.getAnswers(), LATEST_POINTS) + practiceResult.getAdditionalPoints());
+        practiceResult.setSumTotalAnswerPoint(totalAnswerPoints(practiceResult.getAnswers(), practiceResult.getAnswers().size()) + practiceResult.getAdditionalPoints());
+    }
+
+    private double totalAnswerPoints(List<Float> answerPoints, int numPoints) {
         double result = 0;
         int startIndex = Math.max(0, answerPoints.size() - numPoints);
         for (int i = startIndex; i < answerPoints.size(); i++) {

@@ -45,7 +45,7 @@ public class TopicCompositeConverter extends BaseConverter<Topic, TopicComposite
     public ExpressionComposite toExpressionComposite(User user, Expression expression) {
         ExpressionComposite expressionComposite = new ExpressionComposite();
         BeanUtils.copyProperties(expression, expressionComposite);
-        Integer favourite = practiceFavouriteService.findExpressionFavourite(user, expression.getId());
+        int favourite = practiceFavouriteService.findExpressionFavourite(user, expression.getId());
         expressionComposite.setFavourite(favourite);
         return expressionComposite;
     }

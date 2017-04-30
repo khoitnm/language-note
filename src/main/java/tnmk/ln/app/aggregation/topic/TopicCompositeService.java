@@ -18,6 +18,7 @@ import tnmk.ln.app.dictionary.ExpressionRepository;
 import tnmk.ln.app.dictionary.ExpressionService;
 import tnmk.ln.app.dictionary.entity.BaseExpression;
 import tnmk.ln.app.dictionary.entity.Expression;
+import tnmk.ln.app.practice.PracticeFavouriteService;
 import tnmk.ln.app.practice.QuestionGenerationService;
 import tnmk.ln.app.topic.CategoryService;
 import tnmk.ln.app.topic.TopicDetailRepository;
@@ -61,6 +62,9 @@ public class TopicCompositeService {
     @Autowired
     private CategoryService categoryService;
 
+    @Autowired
+    private PracticeFavouriteService practiceFavouriteService;
+
     @Transactional
     public Topic saveTopicAndRelations(User user, TopicComposite topicComposite) {
         topicComposite.setOwner(user);
@@ -72,10 +76,13 @@ public class TopicCompositeService {
             expressions.stream().forEach(expression -> prepareForSavingExpression(user, expression));
         }
         expressions = expressionRepository.save(expressions);
-        topicComposite.setExpressionIds(expressions.stream().map(iexpression -> iexpression.getId()).collect(Collectors.toList()));
+        practiceFavouriteService.saveExpressionFavourites(user, expressions);
+        List<String> expressionIds = expressions.stream().map(iexpression -> iexpression.getId()).collect(Collectors.toList());
+        topicComposite.setExpressionIds(expressionIds);
 
         Topic topic = topicCompositeConverter.toEntity(topicComposite);
         topic = topicRepository.save(topic);
+        //If ExpressionComposite has favourite, save favourite
         topicComposite = topicCompositeConverter.toTopicComposite(user, topic, expressions);
 
         if (expressions != null) {
@@ -84,7 +91,7 @@ public class TopicCompositeService {
         return topicComposite;
     }
 
-    private void prepareForSavingExpression(User user, Expression expression) {
+    private void prepareForSavingExpression(User user, ExpressionComposite expression) {
         expression.setOwner(user);
         setRelatedExpressions(expression, "synonyms");
         setRelatedExpressions(expression, "antonyms");

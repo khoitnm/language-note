@@ -9,8 +9,6 @@ import tnmk.ln.app.dictionary.entity.Expression;
  */
 @NodeEntity(label = "ExpressionPracticeResult")
 public class ExpressionPracticeResult extends BasePracticeResult {
-    public static final String RESULT_OF_EXPRESSION = "RESULT_OF_EXPRESSION";
-
     private String expressionId;
 
     public String getExpressionId() {
@@ -20,4 +18,5 @@ public class ExpressionPracticeResult extends BasePracticeResult {
     public void setExpressionId(String expressionId) {
         this.expressionId = expressionId;
     }
+
 }

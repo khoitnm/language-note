@@ -13,7 +13,7 @@ public class PracticeFavourite extends BaseNeo4jEntity {
     private static final String FAVOURITE_EXPRESSION_OWNER = "FAVOURITE_EXPRESSION_OWNER";
 
     private String expressionId;
-    private Integer favourite;
+    private int favourite;
     @Relationship(type = FAVOURITE_EXPRESSION_OWNER, direction = Relationship.INCOMING)
     private User owner;
 
@@ -33,11 +33,11 @@ public class PracticeFavourite extends BaseNeo4jEntity {
         this.owner = owner;
     }
 
-    public Integer getFavourite() {
+    public int getFavourite() {
         return favourite;
     }
 
-    public void setFavourite(Integer favourite) {
+    public void setFavourite(int favourite) {
         this.favourite = favourite;
     }
 }

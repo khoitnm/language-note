@@ -30,6 +30,7 @@ public abstract class BasePracticeResult extends BaseNeo4jEntity implements Poss
     private double sumLatestAnswerPoint;
 
     private double sumTotalAnswerPoint;
+    private double additionalPoints;
 
     @Transient
     @Override
@@ -68,5 +69,13 @@ public abstract class BasePracticeResult extends BaseNeo4jEntity implements Poss
 
     public void setSumTotalAnswerPoint(double sumTotalAnswerPoint) {
         this.sumTotalAnswerPoint = sumTotalAnswerPoint;
+    }
+
+    public double getAdditionalPoints() {
+        return additionalPoints;
+    }
+
+    public void setAdditionalPoints(double additionalPoints) {
+        this.additionalPoints = additionalPoints;
     }
 }
