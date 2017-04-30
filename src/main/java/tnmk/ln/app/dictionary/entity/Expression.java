@@ -43,7 +43,9 @@ public class Expression extends BaseMongoEntity implements Possession, Cleanable
     private String text;
     private ExpressionType expressionType;
 
-    private int favourite;
+    /**
+     * Don't put favourite here because each user has different favourite value.
+     */
 
     // COMPOSITION RELATIONSHIPS //////////////////////////////////////////////////////////////
     @DetailLoading
@@ -223,19 +225,4 @@ public class Expression extends BaseMongoEntity implements Possession, Cleanable
         this.locale = locale;
     }
 
-    public int getFavourite() {
-        return favourite;
-    }
-
-    public void setFavourite(int favourite) {
-        this.favourite = favourite;
-    }
-
-//    public ExpressionPracticeResult getExpressionPracticeResult() {
-//        return expressionPracticeResult;
-//    }
-//
-//    public void setExpressionPracticeResult(ExpressionPracticeResult expressionPracticeResult) {
-//        this.expressionPracticeResult = expressionPracticeResult;
-//    }
 }

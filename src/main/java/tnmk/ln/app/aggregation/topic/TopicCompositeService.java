@@ -11,6 +11,7 @@ import org.thymeleaf.util.ListUtils;
 import tnmk.common.infrastructure.guardian.Guardian;
 import tnmk.common.util.IterableUtil;
 import tnmk.common.util.ReflectionUtils;
+import tnmk.ln.app.aggregation.practice.model.ExpressionComposite;
 import tnmk.ln.app.aggregation.topic.model.TopicComposite;
 import tnmk.ln.app.aggregation.topic.model.TopicCompositeConverter;
 import tnmk.ln.app.dictionary.ExpressionRepository;
@@ -63,7 +64,7 @@ public class TopicCompositeService {
     @Transactional
     public Topic saveTopicAndRelations(User user, TopicComposite topicComposite) {
         topicComposite.setOwner(user);
-        List<Expression> expressions = topicComposite.getExpressions();
+        List<ExpressionComposite> expressions = topicComposite.getExpressions();
 
         categoryService.saveIfNecessaryByTextAndOwner(user, topicComposite.getCategories());
 
@@ -75,7 +76,7 @@ public class TopicCompositeService {
 
         Topic topic = topicCompositeConverter.toEntity(topicComposite);
         topic = topicRepository.save(topic);
-        topicComposite = topicCompositeConverter.toTopicComposite(topic, expressions);
+        topicComposite = topicCompositeConverter.toTopicComposite(user, topic, expressions);
 
         if (expressions != null) {
             expressions.stream().forEach(expression -> questionService.createQuestionsIfNotExist(expression));
@@ -163,11 +164,11 @@ public class TopicCompositeService {
         return savedExpression;
     }
 
-    public TopicComposite findDetailById(String topicId) {
+    public TopicComposite findDetailById(User user, String topicId) {
         Topic topic = topicService.findDetailById(topicId);
         List<String> expressionIds = topic.getExpressionIds();
         List<Expression> expressions = !ListUtils.isEmpty(expressionIds) ? expressionService.findByIds(expressionIds) : new ArrayList<>();
-        TopicComposite topicComposite = topicCompositeConverter.toTopicComposite(topic, expressions);
+        TopicComposite topicComposite = topicCompositeConverter.toTopicComposite(user, topic, expressions);
         return topicComposite;
     }
 

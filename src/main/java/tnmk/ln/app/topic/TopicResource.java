@@ -44,7 +44,7 @@ public class TopicResource {
     @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/topics/{topicId}/detail", method = RequestMethod.GET)
     public TopicComposite getDetailTopic(@PathVariable String topicId) {
         User user = SecurityContextHelper.validateExistAuthenticatedUser();
-        return topicCompositeService.findDetailById(topicId);
+        return topicCompositeService.findDetailById(user, topicId);
     }
 
     @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/topics/name", method = RequestMethod.PUT)

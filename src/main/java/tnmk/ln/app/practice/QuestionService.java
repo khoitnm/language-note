@@ -15,11 +15,6 @@ public class QuestionService {
     @Autowired
     private QuestionLoadingRepository questionLoadingRepository;
 
-    public void removeQuestionsAndCompositionsRelatedToExpression(String expressionId){
-
-    }
-
-
     public List<Question> loadQuestionsByTopics(User user, Long... topicIds) {
         return questionLoadingRepository.loadQuestionsByTopics(user, topicIds);
     }
