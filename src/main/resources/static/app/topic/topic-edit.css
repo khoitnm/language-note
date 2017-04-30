@@ -642,3 +642,58 @@ a .fa.dark-theme:hover {
         right: 35px;
     }
 }
+
+/**
+ * RATING /////////////////////////////////////////
+ * View more at https://css-tricks.com/star-ratings/
+ */
+.rating-container, .rating-empty-container {
+    font-size: 14px;
+    font-weight: lighter;
+    -webkit-font-smoothing: antialiased;
+    line-height: 14px;
+    color: #aaa;
+}
+
+.rating-empty-container {
+    padding-right: 7px;
+}
+
+.rating-container {
+    direction: rtl;
+    text-align: left;
+}
+
+.rating-item {
+    font-family: FontAwesome;
+    display: inline-block;
+    position: relative;
+    width: 3em;
+}
+
+.rating-item:before {
+    content: "\f006";
+}
+
+.rating-item:hover {
+    color: #26B99A;
+}
+
+.rating-container .rating-item:hover:before,
+.rating-container .rating-item:hover ~ .rating-item:before {
+    content: "\f005";
+    color: #26B99A;
+}
+
+/** selected item */
+.rating-item.selected {
+    color: rgb(115, 135, 156);
+}
+
+.rating-empty-container .rating-item.selected:before {
+    content: "\f006";
+}
+
+.rating-container .rating-item.selected:before {
+    content: "\f005";
+}

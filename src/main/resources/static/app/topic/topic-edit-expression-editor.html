@@ -45,6 +45,10 @@
                                ng-click="topicEditService.playSound(expression)">
                                 <i class="fa fa-volume-up dark-theme"></i>
                             </a>
+                            <a class="btn-xs" href=""
+                               ng-click="topicEditService.favour(expression, 1)">
+                                <i class="fa fa-star-o dark-theme"> </i> {{expression.favourite}}
+                            </a>
                         </div>
                         <div class="clearfix"></div>
                     </div>

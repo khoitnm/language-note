@@ -109,3 +109,16 @@ ExpressionService.prototype.getExpressionLocaleString = function (expression) {
     }
     return result;
 };
+ExpressionService.prototype.favour = function (expression, favourite) {
+    var self = this;
+    expression.favourite = favourite;
+    var favouriteData = {
+        expressionId: expression.id
+        , favourite: expression.favourite
+    };
+    self.$http.post(contextPath + '/api/expression/favourite', favouriteData).then(
+        function (successResponse) {
+            //self.setLesson(successResponse.data);
+        }
+    );
+};

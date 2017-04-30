@@ -7,10 +7,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tnmk.common.util.ListUtil;
+import tnmk.ln.app.aggregation.practice.model.ExpressionComposite;
 import tnmk.ln.app.aggregation.practice.model.QuestionComposite;
 import tnmk.ln.app.aggregation.practice.model.QuestionConverter;
+import tnmk.ln.app.aggregation.topic.ExpressionCompositeService;
 import tnmk.ln.app.dictionary.ExpressionService;
-import tnmk.ln.app.dictionary.entity.Expression;
 import tnmk.ln.app.practice.ExpressionPracticeResultQueryRepository;
 import tnmk.ln.app.practice.QuestionPartsRepository;
 import tnmk.ln.app.practice.QuestionPracticeResultQueryRepository;
@@ -39,6 +40,9 @@ public class QuestionRecommendationService {
 
     @Autowired
     private ExpressionService expressionService;
+
+    @Autowired
+    private ExpressionCompositeService expressionCompositeService;
 
     @Autowired
     private QuestionPartsRepository questionPartsRepository;
@@ -107,7 +111,7 @@ public class QuestionRecommendationService {
     private QuestionWithPracticeResult mapToQuestionWithPracticeResult(long userId, Question question) {
         QuestionWithPracticeResult questionWithPracticeResult = new QuestionWithPracticeResult();
 
-        Expression expression = expressionService.findById(question.getFromExpressionId());
+        ExpressionComposite expression = expressionCompositeService.findById(userId, question.getFromExpressionId());
         if (expression == null) return null;
 
         QuestionComposite questionComposite = questionConverter.toModel(question);

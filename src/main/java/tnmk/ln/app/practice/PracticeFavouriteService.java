@@ -32,8 +32,8 @@ public class PracticeFavouriteService {
     @Autowired
     private ExpressionPracticeResultRepository expressionPracticeResultRepository;
 
-    public int findExpressionFavourite(User user, String expressionId) {
-        PracticeFavourite practiceFavourite = practiceFavouriteCustomRepository.findByOwnerIdAndExpressionId(user.getId(), expressionId);
+    public int findExpressionFavourite(Long userId, String expressionId) {
+        PracticeFavourite practiceFavourite = practiceFavouriteCustomRepository.findByOwnerIdAndExpressionId(userId, expressionId);
         if (practiceFavourite == null) {
             return 0;
         } else {
@@ -80,6 +80,7 @@ public class PracticeFavouriteService {
             expressionPracticeResult.setExpressionId(expressionId);
         }
         expressionPracticeResult.setAdditionalPoints(-favouritePoint);
+        PracticeAnswerHelper.calculateAnswerPoints(expressionPracticeResult);
         expressionPracticeResultRepository.save(expressionPracticeResult);
         return practiceFavouriteRepository.save(practiceFavourite);
     }

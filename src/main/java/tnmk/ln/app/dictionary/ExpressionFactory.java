@@ -1,5 +1,6 @@
 package tnmk.ln.app.dictionary;
 
+import tnmk.ln.app.aggregation.practice.model.ExpressionComposite;
 import tnmk.ln.app.dictionary.entity.Expression;
 import tnmk.ln.app.dictionary.entity.ExpressionType;
 import tnmk.ln.app.dictionary.entity.LexicalEntry;
@@ -11,8 +12,8 @@ import java.util.Arrays;
  * @author khoi.tran on 3/4/17.
  */
 public class ExpressionFactory {
-    public static Expression constructSchema() {
-        Expression expression = new Expression();
+    public static ExpressionComposite constructSchema() {
+        ExpressionComposite expression = new ExpressionComposite();
         expression.setLexicalEntries(Arrays.asList(new LexicalEntry()));
         expression.setExpressionType(ExpressionType.WORD);
         expression.setSenseGroups(Arrays.asList(SenseGroupFactory.constructSchema()));

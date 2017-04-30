@@ -3,6 +3,7 @@ package tnmk.ln.app.dictionary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tnmk.ln.app.aggregation.practice.model.ExpressionComposite;
 import tnmk.ln.app.dictionary.entity.Expression;
 import tnmk.ln.infrastructure.dictionary.oxford.OxfordService;
 import tnmk.ln.infrastructure.dictionary.oxford.entity.OxfordWord;

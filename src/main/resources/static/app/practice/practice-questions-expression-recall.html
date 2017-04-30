@@ -26,6 +26,10 @@
                                ng-click="practiceService.stopSound(questionWithPracticeResult.question.fromExpression)">
                                 <i class="fa fa-volume-off"></i>
                             </a>
+                            <a class="btn-xs" href=""
+                               ng-click="practiceService.favour(questionWithPracticeResult.question.fromExpression, 1)">
+                                <i class="fa fa-star-o"></i> {{questionWithPracticeResult.question.fromExpression.favourite}}
+                            </a>
                         </div>
                         <div class="pull-right">
                             <!--{{questionWithPracticeResult.expressionPracticeResult.sumLatestAnswerPoint}}-->

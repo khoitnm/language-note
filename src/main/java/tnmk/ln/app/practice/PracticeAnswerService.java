@@ -27,7 +27,6 @@ public class PracticeAnswerService {
     public static final Logger LOGGER = LoggerFactory.getLogger(PracticeAnswerService.class);
 
     public static final int MAX_POINTS_STORING = 20;
-    private static final int LATEST_POINTS = 2;
 
     @Autowired
     private QuestionRepository questionRepository;
@@ -79,7 +78,7 @@ public class PracticeAnswerService {
         } else {
             ListUtil.addToListWithMaxSize(practiceResult.getAnswers(), answerPoint, MAX_POINTS_STORING);
         }
-        practiceResult.setSumLatestAnswerPoint(totalAnswerPoints(practiceResult.getAnswers(), LATEST_POINTS));
+        practiceResult.setSumLatestAnswerPoint(PracticeAnswerHelper.totalAnswerPoints(practiceResult.getAnswers(), PracticeAnswerHelper.LATEST_POINTS));
         return questionPracticeResultRepository.save(practiceResult);
     }
 
@@ -95,26 +94,10 @@ public class PracticeAnswerService {
         } else {
             ListUtil.addToListWithMaxSize(practiceResult.getAnswers(), answerPoint, MAX_POINTS_STORING);
         }
-        int favourite = practiceFavouriteService.findExpressionFavourite(user, expressionId);
+        int favourite = practiceFavouriteService.findExpressionFavourite(user.getId(), expressionId);
         practiceResult.setAdditionalPoints(-favourite);
-        calculateAnswerPoints(practiceResult);
+        PracticeAnswerHelper.calculateAnswerPoints(practiceResult);
         return expressionPracticeResultRepository.save(practiceResult);
     }
 
-    private void calculateAnswerPoints(BasePracticeResult practiceResult) {
-        practiceResult.setSumLatestAnswerPoint(totalAnswerPoints(practiceResult.getAnswers(), LATEST_POINTS) + practiceResult.getAdditionalPoints());
-        practiceResult.setSumTotalAnswerPoint(totalAnswerPoints(practiceResult.getAnswers(), practiceResult.getAnswers().size()) + practiceResult.getAdditionalPoints());
-    }
-
-    private double totalAnswerPoints(List<Float> answerPoints, int numPoints) {
-        double result = 0;
-        int startIndex = Math.max(0, answerPoints.size() - numPoints);
-        for (int i = startIndex; i < answerPoints.size(); i++) {
-            Float point = answerPoints.get(i);
-            if (point != null) {
-                result += point;
-            }//else, consider point is 0
-        }
-        return result;
-    }
 }
