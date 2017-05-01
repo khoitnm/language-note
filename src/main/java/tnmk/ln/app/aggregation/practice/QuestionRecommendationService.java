@@ -71,9 +71,10 @@ public class QuestionRecommendationService {
 
     private void log(String message, List<QuestionWithPracticeResult> result) {
         String questionAndPoints = result.stream()
-                .map(question -> String.format("{question:%s,\t points:%s,\t answrtimes: %s,\t total points: %s}",
+                .map(question -> String.format("{question:%s,\t points:%s,\t favourite: %s,\t answrtimes: %s,\t total points: %s}",
                         question.getQuestion().getId(),
                         question.getExpressionPracticeResult().getSumLatestAnswerPoint(),
+                        question.getExpressionPracticeResult().getAdditionalPoints(),
                         question.getExpressionPracticeResult().getAnswers() != null ? question.getExpressionPracticeResult().getAnswers().size() : 0,
                         question.getExpressionPracticeResult().getSumTotalAnswerPoint()))
                 .collect(Collectors.joining("\n\t"));

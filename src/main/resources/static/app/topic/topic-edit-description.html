@@ -1,8 +1,11 @@
 <div class="col-xs-12">
-    <div ng-show="!service.editingNote && !service.topic.noteAsHtml"
-         ng-dblclick="service.startEditingNote()"
-         class="well well-sm">
-        <p style="font-style: italic; color: #D1D1D1;">Topic Description</p>
+    <!--<div ng-show="!service.editingNote && !service.topic.noteAsHtml"-->
+    <!--ng-dblclick="service.startEditingNote()"-->
+    <!--class="well well-sm">-->
+    <!--<p style="font-style: italic; color: #D1D1D1;">Topic Description</p>-->
+    <!--</div>-->
+    <div class="well well-sm">
+        <textarea class="input-as-text" ng-model="service.topic.noteAsHtml"></textarea>
     </div>
     <!--<div ng-show="!service.editingNote && service.topic.noteAsHtml"-->
     <!--ng-bind-html="service.topic.noteAsHtml"-->

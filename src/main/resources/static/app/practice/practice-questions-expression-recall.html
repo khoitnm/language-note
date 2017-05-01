@@ -6,10 +6,10 @@
             <div class="expression-teaser row">
                 <div class="col-xs-12">
                     <div class="header row">
-                        <div class="pull-left">
-                            <button ng-click="service.modeEdit(expression)" class="btn btn-xs btn-success"><i class="fa fa-star"></i></button>
-                        </div>
-                        <div class="pull-left" style="width: 70%">
+                        <!--<div class="pull-left">-->
+                        <!--<button ng-click="service.modeEdit(expression)" class="btn btn-xs btn-success"><i class="fa fa-star"></i></button>-->
+                        <!--</div>-->
+                        <div class="pull-left" style="width: 100%">
                             <input ng-model="questionWithPracticeResult.answer" class="input-as-text"
                                    ng-class="service.expressionTest.answered && (questionWithPracticeResult.answer == questionWithPracticeResult.question.fromExpression.text) ?
                                    'text-success':
@@ -28,16 +28,9 @@
                                 <i class="fa fa-volume-off"></i>
                             </a>
                         </div>
-                        <div class="pull-right">
-                            <!--{{questionWithPracticeResult.expressionPracticeResult.sumLatestAnswerPoint}}-->
-                            <span ng-repeat="ianswerResult in questionWithPracticeResult.expressionPracticeResult.answers track by $index">
-                                <i class="answer-point fa " ng-class="ianswerResult > 0 ? 'fa-dot-circle-o text-success': 'fa-circle-o text-danger'"></i>
-                            </span>
-                        </div>
-
                         <div class="clearfix"></div>
-                        <div class="col-xs-12"
-                             ng-include="contextPath + '/app/topic/expression-favourite.html'" style="padding-left: 29px;"></div>
+                        <div class="col-xs-12" ng-include="contextPath + '/app/topic/expression-answers.html'"></div>
+                        <div class="col-xs-12" ng-include="contextPath + '/app/topic/expression-favourite.html'"></div>
                     </div>
                     <div class="body row">
                         <div class="col-xs-12">
