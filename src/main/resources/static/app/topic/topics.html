@@ -81,8 +81,8 @@
                                                     <span class="small">{{topic.createdDateTime | date:'yyyy-MM-dd hh:mm:ss'}}</span>
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-xs-12" ng-bind-html="topic.noteAsHtml"></div>
+                                            <div class="row" ng-if="topic.noteAsHtml">
+                                                <div class="description col-xs-12" ng-bind-html="topic.noteAsHtml"></div>
                                             </div>
                                             <div>
                                                 <ul class="list-unstyled">
