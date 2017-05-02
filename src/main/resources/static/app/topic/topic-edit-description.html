@@ -7,6 +7,9 @@
     <div class="well well-sm">
         <textarea class="input-as-text" ng-model="service.topic.noteAsHtml"></textarea>
     </div>
+    <div ng-bind-html="service.topic.noteAsHtml">
+
+    </div>
     <!--<div ng-show="!service.editingNote && service.topic.noteAsHtml"-->
     <!--ng-bind-html="service.topic.noteAsHtml"-->
     <!--ng-dblclick="service.startEditingNote()"-->

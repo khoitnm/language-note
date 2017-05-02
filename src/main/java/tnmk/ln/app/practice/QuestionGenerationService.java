@@ -82,32 +82,44 @@ public class QuestionGenerationService {
         List<Question> questions = new ArrayList<>();
         List<Sense> senses = ExpressionUtils.getSenses(expression);
         for (Sense sense : senses) {
-            int exampleIndex = 0;
+            int examplesCount = 0;
             for (Example example : sense.getExamples()) {
-                if (exampleIndex >= MAX_FILL_BLANK_QUESTIONS_PER_SENSE) {
+                if (examplesCount >= MAX_FILL_BLANK_QUESTIONS_PER_SENSE) {
                     break;
                 }
-                questions.add(constructFillBlankQuestionIfNotExist(expression, sense, example));
-                exampleIndex++;
+                QuestionFillBlank questionFillBlank = constructFillBlankQuestionIfNotExist(expression, sense, example);
+                if (questionFillBlank.getQuestionParts().size() > 1) {
+                    questions.add(questionFillBlank);
+                    examplesCount++;
+                }
             }
+//            if (questions.isEmpty() && StringUtils.isNotBlank(sense.getExplanation())) {
+//                constructFillBlankQuestionFromDefinitionIfNotExist(expression, sense);
+//            }
         }
         return questions;
     }
 
-    private Question constructFillBlankQuestionIfNotExist(Expression expression, Sense sense, Example example) {
+//    private QuestionFillBlank constructFillBlankQuestionFromDefinitionIfNotExist(Expression expression, Sense sense) {
+//        Question question = questionLoadingRepository.findOneByQuestionTypeAndFromExpressionIdAndFromSenseIdAndFromExampleId(QuestionType.FILL_BLANK, expression.getId(), sense.getId(), "explanation");
+//
+//    }
+
+    private QuestionFillBlank constructFillBlankQuestionIfNotExist(Expression expression, Sense sense, Example example) {
         Question question = questionLoadingRepository.findOneByQuestionTypeAndFromExpressionIdAndFromSenseIdAndFromExampleId(QuestionType.FILL_BLANK, expression.getId(), sense.getId(), example.getId());
-        if (question == null) {
-            question = new QuestionFillBlank();
-            question.setText(example.getText());
-            question.setFromExpressionId(expression.getId());
-            question.setFromSenseId(sense.getId());
-            question.setFromExampleId(example.getId());
+        QuestionFillBlank questionFillBlank = (QuestionFillBlank) question;
+        if (questionFillBlank == null) {
+            questionFillBlank = new QuestionFillBlank();
+            questionFillBlank.setText(example.getText());
+            questionFillBlank.setFromExpressionId(expression.getId());
+            questionFillBlank.setFromSenseId(sense.getId());
+            questionFillBlank.setFromExampleId(example.getId());
 
             String findingExpression = expression.getText();
-            List<QuestionPart> questionParts = questionFillBlankGenerator.analyzeToQuestionParts(expression.getLocaleOrDefault().getLanguage(), findingExpression, question.getText());
-            question.setQuestionParts(questionParts);
+            List<QuestionPart> questionParts = questionFillBlankGenerator.analyzeToQuestionParts(expression.getLocaleOrDefault().getLanguage(), findingExpression, questionFillBlank.getText());
+            questionFillBlank.setQuestionParts(questionParts);
         }
-        return question;
+        return questionFillBlank;
     }
 
 }

@@ -37,7 +37,9 @@ ExpressionService.prototype.playSound = function (expression) {
             var examples = sense.examples;
             for (var iexample = 0; iexample < examples.length && iexample < 2; iexample++) {
                 var example = examples[iexample];
-                texts.push(example.text);
+                if (isNotBlank(example.text)) {
+                    texts.push(example.text);
+                }
             }
         }
     }
