@@ -69,13 +69,15 @@
 </script>
 <div th:include="parts/import-scripts"></div>
 <!-- /page content -->
-<div class="ui-pnotify dark ui-pnotify-in ui-pnotify-fade-in" aria-live="assertive" aria-role="alertdialog" style="display: none; cursor: auto;">
-    <div ng-show="isRunning" class="alert ui-pnotify-container alert-info ui-pnotify-shadow" role="alert" style="min-height: 16px;">
-        <!--<div class="ui-pnotify-closer" aria-role="button" tabindex="0" title="Close" style="cursor: pointer; visibility: hidden; display: none;"><span class="glyphicon glyphicon-remove"></span></div>-->
-        <!--<div class="ui-pnotify-sticker" aria-role="button" aria-pressed="true" tabindex="0" title="Unstick" style="cursor: pointer; visibility: hidden; display: none;"><span class="glyphicon glyphicon-play" aria-pressed="true"></span></div>-->
-        <div class="ui-pnotify-icon" style="margin-right: 0px;"><span class="fa fa-spinner fa-spin"></span></div>
-    </div>
+<div ng-show="isRunning" class="status-icon">
+    <span><i class="fa fa-spinner fa-spin"></i></span>
 </div>
+
+<!--<div class="ui-pnotify dark ui-pnotify-in ui-pnotify-fade-in" aria-live="assertive" aria-role="alertdialog" style="display: none; cursor: auto;">-->
+<!--<div ng-show="!isRunning" class="alert ui-pnotify-container alert-info ui-pnotify-shadow" role="alert" style="min-height: 16px;">-->
+<!--<span class="fa fa-spinner fa-spin"></span>-->
+<!--</div>-->
+<!--</div>-->
 <div ng-show="globalMessage" class="ui-pnotify dark ui-pnotify-fade-normal ui-pnotify-in ui-pnotify-fade-in ui-pnotify-move" aria-live="assertive" aria-role="alertdialog" style="display: none; width: 300px; right: 36px; top: 36px; cursor: auto;">
     <div ng-show="globalMessage" class="alert ui-pnotify-container alert-info ui-pnotify-shadow" role="alert" style="min-height: 16px;">
         <div class="ui-pnotify-closer" aria-role="button" tabindex="0" title="Close" style="cursor: pointer; visibility: hidden; display: none;"><span class="glyphicon glyphicon-remove"></span></div>

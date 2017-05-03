@@ -1,17 +1,25 @@
 angularApp.factory('httpInterceptor', ['$q', '$rootScope', function ($q, $rootScope) {
     return {
         request: function (config) {
-            $rootScope.isRunning = true;
+            console.log("Start running " + config.url);
+            var isRunning = $rootScope.isRunning;
+            if (isRunning >= 0) {
+                $rootScope.isRunning = isRunning + 1;
+            } else {
+                $rootScope.isRunning = 1;
+            }
             return config;
         },
         response: function (response) {
+            console.log("Stop running success " + response.config.url);
             $rootScope.unexpectedMessage = undefined;
             $rootScope.globalMessage = undefined;
-            $rootScope.isRunning = false;
+            $rootScope.isRunning = $rootScope.isRunning - 1;
             return response;
         },
         responseError: function responseError(rejection) {
-            $rootScope.isRunning = false;
+            console.log("Stop running error " + rejection);
+            $rootScope.isRunning = $rootScope.isRunning - 1;
             //TODO Maybe 403 is for authorization only. For Session expired, only need to check 401 status.
             if (rejection.status == 403) {
                 //It does not throw you to the login page immediately because you may need to capture some progressing input data.
