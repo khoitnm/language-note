@@ -1,13 +1,13 @@
 <div class="overlay">
     <div class="overlay-header">
-        <a href="" ng-click="service.modeEdit(expression)"
-           class="overlay-btn overlay-btn-close">
-            <i class="fa fa-compress"></i>
-        </a>
+        <!--<a href="" ng-click="service.modeEdit(expression)"-->
+        <!--class="overlay-btn overlay-btn-close">-->
+        <!--<i class="fa fa-compress"></i>-->
+        <!--</a>-->
         <a href=""
            title="Ctrl+S, Command+S"
            ng-disabled="isRunning || service.topic.isSaving"
-           ng-click="service.saveTopic()" class="overlay-btn overlay-btn-save">
+           ng-click="service.saveExpressionInTopic(expression)" class="overlay-btn overlay-btn-save">
             <i class="fa fa-check text-success"></i>
         </a>
 

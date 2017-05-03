@@ -715,6 +715,11 @@ a .fa.dark-theme:hover {
     left: 20px;
 }
 
+.overlay .overlay-btn-save:disabled {
+    color: rgba(255, 255, 255, 0.2);
+    text-decoration-color: rgba(255, 255, 255, 0.5);;
+}
+
 .overlay-content {
     position: relative;
 

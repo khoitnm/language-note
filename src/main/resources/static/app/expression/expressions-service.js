@@ -10,6 +10,17 @@ ExpressionService.prototype.stopSound = function (expression) {
     this.isForceStopSound = true;
     this.audio.stop();
 };
+ExpressionService.prototype.saveExpression = function (expression, callback) {
+    var self = this;
+    self.$http.post(contextPath + '/api/expression-composites', expression).then(
+        function (successResponse) {
+            expression = $r.copyProperties(successResponse.data, expression);
+            if (callback) callback.call(self, expression);
+        }
+    );
+};
+
+
 ExpressionService.prototype.playSoundAutomatically = function (expression) {
     if (this.isForceStopSound) return;
     this.playSound(expression);

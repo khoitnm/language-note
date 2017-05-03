@@ -82,6 +82,19 @@ Array.prototype.swapByIndexes = function (indexA, indexB) {
     this[indexA] = this[indexB];
     this[indexB] = itemA;
 };
+Array.prototype.toArrayNotBlank = function () {
+    return toArrayNotBlank(this);
+};
+var toArrayNotBlank = function (arrayObjects) {
+    var arrayFields = [];
+    for (var i = 0; i < arrayObjects.length; i++) {
+        var ielement = arrayObjects[i];
+        if (isNotBlank(ielement)) {
+            arrayFields.push(ielement);
+        }
+    }
+    return arrayFields;
+};
 /**
  * @param fieldName
  * @param asc 1 for asc, -1 for desc

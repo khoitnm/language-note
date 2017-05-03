@@ -236,6 +236,10 @@ TopicEditService.prototype.selectMainPhoto = function (sense, photo) {
 TopicEditService.prototype.cleanTopic = function () {
     this.topicCompositionEditor.cleanRecursiveRoot();
 };
+/**
+ * @deprecated
+ * @param callback
+ */
 TopicEditService.prototype.saveTopic = function (callback) {
     var self = this;
     self.topic.isSaving = true;
@@ -245,6 +249,7 @@ TopicEditService.prototype.saveTopic = function (callback) {
         function (successResponse) {
             //Update id of topic and composites fields.
             self.topic = successResponse.data;
+            self.topic.isSaving = undefined;
             self.editingExpression = undefined;
             self.topicCompositionEditor.root = self.topic;
             self.topicCompositionEditor.addEmptyChildIfNecessary('expressions');
@@ -252,13 +257,44 @@ TopicEditService.prototype.saveTopic = function (callback) {
         }
     );
 };
-TopicEditService.prototype.saveExpression = function (expression) {
+//TODO need to handle the unsaved expression -> need to handle original data and updated data
+TopicEditService.prototype.saveTopicOnly = function (callback) {
     var self = this;
-    self.$http.post(contextPath + '/api/expression-composites', expression).then(
+    self.topic.isSaving = true;
+    var expressions = self.topicCompositionEditor.root.expressions;
+    self.recalculateExpressionIdsForTopic(self.topic);
+    self.$http.post(contextPath + '/api/topics', self.topic).then(
         function (successResponse) {
-            expression = $r.copyProperties(successResponse.data, expression);
+            //Update id of topic and composites fields.
+            var savedTopic = successResponse.data;
+            //copy properties only, don't replace the whole object because the result is the topic only, not topic-composite.
+            $r.copyMissingProperties(savedTopic, self.topic);
+            self.topic.isSaving = undefined;
+            self.editingExpression = undefined;
+            self.topicCompositionEditor.root = self.topic;
+            self.topicCompositionEditor.addEmptyChildIfNecessary('expressions');
+            if (callback) callback.call(self, self.topic, self.topicCompositionEditor);
         }
     );
+};
+TopicEditService.prototype.recalculateExpressionIdsForTopic = function (topic) {
+    var expressionIds = getArrayByFields(topic.expressions, "id");
+    var notBlankExpressionIds = expressionIds.toArrayNotBlank();
+    topic.expressionIds = notBlankExpressionIds;
+}
+TopicEditService.prototype.saveExpressionInTopic = function (expression, callback) {
+    var self = this;
+    var isNewExpression = isBlank(expression.id);
+    self.topic.isSaving = true;
+    self.topicCompositionEditor.cleanRecursiveItem(expression);
+    self.saveExpression(expression, function () {
+        if (isNewExpression) {
+            //Need to recalculate ExpressionIds because the id of saved expression has just generated.
+            self.recalculateExpressionIdsForTopic(self.topic);
+        }
+        self.topicCompositionEditor.copyMissingSkeleton(expression);
+        self.saveTopicOnly(callback);
+    });
 };
 TopicEditService.prototype.saveOriginalExpressionText = function (expression) {
     expression.originalText = expression.text;
