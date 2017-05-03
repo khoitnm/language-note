@@ -24,6 +24,10 @@ var angularApp = angular.module('myApp', [
 
     //Auto-complete
     , 'angucomplete-alt'
+
+    //Paging
+    //, 'bw.paging'
+
     //'ngMaterial'
     //, 'ngMessages', 'material.svgAssetsCache',
     //'ui.bootstrap',

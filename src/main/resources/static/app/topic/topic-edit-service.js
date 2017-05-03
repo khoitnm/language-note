@@ -8,7 +8,11 @@ var TopicEditService = function ($rootScope, $http, $q, $routeParams, hotkeys, F
     this.topic = undefined;
     this.topicSkeleton = undefined;
     this.topicCompositionEditor;
-    this.topicComposite;
+
+    //this.expressionsPageContainer = new PageContainer(30);
+    this.expressionsPageSize = 20;
+    this.expressionsDataTable = new DataTable([], this.expressionsPageSize);
+
     this.init();
     ExpressionService.call(this);
 };
@@ -33,6 +37,7 @@ TopicEditService.prototype.initData = function (topicId) {
         if (isBlank(topicId)) {
             self.topic = angular.copy(self.topic);//Otherwise, the topic and topicSkeleton will reference to the same memory (because of AngularJS cache?)
         }
+        self.expressionsDataTable.setData(self.topic.expressions);
         self.topicSkeleton = arrayOfResults[1].data;
         self.topicCompositionEditor = new CompositeEditor(self.topicSkeleton, self.topic, {
             'expressions': {
@@ -249,6 +254,7 @@ TopicEditService.prototype.saveTopic = function (callback) {
         function (successResponse) {
             //Update id of topic and composites fields.
             self.topic = successResponse.data;
+            self.expressionsDataTable.setData(self.topic.expressions);
             self.topic.isSaving = undefined;
             self.editingExpression = undefined;
             self.topicCompositionEditor.root = self.topic;
@@ -269,6 +275,7 @@ TopicEditService.prototype.saveTopicOnly = function (callback) {
             var savedTopic = successResponse.data;
             //copy properties only, don't replace the whole object because the result is the topic only, not topic-composite.
             $r.copyMissingProperties(savedTopic, self.topic);
+            self.expressionsDataTable.setData(self.topic.expressions);
             self.topic.isSaving = undefined;
             self.editingExpression = undefined;
             self.topicCompositionEditor.root = self.topic;

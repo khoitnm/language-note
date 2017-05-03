@@ -9,14 +9,26 @@ function DataTable(data, pageSize) {
     this.construct(data, pageSize);
 }
 DataTable.prototype.construct = function (data, pageSize) {
+    this.pageSize = pageSize;
+    this.setData(data);
+};
+DataTable.prototype.setPageSize = function (pageSize) {
+    this.pageSize = pageSize;
+    this.setData(this.data);//Need to recalculate the pager
+};
+DataTable.prototype.setData = function (data) {
     if (!hasValue(data)) {
         data = [];
     }
     this.data = data;
-    this.pager = new Pager(data.length, pageSize);
-    this.pager.calculatePages(0);
+    this.pager = new Pager(data.length, this.pageSize);
+    this.setPage(0);
+};
+DataTable.prototype.setPage = function (currentPageIndex) {
+    this.pager.calculatePages(currentPageIndex);
     this.dataInPage = this.calculateDataInPage(this.data, this.pager);
 };
+//PRIVATE METHOD ///////////////////////////////////////////////////////////////////////////////////
 DataTable.prototype.calculateDataInPage = function (data, pager) {
     var dataInPage = [];
     var startIndex = pager.startIndex;
@@ -29,10 +41,6 @@ DataTable.prototype.calculateDataInPage = function (data, pager) {
         }
     }
     return dataInPage;
-};
-DataTable.prototype.setPage = function (currentPageIndex) {
-    this.pager.calculatePages(currentPageIndex);
-    this.dataInPage = this.calculateDataInPage(this.data, this.pager);
 };
 function Pager(totalItems, pageSize) {
     this.MAX_PAGES_TO_SHOW = 10;

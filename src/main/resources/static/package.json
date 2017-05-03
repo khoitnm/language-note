@@ -8,6 +8,7 @@
     "angular-file-model": "^0.3.1",
     "angular-file-upload": "^2.5.0",
     "angular-hotkeys": "^1.7.0",
+    "angular-paging": "^2.2.2",
     "angular-resource": "^1.6.1",
     "angular-route": "^1.6.1",
     "angular-sanitize": "^1.6.4",
