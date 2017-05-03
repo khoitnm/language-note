@@ -7,13 +7,13 @@ import tnmk.ln.app.practice.entity.question.Question;
  * @author khoi.tran on 4/19/17.
  */
 public class QuestionComposite extends Question {
-    private Expression fromExpression;
+    private ExpressionComposite fromExpression;
 
-    public Expression getFromExpression() {
+    public ExpressionComposite getFromExpression() {
         return fromExpression;
     }
 
-    public void setFromExpression(Expression fromExpression) {
+    public void setFromExpression(ExpressionComposite fromExpression) {
         this.fromExpression = fromExpression;
     }
 }
