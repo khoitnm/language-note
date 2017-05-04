@@ -58,8 +58,13 @@
                                             <div class="sense-header row">
                                                 <div class="col-xs-12 explanation">{{sense.shortExplanation || sense.explanation}}</div>
                                             </div>
-                                            <div class="image-border row" ng-if="sense.mainPhoto.fileItemId">
-                                                <img class="sense-image image-content" ng-src="{{contextPath + '/api/files/'+sense.mainPhoto.fileItemId}}"/>
+                                            <div ng-if="sense.photos.length == 1 && sense.mainPhoto.fileItemId"
+                                                 ng-include="contextPath + '/app/topic/topic-edit-expression-teaser-one-photo.html'"
+                                                 class="image-border row">
+                                            </div>
+                                            <div ng-if="sense.photos.length > 1"
+                                                 ng-include="contextPath + '/app/topic/topic-edit-expression-teaser-many-photos.html'"
+                                                 class="image-border row">
                                             </div>
                                             <div class="sense-explanation row" ng-show="sense.shortExplanation">
                                                 <div class="col-xs-12">

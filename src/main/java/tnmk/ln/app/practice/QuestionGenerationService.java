@@ -88,7 +88,7 @@ public class QuestionGenerationService {
                     break;
                 }
                 QuestionFillBlank questionFillBlank = constructFillBlankQuestionIfNotExist(expression, sense, example);
-                if (questionFillBlank.getQuestionParts().size() > 1) {
+                if (questionFillBlank.getQuestionParts() != null && questionFillBlank.getQuestionParts().size() > 1) {
                     questions.add(questionFillBlank);
                     examplesCount++;
                 }
