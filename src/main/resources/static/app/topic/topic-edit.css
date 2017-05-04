@@ -173,6 +173,14 @@
     border-radius: 4px;
     /* box-shadow: inset 0px 0px 1px rgba(0, 0, 0, 0.1); */
     padding: 5px 10px;
+    max-height: 69px;
+    overflow: hidden;
+}
+
+.teaser .body .description p, .teaser .body .description span {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .teaser .footer {
