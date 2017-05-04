@@ -40,8 +40,9 @@
             </div>
             <div class="x_content">
                 <!-- Expression Items Table -->
+                <div class="row" ng-include="contextPath + '/app/topic/topics-paging.html'"></div>
 
-                <div ng-repeat="topic in topicsService.topics" class="col-md-3 col-sm-6 col-xs-12 topic-item">
+                <div ng-repeat="topic in service.topicsDataTable.dataInPage" class="col-md-3 col-sm-6 col-xs-12 topic-item">
                     <div class="row teaser-wrapper">
                         <div class="col-xs-12">
                             <div class="row teaser">
@@ -51,7 +52,7 @@
                                             <input class="topic-title input-as-text"
                                                    ng-model="topic.title"
                                                    title="{{topic.title}}"
-                                                   ng-change="topicsService.rename(topic)" ng-model-options="{debounce: 1500}"/>
+                                                   ng-change="service.rename(topic)" ng-model-options="{debounce: 1500}"/>
                                         </div>
                                         <div class="pull-right">
                                             <div tnmk-dropdown>
@@ -61,13 +62,13 @@
 
                                                 <div class="tnmk-dropdown-body">
                                                     <div class="btn-xs btn-default">
-                                                        <a href="" ng-click="topicsService.removeTopic(topic)">
+                                                        <a href="" ng-click="service.removeTopic(topic)">
                                                             <i class="fa fa-trash-o"></i>
                                                         </a>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!--<a class="btn btn-xs btn-danger" href="" ng-click="topicsService.removeTopic(topic)">-->
+                                            <!--<a class="btn btn-xs btn-danger" href="" ng-click="service.removeTopic(topic)">-->
                                             <!--<i class="fa fa-remove"></i>-->
                                             <!--</a>-->
                                         </div>
@@ -110,6 +111,9 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="row" ng-include="contextPath + '/app/topic/topics-paging.html'"></div>
+
             </div>
         </div>
     </div>

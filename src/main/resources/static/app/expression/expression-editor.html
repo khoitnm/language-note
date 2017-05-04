@@ -1,17 +1,5 @@
 <div class="overlay">
-    <div class="overlay-header">
-        <!--<a href="" ng-click="service.modeEdit(expression)"-->
-        <!--class="overlay-btn overlay-btn-close">-->
-        <!--<i class="fa fa-compress"></i>-->
-        <!--</a>-->
-        <a href=""
-           title="Ctrl+S, Command+S"
-           ng-disabled="isRunning || service.topic.isSaving"
-           ng-click="service.saveExpressionInTopic(expression)" class="overlay-btn overlay-btn-save">
-            <i class="fa fa-check text-success"></i>
-        </a>
-
-        <!--<a href="" class="clearfix"></a>-->
+    <div class="overlay-header" ng-include="contextPath + '/app/topic/expression-editor-top-controller.html'">
     </div>
     <div class="overlay-content">
         <div class="col-xs-12">
@@ -20,10 +8,16 @@
                     <!-- Expression Header-->
                     <div class="expression header row">
                         <div class="col-xs-10">
+                            <!--<input ng-model="expression.text"-->
+                            <!--complete-input="service.topicCompositionEditor.changeItem(expression)"-->
+                            <!--ng-focus="service.topicCompositionEditor.copyMissingSkeleton(expression)"-->
+                            <!--ng-change="service.validateNotExistExpressionText(expression)"-->
+                            <!--placeholder="expression"-->
+                            <!--ng-model-options='{ debounce: 1000 }'-->
+                            <!--class="input-as-text dark-theme"/>-->
                             <input ng-model="expression.text"
-                                   complete-input="service.topicCompositionEditor.changeItem(expression)"
+                                   complete-input="service.topicCompositionEditor.copyMissingSkeleton(expression)"
                                    ng-focus="service.topicCompositionEditor.copyMissingSkeleton(expression)"
-                                   ng-change="service.validateNotExistExpressionText(expression)"
                                    placeholder="expression"
                                    ng-model-options='{ debounce: 1000 }'
                                    class="input-as-text dark-theme"/>
@@ -32,11 +26,11 @@
                             <div class="tnmk-dropdown-header">
                                 <a class="btn btn-xs" href='' title=''><i class="fa fa-cog dark-theme"></i></a>
                             </div>
-                            <div class="tnmk-dropdown-body">
-                                <a class="btn btn-xs dark-theme" href="" ng-click="service.topicCompositionEditor.removeItemAndAddSkeleton(expression)">
-                                    <i class="fa fa-trash-o dark-theme"></i>
-                                </a>
-                            </div>
+                            <!--<div class="tnmk-dropdown-body">-->
+                            <!--<a class="btn btn-xs dark-theme" href="" ng-click="service.topicCompositionEditor.removeItemAndAddSkeleton(expression)">-->
+                            <!--<i class="fa fa-trash-o dark-theme"></i>-->
+                            <!--</a>-->
+                            <!--</div>-->
                         </div>
                         <div class="pull-right">
                             <a href="" class="btn btn-xs"

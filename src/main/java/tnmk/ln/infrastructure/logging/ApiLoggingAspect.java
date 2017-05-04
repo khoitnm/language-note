@@ -13,7 +13,7 @@ import tnmk.common.infrastructure.logging.BaseLoggingAspect;
 @Component
 public class ApiLoggingAspect extends BaseLoggingAspect {
 
-    @Around("execution(* tnmk..api.*Resource.*(..))")
+    @Around("execution(* tnmk..*.*Resource.*(..))")
     public Object aroundRuntime(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         return super.aroundRuntime(proceedingJoinPoint);
     }
