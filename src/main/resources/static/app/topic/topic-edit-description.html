@@ -1,33 +1,16 @@
 <div class="col-xs-12">
-    <!--<div ng-show="!service.editingNote && !service.topic.noteAsHtml"-->
-    <!--ng-dblclick="service.startEditingNote()"-->
-    <!--class="well well-sm">-->
-    <!--<p style="font-style: italic; color: #D1D1D1;">Topic Description</p>-->
-    <!--</div>-->
-    <div class="well well-sm">
-        <textarea class="input-as-text" ng-model="service.topic.noteAsHtml"></textarea>
+    <div ng-show="!service.editingNote && service.topic.noteAsHtml"
+         ng-bind-html="service.topic.noteAsHtml"
+         ng-dblclick="service.editingNote = true"
+         class="well well-sm">
     </div>
-    <div ng-bind-html="service.topic.noteAsHtml">
-
+    <div ng-show="service.editingNote">
+        <textarea ck-editor="service.ckeditor.options"
+                  ng-model="service.topic.noteAsHtml"
+                  ready="service.ckeditor.onReady()"></textarea>
+        <br/>
+        <a class="ckeditor-btn-preview" ng-click="service.editingNote = false">
+            <span class="">Preview</span>
+        </a>
     </div>
-    <!--<div ng-show="!service.editingNote && service.topic.noteAsHtml"-->
-    <!--ng-bind-html="service.topic.noteAsHtml"-->
-    <!--ng-dblclick="service.startEditingNote()"-->
-    <!--class="well well-sm">-->
-    <!--</div>-->
-    <!--<div ng-show="service.editingNote">-->
-    <!--<textarea ck-editor="service.ckeditor.options" -->
-    <!--ng-model="service.topic.noteAsHtml" -->
-    <!--ready="service.ckeditor.onReady()"></textarea>-->
-    <!--<br/>-->
-    <!--<button class="btn btn-success" ng-click="service.stopEditingNote()">Preview</button>-->
-    <!--</div>-->
-
-    <!--Expression Type-->
-    <!--<div>-->
-    <!--<label>Expression Type: </label>-->
-
-    <!--<input type="radio" ng-model="service.topic.defaultExpressionType" ng-change="service.selectExpressionType()" value="word" name="optionsRadios"> Word-->
-    <!--<input type="radio" ng-model="service.topic.defaultExpressionType" ng-change="service.selectExpressionType()" value="phrasal verb" name="optionsRadios"> Phrasal Verb-->
-    <!--</div>-->
 </div>
