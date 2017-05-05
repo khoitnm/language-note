@@ -42,7 +42,9 @@
                 <!-- Expression Items Table -->
                 <div class="row" ng-include="contextPath + '/app/topic/topics-paging.html'"></div>
 
-                <div ng-repeat="topic in service.topicsDataTable.dataInPage" class="col-md-3 col-sm-6 col-xs-12 topic-item">
+                <div ng-repeat="topic in service.topicsDataTable.pager.items track by $index"
+                     ng-if="$index >= service.topicsDataTable.pager.startIndex && $index <= service.topicsDataTable.pager.endIndex"
+                     class="col-md-3 col-sm-6 col-xs-12 topic-item">
                     <div class="row teaser-wrapper">
                         <div class="col-xs-12">
                             <div class="row teaser">

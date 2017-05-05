@@ -20,7 +20,8 @@
     <div class="row" ng-include="contextPath + '/app/topic/topic-edit-expessions-paging.html'"></div>
 
     <div class="row">
-        <div ng-repeat="expression in service.expressionsDataTable.dataInPage track by $index"
+        <div ng-repeat="expression in service.expressionsDataTable.pager.items track by $index"
+             ng-if="$index >= service.expressionsDataTable.pager.startIndex && $index <= service.expressionsDataTable.pager.endIndex"
              ng-class="(service.editingExpression && service.editingExpression == expression) ? 'col-xs-12' : 'col-md-4'">
             <div class="row expression-item" ng-if="service.editingExpression != expression"
                  ng-include="contextPath + '/app/topic/topic-edit-expression-teaser.html'"></div>
@@ -28,8 +29,6 @@
                  class="row expression-item"
                  ng-include="contextPath + '/app/topic/topic-edit-expression-editor.html'">
             </div>
-
-
         </div>
     </div>
 
