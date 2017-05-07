@@ -14,8 +14,6 @@ import tnmk.ln.app.topic.entity.Topic;
 import tnmk.ln.infrastructure.security.helper.SecurityContextHelper;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
 
-import java.util.List;
-
 /**
  * @author khoi.tran on 3/4/17.
  */
@@ -23,6 +21,9 @@ import java.util.List;
 public class TopicResource {
     @Autowired
     TopicService topicService;
+
+    @Autowired
+    TopicBriefService topicBriefService;
 
     @Autowired
     TopicDeletionService topicDeletionService;
@@ -35,12 +36,18 @@ public class TopicResource {
         return TopicCompositeFactory.constructSchema();
     }
 
-    @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/topics/mine", method = RequestMethod.GET)
-    public List<Topic> getTopicBriefsByOnwer() {
-        User user = SecurityContextHelper.validateExistAuthenticatedUser();
-        return topicService.getTopicBriefsByOwner(user);
-    }
-
+    /**
+     * @param keyword
+     * @param where
+     * @return
+     */
+//    @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/topics/mine", method = RequestMethod.GET)
+//    public List<Topic> getTopicBriefsByOwner(
+//            @RequestParam(value = "keyword", required = false) String keyword,
+//            @RequestParam(value = "where", required = false, defaultValue = "1") String where) {
+//        User user = SecurityContextHelper.validateExistAuthenticatedUser();
+//        return topicBriefService.getTopicBriefsByOwner(user);
+//    }
     @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/topics/{topicId}/detail", method = RequestMethod.GET)
     public TopicComposite getDetailTopic(@PathVariable String topicId) {
         User user = SecurityContextHelper.validateExistAuthenticatedUser();

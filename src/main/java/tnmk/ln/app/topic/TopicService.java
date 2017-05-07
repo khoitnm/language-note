@@ -48,12 +48,6 @@ public class TopicService {
         return topicRepository.findOne(NumberUtil.toLong(topicId));
     }
 
-    public List<Topic> getTopicBriefsByOwner(User user) {
-        List<Topic> topics = topicDetailRepository.findByOwner(user.getId());
-//        topics.stream().forEach(topic -> limitExpressionInTopics(topic, 4));
-        return topics;
-    }
-
 //    private void limitExpressionInTopics(Topic topic, int maxExpressions) {
 //        Set<Expression> expressions = SetUtil.getTop(topic.getExpressions(), maxExpressions);
 //        topic.setExpressions(expressions);

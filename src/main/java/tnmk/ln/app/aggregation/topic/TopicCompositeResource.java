@@ -4,10 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import tnmk.ln.app.aggregation.topic.model.TopicComposite;
 import tnmk.ln.app.common.entity.UriPrefixConstants;
 import tnmk.ln.app.dictionary.entity.Expression;
+import tnmk.ln.app.topic.TopicBriefService;
 import tnmk.ln.app.topic.TopicService;
 import tnmk.ln.app.topic.entity.Topic;
 import tnmk.ln.infrastructure.security.helper.SecurityContextHelper;
@@ -24,15 +26,19 @@ public class TopicCompositeResource {
     TopicService topicService;
 
     @Autowired
+    TopicBriefService topicBriefService;
+    @Autowired
     TopicDeletionService topicDeletionService;
 
     @Autowired
     TopicCompositeService topicCompositeService;
 
     @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/topic-briefs/mine", method = RequestMethod.GET)
-    public List<Topic> findAllTopicBriefs() {
+    public List<Topic> findAllTopicBriefs(
+            @RequestParam(value = "keyword", required = false) String keyword,
+            @RequestParam(value = "where", required = false, defaultValue = "1") Integer where) {
         User user = SecurityContextHelper.validateExistAuthenticatedUser();
-        return topicService.getTopicBriefsByOwner(user);
+        return topicBriefService.getTopicBriefsByOwner(user, where, keyword);
     }
 
     @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/topic-composites", method = RequestMethod.POST)

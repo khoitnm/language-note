@@ -14,9 +14,9 @@
     <div class="title_right">
         <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Topics...">
+                <input type="text" ng-model="service.keyword" complete-input="service.init()" class="form-control" placeholder="Topics...">
                     <span class="input-group-btn">
-                      <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+                      <button class="btn btn-default" type="button" ng-click="service.init()"><i class="fa fa-search"></i></button>
                     </span>
             </div>
         </div>
@@ -43,7 +43,7 @@
                 <div class="row" ng-include="contextPath + '/app/topic/topics-paging.html'"></div>
 
                 <div ng-repeat="topic in service.topicsDataTable.pager.items track by $index"
-                     ng-if="$index >= service.topicsDataTable.pager.startIndex && $index <= service.topicsDataTable.pager.endIndex"
+                     ng-if="$index >= service.topicsDataTable.pager.startIndex && $index <= service.topicsDataTable.startIndex + service.topicsDataTable.pager.pageSize"
                      class="col-md-3 col-sm-6 col-xs-12 topic-item">
                     <div class="row teaser-wrapper">
                         <div class="col-xs-12">

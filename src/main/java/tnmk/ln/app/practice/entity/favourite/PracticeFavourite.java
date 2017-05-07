@@ -1,5 +1,6 @@
 package tnmk.ln.app.practice.entity.favourite;
 
+import org.neo4j.ogm.annotation.Index;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 import tnmk.ln.app.common.entity.BaseNeo4jEntity;
@@ -12,9 +13,11 @@ import tnmk.ln.infrastructure.security.neo4j.entity.User;
 public class PracticeFavourite extends BaseNeo4jEntity {
     private static final String FAVOURITE_EXPRESSION_OWNER = "FAVOURITE_EXPRESSION_OWNER";
 
+    @Index
     private String expressionId;
     private int favourite;
     @Relationship(type = FAVOURITE_EXPRESSION_OWNER, direction = Relationship.INCOMING)
+    @Index
     private User owner;
 
     public String getExpressionId() {

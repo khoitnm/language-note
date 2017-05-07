@@ -23,4 +23,13 @@ public interface ExpressionRepository extends MongoRepository<Expression, String
 
     @Query(value = "{'text': ?0}", fields = "{'_id':1, 'text':1}")
     Expression findOneBriefByText(String trimmedText);
+
+    /**
+     * https://docs.mongodb.com/manual/reference/operator/query/text/
+     *
+     * @param expression
+     * @return
+     */
+    @Query(value = "{'text': {$regex : ?0}}", fields = "{'_id':1}")
+    List<Expression> findIdsByContainText(String expression);
 }

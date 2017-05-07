@@ -18,7 +18,7 @@ public class PracticeFavouriteCustomRepository {
         String queryString = String.join("",
                 "MATCH (p:PracticeFavourite)"
                 , " WHERE p.expressionId = {p1}"
-                , " MATCH (e)-[:FAVOURITE_EXPRESSION_OWNER]-(u:User)"
+                , " MATCH (e)<-[:FAVOURITE_EXPRESSION_OWNER]-(u:User)"
                 , " WHERE id(u)={p0}"
                 , " RETURN p"
         );

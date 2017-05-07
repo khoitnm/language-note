@@ -3,6 +3,7 @@ var TopicsService = function ($http, $q) {
     this.$q = $q;
 
     this.topics = [];
+    this.keyword = undefined;
     this.topicsPageSize = 12;
     this.topicsDataTable = new DataTable(this.topics, this.topicsPageSize);
     this.init();
@@ -10,7 +11,9 @@ var TopicsService = function ($http, $q) {
 
 TopicsService.prototype.init = function () {
     var self = this;
-    var topicsGet = self.$http.get(contextPath + '/api/topic-briefs/mine');
+    var url = contextPath + '/api/topic-briefs/mine';
+    if (self.keyword) url += '?where=3&keyword=' + self.keyword;
+    var topicsGet = self.$http.get(url);
     self.$q.all([topicsGet]).then(function (arrayOfResults) {
         self.topics = arrayOfResults[0].data;
         self.topicsDataTable.setData(self.topics);

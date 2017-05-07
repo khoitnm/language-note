@@ -22,6 +22,8 @@ TopicEditService.prototype.init = function () {
     var topicId = self.$routeParams.topicId;
     self.initData(topicId);
 };
+//Load more: http://www.developphp.com/video/JavaScript/Scroll-Load-Dynamic-Content-When-User-Reach-Bottom-Ajax
+
 TopicEditService.prototype.initData = function (topicId) {
     var self = this;
     self.initUploader();

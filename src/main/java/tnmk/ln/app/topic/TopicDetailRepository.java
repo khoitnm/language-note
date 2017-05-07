@@ -31,6 +31,11 @@ public class TopicDetailRepository {
         return neo4jRepository.findList(Topic.class, queryString, ownerId);
     }
 
+    public List<Topic> findByOwnerAndTitle(long ownerId, String title) {
+        String queryString = String.format("MATCH (n:Topic)<-[r:%s]-(u:User) WHERE id(u)={p0} AND LOWER(u.title) = LOWER({p1}) RETURN n", Topic.OWN_TOPIC);
+        return neo4jRepository.findList(Topic.class, queryString, ownerId, title);
+    }
+
     public List<Topic> findByOwner(long ownerId, int depth) {
         String queryString = String.format("MATCH (t:Topic)"
                 + " MATCH (t)<-[r:OWN_TOPIC]-(u:User) "
@@ -83,5 +88,28 @@ public class TopicDetailRepository {
     public List<Topic> findByIdIn(List<Long> topicIds) {
         String queryString = ClassPathQueryLoader.loadQuery("/tnmk/ln/app/practice/query/load-topics-by-ids.cql", topicIds);
         return neo4jRepository.findList(Topic.class, queryString, topicIds);
+    }
+
+    public List<Topic> findByOwnerAndContainTitleOrExpressionIds(Long ownerId, String title, List<String> expressionIds) {
+        String queryString = String.format("MATCH (n:Topic)<-[r:%s]-(u:User) "
+                + " UNWIND n.expressionIds AS expressionId "
+                + " WITH n, expressionId "
+                + " WHERE id(u)={p0} AND ("
+                + "     LOWER(n.title) CONTAINS LOWER({p1}) "
+                + "     OR expressionId IN {p2}"
+                + " )"
+                + " RETURN n", Topic.OWN_TOPIC);
+        return neo4jRepository.findList(Topic.class, queryString, ownerId, title, expressionIds);
+    }
+
+    public List<Topic> findByOwnerAndExpressionIds(Long ownerId, List<String> expressionIds) {
+        String queryString = String.format("MATCH (n:Topic)<-[r:%s]-(u:User) "
+                + " UNWIND n.expressionIds AS expressionId "
+                + " WITH n, expressionId "
+                + " WHERE id(u)={p0} AND ("
+                + "     expressionId IN {p1}"
+                + " )"
+                + " RETURN n", Topic.OWN_TOPIC);
+        return neo4jRepository.findList(Topic.class, queryString, ownerId, expressionIds);
     }
 }
