@@ -9,7 +9,7 @@
                   ng-model="service.topic.noteAsHtml"
                   ready="service.ckeditor.onReady()"></textarea>
         <br/>
-        <a class="ckeditor-btn-preview" ng-click="service.editingNote = false">
+        <a class="ckeditor-btn-preview" ng-disabled="isRunning" ng-click="service.editingNote = false; service.saveTopicOnly();">
             <span class="">Preview</span>
         </a>
     </div>

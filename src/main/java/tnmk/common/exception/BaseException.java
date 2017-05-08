@@ -3,8 +3,7 @@ package tnmk.common.exception;
 /**
  * This is the base exception of this project.
  */
-public class
-BaseException extends RuntimeException {
+public class BaseException extends RuntimeException {
     private static final long serialVersionUID = -8279292782665815881L;
     /**
      * At this moment (2016-04-19), the error code is number, but in future it can be string (e.g. "12.01.02").

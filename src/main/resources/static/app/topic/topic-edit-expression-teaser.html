@@ -3,9 +3,7 @@
     <div class="expression-teaser row">
         <div class="col-xs-12">
             <div class="header row" ng-mouseover="service.playSoundAutomatically(expression)">
-                <div class="pull-left">
-                    <button ng-click="service.modeEdit(expression)" class="btn btn-xs btn-success" title="{{$index+1}}"><i class="fa fa-edit"></i></button>
-                </div>
+
                 <div class="pull-left" style="width: 70%">
                     <input ng-model="expression.text"
                            ng-change="expression.errorMessage = undefined;"
@@ -37,8 +35,11 @@
                         <i class="fa fa-volume-up"></i>
                     </a>
                 </div>
+                <div class="pull-right">
+                    <a href="" ng-click="service.modeEdit(expression)" class="btn-xs" title="{{$index+1}}"><i class="fa fa-edit"></i></a>
+                </div>
                 <div class="clearfix"></div>
-                <div class="col-xs-12" ng-include="contextPath + '/app/topic/expression-favourite.html'" style="padding-left: 29px;"></div>
+                <div class="" ng-include="contextPath + '/app/topic/expression-favourite.html'" style=""></div>
             </div>
 
             <div class="row" ng-if="expression.errorMessage">
