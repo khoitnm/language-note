@@ -92,3 +92,12 @@
 .white-smoke-teaser a:hover {
     color: #73879C;
 }
+
+.white-smoke-teaser .bottom-tools {
+    margin: 0 auto;
+}
+
+.white-smoke-teaser .bottom-tools .teaser-tool {
+    display: inline-block;
+    width: 30px;
+}

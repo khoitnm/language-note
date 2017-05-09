@@ -9,30 +9,8 @@
                     Empty topic
                 </div>
             </div>
-            <div class="pull-right">
-                <div tnmk-dropdown>
-                    <a class="tnmk-dropdown-header btn-xs" href='' title=''>
-                        <i class="fa fa-cog"></i>
-                    </a>
-
-                    <div class="tnmk-dropdown-body">
-                        <div class="btn-xs btn-default">
-                            <a href="" ng-click="service.removeTopic(topic)">
-                                <i class="fa fa-trash-o"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="pull-right">
-                <a class="btn btn-xs" href="#!/topic-edit?topicId={{topic.id}}" title="Edit">
-                    <i class="fa fa-edit"></i>
-                </a>
-            </div>
-            <div class="pull-right">
-                <a class="btn btn-xs" href="#!/practice?topicId={{topic.id}}" title="Test">
-                    <i class="fa fa-tasks"></i>
-                </a>
+            <div class="pull-right small">
+                <span>{{topic.createdDateTime | date:'dd MMM yyyy hh:mm:ss'}}</span>
             </div>
             <div class="clearfix"></div>
         </div>
@@ -47,8 +25,31 @@
             <div class="description" ng-bind-html="topic.noteAsHtml">
             </div>
         </div>
-        <div class="teaser-content-section footer">
-            <span class="small">{{topic.createdDateTime | date:'dd MMM yyyy hh:mm:ss'}}</span>
+        <div class="teaser-content-section bottom-tools footer">
+            <div class="teaser-tool">
+                <a class="" href="#!/topic-edit?topicId={{topic.id}}" title="Edit">
+                    <i class="fa fa-edit"></i>
+                </a>
+            </div>
+            <div class="teaser-tool">
+                <a class="" href="#!/practice?topicId={{topic.id}}" title="Test">
+                    <i class="fa fa-tasks"></i>
+                </a>
+            </div>
+            <div class="teaser-tool">
+                <div tnmk-dropdown>
+                    <div class="tnmk-dropdown-header teaser-tool">
+                        <a href='' title=''>
+                            <i class="fa fa-cog"></i>
+                        </a>
+                    </div>
+                    <div class="tnmk-dropdown-body teaser-tool">
+                        <a href="" ng-click="service.removeTopic(topic)">
+                            <i class="fa fa-trash-o"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
