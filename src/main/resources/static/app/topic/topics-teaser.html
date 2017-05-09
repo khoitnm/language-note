@@ -1,0 +1,54 @@
+<div class="white-shadow-teaser teaser-wrapper">
+    <div class="teaser-content">
+        <div class="teaser-content-section top-tools">
+            <div class="pull-left small">
+                <div ng-show="topic.expressionIds.length > 0">
+                    {{topic.expressionIds.length}} expression<span ng-show="topic.expressionIds.length > 1">s</span>
+                </div>
+                <div ng-show="!topic.expressionIds || topic.expressionIds.length == 0">
+                    Empty topic
+                </div>
+            </div>
+            <div class="pull-right">
+                <div tnmk-dropdown>
+                    <a class="tnmk-dropdown-header btn-xs" href='' title=''>
+                        <i class="fa fa-cog"></i>
+                    </a>
+
+                    <div class="tnmk-dropdown-body">
+                        <div class="btn-xs btn-default">
+                            <a href="" ng-click="service.removeTopic(topic)">
+                                <i class="fa fa-trash-o"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pull-right">
+                <a class="btn btn-xs" href="#!/topic-edit?topicId={{topic.id}}" title="Edit">
+                    <i class="fa fa-edit"></i>
+                </a>
+            </div>
+            <div class="pull-right">
+                <a class="btn btn-xs" href="#!/practice?topicId={{topic.id}}" title="Test">
+                    <i class="fa fa-tasks"></i>
+                </a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="teaser-content-section header">
+            <input type="text"
+                   ng-model="topic.title"
+                   title="{{topic.title}}"
+                   ng-change="service.rename(topic)" ng-model-options="{debounce: 1500}"
+                   class="input-as-text" placeholder="Title"/>
+        </div>
+        <div class="teaser-content-section body">
+            <div class="description" ng-bind-html="topic.noteAsHtml">
+            </div>
+        </div>
+        <div class="teaser-content-section footer">
+            <span class="small">{{topic.createdDateTime | date:'dd MMM yyyy hh:mm:ss'}}</span>
+        </div>
+    </div>
+</div>
