@@ -26,10 +26,11 @@ public interface ExpressionRepository extends MongoRepository<Expression, String
 
     /**
      * https://docs.mongodb.com/manual/reference/operator/query/text/
+     * <strong>Note:</strong> The field Expression.text must be full text indexed before running this query.
      *
      * @param expression
      * @return
      */
-    @Query(value = "{'text': {$regex : ?0}}", fields = "{'_id':1}")
+    @Query(value = "{$text: {$search : ?0}}", fields = "{'_id':1}")
     List<Expression> findIdsByContainText(String expression);
 }
