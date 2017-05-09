@@ -1,5 +1,6 @@
 /* COMMON FOR ALL TEASERS */
 .teaser-wrapper {
+    width: 25%;
     float: left;
 }
 
@@ -27,7 +28,6 @@
 }
 
 .white-smoke-teaser.teaser-wrapper {
-    width: 20%;
     padding: 0px 20px 20px 0px;
 }
 
@@ -68,8 +68,16 @@
     border-bottom: 1px dotted rgba(0, 0, 0, 0.2);
 }
 
+.white-smoke-teaser .teaser-content .header .input-as-text:hover {
+    border-bottom-color: rgba(0, 0, 0, 0.2);
+}
+
 .white-smoke-teaser .teaser-content .header .input-as-text:focus {
-    border-bottom-color: rgba(0, 0, 0, 0.25);
+    color: #1abb9c;
+    border-bottom-color: #1abb9c;
+    /*#26B99A;*/
+    /*#48c5aa;*/
+    /*#73f9dd;*/
 }
 
 .white-smoke-teaser .teaser-content .header .input-as-text::-webkit-input-placeholder {
@@ -97,6 +105,10 @@
     color: #73879C;
 }
 
+.white-smoke-teaser .highlight:hover {
+    color: #1abb9c;
+}
+
 .white-smoke-teaser .bottom-tools {
     margin: 0 auto;
 }
@@ -104,4 +116,29 @@
 .white-smoke-teaser .bottom-tools .teaser-tool {
     display: inline-block;
     width: 30px;
+}
+
+/* TEASER SIZE DEPEND ON SCREENSIZE*/
+@media only screen and (max-width: 1300px), only screen and (max-device-width: 1300px) {
+    .teaser-wrapper {
+        width: 25%;
+    }
+}
+
+@media only screen and (max-width: 1199px), only screen and (max-device-width: 1199px) {
+    .teaser-wrapper {
+        width: 33%;
+    }
+}
+
+@media only screen and (max-width: 768px), only screen and (max-device-width: 768px) {
+    .teaser-wrapper {
+        width: 50%;
+    }
+}
+
+@media only screen and (max-width: 550px), only screen and (max-device-width: 550px) {
+    .teaser-wrapper {
+        width: 100%;
+    }
 }
