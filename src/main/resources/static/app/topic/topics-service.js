@@ -4,7 +4,7 @@ var TopicsService = function ($http, $q) {
 
     this.topics = [];
     this.keyword = undefined;
-    this.topicsPageSize = 12;
+    this.topicsPageSize = 10;
     this.topicsDataTable = new DataTable(this.topics, this.topicsPageSize);
     this.init();
 };
