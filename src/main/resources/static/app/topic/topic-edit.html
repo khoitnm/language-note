@@ -21,17 +21,6 @@
     </div>
 
     <div class="col-xs-12 page-section-body">
-        <div class="row">
-            <div class="expression-spatial-white teaser-wrapper teaser-4-cols" ng-repeat="expression in service.topic.expressions track by $index">
-                <div class="teaser-content"
-                     ng-if="service.editingExpression != expression"
-                     ng-include="contextPath + '/app/topic/topic-edit-expression-teaser.html'">
-                </div>
-                <div class="row expression-item"
-                     ng-if="(service.editingExpression && service.editingExpression == expression)"
-                     ng-include="contextPath + '/app/topic/topic-edit-expression-editor.html'">
-                </div>
-            </div>
-        </div>
+        <div class="row" ng-include="contextPath + '/app/topic/topic-edit-expressions.html'"></div>
     </div>
 </div>

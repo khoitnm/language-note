@@ -1,20 +1,18 @@
-<div class="image-content">
-    <!--<img ng-repeat="photo in sense.photos" class="sense-image" ng-src="{{contextPath + '/api/files/'+photo.fileItemId}}"/>-->
+<!--<img ng-repeat="photo in sense.photos" class="sense-image" ng-src="{{contextPath + '/api/files/'+photo.fileItemId}}"/>-->
 
-    <div class="images-carousel">
-        <ul>
-            <li ng-repeat="photo in sense.photos track by $index" ng-if="photo.fileItemId">
-                <a href="">
-                    <div class="middle-wrapper">
-                        <div class="middle-vertical">
-                            <div class="middle-horizontal img-with-close-wrapper">
-                                <img ng-src="{{contextPath + '/api/files/'+photo.fileItemId}}">
-                            </div>
+<div class="images-carousel">
+    <ul>
+        <li ng-repeat="photo in sense.photos track by $index" ng-if="photo.fileItemId">
+            <a href="">
+                <div class="middle-wrapper">
+                    <div class="middle-vertical">
+                        <div class="middle-horizontal img-with-close-wrapper">
+                            <img ng-src="{{contextPath + '/api/files/'+photo.fileItemId}}">
                         </div>
                     </div>
-                </a>
-            </li>
-        </ul>
-    </div>
+                </div>
+            </a>
+        </li>
+    </ul>
 </div>
 

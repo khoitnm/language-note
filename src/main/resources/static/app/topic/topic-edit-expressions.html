@@ -1,41 +1,10 @@
-<div class="col-xs-12">
-    <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-4 form-group has-feedback">
-            <form class="form-horizontal form-label-left">
-
-                <label class="control-label col-xs-6 text-left">Expressions per Page </label>
-
-                <div class="input-group">
-                    <input type="text" class="form-control"
-                           complete-input="service.expressionsDataTable.setPageSize(service.expressionsPageSize)"
-                           ng-model="service.expressionsPageSize"/>
-                </div>
-            </form>
-        </div>
-        <div class="col-xs-12">
-        </div>
+<div class="expression-spatial-white teaser-wrapper teaser-4-cols" ng-repeat="expression in service.topic.expressions track by $index">
+    <div class="teaser-content"
+         ng-if="service.editingExpression != expression"
+         ng-include="contextPath + '/app/topic/topic-edit-expression-teaser.html'">
     </div>
-
-    <div class="ln_solid"></div>
-    <!--<div class="row" ng-include="contextPath + '/app/topic/topic-edit-expessions-paging.html'"></div>-->
-
-
-    <div class="row">
-
-
-        <div ng-repeat="expression in service.topic.expressions track by $index"
-             ng-class="(service.editingExpression && service.editingExpression == expression) ? 'col-xs-12' : 'col-md-4'">
-            <!--<div ng-repeat="expression in service.expressionsDataTable.pager.items track by $index"-->
-            <!--ng-if="$index >= service.expressionsDataTable.pager.startIndex && $index <= service.expressionsDataTable.pager.startIndex + service.expressionsDataTable.pager.pageSize"-->
-            <!--ng-class="(service.editingExpression && service.editingExpression == expression) ? 'col-xs-12' : 'col-md-4'">-->
-            <div class="row expression-item" ng-if="service.editingExpression != expression"
-                 ng-include="contextPath + '/app/topic/topic-edit-expression-teaser.html'"></div>
-            <div ng-if="(service.editingExpression && service.editingExpression == expression)"
-                 class="row expression-item"
-                 ng-include="contextPath + '/app/topic/topic-edit-expression-editor.html'">
-            </div>
-        </div>
+    <div class="row expression-item"
+         ng-if="(service.editingExpression && service.editingExpression == expression)"
+         ng-include="contextPath + '/app/topic/topic-edit-expression-editor.html'">
     </div>
-
-    <!--<div class="row" ng-include="contextPath + '/app/topic/topic-edit-expessions-paging.html'"></div>-->
 </div>

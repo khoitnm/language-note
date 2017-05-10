@@ -846,10 +846,6 @@ a .fa.dark-theme:hover {
     text-shadow: none;
 }
 
-.rating-empty-container .rating-item:before {
-    content: "\f1db"; /* fa-circle-thin */
-}
-
 .rating-container .rating-item:hover:before,
 .rating-container .rating-item:hover ~ .rating-item:before {
     content: "\f005";
@@ -867,8 +863,10 @@ a .fa.dark-theme:hover {
     color: #26B99A;
 }
 
-.rating-empty-container .rating-item.selected:before {
-    content: "\f1db"; /* fa-circle-thin */
+.rating-empty-container .rating-item:before {
+    /*content: "\f1db"; !* fa-circle-thin *!*/
+    content: "\f192"; /* fa-dot-circle-o */
+    /*content: "\f1db"; !* fa-circle-thin *!*/
     /*content: "\f10c"; !* fa-circle-o *!*/
     /*content: "\f006";*/ /*Empty Star*/
 }

@@ -1,0 +1,12 @@
+<!--<div class="text-left pull-left">-->
+<!--<span class="rating-label" style="cursor: pointer" ng-click="service.favour(expression, 0)">Priority </span>-->
+<!--</div>-->
+<div class="pull-left rating-empty-container" style="padding-right: 5px;">
+    <span class="indexing-item rating-item" ng-class="expression.favourite == 0 ? 'selected': ''" ng-click="service.favour(expression, 0)"></span>
+</div>
+<div class="pull-left rating-container">
+    <span class="indexing-item rating-item" ng-class="expression.favourite >= 4 ? 'selected': ''" ng-click="service.favour(expression, 4)"></span>
+    <span class="indexing-item rating-item" ng-class="expression.favourite >= 3 ? 'selected': ''" ng-click="service.favour(expression, 3)"></span>
+    <span class="indexing-item rating-item" ng-class="expression.favourite >= 2 ? 'selected': ''" ng-click="service.favour(expression, 2)"></span>
+</div>
+<div class="clearfix"></div>

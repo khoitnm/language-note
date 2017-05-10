@@ -31,6 +31,16 @@
     padding-right: 20px;
 }
 
+/* RATING */
+.expression-spatial-white .teaser-content .rating-container, .expression-spatial-white .teaser-content .rating-empty-container {
+    line-height: 14px;
+    padding-top: 2px;
+}
+
+.expression-spatial-white .teaser-content .indexing-item {
+    font-size: 12px;
+}
+
 /* EXPRESSION-TEXT ================================================================================= */
 .expression-spatial-white .teaser-content .expression-text {
     padding-left: 8%;
@@ -69,8 +79,17 @@
 }
 
 /* SENSE GROUP ================================================================================= */
-.expression-spatial-white .teaser-content .lexical-type {
+.expression-spatial-white .teaser-content .sense-group {
     padding-left: 8%;
+    padding-right: 8%;
+}
+
+.expression-spatial-white .teaser-content .sense-group:not(:last-child) {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.expression-spatial-white .teaser-content .lexical-type {
     text-transform: lowercase;
     font-size: 1.2em;
     color: #48c5aa;
@@ -79,9 +98,13 @@
 
 /* SENSE - EXPLANATION ================================================================================= */
 .expression-spatial-white .teaser-content .sense {
-    padding: 30px 8% 10px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
-    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.expression-spatial-white .teaser-content .sense:not(:last-child) {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
 .expression-spatial-white .teaser-content .sense-explanation {
@@ -91,14 +114,40 @@
 }
 
 /* SENSE - IMAGE ================================================================================= */
-.expression-spatial-white .teaser-content .sense-image {
-    max-width: 100%;
-    max-height: 200px;
+.expression-spatial-white .teaser-content .sense-image-wrapper, .expression-spatial-white .teaser-content .sense-video {
     border: 1px solid rgba(0, 0, 0, 0.025);
     background: rgba(0, 0, 0, 0.05);
     box-shadow: 0 1px 0px rgba(255, 255, 255, 0.3);
-
     /*box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 1px 0px rgba(255, 255, 255, 0.3);*/
+}
+
+/* SENSE - IMAGE-CAROUSEL ================================================================================= */
+.expression-spatial-white .teaser-content .images-carousel {
+    height: 200px;
+    margin: 0px auto;
+    border-top: 0px;
+    border-bottom: 0px;
+    box-shadow: 0 0 0 white;
+}
+
+.expression-spatial-white .teaser-content .images-carousel li {
+    height: auto;
+    padding: 0px;
+}
+
+.expression-spatial-white .teaser-content .images-carousel li:not(:last-child) {
+    padding-right: 5px;
+}
+
+.expression-spatial-white .teaser-content .images-carousel img {
+    display: block;
+    max-width: 800px;
+    max-height: 200px;
+}
+
+.expression-spatial-white .teaser-content .sense-image-wrapper .sense-image {
+    max-width: 100%;
+    max-height: 200px;
 }
 
 /* SENSE - EXAMPLE ================================================================================= */
