@@ -1,4 +1,38 @@
 .page-section-title {
-    font-size: 150%;
+    font-size: 1.5em;
     margin-bottom: 20px;
+}
+
+/* INPUT-AS-TEXT */
+.page-section-title .input-as-text {
+    color: #73879C;
+    font-size: 1.0em; /* Same as text */
+    border-color: transparent;
+}
+
+.page-section-title .input-as-text:not(:focus) {
+    border-color: transparent;
+}
+
+/* When input has text content */
+/*noinspection CssInvalidPseudoSelector*/
+.page-section-title .input-as-text:placeholder-shown {
+    border-bottom: 1px dotted rgba(0, 0, 0, 0.2);
+}
+
+.page-section-title .input-as-text:hover {
+    border-bottom-color: rgba(0, 0, 0, 0.2);
+}
+
+.page-section-title .input-as-text:focus {
+    color: #1abb9c;
+    border-bottom-color: #1abb9c;
+    /*#26B99A;*/
+    /*#48c5aa;*/
+    /*#73f9dd;*/
+}
+
+.page-section-title .input-as-text::-webkit-input-placeholder {
+    color: #73879C;
+    opacity: 0.3;
 }

@@ -1,0 +1,58 @@
+<!--Back up of topic-edit.html-->
+
+<!-- TOP MENU -->
+<div class="row page-content-top-nav" ng-include="contextPath + '/app/topic/topic-edit-nav.html'"></div>
+<!--<div class="ln_solid" style="margin: 10px 0px;"></div>-->
+<!-- Topic Content -->
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2 style="width: 100%">
+                    <input ng-model="service.topic.title"
+                           type="text"
+                           placeholder="Topic" class="input-as-text"/>
+                </h2>
+                <ul class="nav navbar-right panel_toolbox">
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <!--Description-->
+                <div class="row" ng-include="contextPath + '/app/topic/topic-edit-description.html'"></div>
+                <!--Categories-->
+                <!--<div class="row" ng-include="contextPath + '/app/topic/topic-edit-categories.html'"></div>-->
+                <!--<div class="ln_solid"></div>-->
+
+                <!-- Topic Detail -->
+                <div class="text-danger alert alert-danger" ng-show="unexpectedMessage">
+                    {{unexpectedMessage}}
+                </div>
+                <div class="text-danger alert alert-danger" ng-show="userErrorMessage">
+                    {{userErrorMessage}}
+                </div>
+
+                <div class="row" ng-include="contextPath + '/app/topic/topic-edit-expressions.html'"></div>
+                <div class="ln_solid"></div>
+
+
+                <!--Save button-->
+                <!--<div class="form-group">-->
+                <!--<div class="col-md-6 col-sm-6 col-xs-12">-->
+                <!--<button ng-disabled="isRunning || service.topic.isSaving"-->
+                <!--ng-click="service.saveTopicOnly()"-->
+                <!--type="submit" class="btn btn-success"-->
+                <!--title="Ctrl+S, Command+S">-->
+                <!--Save-->
+                <!--</button>-->
+
+                <!--<button ng-click="service.cleanTopic()" type="submit" class="btn btn-success">-->
+                <!--Clean up topic-->
+                <!--</button>-->
+                <!--</div>-->
+                <!--</div>-->
+            </div>
+        </div>
+    </div>
+</div>

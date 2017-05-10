@@ -1,3 +1,5 @@
+<!--Back up of topic-edit.html-->
+
 <!-- TOP MENU -->
 <div class="row page-content-top-nav" ng-include="contextPath + '/app/topic/topic-edit-nav.html'"></div>
 <!--<div class="ln_solid" style="margin: 10px 0px;"></div>-->
@@ -24,7 +26,7 @@
             <div class="expression-spatial-white teaser-wrapper teaser-4-cols" ng-repeat="expression in service.topic.expressions track by $index">
                 <div class="teaser-content"
                      ng-if="service.editingExpression != expression"
-                     ng-include="contextPath + '/app/topic/topic-edit-expression-teaser.html'">
+                     ng-include="contextPath + '/app/topic/topic-edit-expression-teaser-spatial-white.html'">
                 </div>
                 <div class="row expression-item"
                      ng-if="(service.editingExpression && service.editingExpression == expression)"
