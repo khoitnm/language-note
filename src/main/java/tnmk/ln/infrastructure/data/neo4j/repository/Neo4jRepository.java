@@ -119,6 +119,16 @@ public class Neo4jRepository {
         return IterableUtil.toList(iterable);
     }
 
+    public int removeElementInArraysOfNode(Long nodeId, String propertyName, Object elementValue) {
+        String queryString = String.join("",
+                " MATCH (n)"
+                        + " WHERE ID(n)={p0} "
+                        + " SET n.", propertyName, " = FILTER(x IN n.", propertyName, " WHERE x <> {p1})"
+        );
+        Result result = session.query(queryString, constructParams(nodeId, elementValue));
+        return result.queryStatistics().getRelationshipsDeleted();
+    }
+
     public int detachTwoEntities(Long idA, Long idB) {
         String queryString = String.join("",
                 "MATCH (a)-[r]-(b) WHERE ID(a)={p0} and ID(b)={p1} DELETE r"

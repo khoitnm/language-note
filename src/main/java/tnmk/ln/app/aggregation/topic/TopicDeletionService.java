@@ -33,10 +33,10 @@ public class TopicDeletionService {
     private PossessionAuthorization possessionAuthorization;
 
     @Transactional
-    public void detachExpressionFromTopic(User user, Long topicId, Long expressionId) {
+    public void detachExpressionFromTopic(User user, Long topicId, String expressionId) {
         Topic topic = neo4jRepository.validateExistOne(Topic.class, topicId);
         possessionAuthorization.validateCanRemovePossession(user, topic);
-        neo4jRepository.detachTwoEntities(topicId, expressionId);
+        neo4jRepository.removeElementInArraysOfNode(topicId, "expressionIds", expressionId);
     }
 
     @Transactional

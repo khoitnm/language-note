@@ -49,17 +49,17 @@ TopicEditService.prototype.initData = function (topicId) {
                 , fnChangeItemCallback: function (item) {
                     self.lookUpExpression(item);
                 }
-                //, function (item, childPaths) {
-                //    if (!hasValue(item.id)) return;
-                //    var superProperty = $r.findSuperPropertyFromChildPaths(self.topic, childPaths, 2);
-                //    var superId = superProperty.propertyValue.id;
-                //    self.$http({
-                //        url: contextPath + "/api/topics/" + superId + "/expressions/" + item.id,
-                //        method: 'DELETE',
-                //        headers: {"Content-Type": "application/json;charset=utf-8"}
-                //    }).then(function () {
-                //    })
-                //}
+                , fnRemoveItemCallback: function (item, childPaths) {
+                    if (!hasValue(item.id)) return;
+                    var superProperty = $r.findSuperPropertyFromChildPaths(self.topic, childPaths, 2);
+                    var superId = superProperty.propertyValue.id;
+                    self.$http({
+                        url: contextPath + "/api/topics/" + superId + "/expressions/" + item.id,
+                        method: 'DELETE',
+                        headers: {"Content-Type": "application/json;charset=utf-8"}
+                    }).then(function () {
+                    })
+                }
             }
             , 'lexicalEntries': new InjectedFunction(
                 function (item) {

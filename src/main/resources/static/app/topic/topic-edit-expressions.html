@@ -20,6 +20,15 @@
     <!--<div class="row" ng-include="contextPath + '/app/topic/topic-edit-expessions-paging.html'"></div>-->
 
     <div class="row">
+        <div class="expression-spatial-white teaser-wrapper teaser-3-cols" ng-repeat="expression in service.topic.expressions track by $index">
+            <div class="teaser-content"
+                 ng-include="contextPath + '/app/topic/topic-edit-expression-teaser-spatial-white.html'">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+
         <div ng-repeat="expression in service.topic.expressions track by $index"
              ng-class="(service.editingExpression && service.editingExpression == expression) ? 'col-xs-12' : 'col-md-4'">
             <!--<div ng-repeat="expression in service.expressionsDataTable.pager.items track by $index"-->

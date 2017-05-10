@@ -19,7 +19,7 @@ public class TopicDeletionResource {
     private TopicDeletionService topicDeletionService;
 
     @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/topics/{topicId}/expressions/{expressionId}", method = RequestMethod.DELETE)
-    public void detachExpressionFromTopic(@PathVariable Long topicId, @PathVariable Long expressionId) {
+    public void detachExpressionFromTopic(@PathVariable Long topicId, @PathVariable String expressionId) {
         User user = SecurityContextHelper.validateExistAuthenticatedUser();
         topicDeletionService.detachExpressionFromTopic(user, topicId, expressionId);
     }

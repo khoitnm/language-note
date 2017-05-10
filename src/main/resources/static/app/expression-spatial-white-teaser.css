@@ -1,0 +1,95 @@
+/* WHITE_SHADOW_TEASER */
+.expression-spatial-white, .expression-spatial-white a {
+    color: #b0b3b8;
+}
+
+.expression-spatial-white.teaser-wrapper {
+    padding: 0px 20px 20px 0px;
+}
+
+.expression-spatial-white .teaser-content {
+    background: #ececec;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.expression-spatial-white .teaser-content .teaser-content-section.top-tools {
+    padding-left: 20px;
+}
+
+.expression-spatial-white .teaser-content .teaser-content-section {
+    padding: 5px 15px;
+}
+
+.expression-spatial-white .teaser-content .teaser-content-section:first-child {
+    padding: 40px 30px;
+}
+
+.expression-spatial-white .teaser-content .teaser-content-section:last-child {
+    padding: 20px 30px 50px;
+}
+
+.expression-spatial-white .teaser-content .header .input-as-text {
+    color: #73879C;
+    text-align: center;
+    font-size: 110%;
+    font-weight: bold;
+    border-color: rgba(0, 0, 0, 0.02);
+}
+
+/* When input has text content */
+/*noinspection CssInvalidPseudoSelector*/
+.expression-spatial-white .teaser-content .header .input-as-text:placeholder-shown {
+    border-bottom: 1px dotted rgba(0, 0, 0, 0.2);
+}
+
+.expression-spatial-white .teaser-content .header .input-as-text:hover {
+    border-bottom-color: rgba(0, 0, 0, 0.2);
+}
+
+.expression-spatial-white .teaser-content .header .input-as-text:focus {
+    color: #1abb9c;
+    border-bottom-color: #1abb9c;
+    /*#26B99A;*/
+    /*#48c5aa;*/
+    /*#73f9dd;*/
+}
+
+.expression-spatial-white .teaser-content .header .input-as-text::-webkit-input-placeholder {
+    color: #73879C;
+    opacity: 0.3;
+}
+
+.expression-spatial-white .teaser-content .body {
+    text-align: left;
+}
+
+.expression-spatial-white .teaser-content .body .description {
+    padding: 10px 10%;
+    opacity: 0.7;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    height: 100px;
+}
+
+.expression-spatial-white .teaser-content .body .description p {
+    text-overflow: ellipsis;
+}
+
+.expression-spatial-white a:hover {
+    color: #73879C;
+}
+
+.expression-spatial-white .highlight:hover {
+    color: #1abb9c;
+}
+
+.expression-spatial-white .bottom-tools {
+    margin: 0 auto;
+}
+
+.expression-spatial-white .bottom-tools .teaser-tool {
+    display: inline-block;
+    width: 30px;
+}

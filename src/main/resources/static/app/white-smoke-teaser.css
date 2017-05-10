@@ -1,27 +1,3 @@
-/* COMMON FOR ALL TEASERS */
-.teaser-wrapper {
-    width: 25%;
-    float: left;
-}
-
-.teaser-wrapper:last-child:after {
-    clear: both;
-}
-
-.teaser-content {
-    border-radius: 8px;
-}
-
-.teaser-content .teaser-content-section:first-child {
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-}
-
-.teaser-content .teaser-content-section:last-child {
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
-}
-
 /* WHITE_SHADOW_TEASER */
 .white-smoke-teaser, .white-smoke-teaser a {
     color: #b0b3b8;
@@ -116,29 +92,4 @@
 .white-smoke-teaser .bottom-tools .teaser-tool {
     display: inline-block;
     width: 30px;
-}
-
-/* TEASER SIZE DEPEND ON SCREENSIZE*/
-@media only screen and (max-width: 1300px), only screen and (max-device-width: 1300px) {
-    .teaser-wrapper {
-        width: 25%;
-    }
-}
-
-@media only screen and (max-width: 1199px), only screen and (max-device-width: 1199px) {
-    .teaser-wrapper {
-        width: 33%;
-    }
-}
-
-@media only screen and (max-width: 768px), only screen and (max-device-width: 768px) {
-    .teaser-wrapper {
-        width: 50%;
-    }
-}
-
-@media only screen and (max-width: 550px), only screen and (max-device-width: 550px) {
-    .teaser-wrapper {
-        width: 100%;
-    }
 }
