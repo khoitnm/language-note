@@ -1,4 +1,8 @@
-/* WHITE_SHADOW_TEASER */
+/* TEASER */
+.expression-spatial-white {
+    font-family: "PT Sans", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+}
+
 .expression-spatial-white, .expression-spatial-white a {
     color: #b0b3b8;
 }
@@ -105,6 +109,10 @@
 .expression-spatial-white .teaser-content .sense:not(:last-child) {
     border-bottom: 1px solid rgba(0, 0, 0, 0.03);
     box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.expression-spatial-white .teaser-content .sense-explanation {
+    font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif; /* No 'PT Sans' because we need to support UTF-8 chars. */
 }
 
 .expression-spatial-white .teaser-content .sense-explanation {

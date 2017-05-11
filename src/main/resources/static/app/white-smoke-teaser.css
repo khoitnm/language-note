@@ -1,4 +1,8 @@
 /* WHITE_SHADOW_TEASER */
+.white-smoke-teaser {
+    font-family: "PT Sans", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+}
+
 .white-smoke-teaser, .white-smoke-teaser a {
     color: #b0b3b8;
 }
