@@ -1,7 +1,4 @@
 /* COMMON FOR ALL TEASERS */
-.teaser-wrapper {
-    margin: 0 0 2em;
-}
 
 /**
  * When using masonry layout, don't use float. Otherwise, it will break an items into next column.
