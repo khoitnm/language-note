@@ -49,8 +49,8 @@
 <div class="teaser-content-section">
     <div ng-repeat="senseGroup in expression.senseGroups | limitTo: 2"
          class="sense-group">
-        <div class="lexical-type">
-            {{senseGroup.lexicalType}}
+        <div class="lexical-type" ng-if="senseGroup.lexicalType">
+            ({{senseGroup.lexicalType}})
         </div>
 
         <div ng-repeat="sense in senseGroup.senses | limitTo: 2" class="sense">
