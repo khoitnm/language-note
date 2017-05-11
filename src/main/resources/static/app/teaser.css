@@ -1,9 +1,9 @@
 /* COMMON FOR ALL TEASERS */
-.teaser-wrapper {
+.teaser-float-wrapper {
     float: left;
 }
 
-.teaser-wrapper:last-child:after {
+.teaser-float-wrapper:last-child:after {
     clear: both;
 }
 

@@ -23,7 +23,7 @@
 
     <div class="col-xs-12 page-section-body">
         <div class="row">
-            <div class="expression-spatial-white teaser-wrapper teaser-4-cols" ng-repeat="expression in service.topic.expressions track by $index">
+            <div class="expression-spatial-white teaser-float-wrapper teaser-4-cols" ng-repeat="expression in service.topic.expressions track by $index">
                 <div class="teaser-content"
                      ng-if="service.editingExpression != expression"
                      ng-include="contextPath + '/app/topic/topic-edit-expression-teaser-spatial-white.html'">
