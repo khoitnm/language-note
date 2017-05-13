@@ -14,6 +14,7 @@ import tnmk.ln.app.dictionary.ExpressionRepository;
 import tnmk.ln.app.dictionary.ExpressionService;
 import tnmk.ln.app.dictionary.entity.BaseExpression;
 import tnmk.ln.app.dictionary.entity.Expression;
+import tnmk.ln.app.dictionary.entity.Locale;
 import tnmk.ln.app.practice.PracticeFavouriteService;
 import tnmk.ln.app.practice.QuestionGenerationService;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
@@ -135,4 +136,10 @@ public class ExpressionCompositeService {
         expressionRepository.save(expression);
     }
 
+    public List<ExpressionComposite> findByKeyword(User user, String localeString, String keyword) {
+        Locale locale = Locale.fromString(localeString);
+        String normKeyword = StringUtils.normalizeSpace(keyword.toLowerCase());
+        List<Expression> expressions = expressionRepository.findByLocaleAndContainText(locale.getLanguage(), locale.getCountry(), normKeyword);
+        return expressionCompositeConverter.toExpressionComposites(user.getId(), expressions);
+    }
 }

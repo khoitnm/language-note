@@ -7,6 +7,7 @@ import org.springframework.beans.BeansException;
 import tnmk.common.exception.UnexpectedException;
 import tnmk.common.util.NumberUtil;
 import tnmk.common.util.ObjectMapperUtil;
+import tnmk.ln.app.dictionary.entity.Expression;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
@@ -215,4 +216,5 @@ public abstract class BaseConverter<E, M> {
         }
         return result;
     }
+
 }

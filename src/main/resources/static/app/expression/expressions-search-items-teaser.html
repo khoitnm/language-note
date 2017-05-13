@@ -1,22 +1,9 @@
+<!-- Copy from topic-edit-expression-teaser.html -->
 <div class="teaser-content-section top-tools " ng-mouseover="service.playSoundAutomatically(expression)">
 
     <div class="pull-left"
          title="Favourite: the higher rating, it will appear more in the practice questions."
          ng-include="contextPath + '/app/topic/expression-favourite-no-label.html'" style=""></div>
-
-    <div class="pull-right">
-        <div tnmk-dropdown>
-            <a class="tnmk-dropdown-header btn-xs" href='' title=''>
-                <i class="fa fa-cog"></i>
-            </a>
-
-            <div class="tnmk-dropdown-body">
-                <div class=" btn-xs btn-default">
-                    <a href="" ng-click="service.topicCompositionEditor.removeItemAndAddSkeleton(expression)"><i class="fa fa-trash-o"></i></a>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="pull-right">
         <a href="" class=" btn-xs"
            ng-if="service.isPlayingSound"

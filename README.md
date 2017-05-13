@@ -21,6 +21,52 @@ There are some questions we have to answer:
 - Add a Chrome plugin to look-up new words. The looked up words will be added in to a topic (the name is the title of web page). When you look up a word, the app will consider it as an failed answer for an expression-recall question. 
 
 ## II. Run project
+### MongoDB
+#### Start MongoDB:
+
+```
+mongod --port 27017
+```
+
+Create the admin user for MongoDB with following command line:
+
+```
+mongo languagenote
+
+db.createUser(
+{ user: "languagenoteadmin",
+    pwd: "password",
+	roles:
+       [
+         { role: "readWrite", db: "config" },
+         "dbAdmin", "dbOwner","userAdmin"
+       ]
+});
+```
+
+#### Full-text Search Index
+```
+db.expressions.createIndex( { text: "text" } )
+```
+
+#### Backup
+
+```
+mongodump --host localhost --port 27117 --username languagenoteadmin --password password --db languagenote --archive=languagenotearchive
+```
+
+#### Restore
+
+```
+mongorestore --host localhost:27017 --objcheck --username languagenoteadmin --password password --db languagenote --archive=languagenotearchive
+```
+
+### Neo4j
+Neo4j server start:
+```
+```
+
+### Application
 Build:
 ```
 mvn clean install -DskipTests
@@ -31,9 +77,7 @@ Deploy:
 cp target/language-topic.war {TOMCAT_HOME}/webapp/
 ```
 
-Neo4j server start:
-```
-```
+
 
 ## III. Security
 The current main target is features implementation, the security will be improve later.
@@ -100,3 +144,7 @@ Word[1] -> load synonyms [2, 3] -> load word[2] -> synonyms[1, 3] -> load word[1
  
 ## References
 https://quizlet.com/11272763/barrons-essential-words-for-the-ielts-logging-flash-cards/
+
+# Backup Database:
+## MongoDB
+

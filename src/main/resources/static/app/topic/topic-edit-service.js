@@ -13,10 +13,9 @@ var TopicEditService = function ($rootScope, $http, $q, $routeParams, hotkeys, F
     this.expressionsPageSize = 20;
     this.expressionsDataTable = new DataTable([], this.expressionsPageSize);
 
-    this.init();
-    ExpressionService.call(this);
+    ExpressionBaseService.call(this);
 };
-inherit(ExpressionService, TopicEditService);
+inherit(ExpressionBaseService, TopicEditService);
 TopicEditService.prototype.init = function () {
     var self = this;
     var topicId = self.$routeParams.topicId;

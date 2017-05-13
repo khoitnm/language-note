@@ -33,4 +33,7 @@ public interface ExpressionRepository extends MongoRepository<Expression, String
      */
     @Query(value = "{$text: {$search : ?0}}", fields = "{'_id':1}")
     List<Expression> findIdsByContainText(String expression);
+
+    @Query(value = "{$text: {$search : ?2}, 'locale.language': ?0, 'locale.country': ?1}")
+    List<Expression> findByLocaleAndContainText(String language, String country, String expression);
 }

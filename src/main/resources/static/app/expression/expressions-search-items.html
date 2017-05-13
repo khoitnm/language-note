@@ -1,0 +1,7 @@
+<!-- Copy from topic-edit-expressions.html -->
+<div class="expression-spatial-white teaser-wrapper masonry-item" ng-repeat="expression in service.expressions track by $index">
+    <div class="teaser-content"
+         ng-if="service.editingExpression != expression"
+         ng-include="contextPath + '/app/expression/expressions-search-items-teaser.html'">
+    </div>
+</div>

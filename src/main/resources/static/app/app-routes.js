@@ -22,13 +22,24 @@ function routeConfig($routeProvider) {
             templateUrl: contextPath + '/app/practice/practice.html',
             controller: 'practiceController'
         })
+        .when('/expressions-search', {
+            templateUrl: contextPath + '/app/expression/expressions-search.html',
+            controller: 'expressionsSearchController'
+        })
         //.otherwise({
         //    redirectTo: '/expression-item-edit'
         //})
     ;
 }
-function rootScope($rootScope) {
+function rootScope($rootScope, $window) {
     $rootScope.contextPath = contextPath;
+    $rootScope.searchExpressions = function () {
+        var filterParam = '';
+        if (isNotBlank($rootScope.searchKeyword)) {
+            filterParam = '?q=' + $rootScope.searchKeyword;
+        }
+        $window.location.href = '#!/expressions-search' + filterParam;
+    }
 }
 angularApp.run(rootScope);
 //

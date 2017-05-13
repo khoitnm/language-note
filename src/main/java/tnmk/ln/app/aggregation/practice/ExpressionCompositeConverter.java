@@ -8,6 +8,9 @@ import tnmk.ln.app.dictionary.entity.Expression;
 import tnmk.ln.app.practice.PracticeFavouriteService;
 import tnmk.ln.infrastructure.basemodel.BaseConverter;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * @author khoi.tran on 4/30/17.
  */
@@ -23,5 +26,10 @@ public class ExpressionCompositeConverter extends BaseConverter<Expression, Expr
         int favourite = practiceFavouriteService.findExpressionFavourite(userId, expression.getId());
         expressionComposite.setFavourite(favourite);
         return expressionComposite;
+    }
+
+    public List<ExpressionComposite> toExpressionComposites(Long userId, List<Expression> expressions) {
+        List<ExpressionComposite> result = expressions.stream().map(expression -> toExpressionComposite(userId, expression)).collect(Collectors.toList());
+        return result;
     }
 }

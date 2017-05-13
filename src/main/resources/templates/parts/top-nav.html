@@ -12,21 +12,21 @@
                 <a href="#!/practice"><i class="fa fa-tasks"></i> Practice</a>
             </li>
             <li>
-                <a href="#!/practice">
-                    <form class="form-horizontal form-label-left">
-                        <div class="form-group" style="margin-bottom: 0px;">
-                            <div class="pull-left" style="width: 70%">
-                                <input class="form-control input-btn-text-left" type="text" placeholder="Loop up" style="border-bottom-left-radius: 25px;border-top-left-radius: 25px; border-right: 0px"/>
-                            </div>
-                            <div class="pull-right" style="width: 30%">
-                                <button class="btn btn-default input-btn-right" type="submit">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </div>
-                            <div class="clearfix"></div>
+                <form class="form-horizontal form-label-left" style="padding-top: 12px;">
+                    <div class="form-group" style="margin-bottom: 0px;">
+                        <div class="pull-left" style="width: 70%">
+                            <input ng-model="searchKeyword"
+                                   class="form-control input-btn-text-left" type="text" placeholder="Loop up" style="border-bottom-left-radius: 25px;border-top-left-radius: 25px; border-right: 0px"/>
                         </div>
-                    </form>
-                </a>
+                        <div class="pull-right" style="width: 30%">
+                            <button class="btn btn-default input-btn-right" type="submit" ng-click="searchExpressions()">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                        {{expressionsKeyword}}
+                        <div class="clearfix"></div>
+                    </div>
+                </form>
             </li>
         </ul>
         <ul class="nav navbar-nav pull-right">

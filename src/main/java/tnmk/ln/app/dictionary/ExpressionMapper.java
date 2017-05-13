@@ -110,7 +110,7 @@ public class ExpressionMapper {
 
     private static Locale toLocale(String oxfordWordLanguage) {
         if (StringUtils.isBlank(oxfordWordLanguage)) return null;
-        if (oxfordWordLanguage.equals(Locale.LANGUAGE_EN)) {
+        if (oxfordWordLanguage.equals(Locale.CODE_EN)) {
             return Locale.EN_EN;
         }
         return null;

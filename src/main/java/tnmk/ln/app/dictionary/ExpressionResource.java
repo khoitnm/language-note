@@ -29,7 +29,7 @@ public class ExpressionResource {
 
     @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/expressions/detail/lookup", method = RequestMethod.GET)
     public Expression lookupExpression(
-            @RequestParam(value = "lang", required = false, defaultValue = Locale.LANGUAGE_EN) String language
+            @RequestParam(value = "lang", required = false, defaultValue = Locale.CODE_EN) String language
             , @RequestParam(value = "text") String text) {
         User user = SecurityContextHelper.validateExistAuthenticatedUser();
         return expressionService.findLookUpDetailByText(language, text);
@@ -37,7 +37,7 @@ public class ExpressionResource {
 
     @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/expressions/brief/lookup", method = RequestMethod.GET)
     public Expression checkExistingExpressionByText(
-            @RequestParam(value = "lang", required = false, defaultValue = Locale.LANGUAGE_EN) String language
+            @RequestParam(value = "lang", required = false, defaultValue = Locale.CODE_EN) String language
             , @RequestParam(value = "text") String text) {
         User user = SecurityContextHelper.validateExistAuthenticatedUser();
         return expressionService.findOneBriefByText(text);
