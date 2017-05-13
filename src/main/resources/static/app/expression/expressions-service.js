@@ -32,9 +32,11 @@ ExpressionsSearchService.prototype.initData = function (expressionsSearchKeyword
     }
     self.$q.all([expressionSkeletonGet, expressionSearchGet]).then(function (arrayOfResults) {
         self.expressionSkeleton = arrayOfResults[0].data;
-
-        self.expressions = arrayOfResults[1].data;
-
+        if (arrayOfResults.length > 1 && hasValue(arrayOfResults[1])) {
+            self.expressions = arrayOfResults[1].data;
+        } else {
+            self.expressions = [];
+        }
         self.expressionsDataTable.setData(self.expressions);
 
     });
