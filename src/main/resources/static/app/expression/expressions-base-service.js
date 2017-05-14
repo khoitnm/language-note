@@ -46,10 +46,17 @@ ExpressionBaseService.prototype.initUploader = function (digitalAssetSkeleton) {
 ExpressionBaseService.prototype.switchExpressionMode = function (expression) {
     var self = this;
     if (self.editingExpression == expression) {
+        self.resetEditingExpression(expression);
         self.editingExpression = undefined;
     } else {
         self.editingExpression = expression;
+        self.originalExpression = angular.copy(expression);
     }
+};
+ExpressionBaseService.prototype.resetEditingExpression = function (expression) {
+    var self = this;
+    var resetExpression = angular.copy(self.originalExpression);
+    $r.replaceProperties(resetExpression, expression);
 };
 ExpressionBaseService.prototype.saveExpressionOnly = function (expression, callback) {
     var self = this;

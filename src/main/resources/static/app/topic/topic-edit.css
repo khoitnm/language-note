@@ -742,11 +742,13 @@ a .fa.dark-theme:hover {
     z-index: 1;
     height: 40px;
     width: 100%;
+    padding: 7px 20px;
 }
 
 .overlay .overlay-btn {
     font-size: 18px;
     color: #999;
+    padding: 0px 10px;
 }
 
 .overlay .overlay-btn:hover {

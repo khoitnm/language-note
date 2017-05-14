@@ -122,6 +122,18 @@ var $r = (function (module) {
             }
             return dest;
         };
+        module.replaceProperties = function (source, dest) {
+            for (var prop in dest) {
+                if (dest.hasOwnProperty(prop)) {
+                    delete dest[prop];
+                }
+            }
+
+            for (var field in source) {//includes inherited fields
+                dest[field] = source[field];
+            }
+            return dest;
+        };
         module.copyArray = function (array) {
             return array.slice();
         };
