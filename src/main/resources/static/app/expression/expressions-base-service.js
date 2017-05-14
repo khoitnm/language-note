@@ -10,7 +10,40 @@ ExpressionBaseService.prototype.stopSound = function (expression) {
     this.isForceStopSound = true;
     this.audio.stop();
 };
-ExpressionBaseService.prototype.saveExpression = function (expression, callback) {
+ExpressionBaseService.prototype.initUploader = function (digitalAssetSkeleton) {
+    var self = this;
+    self.uploader = new self.FileUploader({
+        url: self.$rootScope.contextPath + '/api/files'
+        , autoUpload: true
+    });
+    self.uploader.onSuccessItem = function (fileUploadItem, response, status, headers) {
+        var sense = fileUploadItem.sense;
+        fileUploadItem.sense = undefined;
+        sense.photos = sense.photos || [];
+        var savedFileItem = response;
+        var digitalAsset = angular.copy(digitalAssetSkeleton);
+        digitalAsset.fileItemId = savedFileItem.id;
+        if (sense.photos.length > 0) {
+            var lastPhoto = sense.photos[sense.photos.length - 1];
+            if (!hasValue(lastPhoto.fileItemId)) {
+                sense.photos.remove(lastPhoto);
+            }
+        }
+        sense.photos.push(digitalAsset);
+        if (!hasValue(sense.mainPhoto) || isEmpty(sense.mainPhoto.fileItemId)) {
+            sense.mainPhoto = digitalAsset;
+        }
+    };
+    self.uploader.onCompleteAll = function () {
+        var queue = this.queue;
+        for (var i = 0; i < queue.length; i++) {
+            var item = queue[i];
+            item.sense = undefined;
+        }
+        this.clearQueue();
+    };
+};
+ExpressionBaseService.prototype.saveExpressionOnly = function (expression, callback) {
     var self = this;
     self.$http.post(contextPath + '/api/expression-composites', expression).then(
         function (successResponse) {
@@ -19,8 +52,6 @@ ExpressionBaseService.prototype.saveExpression = function (expression, callback)
         }
     );
 };
-
-
 ExpressionBaseService.prototype.playSoundAutomatically = function (expression) {
     if (this.isForceStopSound) return;
     this.playSound(expression);

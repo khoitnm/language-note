@@ -22,11 +22,7 @@
     <div class="clearfix"></div>
 </div>
 <div class="teaser-content-section expression-text">
-    <input ng-model="expression.text"
-           ng-change="expression.errorMessage = undefined;"
-           complete-input="service.lookUpExpression(expression)"
-           placeholder="expression"
-           class="input-as-text"/>
+    <span>{{expression.text}}</span>
 </div>
 <div class="teaser-content-section" ng-if="expression.errorMessage">
     <div class="col-xs-12">

@@ -49,14 +49,16 @@
 .expression-spatial-white .teaser-content .expression-text {
     padding-left: 8%;
     padding-right: 8%;
-}
 
-.expression-spatial-white .teaser-content .expression-text .input-as-text {
-    margin-top: 20px;
     color: #73879C;
     text-align: left;
     font-size: 1.75em;
     font-weight: bold;
+}
+
+.expression-spatial-white .teaser-content .expression-text .input-as-text {
+    font-size: 1em; /* Same as normal text */
+    margin-top: 20px;
     border-color: rgba(0, 0, 0, 0.02);
 }
 

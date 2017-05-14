@@ -25,7 +25,6 @@ TopicEditService.prototype.init = function () {
 
 TopicEditService.prototype.initData = function (topicId) {
     var self = this;
-    self.initUploader();
     var topicSkeletonGet = self.$http.get(contextPath + '/api/topics/construct');
     var topicDetailGet;
     if (hasValue(topicId)) {
@@ -40,6 +39,8 @@ TopicEditService.prototype.initData = function (topicId) {
         }
         self.expressionsDataTable.setData(self.topic.expressions);
         self.topicSkeleton = arrayOfResults[1].data;
+        var digitalAssetSkeleton = self.topicSkeleton.expressions[0].senseGroups[0].senses[0].photos[0];
+        self.initUploader(digitalAssetSkeleton);
         self.topicCompositionEditor = new CompositeEditor(self.topicSkeleton, self.topic, {
             'expressions': {
                 fnIsItemEmpty: function (item) {
@@ -164,40 +165,6 @@ TopicEditService.prototype.initData = function (topicId) {
 TopicEditService.prototype.constructNewTopic = function () {
     this.initData();
 };
-TopicEditService.prototype.initUploader = function () {
-    var self = this;
-    self.uploader = new self.FileUploader({
-        url: self.$rootScope.contextPath + '/api/files'
-        , autoUpload: true
-    });
-    self.uploader.onSuccessItem = function (fileUploadItem, response, status, headers) {
-        var sense = fileUploadItem.sense;
-        fileUploadItem.sense = undefined;
-        sense.photos = sense.photos || [];
-        var savedFileItem = response;
-        var digitalAssetSkeleton = self.topicSkeleton.expressions[0].senseGroups[0].senses[0].photos[0];
-        var digitalAsset = angular.copy(digitalAssetSkeleton);
-        digitalAsset.fileItemId = savedFileItem.id;
-        if (sense.photos.length > 0) {
-            var lastPhoto = sense.photos[sense.photos.length - 1];
-            if (!hasValue(lastPhoto.fileItemId)) {
-                sense.photos.remove(lastPhoto);
-            }
-        }
-        sense.photos.push(digitalAsset);
-        if (!hasValue(sense.mainPhoto) || isEmpty(sense.mainPhoto.fileItemId)) {
-            sense.mainPhoto = digitalAsset;
-        }
-    };
-    self.uploader.onCompleteAll = function () {
-        var queue = this.queue;
-        for (var i = 0; i < queue.length; i++) {
-            var item = queue[i];
-            item.sense = undefined;
-        }
-        this.clearQueue();
-    };
-};
 TopicEditService.prototype.modeEdit = function (expression) {
     if (this.editingExpression == expression) {
         this.editingExpression = undefined;
@@ -290,12 +257,12 @@ TopicEditService.prototype.recalculateExpressionIdsForTopic = function (topic) {
     var notBlankExpressionIds = expressionIds.toArrayNotBlank();
     topic.expressionIds = notBlankExpressionIds;
 }
-TopicEditService.prototype.saveExpressionInTopic = function (expression, callback) {
+TopicEditService.prototype.saveExpression = function (expression, callback) {
     var self = this;
     var isNewExpression = isBlank(expression.id);
     self.topic.isSaving = true;
     self.topicCompositionEditor.cleanRecursiveItem(expression);
-    self.saveExpression(expression, function () {
+    self.saveExpressionOnly(expression, function () {
         if (isNewExpression) {
             //Need to recalculate ExpressionIds because the id of saved expression has just generated.
             self.recalculateExpressionIdsForTopic(self.topic);

@@ -6,7 +6,7 @@ var ExpressionsSearchService = function ($rootScope, $http, $q, $routeParams, ho
     this.FileUploader = FileUploader;
 
     this.expressionSkeleton = undefined;
-    this.expressionCompositionEditor = undefined;
+    this.compositionEditor = undefined;
     this.expressions = [];
     this.expressionsPageSize = 20;
     this.expressionsDataTable = new DataTable([], this.expressionsPageSize);
@@ -22,7 +22,6 @@ ExpressionsSearchService.prototype.init = function () {
 };
 ExpressionsSearchService.prototype.initData = function (expressionsSearchKeyword) {
     var self = this;
-    //self.initUploader();
     var expressionSkeletonGet = self.$http.get(contextPath + '/api/expression-composites/construct');
     var expressionSearchGet;
     if (hasValue(expressionsSearchKeyword)) {
@@ -32,14 +31,33 @@ ExpressionsSearchService.prototype.initData = function (expressionsSearchKeyword
     }
     self.$q.all([expressionSkeletonGet, expressionSearchGet]).then(function (arrayOfResults) {
         self.expressionSkeleton = arrayOfResults[0].data;
+        var digitalAssetSkeleton = self.expressionSkeleton.senseGroups[0].senses[0].photos[0];
+        self.initUploader(digitalAssetSkeleton);
+
         if (arrayOfResults.length > 1 && hasValue(arrayOfResults[1])) {
             self.expressions = arrayOfResults[1].data;
         } else {
             self.expressions = [];
         }
         self.expressionsDataTable.setData(self.expressions);
-
     });
+};
+ExpressionsSearchService.prototype.saveExpression = function (expression, callback) {
+    var self = this;
+    self.compositionEditor.cleanRecursiveRoot();
+    self.saveExpressionOnly(expression, function () {
+        self.editingExpression = undefined;
+        self.compositionEditor.copyMissingSkeleton(expression);
+    });
+};
+ExpressionsSearchService.prototype.modeEdit = function (expression) {
+    var self = this;
+    if (self.editingExpression == expression) {
+        self.editingExpression = undefined;
+    } else {
+        self.editingExpression = expression;
+    }
+    self.compositionEditor = new CompositeEditor(self.expressionSkeleton, expression, expressionFunctionsMap);
 };
 //Use AngularFileUpload
 angularApp.service('expressionsSearchService', ['$rootScope', '$http', '$q', '$routeParams', 'hotkeys', 'FileUploader', ExpressionsSearchService]);
@@ -47,3 +65,51 @@ angularApp.controller('expressionsSearchController', ['$rootScope', '$scope', '$
     $scope.service = expressionsSearchService;
     expressionsSearchService.init();
 }]);
+
+var expressionFunctionsMap = {
+    'lexicalEntries': new InjectedFunction(
+        function (item) {
+            return !hasValue(item) || isBlank(item.text);
+        }
+    )
+    , 'family': new InjectedFunction(
+        function (item) {
+            return !hasValue(item) || isBlank(item.text);
+        }
+    )
+    , 'synonyms': new InjectedFunction(
+        function (item) {
+            return !hasValue(item) || isBlank(item.text);
+        }
+    )
+    , 'antonyms': new InjectedFunction(
+        function (item) {
+            return !hasValue(item) || isBlank(item.text);
+        }
+    )
+    , 'senseGroups': new InjectedFunction(
+        function (item) {
+            return !hasValue(item) || isBlank(item.lexicalType);
+        }
+    )
+    , 'senses': new InjectedFunction(
+        function (item) {
+            return !hasValue(item) || (isBlank(item.explanation) && isBlank(item.shortExplanation));
+        }
+    )
+    , 'photos': new InjectedFunction(
+        function (item) {
+            return !hasValue(item) || isBlank(item.fileItemId);
+        }
+    )
+    , 'videos': new InjectedFunction(
+        function (item) {
+            return !hasValue(item) || (isBlank(item.fileItemId) && isBlank(item.externalUrl));
+        }
+    )
+    , 'examples': new InjectedFunction(
+        function (item) {
+            return !hasValue(item) || isBlank(item.text);
+        }
+    )
+};
