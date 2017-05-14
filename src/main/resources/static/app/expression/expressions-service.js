@@ -52,11 +52,7 @@ ExpressionsSearchService.prototype.saveExpression = function (expression, callba
 };
 ExpressionsSearchService.prototype.modeEdit = function (expression) {
     var self = this;
-    if (self.editingExpression == expression) {
-        self.editingExpression = undefined;
-    } else {
-        self.editingExpression = expression;
-    }
+    self.switchExpressionMode(expression);
     self.compositionEditor = new CompositeEditor(self.expressionSkeleton, expression, expressionFunctionsMap);
 };
 //Use AngularFileUpload

@@ -43,6 +43,14 @@ ExpressionBaseService.prototype.initUploader = function (digitalAssetSkeleton) {
         this.clearQueue();
     };
 };
+ExpressionBaseService.prototype.switchExpressionMode = function (expression) {
+    var self = this;
+    if (self.editingExpression == expression) {
+        self.editingExpression = undefined;
+    } else {
+        self.editingExpression = expression;
+    }
+};
 ExpressionBaseService.prototype.saveExpressionOnly = function (expression, callback) {
     var self = this;
     self.$http.post(contextPath + '/api/expression-composites', expression).then(
@@ -51,6 +59,9 @@ ExpressionBaseService.prototype.saveExpressionOnly = function (expression, callb
             if (callback) callback.call(self, expression);
         }
     );
+};
+ExpressionBaseService.prototype.selectMainPhoto = function (sense, photo) {
+    sense.mainPhoto = photo;
 };
 ExpressionBaseService.prototype.playSoundAutomatically = function (expression) {
     if (this.isForceStopSound) return;

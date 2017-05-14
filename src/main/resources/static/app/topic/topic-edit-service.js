@@ -7,6 +7,7 @@ var TopicEditService = function ($rootScope, $http, $q, $routeParams, hotkeys, F
 
     this.topic = undefined;
     this.topicSkeleton = undefined;
+    this.expressionSkeleton = undefined;
     this.topicCompositionEditor;
 
     //this.expressionsPageContainer = new PageContainer(30);
@@ -39,7 +40,8 @@ TopicEditService.prototype.initData = function (topicId) {
         }
         self.expressionsDataTable.setData(self.topic.expressions);
         self.topicSkeleton = arrayOfResults[1].data;
-        var digitalAssetSkeleton = self.topicSkeleton.expressions[0].senseGroups[0].senses[0].photos[0];
+        self.expressionSkeleton = self.topicSkeleton.expressions[0];
+        var digitalAssetSkeleton = self.expressionSkeleton.senseGroups[0].senses[0].photos[0];
         self.initUploader(digitalAssetSkeleton);
         self.topicCompositionEditor = new CompositeEditor(self.topicSkeleton, self.topic, {
             'expressions': {
@@ -166,18 +168,7 @@ TopicEditService.prototype.constructNewTopic = function () {
     this.initData();
 };
 TopicEditService.prototype.modeEdit = function (expression) {
-    if (this.editingExpression == expression) {
-        this.editingExpression = undefined;
-    } else {
-        this.editingExpression = expression;
-    }
-    //
-    //if (hasValue(expression.isEditing)) {
-    //    expression.isEditing = !expression.isEditing;
-    //} else {
-    //    expression.isEditing = true;
-    //}
-    //
+    this.switchExpressionMode(expression);
 };
 TopicEditService.prototype.removeTopic = function (item) {
     var self = this;
@@ -200,11 +191,6 @@ TopicEditService.prototype.rename = function (item) {
             //self.setLesson(successResponse.data);
         }
     );
-};
-TopicEditService.prototype.selectMainPhoto = function (sense, photo) {
-    sense.mainPhoto = photo;
-    //photos.remove(photo);
-    //photos.unshift(photo);
 };
 TopicEditService.prototype.cleanTopic = function () {
     this.topicCompositionEditor.cleanRecursiveRoot();
@@ -256,7 +242,7 @@ TopicEditService.prototype.recalculateExpressionIdsForTopic = function (topic) {
     var expressionIds = getArrayByFields(topic.expressions, "id");
     var notBlankExpressionIds = expressionIds.toArrayNotBlank();
     topic.expressionIds = notBlankExpressionIds;
-}
+};
 TopicEditService.prototype.saveExpression = function (expression, callback) {
     var self = this;
     var isNewExpression = isBlank(expression.id);
