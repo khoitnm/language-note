@@ -1,19 +1,19 @@
 <div class="overlay">
     <div class="overlay-header">
         <a href=""
-           title="Ctrl+S, Command+S"
+           title="Save (Ctrl+S, Command+S)"
            ng-disabled="isRunning || service.topic.isSaving"
            ng-click="service.saveExpression(expression)"
            class="pull-left overlay-btn highlight">
             <i class="fa fa-check text-success"></i>
         </a>
         <a href="" ng-click="service.modeEdit(expression)"
-           class="pull-right overlay-btn">
+           class="pull-right overlay-btn" title="Stop Editing (without Saving)">
             <i class="fa fa-compress"></i>
         </a>
         <a href="" ng-click="service.resetEditingExpression(expression)"
-           class="pull-right overlay-btn overlay-btn-refresh">
-            <i class="fa fa-refresh"></i>
+           class="pull-right overlay-btn overlay-btn-refresh" title="Reset">
+            <i class="fa fa-undo"></i>
         </a>
         <a href="" class="clearfix"></a>
     </div>
