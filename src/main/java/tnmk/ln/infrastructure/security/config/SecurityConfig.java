@@ -84,6 +84,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.css.map",
                         "/**/*.js",
                         "/**/*.png",
+                        "/**/*.svg",
                         "/**/*.jpg", "/**/fonts/**").permitAll()
 
                 //The home page and login endpoints are explicitly excluded

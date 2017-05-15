@@ -3,7 +3,7 @@
     "description": "Quickly adding expression into our topics",
     "version": "0.0",
     "icons": {
-        "128": "browser-action/images/books-headphone.png"
+        "128": "browser-action/images/Book-03.png"
     },
     "permissions": [
         "sessions",
@@ -13,7 +13,6 @@
         "https://*/"
     ],
     "browser_action": {
-        "default_icon": "browser-action/images/books-headphone.png",
         "default_popup": "browser-action/popup.html"
     },
     "background": {

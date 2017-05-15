@@ -9,9 +9,9 @@ var PracticeService = function ($http, $q, $routeParams, $sce) {
     this.totalQuestions = 10;
     this.questionType = 'FILL_BLANK';
     this.expressionTest = undefined; //new ExpressionsRecallTest();//just a dummy object
-    ExpressionBaseService.call(this);
+    ExpressionsSearchService.call(this);
 };
-inherit(ExpressionBaseService, PracticeService);
+inherit(ExpressionsSearchService, PracticeService);
 PracticeService.prototype.init = function () {
     var self = this;
     var topicsGet = self.$http.get(contextPath + '/api/topic-briefs/mine');

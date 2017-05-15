@@ -7,6 +7,10 @@
     display: none;
 }
 
+a.highlight:hover {
+    color: #26B99A;
+}
+
 /* Application */
 .status-icon {
     position: fixed;
@@ -753,6 +757,10 @@ a .fa.dark-theme:hover {
 
 .overlay .overlay-btn:hover {
     color: #ddd;
+}
+
+.overlay .overlay-btn.highlight:hover {
+    color: #1abb9c;
 }
 
 .overlay .overlay-btn-close {
