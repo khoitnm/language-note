@@ -6,15 +6,15 @@
     <div class="expression-teaser row">
         <div class="col-xs-12">
             <div class="header row">
-                <div class="pull-left">
-                    <button ng-click="service.modeEdit(expression)" class="btn btn-xs btn-success"><i class="fa fa-star"></i></button>
-                </div>
                 <div class="pull-left" style="width: 80%">
                     <input ng-model="questionWithPracticeResult.answer" class="input-as-text"
                            ng-class="service.expressionTest.answered && (questionWithPracticeResult.answer == questionWithPracticeResult.question.fromExpression.text) ?
                                    'text-success':
                                    service.expressionTest.answered ? 'text-danger': ''"/>
                     <span class="question-answer" ng-if="service.expressionTest.answered">{{questionWithPracticeResult.question.fromExpression.text}}</span>
+                </div>
+                <div class="pull-right" ng-if="service.expressionTest.answered">
+                    <a href="" ng-click="service.modeEdit(expression)" class="btn-xs highlight" title="{{$index+1}}"><i class="fa fa-edit"></i></a>
                 </div>
                 <div class="pull-right">
                     <a class="btn-xs" href=""

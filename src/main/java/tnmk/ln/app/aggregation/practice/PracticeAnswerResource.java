@@ -25,7 +25,8 @@ public class PracticeAnswerResource {
     @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/questions/answers", method = RequestMethod.POST)
     public List<AnswerResult> findAllQuestionRecommendation(@RequestBody List<PracticeAnswerRequest> practiceAnswerRequests) {
         User user = SecurityContextHelper.validateExistAuthenticatedUser();
-        return practiceAnswerService.answerResult(user, practiceAnswerRequests);
+        List<AnswerResult> result = practiceAnswerService.answerResult(user, practiceAnswerRequests);
+        return result;
     }
 
     public static class PracticeAnswerRequest {

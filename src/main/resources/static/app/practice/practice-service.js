@@ -1,21 +1,24 @@
-var PracticeService = function ($http, $q, $routeParams, $sce) {
+var PracticeService = function ($rootScope, $http, $q, $routeParams, $sce, FileUploader) {
+    this.$rootScope = $rootScope;
     this.$http = $http;
     this.$q = $q;
     this.$routeParams = $routeParams;
     this.$sce = $sce;
+    this.FileUploader = FileUploader;
 
     //this.lessonFilter = new FilterCollection($sce, "title");
     this.topicFilter = new FilterCollection($sce, "title");
     this.totalQuestions = 10;
     this.questionType = 'FILL_BLANK';
     this.expressionTest = undefined; //new ExpressionsRecallTest();//just a dummy object
-    ExpressionsSearchService.call(this);
+    ExpressionBaseService.call(this);
 };
-inherit(ExpressionsSearchService, PracticeService);
+inherit(ExpressionBaseService, PracticeService);
 PracticeService.prototype.init = function () {
     var self = this;
     var topicsGet = self.$http.get(contextPath + '/api/topic-briefs/mine');
-    self.$q.all([topicsGet]).then(function (arrayOfResults) {
+    var expressionSkeletonGet = self.$http.get(contextPath + '/api/expression-composites/construct');
+    self.$q.all([topicsGet, expressionSkeletonGet]).then(function (arrayOfResults) {
         var topics = arrayOfResults[0].data;
 
         self.topicFilter.initByOriginalItems(topics, self.$routeParams.topicId);
@@ -23,6 +26,10 @@ PracticeService.prototype.init = function () {
         if (self.topicFilter.selectedItems.length > 0) {
             self.filterQuestions();
         }
+
+        self.expressionSkeleton = arrayOfResults[1].data;
+        var digitalAssetSkeleton = self.expressionSkeleton.senseGroups[0].senses[0].photos[0];
+        self.initUploader(digitalAssetSkeleton);
     });
 };
 PracticeService.prototype.filterQuestions = function () {
@@ -54,7 +61,9 @@ PracticeService.prototype.submitAnswers = function (test) {
         for (var i = 0; i < self.questionsWithPracticeResult.length; i++) {
             var questionsWithPracticeResult = self.questionsWithPracticeResult[i];
             var answerResult = answerResults.findItemByField('questionPracticeResult.question.id', questionsWithPracticeResult.question.id);
-            questionsWithPracticeResult.expressionPracticeResult = answerResult.expressionPracticeResult;
+            if (hasValue(answerResult)) {
+                questionsWithPracticeResult.expressionPracticeResult = answerResult.expressionPracticeResult;
+            }
         }
         //$r.copyProperties(answerResults, self.questionsWithPracticeResult);
     });
@@ -66,28 +75,22 @@ PracticeService.prototype.initTestQuestions = function () {
         this.expressionTest = new ExpressionsFillBlankTest(this.questionsWithPracticeResult, this.totalQuestions);
     }
 };
-
-//TODO this method is duplicated in file expression-item-edit-service.js
-PracticeService.prototype.favourite = function (expressionItem) {
+/* TODO Copy exactly from ExpressionsSearchService*/
+PracticeService.prototype.saveExpression = function (expression, callback) {
     var self = this;
-    var userPoint = expressionItem.userPoints[USER_ID];
-    if (!hasValue(userPoint)) {
-        userPoint = {};
-        expressionItem.userPoints[USER_ID] = userPoint;
-    }
-    userPoint.favourite = (userPoint.favourite == -1) ? 0 : -1;
-    var favouriteUpdateRequest = {
-        expressionId: expressionItem.id
-        , favourite: userPoint.favourite
-    };
-    self.$http.post(contextPath + "/api/expression-items/favourite", favouriteUpdateRequest).then(function (successResponse) {
-        var updatedRowsCount = successResponse.data;
-        if (updatedRowsCount <= 0) {
-            console.log("Something wrong, there's no expression favourite is updated: " + updatedRowsCount);
-        }
+    self.compositionEditor.cleanRecursiveRoot();
+    self.saveExpressionOnly(expression, function () {
+        self.editingExpression = undefined;
+        self.compositionEditor.copyMissingSkeleton(expression);
     });
 };
-angularApp.service('practiceService', ['$http', '$q', '$routeParams', '$sce', PracticeService]);
+/* TODO Copy exactly from ExpressionsSearchService*/
+PracticeService.prototype.modeEdit = function (expression) {
+    var self = this;
+    self.switchExpressionMode(expression);
+    self.compositionEditor = new CompositeEditor(self.expressionSkeleton, expression, expressionFunctionsMap);
+};
+angularApp.service('practiceService', ['$rootScope', '$http', '$q', '$routeParams', '$sce', 'FileUploader', PracticeService]);
 angularApp.controller('practiceController', ['$scope', 'practiceService', function ($scope, practiceService) {
     $scope.service = practiceService;
     $scope.USER_ID = USER_ID;

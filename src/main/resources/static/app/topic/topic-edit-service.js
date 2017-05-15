@@ -289,7 +289,8 @@ TopicEditService.prototype.lookUpExpression = function (expression, callback) {
             var lookupExpression = successRespond.data;
             if (hasValue(lookupExpression)) {
                 $r.copyProperties(lookupExpression, expression);
-                self.topicCompositionEditor.copyMissingSkeleton(expression);
+                self.saveExpression(expression, callback);
+                //self.topicCompositionEditor.copyMissingSkeleton(expression);
             }
         });
     }
