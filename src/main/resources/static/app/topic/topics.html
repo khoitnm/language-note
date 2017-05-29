@@ -28,7 +28,7 @@
     <div class="col-xs-12 page-section-title"><span class="">My Topics</span></div>
 
     <!-- Expression Items Table -->
-    <div class="col-xs-12 topics masonry-container masonry-5-cols">
+    <div class="col-xs-12 topics"><!-- <!-- MASONRY layout: CONTAINER.masonry-container.masonry-n-cols -->
         <div ng-repeat="topic in service.topicsDataTable.pager.items track by $index"
              ng-if="$index >= service.topicsDataTable.pager.startIndex && $index < service.topicsDataTable.pager.startIndex + service.topicsDataTable.pager.pageSize"
              ng-include="contextPath + '/app/topic/topics-teaser.html'"

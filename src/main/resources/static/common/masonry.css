@@ -1,11 +1,14 @@
 /**
  * When using masonry layout, don't use float. Otherwise, it will break an items into next column.
-*/
+ *      CONTAINER.masonry-container.masonry-n-cols
+ *          ITEM.teaser-wrapper (don't use .teaser-float-wrapper)
+ */
 .masonry-container {
     column-gap: 0em;
     -moz-column-gap: 0em;
     -webkit-column-gap: 0em;
 }
+
 .masonry-4-cols {
     column-count: 4;
     /* By default, there is 1em gap between column, but I want to disabled that default value by setting 0em here */

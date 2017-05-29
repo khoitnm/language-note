@@ -8,7 +8,6 @@ import tnmk.common.exception.UnexpectedException;
 
 import java.beans.PropertyDescriptor;
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -144,7 +143,7 @@ public class ReflectionUtils {
     }
 
     public static boolean isArray(Class<?> entityClass) {
-        return Array.class.isAssignableFrom(entityClass);
+        return entityClass != null && entityClass.isArray();// Array.class.isAssignableFrom(entityClass);
     }
 
     public static boolean isMap(Class<?> entityClass) {

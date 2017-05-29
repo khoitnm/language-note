@@ -1,8 +1,10 @@
 /* COMMON FOR ALL TEASERS */
 
 /**
- * When using masonry layout, don't use float. Otherwise, it will break an items into next column.
+ * When using .teaser-float-wrapper with following structure:
+ *      ITEM.teaser-float-wrapper.teaser-n-cols
 */
+
 .teaser-float-wrapper {
     float: left;
 }
