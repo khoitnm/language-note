@@ -3,7 +3,6 @@ package tnmk.common.util;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.util.Assert;
-import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 import tnmk.common.exception.UnexpectedException;
 
 import java.beans.PropertyDescriptor;
@@ -20,12 +19,13 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 
 /**
  * @author khoi.tran on 2/28/17.
  */
-public class ReflectionUtils {
+public final class ReflectionUtils {
+    private ReflectionUtils() {
+    }
 
     public static <A extends Annotation> Field findFieldByAnnotationType(Class<?> clazz, Class<A> annotationClass) {
         org.springframework.data.util.ReflectionUtils.AnnotationFieldFilter annotationFieldFilter = new org.springframework.data.util.ReflectionUtils.AnnotationFieldFilter(annotationClass);
@@ -94,9 +94,8 @@ public class ReflectionUtils {
      * @return
      */
     public static boolean isSimpleType(Class<?> type) {
-        if (BeanUtils.isSimpleValueType(type)) return true;
-        if (isDateTimeType(type)) return true;
-        return false;
+        boolean result = BeanUtils.isSimpleValueType(type) || isDateTimeType(type);
+        return result;
     }
 
     public static boolean isDateTimeType(Class<?> type) {
@@ -104,13 +103,17 @@ public class ReflectionUtils {
     }
 
     public static Object readProperty(Object object, String propertyName) {
-        if (object == null) return null;
+        if (object == null) {
+            return null;
+        }
         PropertyDescriptor propertyDescriptor = getPropertyDescriptor(object.getClass(), propertyName);
         return readProperty(object, propertyDescriptor);
     }
 
     public static void writeProperty(Object object, String propertyName, Object propertyValue) {
-        if (object == null) return;
+        if (object == null) {
+            return;
+        }
         PropertyDescriptor propertyDescriptor = getPropertyDescriptor(object.getClass(), propertyName);
         writeProperty(object, propertyDescriptor, propertyValue);
     }
@@ -143,7 +146,7 @@ public class ReflectionUtils {
     }
 
     public static boolean isArray(Class<?> entityClass) {
-        return entityClass != null && entityClass.isArray();// Array.class.isAssignableFrom(entityClass);
+        return entityClass != null && entityClass.isArray();
     }
 
     public static boolean isMap(Class<?> entityClass) {
@@ -164,9 +167,8 @@ public class ReflectionUtils {
     private static List<Class<?>> getParameterClasses(Type[] types) {
         List<Class<?>> classes = new ArrayList<>();
         for (Type type : types) {
-            if (type instanceof ParameterizedTypeImpl) {
-                ParameterizedType iparameterizedType = (ParameterizedTypeImpl) type;
-                iparameterizedType.getActualTypeArguments();
+            if (type instanceof ParameterizedType) {
+                ParameterizedType iparameterizedType = (ParameterizedType) type;
                 classes.addAll(getParameterClasses(iparameterizedType));
             } else if (type instanceof Class<?>) {
                 classes.add((Class<?>) type);
@@ -194,121 +196,15 @@ public class ReflectionUtils {
         return result;
     }
 
-    public static void traverseEntity(Object entity, Function<ActionStatus, Boolean> action) {
-        traverseEntity(action, new ActionStatus(entity, null, null, null, null, null));
-    }
-
-    /**
-     * @param action        return result whether to continue with children elements or not.
-     * @param currentStatus
-     */
-    public static void traverseEntity(Function<ActionStatus, Boolean> action, ActionStatus currentStatus) {
-        Object currentEntity = currentStatus.objectValue;
-        if (currentEntity == null) return;
-        boolean runActionResult = action.apply(currentStatus);
-        if (!runActionResult) return;
-        if (ReflectionUtils.isSimpleType(currentEntity.getClass())) return;
-
-        Class<?> clazz = currentEntity.getClass();
-        if (isArray(clazz)) {
-            Object[] children = (Object[]) currentEntity;
-            int i = 0;
-            for (Object child : children) {
-                ActionStatus childActionStatus = new ActionStatus(child, null, i, null, currentEntity, currentStatus);
-                traverseEntity(action, childActionStatus);
-                i++;
-            }
-        } else if (isIterable(clazz)) {
-            Iterable<Object> children = (Iterable<Object>) currentEntity;
-            int i = 0;
-            for (Object child : children) {
-                ActionStatus childActionStatus = new ActionStatus(child, null, i, null, currentEntity, currentStatus);
-                traverseEntity(action, childActionStatus);
-                i++;
-            }
-        } else if (isMap(clazz)) {
-            Map<Object, Object> map = (Map<Object, Object>) currentEntity;
-            for (Map.Entry<Object, Object> childEntry : map.entrySet()) {
-                ActionStatus childActionStatus = new ActionStatus(childEntry.getValue(), null, null, childEntry.getKey(), currentEntity, currentStatus);
-                traverseEntity(action, childActionStatus);
-            }
-        } else {
-            List<Field> childFields = getDeclaredFieldsIncludeSuperClasses(clazz);
-            for (Field childField : childFields) {
-                if (ReflectionUtils.isStatic(childField)) {
-                    continue;
-                }
-                Object childFieldValue = readProperty(currentEntity, childField.getName());
-                ActionStatus childActionStatus = new ActionStatus(childFieldValue, childField, null, null, currentEntity, currentStatus);
-                if (action.apply(childActionStatus)) {
-                    traverseEntity(action, childActionStatus);
-                }
-            }
-        }
-    }
-
-    private static boolean isStatic(Field field) {
+    public static boolean isStatic(Field field) {
         return Modifier.isStatic(field.getModifiers());
     }
 
-    public static class ActionStatus {
-        /**
-         * Only use when the parent is an object (not Array / Collection / Map)
-         */
-        private final Field objectField;
-        /**
-         * Only used when the container is an Array, or a Collection
-         */
-        private final Integer objectIndex;
-        /**
-         * Only used when the container is a Map
-         */
-        private final Object objectKey;
-        private final Object objectValue;
-        private final Object parent;
-        private final ActionStatus parentActionStatus;
-
-        private Object result;
-
-        public ActionStatus(Object objectValue, Field objectField, Integer objectIndex, Object objectKey, Object parent, ActionStatus parentActionStatus) {
-            this.objectField = objectField;
-            this.objectValue = objectValue;
-            this.objectIndex = objectIndex;
-            this.objectKey = objectKey;
-            this.parent = parent;
-            this.parentActionStatus = parentActionStatus;
-        }
-
-        public Field getObjectField() {
-            return objectField;
-        }
-
-        public Object getObjectValue() {
-            return objectValue;
-        }
-
-        public Object getParent() {
-            return parent;
-        }
-
-        public ActionStatus getParentActionStatus() {
-            return parentActionStatus;
-        }
-
-        public Object getResult() {
-            return result;
-        }
-
-        public void setResult(Object result) {
-            this.result = result;
-        }
-
-        public Integer getObjectIndex() {
-            return objectIndex;
-        }
-
-        public Object getObjectKey() {
-            return objectKey;
+    public static <T> T newInstance(Class<T> clazz) {
+        try {
+            return clazz.newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
+            throw new UnexpectedException("Cannot create instance of class " + clazz + ": " + e.getMessage(), e);
         }
     }
 }

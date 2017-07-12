@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener;
 import org.springframework.data.mongodb.core.mapping.event.BeforeConvertEvent;
 import org.springframework.data.mongodb.core.mapping.event.BeforeSaveEvent;
-import tnmk.common.util.ReflectionUtils;
+import tnmk.common.util.ReflectionTraverseUtils;
 import tnmk.ln.app.common.entity.BaseMongoEntity;
 
 import java.time.Instant;
@@ -27,9 +27,9 @@ public class MongoEventListener extends AbstractMongoEventListener<Object> {
     @Override
     public void onBeforeConvert(BeforeConvertEvent<Object> event) {
         Object source = event.getSource();
-        ReflectionUtils.traverseEntity(
+        ReflectionTraverseUtils.traverseEntity(
                 source
-                , (ReflectionUtils.ActionStatus actionStatus) -> {
+                , (ReflectionTraverseUtils.ActionStatus actionStatus) -> {
                     Object objectValue = actionStatus.getObjectValue();
                     if (objectValue == null) return false;
                     if (objectValue instanceof BaseMongoEntity) {

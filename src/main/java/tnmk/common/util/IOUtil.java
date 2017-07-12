@@ -5,7 +5,6 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tnmk.common.exception.FileIOException;
-import tnmk.common.exception.FileNotFoundException;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,8 +14,10 @@ import java.nio.charset.Charset;
 /**
  * @author khoi.tran on 7/26/16.
  */
-public class IOUtil {
+public final class IOUtil {
     public static final Logger LOG = LoggerFactory.getLogger(IOUtil.class);
+
+    private IOUtil() {}
 
     /**
      * @param path a relative path in classpath. E.g. "images/email/logo.png"
@@ -27,11 +28,13 @@ public class IOUtil {
     public static String loadTextFileInClassPath(String path) {
         try {
             InputStream inputStream = IOUtil.class.getResourceAsStream(path);
-            if (inputStream == null) throw new FileNotFoundException(String.format("Cannot load String from '%s'", path));
+            if (inputStream == null) {
+                throw new FileIOException(String.format("Cannot load String from '%s'", path));
+            }
             return IOUtils.toString(inputStream, Charset.forName("UTF-8"));
         } catch (IOException e) {
             String msg = String.format("Cannot load String from '%s'", path);
-            throw new FileNotFoundException(msg, e);
+            throw new FileIOException(msg, e);
         }
     }
 
@@ -61,7 +64,7 @@ public class IOUtil {
             return IOUtils.toByteArray(IOUtil.class.getResourceAsStream(path));
         } catch (IOException e) {
             String msg = String.format("Cannot load String from '%s'", path);
-            throw new FileNotFoundException(msg, e);
+            throw new FileIOException(msg, e);
         }
     }
 
