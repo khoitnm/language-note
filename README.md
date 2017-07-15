@@ -77,7 +77,15 @@ Deploy:
 cp target/language-topic.war {TOMCAT_HOME}/webapp/
 ```
 
+Run with embbed Tomcat:
+```
+mvn spring-boot:run -Drun.profiles=dev
+```
 
+After deploying application, open the web on Browser with URL:
+```
+localhost:8080/language-note/
+```
 
 ## III. Security
 The current main target is features implementation, the security will be improve later.

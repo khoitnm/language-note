@@ -1,6 +1,8 @@
 # Properties valid for every environment
 server:
     servlet-path: /*
+    contextPath: /language-note
+    port : 8080
 spring:
     mvc:
         favicon:

@@ -1,19 +1,19 @@
 <div class="col-md-2">
     <a href="" ng-click="service.constructNewTopic()"><i class="fa fa-file-text"></i> New</a>
-    <!--<a href="#!topic-edit"><i class="fa fa-file-text"></i> New</a>-->
 </div>
 
-<div class="col-md-2">
-    <a href='' title=''
-       dropdown-menu="service.menu.items"
-       dropdown-model="service.menu.selectedItem"
-       dropdown-item-label="text">
-        <i class="fa fa-folder-open"></i> Recent Topics
-    </a>
-</div>
+<!--<div class="col-md-2">-->
+<!--<a href='' title=''-->
+<!--dropdown-menu="service.menu.items"-->
+<!--dropdown-model="service.menu.selectedItem"-->
+<!--dropdown-item-label="text">-->
+<!--<i class="fa fa-folder-open"></i> Recent Topics-->
+<!--</a>-->
+<!--</div>-->
 <div class="col-md-2">
     <a href="#!/practice?topicId={{service.topic.id}}"><i class="fa fa-tasks"></i> Practice this Topic</a>
 </div>
 <div class="col-md-2">
-    <a href="" ng-show="service.topic.id" ng-click="service.removeTopic()"><i class="fa fa-close text-red"></i> Remove Topic</a>
+    <a href="" ng-show="service.topic.id" ng-click="service.removeTopic()"><i class="fa fa-close text-red"></i> Remove
+        Topic</a>
 </div>
