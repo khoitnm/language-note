@@ -2,6 +2,9 @@ package tnmk.common.util;
 
 import org.apache.commons.lang3.StringUtils;
 
+/**
+ * Version 1.0.1
+ */
 public final class NumberUtil {
     private NumberUtil() {
     }
@@ -44,7 +47,24 @@ public final class NumberUtil {
             return result;
         }
     }
-
+    public static Double toDoubleIfPossible(Object num) {
+        if (num == null) {
+            return null;
+        }
+        if (num instanceof Double) {
+            return (Double) num;
+        } else if (num instanceof Number) {
+            return ((Number) num).doubleValue();
+        } else {
+            Double result;
+            try {
+                result = Double.valueOf(num.toString());
+            } catch (NumberFormatException ex) {
+                result = null;
+            }
+            return result;
+        }
+    }
     public static Integer toIntegerIfPossible(Object num) {
         if (num instanceof Integer) {
             return (Integer) num;
