@@ -1,4 +1,4 @@
-language-topic!
+language-note
 ==============
 An application for learning languages.
 
@@ -10,7 +10,7 @@ An application for learning languages.
 > For the first version, we are focusing on English and vocabularies. And in the first stage, I just focus on business logic, and just use a very basic security implementation!
 
 ## I. Requirement 
-There are some questions we have to answer:
+There are some requirement we have to satisfy:
 
 - I would like to _collect_ some **Expressions** _in the global_ **Dictionary** or _in other users'_ **Dictionaries** _into my own_ **Topic**.
 - I can _practice_ on my own **Topic**.
@@ -28,9 +28,12 @@ There are some questions we have to answer:
 ```
 mongod --port 27017
 ```
+Note: in Windows, you may have to create the data folder for MongoDB manually in following path:
+```
+C:\data\db
+```
 
 Create the admin user for MongoDB with following command line:
-
 ```
 mongo languagenote
 
@@ -65,6 +68,16 @@ mongorestore --host localhost:27017 --objcheck --username languagenoteadmin --pa
 ### Neo4j
 Neo4j server start:
 ```
+Download Neo4j
+Create a database with any arbitrary name.
+Login with default account: neo4j / neo4j
+Change password to: password
+```
+
+### NodeJS
+You should install NodeJs first, then also install bower
+```
+npm install -g bower
 ```
 
 ### Application
@@ -153,7 +166,3 @@ Word[1] -> load synonyms [2, 3] -> load word[2] -> synonyms[1, 3] -> load word[1
  
 ## References
 https://quizlet.com/11272763/barrons-essential-words-for-the-ielts-logging-flash-cards/
-
-# Backup Database:
-## MongoDB
-

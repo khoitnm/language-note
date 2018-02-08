@@ -19,7 +19,7 @@
     <properties>
         <path.resources>src/main/resources</path.resources>
         <main.basedir>${basedir}/../..</main.basedir>
-        <java.version>1.9</java.version>
+        <java.version>1.8</java.version>
     </properties>
     <dependencies>
 
@@ -222,25 +222,26 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
 
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <executable>npm</executable>
-                    <arguments>
-                        <argument>install</argument>
-                    </arguments>
-                    <workingDirectory>${basedir}/src/main/resources/static</workingDirectory>
-                </configuration>
-            </plugin>
+            <!-- Generate Front-End source from NodeJs -->
+            <!--<plugin>-->
+                <!--<groupId>org.codehaus.mojo</groupId>-->
+                <!--<artifactId>exec-maven-plugin</artifactId>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<phase>generate-sources</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>exec</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+                <!--<configuration>-->
+                    <!--<executable>npm</executable>-->
+                    <!--<arguments>-->
+                        <!--<argument>install</argument>-->
+                    <!--</arguments>-->
+                    <!--<workingDirectory>${basedir}/src/main/resources/static</workingDirectory>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
 
             <!-- EXPORT PROJECT INFORMATION TO PROPERTIES: BEGIN -->
             <!-- Export information into properties file -->
