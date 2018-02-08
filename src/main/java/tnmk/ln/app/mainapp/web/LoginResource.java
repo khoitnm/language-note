@@ -20,7 +20,7 @@ public class LoginResource {
 //        return loginPage(model);
 //    }
 
-    @RequestMapping({ "/", UriPrefixConstants.WEB_PREFIX + "/login" })
+    @RequestMapping({UriPrefixConstants.WEB_PREFIX + "/login" })
     public String loginPage(Model model) {
         model.addAttribute("projectInfo", projectInfoProperties);
         return "login";

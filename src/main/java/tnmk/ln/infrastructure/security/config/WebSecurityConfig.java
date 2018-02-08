@@ -51,17 +51,16 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-//@SpringBootApplication
 @RestController
-@EnableOAuth2Client
-@EnableAuthorizationServer
+//@EnableOAuth2Client
+//@EnableAuthorizationServer
 @Order(6)
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserAuthenticationService userAuthenticationService;
 
-    @Autowired
-    OAuth2ClientContext oauth2ClientContext;
+//    @Autowired
+//    OAuth2ClientContext oauth2ClientContext;
 
     @RequestMapping({ "/user", "/me" })
     public Map<String, String> user(Principal principal) {
@@ -88,7 +87,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.jpg", "/**/fonts/**").permitAll()
 
                 //The home page and login endpoints are explicitly excluded
-                .antMatchers("/", "/project-info**", "/swagger-ui.html**", "/web/login**", "/login**", "/web/register**", "/webjars/**", "/api/users").permitAll()
+                .antMatchers("/project-info**", "/swagger-ui.html**", "/web/login**", "/login**", "/web/register**", "/webjars/**", "/api/users").permitAll()
 
                 //All other endpoints require an authenticated user
                 .anyRequest().authenticated()
@@ -98,7 +97,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and().formLogin().defaultSuccessUrl("/web/main", false).loginPage("/web/login").permitAll()
 
-                .and().logout().logoutSuccessUrl("/").permitAll()
+                .and().logout().logoutSuccessUrl("/web/login").permitAll()
 
 //                .and().csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
 //                .and().addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class)
@@ -116,77 +115,77 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userAuthenticationService).passwordEncoder(passwordEncoder());
 //        auth.inMemoryAuthentication().withUser("user").password("password").roles("USER");
     }
-
-    @Configuration
-    @EnableResourceServer
-    protected static class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
-        @Override
-        public void configure(HttpSecurity http) throws Exception {
-            // @formatter:off
-            http.antMatcher("/me").authorizeRequests().anyRequest().authenticated();
-            // @formatter:on
-        }
-    }
+//
+//    @Configuration
+//    @EnableResourceServer
+//    protected static class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
+//        @Override
+//        public void configure(HttpSecurity http) throws Exception {
+//            // @formatter:off
+//            http.antMatcher("/me").authorizeRequests().anyRequest().authenticated();
+//            // @formatter:on
+//        }
+//    }
 
 //    public static void main(String[] args) {
 //        SpringApplication.run(SocialApplication.class, args);
 //    }
-
-    @Bean
-    public FilterRegistrationBean oauth2ClientFilterRegistration(OAuth2ClientContextFilter filter) {
-        FilterRegistrationBean registration = new FilterRegistrationBean();
-        registration.setFilter(filter);
-        registration.setOrder(-100);
-        return registration;
-    }
-
-    @Bean
-    @ConfigurationProperties("github")
-    public ClientResources github() {
-        return new ClientResources();
-    }
-
-    @Bean
-    @ConfigurationProperties("facebook")
-    public ClientResources facebook() {
-        return new ClientResources();
-    }
-
-    private Filter ssoFilter() {
-        CompositeFilter filter = new CompositeFilter();
-        List<Filter> filters = new ArrayList<>();
-        filters.add(ssoFilter(facebook(), "/login/facebook"));
-        filters.add(ssoFilter(github(), "/login/github"));
-        filter.setFilters(filters);
-        return filter;
-    }
-
-    private Filter ssoFilter(ClientResources client, String path) {
-        OAuth2ClientAuthenticationProcessingFilter filter = new OAuth2ClientAuthenticationProcessingFilter(path);
-        OAuth2RestTemplate template = new OAuth2RestTemplate(client.getClient(), oauth2ClientContext);
-        filter.setRestTemplate(template);
-        UserInfoTokenServices tokenServices = new UserInfoTokenServices(client.getResource().getUserInfoUri(), client.getClient().getClientId());
-        tokenServices.setRestTemplate(template);
-        filter.setTokenServices(tokenServices);
-        return filter;
-    }
-
-    public static class ClientResources {
-
-        @NestedConfigurationProperty
-        private AuthorizationCodeResourceDetails client = new AuthorizationCodeResourceDetails();
-
-        @NestedConfigurationProperty
-        private ResourceServerProperties resource = new ResourceServerProperties();
-
-        public AuthorizationCodeResourceDetails getClient() {
-            return client;
-        }
-
-        public ResourceServerProperties getResource() {
-            return resource;
-        }
-    }
+//
+//    @Bean
+//    public FilterRegistrationBean oauth2ClientFilterRegistration(OAuth2ClientContextFilter filter) {
+//        FilterRegistrationBean registration = new FilterRegistrationBean();
+//        registration.setFilter(filter);
+//        registration.setOrder(-100);
+//        return registration;
+//    }
+//
+//    @Bean
+//    @ConfigurationProperties("github")
+//    public ClientResources github() {
+//        return new ClientResources();
+//    }
+//
+//    @Bean
+//    @ConfigurationProperties("facebook")
+//    public ClientResources facebook() {
+//        return new ClientResources();
+//    }
+//
+//    private Filter ssoFilter() {
+//        CompositeFilter filter = new CompositeFilter();
+//        List<Filter> filters = new ArrayList<>();
+//        filters.add(ssoFilter(facebook(), "/login/facebook"));
+//        filters.add(ssoFilter(github(), "/login/github"));
+//        filter.setFilters(filters);
+//        return filter;
+//    }
+//
+//    private Filter ssoFilter(ClientResources client, String path) {
+//        OAuth2ClientAuthenticationProcessingFilter filter = new OAuth2ClientAuthenticationProcessingFilter(path);
+//        OAuth2RestTemplate template = new OAuth2RestTemplate(client.getClient(), oauth2ClientContext);
+//        filter.setRestTemplate(template);
+//        UserInfoTokenServices tokenServices = new UserInfoTokenServices(client.getResource().getUserInfoUri(), client.getClient().getClientId());
+//        tokenServices.setRestTemplate(template);
+//        filter.setTokenServices(tokenServices);
+//        return filter;
+//    }
+//
+//    public static class ClientResources {
+//
+//        @NestedConfigurationProperty
+//        private AuthorizationCodeResourceDetails client = new AuthorizationCodeResourceDetails();
+//
+//        @NestedConfigurationProperty
+//        private ResourceServerProperties resource = new ResourceServerProperties();
+//
+//        public AuthorizationCodeResourceDetails getClient() {
+//            return client;
+//        }
+//
+//        public ResourceServerProperties getResource() {
+//            return resource;
+//        }
+//    }
 
 }
 

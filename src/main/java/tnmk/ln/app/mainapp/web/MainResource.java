@@ -22,7 +22,7 @@ public class MainResource {
 //        return greetingPage(model);
 //    }
 
-    @RequestMapping(UriPrefixConstants.WEB_PREFIX + "/main")
+    @RequestMapping({ "/", UriPrefixConstants.WEB_PREFIX + "/main"})
     public String greetingPage(Model model) {
         User user = SecurityContextHelper.validateExistAuthenticatedUser();
         model.addAttribute("projectInfo", projectInfoProperties);
