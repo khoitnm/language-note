@@ -50,7 +50,7 @@ db.createUser(
 
 #### Full-text Search Index
 ```
-db.expressions.createIndex( { text: "text" } )
+db.Expressions.createIndex( { text: "text" } )
 ```
 
 #### Backup
@@ -99,6 +99,10 @@ mvn spring-boot:run -Drun.profiles=dev
 After deploying application, open the web on Browser with URL:
 ```
 localhost:8080/language-note/
+```
+The default account is:
+```
+superuser / superuser
 ```
 
 ## III. Security
