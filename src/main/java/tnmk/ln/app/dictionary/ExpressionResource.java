@@ -10,7 +10,7 @@ import tnmk.ln.app.common.entity.UriPrefixConstants;
 import tnmk.ln.app.dictionary.entity.Expression;
 import tnmk.ln.app.dictionary.entity.Locale;
 import tnmk.ln.app.topic.TopicService;
-import tnmk.ln.infrastructure.security.helper.SecurityContextHelper;
+import tnmk.ln.infrastructure.security.clientapp.helper.SecurityContextHelper;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
 
 /**

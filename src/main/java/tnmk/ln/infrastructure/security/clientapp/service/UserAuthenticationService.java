@@ -1,4 +1,4 @@
-package tnmk.ln.infrastructure.security.service;
+package tnmk.ln.infrastructure.security.clientapp.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import tnmk.ln.infrastructure.security.model.AuthenticatedUser;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
+import tnmk.ln.infrastructure.security.service.UserService;
 
 /**
  * @author khoi.tran on 1/28/17.

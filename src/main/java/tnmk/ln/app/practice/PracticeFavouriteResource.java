@@ -7,11 +7,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import tnmk.ln.app.common.entity.UriPrefixConstants;
 import tnmk.ln.app.practice.entity.favourite.PracticeFavourite;
-import tnmk.ln.app.practice.model.QuestionWithPracticeResult;
-import tnmk.ln.infrastructure.security.helper.SecurityContextHelper;
+import tnmk.ln.infrastructure.security.clientapp.helper.SecurityContextHelper;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
-
-import java.util.List;
 
 /**
  * @author khoi.tran on 3/4/17.

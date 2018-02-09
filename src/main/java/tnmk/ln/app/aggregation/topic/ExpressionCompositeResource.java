@@ -9,7 +9,7 @@ import tnmk.ln.app.aggregation.practice.model.ExpressionComposite;
 import tnmk.ln.app.common.entity.UriPrefixConstants;
 import tnmk.ln.app.dictionary.ExpressionFactory;
 import tnmk.ln.app.dictionary.entity.Locale;
-import tnmk.ln.infrastructure.security.helper.SecurityContextHelper;
+import tnmk.ln.infrastructure.security.clientapp.helper.SecurityContextHelper;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
 
 import java.util.List;

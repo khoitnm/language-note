@@ -19,7 +19,7 @@
 //import tnmk.ln.app.vocabulary.repository.ExpressionItemRepository;
 //import tnmk.ln.app.vocabulary.service.ExpressionItemFilterService;
 //import tnmk.ln.app.vocabulary.service.ExpressionUserPointService;
-//import tnmk.ln.infrastructure.security.helper.SecurityContextHelper;
+//import tnmk.ln.infrastructure.security.clientapp.helper.SecurityContextHelper;
 //import tnmk.ln.infrastructure.security.neo4j.entity.User;
 //
 //import java.util.Arrays;

@@ -12,7 +12,7 @@ import tnmk.ln.app.dictionary.entity.Expression;
 import tnmk.ln.app.topic.TopicBriefService;
 import tnmk.ln.app.topic.TopicService;
 import tnmk.ln.app.topic.entity.Topic;
-import tnmk.ln.infrastructure.security.helper.SecurityContextHelper;
+import tnmk.ln.infrastructure.security.clientapp.helper.SecurityContextHelper;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package tnmk.ln.infrastructure.security.resource.web;
+package tnmk.ln.infrastructure.security.clientapp.resource.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

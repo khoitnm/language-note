@@ -1,4 +1,4 @@
-package tnmk.ln.app.mainapp.web;
+package tnmk.ln.infrastructure.security.clientapp;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,11 +14,6 @@ import tnmk.ln.app.common.entity.UriPrefixConstants;
 public class LoginResource {
     @Autowired
     private ProjectInfoProperties projectInfoProperties;
-
-//    @RequestMapping("/")
-//    public String defaultPage(Model model) {
-//        return loginPage(model);
-//    }
 
     @RequestMapping({UriPrefixConstants.WEB_PREFIX + "/login" })
     public String loginPage(Model model) {

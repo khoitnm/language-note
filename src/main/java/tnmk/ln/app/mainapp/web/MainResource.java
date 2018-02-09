@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import tnmk.common.infrastructure.projectinfo.ProjectInfoProperties;
 import tnmk.ln.app.common.entity.UriPrefixConstants;
-import tnmk.ln.infrastructure.security.helper.SecurityContextHelper;
+import tnmk.ln.infrastructure.security.clientapp.helper.SecurityContextHelper;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
 
 /**
@@ -16,11 +16,6 @@ import tnmk.ln.infrastructure.security.neo4j.entity.User;
 public class MainResource {
     @Autowired
     private ProjectInfoProperties projectInfoProperties;
-
-//    @RequestMapping("/")
-//    public String defaultPage(Model model) {
-//        return greetingPage(model);
-//    }
 
     @RequestMapping({ "/", UriPrefixConstants.WEB_PREFIX + "/main"})
     public String greetingPage(Model model) {
