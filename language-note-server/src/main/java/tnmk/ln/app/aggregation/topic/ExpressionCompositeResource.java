@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import tnmk.ln.app.aggregation.practice.model.ExpressionComposite;
-import tnmk.ln.app.common.entity.UriPrefixConstants;
+import tnmk.ln.app.common.constant.UriPrefixConstants;
 import tnmk.ln.app.dictionary.ExpressionFactory;
 import tnmk.ln.app.dictionary.entity.Locale;
 import tnmk.ln.infrastructure.security.clientapp.helper.SecurityContextHelper;

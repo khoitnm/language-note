@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import tnmk.ln.app.common.entity.UriPrefixConstants;
+import tnmk.ln.app.common.constant.UriPrefixConstants;
 import tnmk.ln.infrastructure.security.clientapp.helper.SecurityContextHelper;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
 

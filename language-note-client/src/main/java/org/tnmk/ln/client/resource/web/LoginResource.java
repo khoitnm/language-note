@@ -1,11 +1,11 @@
-package tnmk.ln.infrastructure.security.clientapp;
+package org.tnmk.ln.client.resource.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import tnmk.common.infrastructure.projectinfo.ProjectInfoProperties;
-import tnmk.ln.app.common.constant.UriPrefixConstants;
+import org.tnmk.common.infrastructure.projectinfo.ProjectInfoProperties;
+import org.tnmk.ln.client.common.constant.UriPrefixConstants;
 
 /**
  * @author khoi.tran on 11/6/16.

@@ -287,7 +287,7 @@
                             <goal>extract-buildnumber</goal>
                         </goals>
                         <configuration>
-                            <repositoryDirectory>${project.basedir}</repositoryDirectory>
+                            <repositoryDirectory>${project.basedir}/..</repositoryDirectory>
                             <runOnlyAtExecutionRoot>false</runOnlyAtExecutionRoot>
                             <!--Must set it's false in order to read .git folder from parent folder-->
                         </configuration>

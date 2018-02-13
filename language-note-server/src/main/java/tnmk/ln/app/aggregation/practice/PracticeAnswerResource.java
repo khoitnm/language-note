@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import tnmk.ln.app.common.entity.UriPrefixConstants;
+import tnmk.ln.app.common.constant.UriPrefixConstants;
 import tnmk.ln.app.practice.PracticeAnswerService;
 import tnmk.ln.app.practice.entity.result.AnswerResult;
 import tnmk.ln.infrastructure.security.clientapp.helper.SecurityContextHelper;

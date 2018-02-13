@@ -2,7 +2,7 @@ package tnmk.ln.infrastructure.security.clientapp.resource.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import tnmk.ln.app.common.entity.UriPrefixConstants;
+import tnmk.ln.app.common.constant.UriPrefixConstants;
 
 /**
  * @author khoi.tran on 1/28/17.

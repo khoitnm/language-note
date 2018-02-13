@@ -1,4 +1,4 @@
-package tnmk.ln.app.common.entity;
+package tnmk.ln.app.common.constant;
 
 /**
  * @author khoi.tran on 1/27/17.

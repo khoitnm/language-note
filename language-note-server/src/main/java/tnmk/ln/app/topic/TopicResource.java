@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import tnmk.ln.app.aggregation.topic.TopicCompositeService;
 import tnmk.ln.app.aggregation.topic.TopicDeletionService;
 import tnmk.ln.app.aggregation.topic.model.TopicComposite;
-import tnmk.ln.app.common.entity.UriPrefixConstants;
+import tnmk.ln.app.common.constant.UriPrefixConstants;
 import tnmk.ln.app.topic.entity.Topic;
 import tnmk.ln.infrastructure.security.clientapp.helper.SecurityContextHelper;
 import tnmk.ln.infrastructure.security.neo4j.entity.User;
