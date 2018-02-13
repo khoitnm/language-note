@@ -1,8 +1,8 @@
 # Properties valid for every environment
 server:
     servlet-path: /*
-    contextPath: /spring-boot-web-thymeleaf
-    port : 8089
+    contextPath: /language-note-client
+    port : 8081
 # Spring boot properties (do not change the keys)
 spring:
     mvc:
