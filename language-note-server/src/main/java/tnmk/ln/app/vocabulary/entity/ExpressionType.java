@@ -3,8 +3,8 @@ package tnmk.ln.app.vocabulary.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import tnmk.ln.app.common.entity.json.DeserializerEnumByField;
-import tnmk.ln.app.common.entity.json.SerializerEnumByField;
+import tnmk.common.util.json.DeserializerEnumByField;
+import tnmk.common.util.json.SerializerEnumByField;
 
 /**
  * @author khoi.tran on 1/25/17.

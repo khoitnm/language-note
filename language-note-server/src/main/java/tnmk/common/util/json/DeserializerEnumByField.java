@@ -1,4 +1,4 @@
-package tnmk.ln.app.common.entity.json;
+package tnmk.common.util.json;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;

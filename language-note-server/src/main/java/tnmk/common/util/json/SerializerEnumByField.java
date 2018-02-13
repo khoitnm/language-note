@@ -1,4 +1,4 @@
-package tnmk.ln.app.common.entity.json;
+package tnmk.common.util.json;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
