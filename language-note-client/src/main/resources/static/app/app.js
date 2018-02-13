@@ -1,5 +1,5 @@
 //'use strict';
-var contextPath = window.location.origin + '/language-note';
+var contextPath = window.location.origin + '/language-note-client';
 
 var angularApp = angular.module('myApp', [
     'ngSanitize'

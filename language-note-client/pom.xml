@@ -37,14 +37,44 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Optional, for bootstrap -->
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>bootstrap</artifactId>
-			<version>3.3.7</version>
-		</dependency>
+        <!--AOP-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
 
-	</dependencies>
+
+        <!-- For some utilities -->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-commons</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>4.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.4</version>
+        </dependency>
+
+        <!-- JSON: convert DateTime types in Java 8 -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+        </dependency>
+
+    </dependencies>
 	<build>
 		<finalName>language-note-client</finalName>
 		<plugins>
