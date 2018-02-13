@@ -1,0 +1,16 @@
+<!--<div class="col-xs-12">-->
+<div ng-show="!service.editingNote"
+     ng-bind-html="service.topic.noteAsHtml"
+     ng-dblclick="service.editingNote = true"
+     class="well well-sm">
+</div>
+<div ng-show="service.editingNote">
+        <textarea ck-editor="service.ckeditor.options"
+                  ng-model="service.topic.noteAsHtml"
+                  ready="service.ckeditor.onReady()"></textarea>
+    <br/>
+    <a class="ckeditor-btn-preview" ng-disabled="isRunning" ng-click="service.editingNote = false; service.saveTopicOnly();">
+        <span class="">Preview</span>
+    </a>
+</div>
+<!--</div>-->

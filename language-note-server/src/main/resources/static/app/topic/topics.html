@@ -1,0 +1,42 @@
+<style>
+    .topic-title {
+        font-style: italic;
+        font-weight: bolder;
+        /*font-size: 120%;*/
+    }
+</style>
+<div class="page-title">
+    <div class="title_left">
+        <h3>
+        </h3>
+        <a href="#!/topic-edit"><i class="fa fa-file-text"></i> New</a>
+    </div>
+    <div class="title_right">
+        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+            <div class="input-group">
+                <input type="text" ng-model="service.keyword" complete-input="service.init()" class="form-control" placeholder="Topics...">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button" ng-click="service.init()"><i class="fa fa-search"></i></button>
+                    </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+
+<div class="page-section row">
+    <div class="col-xs-12 page-section-title"><span class="">My Topics</span></div>
+
+    <!-- Expression Items Table -->
+    <div class="col-xs-12 topics"><!-- <!-- MASONRY layout: CONTAINER.masonry-container.masonry-n-cols -->
+        <div ng-repeat="topic in service.topicsDataTable.pager.items track by $index"
+             ng-if="$index >= service.topicsDataTable.pager.startIndex && $index < service.topicsDataTable.pager.startIndex + service.topicsDataTable.pager.pageSize"
+             ng-include="contextPath + '/app/topic/topics-teaser.html'"
+             class="">
+        </div>
+    </div>
+
+
+    <div class="col-xs-12" ng-include="contextPath + '/app/topic/topics-paging.html'"></div>
+
+</div>

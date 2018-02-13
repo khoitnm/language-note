@@ -1,0 +1,46 @@
+spring:
+    data:
+        mongodb:
+            host: localhost
+            port: 27017
+            database: languagenote
+            username: languagenoteadmin
+            password: password
+        neo4j:
+            uri: http://localhost:7474/
+            username: neo4j
+            password: password
+google:
+    api:
+        key: AIzaSyA6yFgxn-ZedxCghH1X4xwuLLcltaUlK3c
+translate:
+    yandex:
+        api:
+            key: trnsl.1.1.20170201T133356Z.dd25c6f5b98a0167.896a4b589be6f69359187182616b7e2fe07963c6
+tts:
+    voicerss:
+        api:
+            key: 6a165eb655ea4e84bcbe4cff8082c463
+dictionary:
+    oxford:
+        app:
+            id: 25b544e4
+            key: 720fe7869c5e4093bb3d06cffe2fe4d9
+
+logging:
+    level:
+        org.springframework.data.document.mongodb: DEBUG
+#logging.level.org.springframework.data.mongodb.core.MongoTemplate: DEBUG
+#        org:
+#            springframework:
+#                data:
+#                    document:
+#                        mongodb: INFO
+#log4j:
+#    category:
+#        org:
+#            springframework:
+#                data:
+#                    document:
+#                        mongodb: INFO
+#       org.springframework.data.document.mongodb: DEBUG

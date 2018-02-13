@@ -1,0 +1,215 @@
+<div class="overlay">
+    <div class="overlay-header" ng-include="contextPath + '/app/topic/expression-editor-top-controller.html'">
+    </div>
+    <div class="overlay-content">
+        <div class="col-xs-12">
+            <div class="expression-editor row">
+                <div class="col-xs-12">
+                    <!-- Expression Header-->
+                    <div class="expression header row">
+                        <div class="col-xs-10">
+                            <!--<input ng-model="expression.text"-->
+                            <!--complete-input="service.topicCompositionEditor.changeItem(expression)"-->
+                            <!--ng-focus="service.topicCompositionEditor.copyMissingSkeleton(expression)"-->
+                            <!--ng-change="service.validateNotExistExpressionText(expression)"-->
+                            <!--placeholder="expression"-->
+                            <!--ng-model-options='{ debounce: 1000 }'-->
+                            <!--class="input-as-text dark-theme"/>-->
+                            <input ng-model="expression.text"
+                                   complete-input="service.topicCompositionEditor.copyMissingSkeleton(expression)"
+                                   ng-focus="service.topicCompositionEditor.copyMissingSkeleton(expression)"
+                                   placeholder="expression"
+                                   ng-model-options='{ debounce: 1000 }'
+                                   class="input-as-text dark-theme"/>
+                        </div>
+                        <div class="pull-right" tnmk-dropdown>
+                            <div class="tnmk-dropdown-header">
+                                <a class="btn btn-xs" href='' title=''><i class="fa fa-cog dark-theme"></i></a>
+                            </div>
+                            <!--<div class="tnmk-dropdown-body">-->
+                            <!--<a class="btn btn-xs dark-theme" href="" ng-click="service.topicCompositionEditor.removeItemAndAddSkeleton(expression)">-->
+                            <!--<i class="fa fa-trash-o dark-theme"></i>-->
+                            <!--</a>-->
+                            <!--</div>-->
+                        </div>
+                        <div class="pull-right">
+                            <a href="" class="btn btn-xs"
+                               ng-if="service.isPlayingSound"
+                               ng-click="service.stopSound(expression)">
+                                <i class="fa fa-volume-off dark-theme"></i>
+                            </a>
+                            <a href="" class="btn btn-xs"
+                               ng-if="!(service.isPlayingSound)"
+                               ng-click="service.playSound(expression)">
+                                <i class="fa fa-volume-up dark-theme"></i>
+                            </a>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-xs-12 dark-theme" ng-include="contextPath + '/app/topic/expression-favourite.html'"></div>
+                    </div>
+
+                    <div class="expression-relations row dark-theme">
+                        <div class="col-xs-1  text-left">Family</div>
+                        <div class="col-xs-2" ng-repeat="relatedExpression in expression.family">
+                            <input class="input-as-text dark-theme"
+                                   ng-model="relatedExpression.text"
+                                   ng-focus="service.topicCompositionEditor.copyMissingSkeleton(relatedExpression)"
+                                   complete-input="service.topicCompositionEditor.changeItem(relatedExpression)"
+                                   placeholder="family expression"/>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="expression-relations row dark-theme">
+                        <div class="col-xs-1  text-left">Synonyms</div>
+                        <div class="col-xs-2" ng-repeat="relatedExpression in expression.synonyms">
+                            <input class="input-as-text dark-theme"
+                                   ng-model="relatedExpression.text"
+                                   ng-focus="service.topicCompositionEditor.copyMissingSkeleton(relatedExpression)"
+                                   complete-input="service.topicCompositionEditor.changeItem(relatedExpression)"
+                                   placeholder="synonym"/>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="expression-relations row dark-theme">
+                        <div class="col-xs-1 text-left">Antonyms</div>
+                        <div class="col-xs-2" ng-repeat="relatedExpression in expression.antonyms">
+                            <input class="input-as-text dark-theme"
+                                   ng-model="relatedExpression.text"
+                                   ng-focus="service.topicCompositionEditor.copyMissingSkeleton(relatedExpression)"
+                                   complete-input="service.topicCompositionEditor.changeItem(relatedExpression)"
+                                   placeholder="antonym"/>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <!-- Expression Body: List of SenseGroups -->
+                    <div class="expression body row">
+                        <div class="col-xs-12">
+                            <!--SenseGroup-->
+                            <div ng-repeat="senseGroup in expression.senseGroups" class="sense-group dark-theme row">
+                                <div class="col-xs-12">
+                                    <!--SenseGroup Header-->
+                                    <div class="sense-group-header row">
+                                        <div class="col-md-10">
+                                            <input ng-model="senseGroup.lexicalType" capitalize
+                                                   ng-focus="service.topicCompositionEditor.changeItem(senseGroup)"
+                                                   complete-input="service.topicCompositionEditor.changeItem(senseGroup)"
+                                                   class="sense-group-label pull-left"/>
+
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="col-md-2 text-right">
+
+                                            <div class="pull-right" tnmk-dropdown>
+                                                <div class="tnmk-dropdown-header">
+                                                    <a class="btn btn-xs" href='' title=''><i class="fa fa-cog dark-theme"></i></a>
+                                                </div>
+                                                <div class="tnmk-dropdown-body">
+                                                    <a class="btn btn-xs dark-theme" style="background: #73879c;" href="" ng-click="service.topicCompositionEditor.removeItemAndAddSkeleton(senseGroup)">
+                                                        <i class="fa fa-trash-o dark-theme"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="pull-right">
+                                                <a class="btn-xs" href="">
+                                                    <i class="fa fa-chevron-up dark-theme" ng-click="service.topicCompositionEditor.moveUp(senseGroup)"></i>
+                                                </a>
+                                            </div>
+                                            <div class="pull-right">
+                                                <a class="btn-xs" href="" ng-click="service.topicCompositionEditor.moveDown(senseGroup)">
+                                                    <i class="fa fa-chevron-down dark-theme"></i>
+                                                </a>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                    <!--SenseGroup Body-->
+                                    <div class="sense-group-body row">
+                                        <div class="col-xs-12">
+                                            <!--Sense-->
+                                            <div ng-repeat="sense in senseGroup.senses" class="sense dark-theme row">
+                                                <div class="col-xs-12">
+                                                    <div class="explanation row">
+                                                        <div class="col-md-6 col-xs-11">
+                                                    <textarea ng-model="sense.shortExplanation"
+                                                              ng-focus="service.topicCompositionEditor.changeItem(sense)"
+                                                              complete-input="service.topicCompositionEditor.changeItem(sense)"
+                                                              class="input-as-text dark-theme" placeholder="sense's summary"></textarea>
+
+                                                    <textarea ng-model="sense.explanation"
+                                                              rows="2"
+                                                              ng-focus="service.topicCompositionEditor.changeItem(sense)"
+                                                              complete-input="service.topicCompositionEditor.changeItem(sense)"
+                                                              class="input-as-text dark-theme" placeholder="sense's explanation"></textarea>
+                                                    <textarea ng-model="sense.detailExplanation"
+                                                              rows="3"
+                                                              ng-focus="service.topicCompositionEditor.changeItem(sense)"
+                                                              complete-input="service.topicCompositionEditor.changeItem(sense)"
+                                                              class="input-as-text dark-theme" placeholder="sense's detail explanation"></textarea>
+                                                        </div>
+                                                        <div class="col-md-5 col-xs-11">
+                                                            <div class="row"
+                                                                 ng-include="contextPath + '/app/topic/topic-edit-expression-editor-photos.html'"></div>
+                                                        </div>
+                                                        <div class="col-xs-1 text-right">
+                                                            <div class="pull-right" tnmk-dropdown>
+                                                                <div class="tnmk-dropdown-header">
+                                                                    <a class="btn btn-xs" href='' title=''><i class="fa fa-cog dark-theme"></i></a>
+                                                                </div>
+                                                                <div class="tnmk-dropdown-body">
+                                                                    <div class="btn btn-xs dark-theme">
+                                                                        <a href="" ng-click="service.topicCompositionEditor.removeItemAndAddSkeleton(sense)"><i class="fa fa-trash-o dark-theme"></i></a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="pull-right">
+                                                                <a class="btn-xs" href="">
+                                                                    <i class="fa fa-chevron-up dark-theme" ng-click="service.topicCompositionEditor.moveUp(sense)"></i>
+                                                                </a>
+                                                            </div>
+                                                            <div class="pull-right">
+                                                                <a class="btn-xs" href="" ng-click="service.topicCompositionEditor.moveDown(sense)">
+                                                                    <i class="fa fa-chevron-down dark-theme"></i>
+                                                                </a>
+                                                            </div>
+                                                            <div class="clearfix"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" ng-include="contextPath + '/app/topic/topic-edit-expression-editor-videos.html'"></div>
+                                                    <div ng-repeat="example in sense.examples" class="row">
+                                                        <div class="col-xs-12">
+                                                            <div class="example row">
+                                                                <div class="col-xs-11">
+                                                            <textarea ng-model="example.text"
+                                                                      ng-focus="service.topicCompositionEditor.changeItem(example)"
+                                                                      complete-input="service.topicCompositionEditor.changeItem(example)"
+                                                                      class="input-as-text dark-theme" placeholder="Example">
+                                                            </textarea>
+                                                                </div>
+                                                                <div class="col-xs-1 text-left">
+                                                                    <a href="" ng-click="service.topicCompositionEditor.removeItemAndAddSkeleton(example)"><i class="fa fa-trash-o dark-theme"></i></a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Footer -->
+                    <div class="footer row">
+                        <div class="col-md-12 text-center">
+                            <a href="" ng-click="service.modeEdit(expression)" class="more">
+                                <i class="fa fa-chevron-up dark-theme"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

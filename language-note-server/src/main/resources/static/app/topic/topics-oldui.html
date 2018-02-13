@@ -1,0 +1,122 @@
+<style>
+    .topic-title {
+        font-style: italic;
+        font-weight: bolder;
+        /*font-size: 120%;*/
+    }
+</style>
+<div class="page-title">
+    <div class="title_left">
+        <h3>
+        </h3>
+        <a href="#!/topic-edit"><i class="fa fa-file-text"></i> New</a>
+    </div>
+    <div class="title_right">
+        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+            <div class="input-group">
+                <input type="text" ng-model="service.keyword" complete-input="service.init()" class="form-control" placeholder="Topics...">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button" ng-click="service.init()"><i class="fa fa-search"></i></button>
+                    </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="row">
+    <div class="col-xs-12">
+        <!-- Topic -->
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>
+                    My Topics
+                </h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <!-- Expression Items Table -->
+                <div class="row" ng-include="contextPath + '/app/topic/topics-paging.html'"></div>
+
+                <div ng-repeat="topic in service.topicsDataTable.pager.items track by $index"
+                     ng-if="$index >= service.topicsDataTable.pager.startIndex && $index <= service.topicsDataTable.startIndex + service.topicsDataTable.pager.pageSize"
+                     class="col-md-3 col-sm-6 col-xs-12 topic-item">
+                    <div class="row teaser-float-wrapper">
+                        <div class="col-xs-12">
+                            <div class="row teaser">
+                                <div class="col-xs-12">
+                                    <div class="row header">
+                                        <div class="col-xs-11 pull-left">
+                                            <input class="topic-title input-as-text"
+                                                   ng-model="topic.title"
+                                                   title="{{topic.title}}"
+                                                   ng-change="service.rename(topic)" ng-model-options="{debounce: 1500}"/>
+                                        </div>
+                                        <div class="pull-right">
+                                            <div tnmk-dropdown>
+                                                <a class="tnmk-dropdown-header btn-xs" href='' title=''>
+                                                    <i class="fa fa-cog"></i>
+                                                </a>
+
+                                                <div class="tnmk-dropdown-body">
+                                                    <div class="btn-xs btn-default">
+                                                        <a href="" ng-click="service.removeTopic(topic)">
+                                                            <i class="fa fa-trash-o"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--<a class="btn btn-xs btn-danger" href="" ng-click="service.removeTopic(topic)">-->
+                                            <!--<i class="fa fa-remove"></i>-->
+                                            <!--</a>-->
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+
+                                    <div class="row body">
+                                        <div class="col-xs-12">
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <span class="small">{{topic.createdDateTime | date:'yyyy-MM-dd hh:mm:ss'}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="row" ng-if="topic.noteAsHtml">
+                                                <div class="description col-xs-12" ng-bind-html="topic.noteAsHtml"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row footer">
+                                        <div class="pull-left" style="font-size: 90%; font-weight: lighter;">
+                                            <div ng-show="topic.expressionIds.length > 0">
+                                                {{topic.expressionIds.length}} expression<span ng-show="topic.expressionIds.length > 1">s</span>
+                                            </div>
+                                            <div ng-show="!topic.expressionIds || topic.expressionIds.length == 0">
+                                                Empty topic
+                                            </div>
+                                        </div>
+                                        <div class="pull-right">
+                                            <a class="btn btn-xs" href="#!/topic-edit?topicId={{topic.id}}" title="Edit">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                            <a class="btn btn-xs" href="#!/practice?topicId={{topic.id}}" title="Test">
+                                                <i class="fa fa-tasks"></i>
+                                            </a>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" ng-include="contextPath + '/app/topic/topics-paging.html'"></div>
+
+            </div>
+        </div>
+    </div>
+</div>

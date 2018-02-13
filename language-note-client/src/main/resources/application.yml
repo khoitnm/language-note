@@ -1,0 +1,22 @@
+# Properties valid for every environment
+server:
+    servlet-path: /*
+    contextPath: /language-note-client
+    port : 8081
+
+# Spring boot properties (do not change the keys)
+spring:
+    mvc:
+        favicon:
+            enabled: false
+    thymeleaf:
+        cache: false
+    template:
+        cache: false
+#spring.mvc.view.prefix=/static/
+#spring.mvc.view.suffix=.jsp
+#multipart.max-file-size=20Mb
+#multipart.max-request-size=20Mb
+multipart:
+    max-file-size: 20Mb
+    max-request-size: 20Mb

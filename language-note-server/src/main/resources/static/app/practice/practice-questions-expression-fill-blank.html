@@ -1,0 +1,85 @@
+<!--<div ng-repeat="questionWithPracticeResult in service.expressionTest.askedItems"-->
+<!--class="col-xs-12 col-sm-6 col-md-4">-->
+<!--<div class="row expression-item"-->
+<!--ng-init="expression = questionWithPracticeResult.question.fromExpression">-->
+<div class="col-xs-12">
+    <div class="expression-teaser row">
+        <div class="col-xs-12">
+            <div class="header row">
+                <div class="pull-left" style="width: 80%;">
+                    <span ng-if="service.expressionTest.answered">{{questionWithPracticeResult.question.fromExpression.text}}</span>
+                </div>
+                <div class="pull-right" ng-if="service.expressionTest.answered">
+                    <a href="" ng-click="service.modeEdit(expression)" class="btn-xs highlight" title="{{$index+1}}"><i class="fa fa-edit"></i></a>
+                </div>
+                <div class="pull-right">
+                    <a class="btn-xs" href=""
+                       ng-show="service.expressionTest.answered && !(service.isPlayingSound)"
+                       ng-click="service.playSound(questionWithPracticeResult.question.fromExpression)">
+                        <i class="fa fa-volume-up"></i>
+                    </a>
+                    <a class="btn-xs" href=""
+                       ng-show="service.expressionTest.answered && service.isPlayingSound"
+                       ng-click="service.stopSound(questionWithPracticeResult.question.fromExpression)">
+                        <i class="fa fa-volume-off"></i>
+                    </a>
+                </div>
+                <!--<div class="pull-right">-->
+                <!--<span ng-repeat="ianswerResult in questionWithPracticeResult.expressionPracticeResult.answers track by $index" title="{{questionWithPracticeResult.expressionPracticeResult.sumLatestAnswerPoint}}">-->
+                <!--<i class="answer-point fa " ng-class="ianswerResult > 0 ? 'fa-dot-circle-o text-success': 'fa-circle-o text-danger'"></i>-->
+                <!--</span>-->
+                <!--</div>-->
+
+                <div class="clearfix"></div>
+                <div class="col-xs-12" ng-include="contextPath + '/app/topic/expression-answers.html'"></div>
+                <div class="col-xs-12" ng-include="contextPath + '/app/topic/expression-favourite.html'"></div>
+            </div>
+            <div class="body row">
+                <div class="col-xs-12">
+                    <div class="fill-blank row" ng-if="questionWithPracticeResult.question.questionParts">
+                        <ng-repeat ng-repeat="questionPart in questionWithPracticeResult.question.questionParts">
+                            <span ng-if="questionPart.questionPartType != 'BLANK'">{{questionPart.text}}</span>
+                            <input ng-if="questionPart.questionPartType == 'BLANK'"
+                                   ng-model="questionPart.answer" class="input-fill-blank input-as-text"
+                                   ng-class="service.expressionTest.answered && (questionPart.answer == questionPart.text) ? 'text-success': service.expressionTest.answered ? 'text-danger': ''"/>
+                        </ng-repeat>
+                    </div>
+                    <div class="fill-blank row" ng-if="service.expressionTest.answered && questionWithPracticeResult.question.questionParts">
+                                <span ng-repeat="questionPart in questionWithPracticeResult.question.questionParts" ng-class="questionPart.questionPartType=='BLANK'?'text-success':''">
+                                    {{questionPart.text}}
+                                </span>
+                    </div>
+                    <div ng-repeat="senseGroup in questionWithPracticeResult.question.fromExpression.senseGroups  | limitTo: 2"
+                         class="sense-group row">
+                        <div class="col-xs-12">
+                            <div ng-show="senseGroup.lexicalType" class="lexical-type text-center row">{{senseGroup.lexicalType}}</div>
+                            <div ng-repeat="sense in senseGroup.senses  | limitTo: 2" class="sense row">
+                                <div class="col-xs-12">
+                                    <div class="sense-header row">
+                                        <div class="col-xs-12 explanation">{{sense.shortExplanation || sense.explanation}}</div>
+                                    </div>
+                                    <div ng-if="sense.photos.length == 1 && sense.mainPhoto.fileItemId"
+                                         ng-include="contextPath + '/app/topic/topic-edit-expression-teaser-one-photo.html'"
+                                         class="image-border row">
+                                    </div>
+                                    <div ng-if="sense.photos.length > 1"
+                                         ng-include="contextPath + '/app/topic/topic-edit-expression-teaser-many-photos.html'"
+                                         class="image-border row">
+                                    </div>
+                                    <div class="sense-explanation row" ng-show="sense.shortExplanation">
+                                        <div class="col-xs-12">
+                                            {{sense.explanation}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--</div>-->
+<!--</div>-->

@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Main</title>
+
+    <link rel="shortcut icon" type="image/png" th:href="@{/favicons/agenda.png}"/>
+
+    <!-- Bootstrap theme -->
+    <!-- Bootstrap -->
+    <link th:href="@{/node_modules/gentelella/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet"/>
+    <!-- Font Awesome -->
+    <link th:href="@{/node_modules/gentelella/vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet"/>
+    <!-- NProgress -->
+    <link th:href="@{/node_modules/gentelella/vendors/nprogress/nprogress.css}" rel="stylesheet"/>
+    <!-- iCheck -->
+    <link th:href="@{/node_modules/gentelella/vendors/iCheck/skins/flat/green.css}" rel="stylesheet"/>
+    <!-- bootstrap-progressbar -->
+    <link th:href="@{/node_modules/gentelella/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css}" rel="stylesheet"/>
+
+    <!-- PNotify -->
+    <link th:href="@{/node_modules/gentelella/vendors/pnotify/dist/pnotify.css}" rel="stylesheet"/>
+    <link th:href="@{/node_modules/gentelella/vendors/pnotify/dist/pnotify.buttons.css}" rel="stylesheet"/>
+    <link th:href="@{/node_modules/gentelella/vendors/pnotify/dist/pnotify.nonblock.css}" rel="stylesheet"/>
+
+    <!-- Custom Theme Style -->
+    <link th:href="@{/node_modules/gentelella/build/css/custom.min.css}" rel="stylesheet"/>
+    <link th:href="@{/extends/angular-dropdowns-ext.css}" rel="stylesheet"/>
+
+
+    <!-- Custom styles for this template -->
+    <link th:href="@{/libs/bootstrap-spacer.css}" rel="stylesheet"/>
+    <link th:href="@{/common/common.css}" rel="stylesheet"/>
+    <link th:href="@{/common/masonry.css}" rel="stylesheet"/>
+
+
+    <link th:href="@{/app/page-layout.css}" rel="stylesheet"/>
+    <!--<link th:href="@{/app/grid-masonry.css}" rel="stylesheet"/>-->
+    <link th:href="@{/app/teaser.css}" rel="stylesheet"/>
+    <link th:href="@{/app/white-smoke-teaser.css}" rel="stylesheet"/>
+    <link th:href="@{/app/expression-spatial-white-teaser.css}" rel="stylesheet"/>
+    <link th:href="@{/app/dropdown.css}" rel="stylesheet"/>
+
+    <link th:href="@{/app/topic/topic-edit.css}" rel="stylesheet"/>
+</head>
+
+<body ng-app="myApp" class="nav-sm">
+<div class="container body">
+    <div class="main_container">
+        <div class="col-md-3 left_col" th:include="parts/left-col"></div>
+        <div class="top_nav" th:include="parts/top-nav"></div>
+
+        <!-- page content -->
+        <div class="right_col" role="main" ng-view="" style="min-height: 500px;">
+            <!--
+            <div class="row top_tiles" style="margin: 10px 0;"></div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                </div>
+            </div>
+            -->
+        </div>
+
+        <footer th:include="parts/footer"></footer>
+    </div>
+</div>
+<!---->
+<!--"[[${user.accessToken}]]";-->
+<script th:inline="text">
+    var PROFILE = "[[${projectInfo.profiles[0]}]]";
+    var USER_ID = "[[${user.id}]]";
+    //    var ACCESS_TOKEN = "xxx";
+</script>
+<div th:include="parts/import-scripts"></div>
+<!-- /page content -->
+<div ng-show="isRunning" class="status-icon">
+    <span><i class="fa fa-spinner fa-spin"></i></span>
+</div>
+
+<!--<div class="ui-pnotify dark ui-pnotify-in ui-pnotify-fade-in" aria-live="assertive" aria-role="alertdialog" style="display: none; cursor: auto;">-->
+<!--<div ng-show="!isRunning" class="alert ui-pnotify-container alert-info ui-pnotify-shadow" role="alert" style="min-height: 16px;">-->
+<!--<span class="fa fa-spinner fa-spin"></span>-->
+<!--</div>-->
+<!--</div>-->
+<div ng-show="globalMessage" class="ui-pnotify dark ui-pnotify-fade-normal ui-pnotify-in ui-pnotify-fade-in ui-pnotify-move" aria-live="assertive" aria-role="alertdialog" style="display: none; width: 300px; right: 36px; top: 36px; cursor: auto;">
+    <div ng-show="globalMessage" class="alert ui-pnotify-container alert-info ui-pnotify-shadow" role="alert" style="min-height: 16px;">
+        <div class="ui-pnotify-closer" aria-role="button" tabindex="0" title="Close" style="cursor: pointer; visibility: hidden; display: none;"><span class="glyphicon glyphicon-remove"></span></div>
+        <div class="ui-pnotify-sticker" aria-role="button" aria-pressed="true" tabindex="0" title="Unstick" style="cursor: pointer; visibility: hidden; display: none;"><span class="glyphicon glyphicon-play" aria-pressed="true"></span></div>
+        <div class="ui-pnotify-icon"><span class="glyphicon glyphicon-info-sign"></span></div>
+        <h4 class="ui-pnotify-title">Sorry my dear</h4>
+
+        <div class="ui-pnotify-text" aria-role="alert">{{globalMessage}}</div>
+    </div>
+</div>
+</body>
+</html>
+

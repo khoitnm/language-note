@@ -1,0 +1,49 @@
+<div class="col-xs-12 table-responsive">
+    <table class="table table-striped jambo_table bulk_action">
+        <thead>
+        <tr>
+            <th>
+                #
+            </th>
+            <th>
+                Topic
+            </th>
+            <th>
+                Expressions
+            </th>
+            <th>
+                <input type="checkbox"/>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="topic in service.topicFilter.originalItems track by $index">
+            <td>
+                {{$index}}
+            </td>
+            <td>
+                {{topic.title}}
+            </td>
+            <td>
+                {{topic.expressionIds.length || 0}}
+            </td>
+            <td>
+                <input type="checkbox" ng-model="topic['$checked']" ng-click="service.topicFilter.clickItem(topic)"/>
+            </td>
+        </tr>
+        </tbody>
+        <!--<tfoot>-->
+        <!--<tr ng-repeat="topic in service.topicFilter.selectedItems track by $index">-->
+        <!--<td>-->
+        <!--{{topic.id}}-->
+        <!--</td>-->
+        <!--<td>-->
+        <!--{{topic.title}}-->
+        <!--</td>-->
+        <!--<td>-->
+
+        <!--</td>-->
+        <!--</tr>-->
+        <!--</tfoot>-->
+    </table>
+</div>

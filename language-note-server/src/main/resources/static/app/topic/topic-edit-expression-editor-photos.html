@@ -1,0 +1,41 @@
+<div class="sense-photos dark-theme row">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-12">
+                <div nv-file-drop="" uploader="service.uploader" options="{'sense': sense}" class="">
+                    <div nv-file-over="" uploader="service.uploader" over-class="file-upload-drop-zone-hover" class="middle-wrapper file-upload-drop-zone">
+                        <div class="middle-vertical main-photo">
+                            <input type="file" nv-file-select=""
+                                   uploader="service.uploader"
+                                   options="{'sense': sense}" multiple=""
+                                   class="middle-horizontal dark-theme" style="max-width: 200px;"
+                                   ng-if="!sense.mainPhoto.fileItemId"/>
+                            <img ng-if="sense.mainPhoto.fileItemId" class="img-explanation" ng-src="{{contextPath + '/api/files/'+sense.mainPhoto.fileItemId}}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-if="sense.photos.length > 0">
+            <div class="col-xs-12">
+                <div class="images-carousel">
+                    <ul>
+                        <li ng-repeat="photo in sense.photos track by $index" ng-if="photo.fileItemId">
+                            <a href="">
+                                <div class="middle-wrapper">
+                                    <div class="middle-vertical">
+                                        <div class="middle-horizontal img-with-close-wrapper">
+                                            <span class="img-btn-close btn btn-xs btn-dark" ng-click="service.topicCompositionEditor.removeItemAndAddSkeleton(photo)"><i class="fa fa-trash-o"></i></span>
+                                            <img ng-src="{{contextPath + '/api/files/'+photo.fileItemId}}" ng-click="service.selectMainPhoto(sense, photo)">
+                                            <!--<span>Image Name</span>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

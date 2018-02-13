@@ -1,0 +1,9 @@
+<div class="col-xs-12 text-center" ng-if="service.topicsDataTable.pager.pages.length > 1">
+    <button ng-repeat="page in service.topicsDataTable.pager.pages"
+            ng-click="service.topicsDataTable.setPage(page.index)"
+            ng-class="{active: service.topicsDataTable.pager.currentPage == page.index}"
+            class="btn btn-success"
+            type="button">
+        {{page.label}}
+    </button>
+</div>

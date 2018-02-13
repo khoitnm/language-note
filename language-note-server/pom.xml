@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>language-note-server</artifactId>
+    <groupId>tnmk</groupId>
+    <packaging>war</packaging>
+    <name>language-note-server</name>
+    <description>language-note-server</description>
+    <version>1.0-SNAPSHOT</version>
+
+    <parent>
+        <!-- Your own application should inherit from spring-boot-starter-parent -->
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.10.RELEASE</version>
+
+    </parent>
+
+    <properties>
+        <path.resources>src/main/resources</path.resources>
+        <main.basedir>${basedir}/../..</main.basedir>
+        <java.version>1.8</java.version>
+    </properties>
+    <dependencies>
+
+
+        <!--Web-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
+
+        <!--Security-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security.oauth</groupId>
+            <artifactId>spring-security-oauth2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity4</artifactId>
+        </dependency>
+
+
+        <!--Cache -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>org.jsoup</groupId>-->
+        <!--<artifactId>jsoup</artifactId>-->
+        <!--<version>1.8.3</version>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+        <!--<groupId>com.jayway.jsonpath</groupId>-->
+        <!--<artifactId>json-path</artifactId>-->
+        <!--<scope>test</scope>-->
+        <!--</dependency>-->
+
+
+        <!--Database-->
+        <!--<dependency>-->
+        <!--<groupId>org.springframework.boot</groupId>-->
+        <!--<artifactId>spring-boot-starter-jdbc</artifactId>-->
+        <!--</dependency>-->
+
+        <!-- MongoDB - - - - - - - - - - - - - - - - - - - - - - - -  -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
+        </dependency>
+
+        <!-- Neo4j: Begin - - - - - - - - - - - - - - - - - - - - - - - -  -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-neo4j</artifactId>
+        </dependency>
+
+        <!-- For some reason newer versions of jackson cause errors with serialisation of nested objects in graph.-->
+        <!-- But we get problem with version 2.5.5 when working with Instant class in MongoDB -->
+        <!--<dependency>-->
+        <!--<groupId>com.fasterxml.jackson.core</groupId>-->
+        <!--<artifactId>jackson-annotations</artifactId>-->
+        <!--<version>2.5.5</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+        <!--<groupId>com.fasterxml.jackson.core</groupId>-->
+        <!--<artifactId>jackson-core</artifactId>-->
+        <!--<version>2.5.5</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+        <!--<groupId>com.fasterxml.jackson.core</groupId>-->
+        <!--<artifactId>jackson-databind</artifactId>-->
+        <!--<version>2.5.5</version>-->
+        <!--</dependency>-->
+        <!-- Neo4j: End - - - - - - - - - - - - - - - - - - - - - - - -  -->
+
+
+        <!-- Validator -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+        </dependency>
+
+
+        <dependency><!--It's necessary for Quartz -->
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+        </dependency>
+
+        <!--AOP-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
+        <!-- Swagger -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.4</version>
+        </dependency>
+
+        <!-- JSON: convert DateTime types in Java 8 -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+        </dependency>
+
+        <!-- Google Translate -->
+        <dependency>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>google-cloud-translate</artifactId>
+            <version>0.6.0</version>
+        </dependency>
+
+        <!-- Natural Language Processing -->
+        <!--OpenNLP is not as good as Standford-->
+        <dependency>
+            <groupId>org.apache.opennlp</groupId>
+            <artifactId>opennlp-tools</artifactId>
+            <version>1.7.2</version>
+        </dependency>
+        <dependency>
+            <groupId>edu.stanford.nlp</groupId>
+            <artifactId>stanford-corenlp</artifactId>
+            <version>3.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>edu.stanford.nlp</groupId>
+            <artifactId>stanford-corenlp</artifactId>
+            <version>3.7.0</version>
+            <classifier>models</classifier>
+        </dependency>
+
+        <!--<dependency>-->
+        <!--<groupId>org.tartarus.snowball</groupId>-->
+        <!--<artifactId>snowball</artifactId>-->
+        <!--&lt;!&ndash;https://github.com/torrances/snowball/blob/master/pom.xml&ndash;&gt;-->
+        <!--</dependency>-->
+
+
+        <!--Test-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- For use in testing -->
+        <!--<dependency>-->
+        <!--<groupId>org.neo4j</groupId>-->
+        <!--<artifactId>neo4j-ogm-embedded-driver</artifactId>-->
+        <!--<version>2.1.1</version>-->
+        <!--<scope>test</scope>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+        <!--<groupId>org.neo4j</groupId>-->
+        <!--<artifactId>neo4j</artifactId>-->
+        <!--<version>3.1.1</version>-->
+        <!--<scope>test</scope>-->
+        <!--</dependency>-->
+
+    </dependencies>
+
+
+    <build>
+        <finalName>language-note-server</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <!-- Generate Front-End source from NodeJs -->
+            <!--<plugin>-->
+                <!--<groupId>org.codehaus.mojo</groupId>-->
+                <!--<artifactId>exec-maven-plugin</artifactId>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<phase>generate-sources</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>exec</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+                <!--<configuration>-->
+                    <!--<executable>npm</executable>-->
+                    <!--<arguments>-->
+                        <!--<argument>install</argument>-->
+                    <!--</arguments>-->
+                    <!--<workingDirectory>${basedir}/src/main/resources/static</workingDirectory>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
+
+            <!-- EXPORT PROJECT INFORMATION TO PROPERTIES: BEGIN -->
+            <!-- Export information into properties file -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <mkdir dir="${path.resources}"/>
+                                <tstamp>
+                                    <format pattern="yyyy-MM-dd hh:mm:ss a" property="build.time"/>
+                                </tstamp>
+                                <propertyfile comment="Version information" file="${path.resources}/build.properties">
+                                    <entry key="project.version" value="${project.version}"/>
+                                    <entry key="project.build.time" value="${build.time}"/>
+                                    <entry key="git.build.number" value="${git.buildnumber}"/>
+                                    <entry key="git.revision" value="${git.revision}"/>
+                                    <entry key="git.tag" value="${git.tag}"/>
+                                </propertyfile>
+                                <!-- <echo file="${build.file}" message="build.time=${last.updated}"/> -->
+                            </tasks>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Plugin to get git information -->
+            <plugin>
+                <groupId>ru.concerteza.buildnumber</groupId>
+                <artifactId>maven-jgit-buildnumber-plugin</artifactId>
+                <version>1.2.7</version>
+                <executions>
+                    <execution>
+                        <id>git-buildnumber</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>extract-buildnumber</goal>
+                        </goals>
+                        <configuration>
+                            <repositoryDirectory>${project.basedir}</repositoryDirectory>
+                            <runOnlyAtExecutionRoot>false</runOnlyAtExecutionRoot>
+                            <!--Must set it's false in order to read .git folder from parent folder-->
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- EXPORT PROJECT INFORMATION TO PROPERTIES: END -->
+        </plugins>
+    </build>
+</project>
