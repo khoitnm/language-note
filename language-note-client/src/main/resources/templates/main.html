@@ -72,7 +72,7 @@
 <!--"[[${user.accessToken}]]";-->
 <script th:inline="text">
     var PROFILE = "[[${projectInfo.profiles[0]}]]";
-    var USER_ID = "placeholder user id";//also get from [ [ $ { user.id } ] ]
+    var USER_ID = "[[${user.id}]]";//also get from [ [ $ { user.id } ] ]
     //    var ACCESS_TOKEN = "xxx";
 </script>
 <div th:include="parts/import-scripts"></div>

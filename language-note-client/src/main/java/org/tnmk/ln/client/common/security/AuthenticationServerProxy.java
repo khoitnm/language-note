@@ -1,10 +1,10 @@
 package org.tnmk.ln.client.common.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -12,8 +12,8 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.tnmk.common.util.ObjectMapperUtil;
-
-import java.nio.charset.Charset;
+import org.tnmk.common.util.http.RestTemplateHelper;
+import org.tnmk.ln.client.common.security.model.User;
 
 @Service
 public class AuthenticationServerProxy {
@@ -23,16 +23,16 @@ public class AuthenticationServerProxy {
 
     //    private String urlOauth2Token = "http://localhost:8080/language-note-server/oauth/token";
     private String urlOauth2Token = "http://localhost:8080/oauth/token";
+    private String urlUserInfo = "http://localhost:8080/me";
+
+    private RestTemplate restTemplate = new RestTemplate();
 
     @Autowired
-    private ObjectMapper objectMapper;
+    private RestTemplateHelper restTemplateHelper;
 
     public OAuth2AccessTokenResponse login(String username, String password) {
-        RestTemplate restTemplate = new RestTemplate();
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        addBasicAuthenticationHeader(headers, clientId, clientSecret);
+//        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = constructHeaderWithClientProfile();
 
         MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
         formData.add("grant_type", grantType);
@@ -41,16 +41,29 @@ public class AuthenticationServerProxy {
 
         HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(formData, headers);
 
+        //I don't want to convert directly from httpResponse to object because I would like to track the string response whenever there's any error.
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(urlOauth2Token, httpEntity, String.class);
-        String responseJson = responseEntity.getBody();
-        OAuth2AccessTokenResponse oAuth2AccessTokenResponse = ObjectMapperUtil.toObject(objectMapper, responseJson, OAuth2AccessTokenResponse.class);
-        return oAuth2AccessTokenResponse;
+        return restTemplateHelper.convertJsonResponseEntity(responseEntity, OAuth2AccessTokenResponse.class);
     }
 
-    public static void addBasicAuthenticationHeader(HttpHeaders httpHeaders, String username, String password) {
-        String auth = username + ":" + password;
-        byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII")));
-        String authHeader = "Basic " + new String(encodedAuth);
-        httpHeaders.set("Authorization", authHeader);
+    public User getMyProfile(String accessToken){
+        HttpHeaders headers = constructJsonHeaderWithAccessToken(accessToken);
+        HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(null, headers);
+        ResponseEntity<String> responseEntity = restTemplate.exchange(urlUserInfo, HttpMethod.GET, httpEntity, String.class);
+        return restTemplateHelper.convertJsonResponseEntity(responseEntity, User.class);
     }
+
+    private HttpHeaders constructHeaderWithClientProfile(){
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        RestTemplateHelper.addBasicAuthenticationHeader(headers, clientId, clientSecret);
+        return headers;
+    }
+    private HttpHeaders constructJsonHeaderWithAccessToken(String accessToken){
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        RestTemplateHelper.addAccessTokenHeader(headers, accessToken);
+        return headers;
+    }
+
 }

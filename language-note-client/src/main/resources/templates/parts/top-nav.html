@@ -35,7 +35,7 @@
                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                     <img th:src="@{/node_modules/gentelella/production/images/user.png}" alt=""/>
                     <!--<span sec:authentication="name"></span>-->
-                    You are the guy
+                    <span th:text="${user.username}"></span>
                     &nbsp;<i class=" fa fa-angle-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu pull-right">

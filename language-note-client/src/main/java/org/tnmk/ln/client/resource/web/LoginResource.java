@@ -10,6 +10,7 @@ import org.tnmk.common.infrastructure.projectinfo.ProjectInfoProperties;
 import org.tnmk.ln.client.common.constant.UriPrefixConstants;
 import org.tnmk.ln.client.common.security.AuthenticationServerProxy;
 import org.tnmk.ln.client.common.security.OAuth2AccessTokenResponse;
+import org.tnmk.ln.client.common.security.model.User;
 
 /**
  * @author khoi.tran on 11/6/16.
@@ -32,10 +33,9 @@ public class LoginResource {
     @RequestMapping(value = {UriPrefixConstants.WEB_PREFIX + "/login"}, method = RequestMethod.POST)
     public String login(@ModelAttribute LoginRequest loginRequest, Model model) {
         OAuth2AccessTokenResponse oAuth2AccessTokenResponse = authenticationServerProxy.login(loginRequest.getUsername(), loginRequest.getPassword());
-//        String accessToken = oAuth2AccessTokenResponse.getAccessToken();
-
+        User user = authenticationServerProxy.getMyProfile(oAuth2AccessTokenResponse.getAccessToken());
         model.addAttribute("projectInfo", projectInfoProperties);
-        model.addAttribute("user", loginRequest.getUsername());
+        model.addAttribute("user", user);
         model.addAttribute("oAuth2AccessTokenResponse", oAuth2AccessTokenResponse);
         return "main";
     }
