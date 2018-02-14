@@ -23,8 +23,8 @@ public class AuthenticationServerProxy {
 
 
     //    private String urlOauth2Token = "http://localhost:8080/language-note-server/oauth/token";
-    private String urlOauth2Token = "http://localhost:8080/oauth/token";
-    private String urlUserInfo = "http://localhost:8080/me";
+    private String urlOauth2Token = "http://localhost:8080/language-note-server/oauth/token";
+    private String urlUserInfo = "http://localhost:8080/language-note-server/me";
 
     private RestTemplate restTemplate = new RestTemplate();
 

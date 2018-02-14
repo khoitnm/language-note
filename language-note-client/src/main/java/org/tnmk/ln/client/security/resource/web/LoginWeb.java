@@ -16,7 +16,7 @@ import org.tnmk.ln.client.security.model.User;
  * @author khoi.tran on 11/6/16.
  */
 @Controller
-public class LoginResource {
+public class LoginWeb {
     @Autowired
     private ProjectInfoProperties projectInfoProperties;
 

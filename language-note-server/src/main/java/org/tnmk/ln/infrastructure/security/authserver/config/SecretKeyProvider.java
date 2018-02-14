@@ -1,7 +1,10 @@
 package org.tnmk.ln.infrastructure.security.authserver.config;
 
+import org.tnmk.common.util.IOUtil;
+
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.security.Key;
 import java.security.KeyPair;
@@ -26,12 +29,10 @@ public class SecretKeyProvider {
         return new String( getKeyPair().getPublic().getEncoded(), "UTF-8" );
     }
 
-    private KeyPair getKeyPair() throws
-            KeyStoreException, IOException,
-            NoSuchAlgorithmException, CertificateException, UnrecoverableKeyException {
+    private KeyPair getKeyPair() throws KeyStoreException, IOException, NoSuchAlgorithmException, CertificateException, UnrecoverableKeyException {
         //TODO load from classpath
-        FileInputStream is = new FileInputStream("C:\\SourceCode\\Practice\\spring-security-oauth-master\\spring-security-oauth-fullserver\\mykeys.jks");
-
+//        FileInputStream is = new FileInputStream("C:\\SourceCode\\Practice\\spring-security-oauth-master\\spring-security-oauth-fullserver\\mykeys.jks");
+        InputStream is = IOUtil.loadInputStreamFileInClassPath("/authserver/mykeys.jks");
         KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
         keystore.load(is, "mypass".toCharArray());
 
