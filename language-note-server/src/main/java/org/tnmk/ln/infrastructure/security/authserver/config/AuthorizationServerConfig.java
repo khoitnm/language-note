@@ -18,7 +18,9 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.tnmk.common.exception.UnexpectedException;
+import org.tnmk.ln.infrastructure.security.authserver.usermanagement.AuthServerUserService;
 
+import javax.inject.Inject;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.security.KeyStoreException;
@@ -39,21 +41,24 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Value("${refresh_token.validity_period}")
     private int refreshTokenValiditySeconds;
 
-    @Autowired
+    @Inject
     private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private UserDetailsAuthenticationService userDetailsAuthenticationService;
+    @Inject
+    private UserDetailsService userDetailsService;
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return userDetailsAuthenticationService;
-    }
-
+    /**
+     * Note: The UserDetailsService bean was declare in {@link UserDetailsAuthenticationService}
+     * @param endpoints
+     * @throws Exception
+     */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints
             .authenticationManager(this.authenticationManager)
+            //See the method comment to know where's the userDetailsService comes from.
+            //Actually, we don't even need this, this injection of userDetailsService just let you know that we declared it somewhere else.
+            .userDetailsService(userDetailsService)
             .tokenServices(tokenServices())
             .tokenStore(tokenStore())
             .accessTokenConverter(accessTokenConverter());
