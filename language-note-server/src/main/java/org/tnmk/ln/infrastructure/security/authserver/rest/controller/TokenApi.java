@@ -3,6 +3,7 @@ package org.tnmk.ln.infrastructure.security.authserver.rest.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
@@ -22,10 +23,11 @@ import java.io.IOException;
 public class TokenApi {
     public static final Logger LOGGER = LoggerFactory.getLogger(TokenApi.class);
     @Autowired
-    TokenStore tokenStore;
+    private TokenStore tokenStore;
 
     @Autowired
-    DefaultTokenServices consumerTokenServices;
+    @Qualifier("tokenServices")
+    private DefaultTokenServices consumerTokenServices;
 
     /**
      * TODO

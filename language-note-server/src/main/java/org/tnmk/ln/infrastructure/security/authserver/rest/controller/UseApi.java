@@ -10,17 +10,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.tnmk.ln.app.common.constant.UriPrefixConstants;
 import org.tnmk.ln.infrastructure.security.authserver.helper.AuthServerSecurityContextHelper;
 import org.tnmk.ln.infrastructure.security.authserver.rest.dto.model.AuthenticatedUser;
+import org.tnmk.ln.infrastructure.security.authserver.usermanagement.AuthServerUserService;
 import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
-import org.tnmk.ln.infrastructure.security.usersmanagement.UserService;
 
 @Controller
 public class UseApi {
     @Autowired
-    private UserService userService;
+    private AuthServerUserService authServerUserService;
 
     @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/users", method = RequestMethod.POST)
     public User registerUser(@RequestBody User user) {
-        return userService.registerUser(user);
+        return authServerUserService.registerUser(user);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/me")

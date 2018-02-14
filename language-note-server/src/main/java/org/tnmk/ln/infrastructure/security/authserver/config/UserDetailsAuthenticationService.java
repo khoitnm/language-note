@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.tnmk.ln.infrastructure.security.authserver.rest.dto.model.AuthenticatedUser;
 import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
-import org.tnmk.ln.infrastructure.security.usersmanagement.UserService;
+import org.tnmk.ln.infrastructure.security.resourceserver.usermanagement.ResourceServerUserService;
 
 /**
  * @author khoi.tran on 1/28/17.
@@ -15,11 +15,11 @@ import org.tnmk.ln.infrastructure.security.usersmanagement.UserService;
 @Service
 public class UserDetailsAuthenticationService implements UserDetailsService {
     @Autowired
-    private UserService userService;
+    private ResourceServerUserService resourceServerUserService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userService.findByUsername(username);
+        User user = resourceServerUserService.findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException("Cannot find username '" + username + "'");
         }

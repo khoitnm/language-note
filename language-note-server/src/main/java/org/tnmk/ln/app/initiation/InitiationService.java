@@ -5,8 +5,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.tnmk.ln.app.dictionary.ExpressionService;
+import org.tnmk.ln.infrastructure.security.authserver.usermanagement.AuthServerUserService;
 import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
-import org.tnmk.ln.infrastructure.security.usersmanagement.UserService;
+import org.tnmk.ln.infrastructure.security.resourceserver.usermanagement.ResourceServerUserService;
 
 import javax.annotation.PostConstruct;
 import java.util.Arrays;
@@ -21,27 +22,27 @@ public class InitiationService {
     public static Logger LOGGER = LoggerFactory.getLogger(InitiationService.class);
 
     @Autowired
-    private UserService userService;
+    private AuthServerUserService authServerUserService;
 
     @Autowired
     private ExpressionService expressionService;
 
     @PostConstruct
     public void initAdminUser() {
-        User user = userService.findByUsername(UserService.USERNAME_ADMIN);
+        User user = authServerUserService.findByUsername(ResourceServerUserService.USERNAME_ADMIN);
         if (user == null) {
-            //TODO I know it's absolutely not secured.
+            //TODO Just a temporary code, move it out!
             user = new User();
-            user.setUsername(UserService.USERNAME_ADMIN);
+            user.setUsername(ResourceServerUserService.USERNAME_ADMIN);
             user.setEmail("khoi.tnm@gmail.com");
             user.setPassword("superuser");
-            user.setRoles(Arrays.asList("ADMIN"));
-            userService.registerUser(user);
+            user.setRoles(Arrays.asList("ROLE_ADMIN", "ROLE_USER"));
+            authServerUserService.registerUser(user);
         }
-//        this.testUdate();
+//        this.testUpdate();
     }
 
-//    public void testUdate() {
+//    public void testUpdate() {
 //        Expression synonym1 = new Expression();
 //        synonym1.setId(218l);
 //        synonym1.setText("synonym04");

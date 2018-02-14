@@ -2,8 +2,9 @@ package org.tnmk.ln.test.factory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.tnmk.ln.infrastructure.security.authserver.usermanagement.AuthServerUserService;
 import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.Contributor;
-import org.tnmk.ln.infrastructure.security.usersmanagement.UserService;
+import org.tnmk.ln.infrastructure.security.resourceserver.usermanagement.ResourceServerUserService;
 import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
 
 /**
@@ -12,13 +13,13 @@ import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
 @Component
 public class UserTestFactory {
     @Autowired
-    private UserService userService;
+    private AuthServerUserService authServerUserService;
 
     public User initDefaultUser() {
-        User user = userService.findByUsername(UserService.USERNAME_ADMIN);
+        User user = authServerUserService.findByUsername(ResourceServerUserService.USERNAME_ADMIN);
         if (user == null) {
             user = new Contributor();
-            userService.registerUser(user);
+            authServerUserService.registerUser(user);
         }
         return user;
     }

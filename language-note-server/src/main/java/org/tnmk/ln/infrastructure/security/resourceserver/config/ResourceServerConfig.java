@@ -1,6 +1,7 @@
 package org.tnmk.ln.infrastructure.security.resourceserver.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,10 +26,16 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     private String resourceId;
 
     /**
-     * Reuse the same bean of TokenService which was defined in AuthorizationServer
+     * Reuse the same bean of TokenService which was defined in {@link org.tnmk.ln.infrastructure.security.authserver.config.AuthorizationServerConfig}
      */
     @Autowired
+    @Qualifier("tokenServices")
     private DefaultTokenServices tokenServices;
+//    @Autowired
+//    @Qualifier("tokenServices")
+//    private ResourceServerTokenServices tokenServices;
+
+
     /**
      * Reuse the same bean TokenService which was defined in AuthorizationServer
      */

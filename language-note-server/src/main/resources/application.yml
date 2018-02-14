@@ -1,7 +1,7 @@
 # Properties valid for every environment
 server:
     servlet-path: /*
-    contextPath: /language-note
+    contextPath: /language-note-server
     port : 8080
 spring:
     mvc:

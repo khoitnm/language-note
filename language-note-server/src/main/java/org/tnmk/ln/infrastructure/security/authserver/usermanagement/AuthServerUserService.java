@@ -1,0 +1,32 @@
+package org.tnmk.ln.infrastructure.security.authserver.usermanagement;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.tnmk.common.infrastructure.validator.BeanValidator;
+import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.UserRepository;
+import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
+
+@Service
+public class AuthServerUserService {
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private BeanValidator beanValidator;
+
+    public User registerUser(User user) {
+        beanValidator.validate(user);
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
+        return userRepository.save(user);
+    }
+
+    public User findByUsername(String username) {
+        User userEntity = userRepository.findOneByUsername(username);
+        return userEntity;
+    }
+}
