@@ -20,7 +20,7 @@ import org.tnmk.ln.test.BaseTest;
 import org.tnmk.ln.test.factory.CategoryTestFactory;
 import org.tnmk.common.util.ObjectMapperUtil;
 import org.tnmk.ln.app.practice.PracticeAnswerService;
-import org.tnmk.ln.infrastructure.security.neo4j.entity.User;
+import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
 import org.tnmk.ln.test.factory.UserTestFactory;
 
 /**

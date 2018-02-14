@@ -12,7 +12,7 @@ import org.tnmk.ln.app.practice.entity.question.Question;
 import org.tnmk.ln.app.practice.entity.result.AnswerResult;
 import org.tnmk.ln.app.practice.entity.result.ExpressionPracticeResult;
 import org.tnmk.ln.app.practice.entity.result.QuestionPracticeResult;
-import org.tnmk.ln.infrastructure.security.neo4j.entity.User;
+import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
 
 import java.util.ArrayList;
 import java.util.Arrays;

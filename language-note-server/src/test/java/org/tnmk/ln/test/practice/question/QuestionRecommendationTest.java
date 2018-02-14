@@ -11,7 +11,7 @@ import org.tnmk.ln.app.aggregation.practice.QuestionRecommendationService;
 import org.tnmk.ln.test.BaseTest;
 import org.tnmk.ln.test.factory.CategoryTestFactory;
 import org.tnmk.ln.test.factory.UserTestFactory;
-import org.tnmk.ln.infrastructure.security.neo4j.entity.User;
+import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
 
 /**
  * @author khoi.tran on 3/5/17.

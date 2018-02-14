@@ -14,7 +14,7 @@ import org.tnmk.ln.app.topic.entity.Category;
 import org.tnmk.ln.test.BaseTest;
 import org.tnmk.ln.app.topic.TopicService;
 import org.tnmk.ln.app.topic.CategoryRepository;
-import org.tnmk.ln.infrastructure.security.neo4j.entity.User;
+import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
 import org.tnmk.ln.test.factory.UserTestFactory;
 
 /**

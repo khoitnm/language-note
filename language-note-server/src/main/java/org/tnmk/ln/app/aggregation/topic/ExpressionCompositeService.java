@@ -17,7 +17,7 @@ import org.tnmk.ln.app.dictionary.entity.BaseExpression;
 import org.tnmk.ln.app.dictionary.entity.Expression;
 import org.tnmk.ln.app.dictionary.entity.Locale;
 import org.tnmk.ln.app.practice.PracticeFavouriteService;
-import org.tnmk.ln.infrastructure.security.neo4j.entity.User;
+import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
 
 import java.util.ArrayList;
 import java.util.List;

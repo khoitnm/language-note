@@ -3,7 +3,7 @@ package org.tnmk.ln.test.factory;
 import org.junit.Assert;
 import org.tnmk.ln.app.topic.entity.Category;
 import org.tnmk.ln.app.topic.entity.Topic;
-import org.tnmk.ln.infrastructure.security.neo4j.entity.User;
+import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
 
 import java.util.Optional;
 import java.util.Set;

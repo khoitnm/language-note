@@ -2,7 +2,7 @@ package org.tnmk.ln.app.social.entity;
 
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.tnmk.ln.app.common.entity.BaseNeo4jEntity;
-import org.tnmk.ln.infrastructure.security.neo4j.entity.User;
+import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
 
 import java.util.List;
 

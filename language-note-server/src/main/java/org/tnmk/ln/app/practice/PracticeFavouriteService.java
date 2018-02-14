@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.tnmk.ln.app.aggregation.practice.model.ExpressionComposite;
 import org.tnmk.ln.app.practice.entity.favourite.PracticeFavourite;
 import org.tnmk.ln.app.practice.entity.result.ExpressionPracticeResult;
-import org.tnmk.ln.infrastructure.security.neo4j.entity.User;
+import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
 
 import java.util.Arrays;
 import java.util.List;

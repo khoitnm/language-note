@@ -1,0 +1,1 @@
+In this project, this package is shared on both authenticationServer and resourceServer. However, in other projects, we may need separated services for each server.

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.tnmk.ln.app.dictionary.ExpressionRepository;
 import org.tnmk.ln.app.dictionary.entity.Expression;
 import org.tnmk.ln.app.topic.entity.Topic;
-import org.tnmk.ln.infrastructure.security.neo4j.entity.User;
+import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
 
 import java.util.List;
 import java.util.stream.Collectors;

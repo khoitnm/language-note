@@ -8,7 +8,7 @@ import org.tnmk.ln.app.aggregation.practice.model.ExpressionComposite;
 import org.tnmk.ln.app.dictionary.entity.Expression;
 import org.tnmk.ln.app.topic.entity.Topic;
 import org.tnmk.ln.infrastructure.basemodel.BaseConverter;
-import org.tnmk.ln.infrastructure.security.neo4j.entity.User;
+import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
 
 import java.util.ArrayList;
 import java.util.List;

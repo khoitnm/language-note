@@ -5,13 +5,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.tnmk.ln.app.dictionary.ExpressionService;
-import org.tnmk.ln.infrastructure.security.neo4j.entity.User;
-import org.tnmk.ln.infrastructure.security.service.UserService;
+import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
+import org.tnmk.ln.infrastructure.security.usersmanagement.UserService;
 
 import javax.annotation.PostConstruct;
 import java.util.Arrays;
 
 /**
+ * The initiation methods in this class will be run automatically when we deploy the project.
+ * It's usually used for migration or data preparation.
  * @author khoi.tran on 2/26/17.
  */
 @Service

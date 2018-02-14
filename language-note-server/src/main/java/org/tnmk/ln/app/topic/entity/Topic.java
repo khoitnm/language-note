@@ -9,7 +9,7 @@ import org.tnmk.ln.app.common.entity.Possession;
 import org.tnmk.ln.infrastructure.data.neo4j.annotation.DetailLoading;
 import org.tnmk.ln.app.common.entity.BaseNeo4jEntity;
 import org.tnmk.ln.app.dictionary.entity.Locale;
-import org.tnmk.ln.infrastructure.security.neo4j.entity.User;
+import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
 
 import java.util.List;
 import java.util.Set;

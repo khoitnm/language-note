@@ -8,7 +8,7 @@ import org.tnmk.ln.app.practice.entity.question.QuestionType;
 import org.tnmk.common.util.IterableUtil;
 import org.tnmk.ln.app.practice.entity.question.Question;
 import org.tnmk.ln.infrastructure.data.neo4j.repository.Neo4jRepository;
-import org.tnmk.ln.infrastructure.security.neo4j.entity.User;
+import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
 
 import java.util.Iterator;
 import java.util.List;

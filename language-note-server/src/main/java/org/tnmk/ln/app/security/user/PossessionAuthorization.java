@@ -3,7 +3,7 @@ package org.tnmk.ln.app.security.user;
 import org.springframework.stereotype.Component;
 import org.tnmk.ln.app.common.entity.Possession;
 import org.tnmk.common.exception.AuthorizationServiceException;
-import org.tnmk.ln.infrastructure.security.neo4j.entity.User;
+import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
 
 /**
  * @author khoi.tran on 3/31/17.

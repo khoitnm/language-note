@@ -11,8 +11,8 @@ import org.tnmk.ln.app.aggregation.topic.model.TopicComposite;
 import org.tnmk.ln.app.topic.entity.Topic;
 import org.tnmk.ln.app.aggregation.topic.TopicDeletionService;
 import org.tnmk.ln.app.common.constant.UriPrefixConstants;
-import org.tnmk.ln.infrastructure.security.clientapp.helper.SecurityContextHelper;
-import org.tnmk.ln.infrastructure.security.neo4j.entity.User;
+import org.tnmk.ln.infrastructure.security.resourceserver.helper.SecurityContextHelper;
+import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
 
 /**
  * @author khoi.tran on 3/4/17.
@@ -45,7 +45,7 @@ public class TopicResource {
 //    public List<Topic> getTopicBriefsByOwner(
 //            @RequestParam(value = "keyword", required = false) String keyword,
 //            @RequestParam(value = "where", required = false, defaultValue = "1") String where) {
-//        User user = SecurityContextHelper.validateExistAuthenticatedUser();
+//        User user = AuthServerSecurityContextHelper.validateExistAuthenticatedUser();
 //        return topicBriefService.getTopicBriefsByOwner(user);
 //    }
     @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/topics/{topicId}/detail", method = RequestMethod.GET)

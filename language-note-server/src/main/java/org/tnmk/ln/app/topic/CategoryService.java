@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.tnmk.ln.app.topic.entity.Category;
 import org.tnmk.ln.infrastructure.data.neo4j.repository.Neo4jRepository;
-import org.tnmk.ln.infrastructure.security.neo4j.entity.User;
+import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.tnmk.ln.app.dictionary.entity.Expression;
 import org.tnmk.ln.infrastructure.dictionary.oxford.OxfordService;
 import org.tnmk.ln.infrastructure.dictionary.oxford.entity.OxfordWord;
-import org.tnmk.ln.infrastructure.security.neo4j.entity.User;
+import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
 
 import java.util.List;
 

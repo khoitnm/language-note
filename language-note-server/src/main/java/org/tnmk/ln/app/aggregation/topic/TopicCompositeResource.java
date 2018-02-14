@@ -12,8 +12,8 @@ import org.tnmk.ln.app.topic.TopicBriefService;
 import org.tnmk.ln.app.topic.entity.Topic;
 import org.tnmk.ln.app.common.constant.UriPrefixConstants;
 import org.tnmk.ln.app.topic.TopicService;
-import org.tnmk.ln.infrastructure.security.clientapp.helper.SecurityContextHelper;
-import org.tnmk.ln.infrastructure.security.neo4j.entity.User;
+import org.tnmk.ln.infrastructure.security.resourceserver.helper.SecurityContextHelper;
+import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
 
 import java.util.List;
 

@@ -15,12 +15,12 @@ import org.tnmk.ln.app.dictionary.entity.Example;
 import org.tnmk.ln.app.dictionary.entity.Expression;
 import org.tnmk.ln.app.dictionary.entity.LexicalType;
 import org.tnmk.ln.app.dictionary.entity.SenseGroup;
-import org.tnmk.ln.infrastructure.security.neo4j.UserRepository;
-import org.tnmk.ln.infrastructure.security.neo4j.entity.Contributor;
+import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.UserRepository;
+import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.Contributor;
 import org.tnmk.ln.test.BaseTest;
 import org.tnmk.common.util.ObjectMapperUtil;
 import org.tnmk.ln.app.dictionary.entity.Sense;
-import org.tnmk.ln.infrastructure.security.neo4j.entity.User;
+import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
 
 import java.util.ArrayList;
 import java.util.Arrays;

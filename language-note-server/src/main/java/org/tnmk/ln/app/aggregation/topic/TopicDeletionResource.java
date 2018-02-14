@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.tnmk.ln.app.common.constant.UriPrefixConstants;
-import org.tnmk.ln.infrastructure.security.clientapp.helper.SecurityContextHelper;
-import org.tnmk.ln.infrastructure.security.neo4j.entity.User;
+import org.tnmk.ln.infrastructure.security.resourceserver.helper.SecurityContextHelper;
+import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
 
 /**
  * @author khoi.tran on 4/1/17.

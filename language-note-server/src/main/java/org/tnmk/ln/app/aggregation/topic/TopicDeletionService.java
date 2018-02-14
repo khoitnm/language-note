@@ -9,7 +9,7 @@ import org.tnmk.ln.app.topic.TopicRepository;
 import org.tnmk.ln.app.topic.entity.Topic;
 import org.tnmk.ln.infrastructure.data.neo4j.repository.Neo4jRepository;
 import org.tnmk.ln.app.topic.TopicService;
-import org.tnmk.ln.infrastructure.security.neo4j.entity.User;
+import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
 
 /**
  * @author khoi.tran on 3/31/17.

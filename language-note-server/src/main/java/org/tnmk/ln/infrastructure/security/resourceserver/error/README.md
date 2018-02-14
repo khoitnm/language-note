@@ -1,0 +1,1 @@
+Guide line in <a href="http://www.baeldung.com/spring-security-custom-access-denied-page">http://www.baeldung.com/spring-security-custom-access-denied-page</a>

@@ -19,7 +19,7 @@ import org.tnmk.ln.app.topic.TopicDetailRepository;
 import org.tnmk.ln.app.topic.TopicRepository;
 import org.tnmk.ln.app.topic.TopicService;
 import org.tnmk.ln.app.topic.entity.Topic;
-import org.tnmk.ln.infrastructure.security.neo4j.entity.User;
+import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
 
 import java.util.ArrayList;
 import java.util.List;

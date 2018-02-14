@@ -7,7 +7,7 @@ import org.tnmk.common.util.IterableUtil;
 import org.tnmk.common.util.NumberUtil;
 import org.tnmk.ln.app.practice.QuestionGenerationService;
 import org.tnmk.ln.app.topic.entity.Topic;
-import org.tnmk.ln.infrastructure.security.neo4j.entity.User;
+import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
 
 import java.util.List;
 

@@ -14,6 +14,6 @@ public class ServletInitializer extends SpringBootServletInitializer {
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.profiles(ProjectProfileUtil.getDefaultProfile()).sources(SpringBootWebApplication.class);
+        return application.profiles(ProjectProfileUtil.getDefaultProfile()).sources(WebApplication.class);
     }
 }

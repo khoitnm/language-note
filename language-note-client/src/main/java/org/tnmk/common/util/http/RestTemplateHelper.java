@@ -25,8 +25,14 @@ public class RestTemplateHelper {
         String authHeader = "Basic " + new String(encodedAuth);
         httpHeaders.set("Authorization", authHeader);
     }
-    public static void addAccessTokenHeader(HttpHeaders httpHeaders, String accessToken) {
-        httpHeaders.set("Authorization", "Bearer "+accessToken);
+
+    /**
+     * @param httpHeaders
+     * @param tokenType usually 'bearer'
+     * @param accessToken
+     */
+    public static void addAccessTokenHeader(HttpHeaders httpHeaders,String tokenType, String accessToken) {
+        httpHeaders.set("Authorization", tokenType+" "+accessToken);
     }
 
     /**
