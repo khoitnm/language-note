@@ -5,10 +5,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
-import org.tnmk.ln.infrastructure.security.authserver.rest.dto.model.AuthenticatedUser;
+import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
+import org.tnmk.common.exception.UnexpectedException;
+import org.tnmk.ln.infrastructure.security.authserver.config.userdetails.AuthenticatedUser;
 
 public final class AuthServerSecurityContextHelper {
     public static final Logger LOGGER = LoggerFactory.getLogger(AuthServerSecurityContextHelper.class);
+
+//    private TokenStore tokenStore;
 
     private AuthServerSecurityContextHelper() {
     }
@@ -21,11 +25,15 @@ public final class AuthServerSecurityContextHelper {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null) {
             OAuth2Authentication oauth2Authentication = (OAuth2Authentication) auth;
+            OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) oauth2Authentication.getDetails();
+            String tokenValue = details.getTokenValue();
+//            oauth2Authentication.ge
             Object userDetailsObject = oauth2Authentication.getDetails();
             if (userDetailsObject != null && userDetailsObject instanceof AuthenticatedUser) {
                 result = (AuthenticatedUser) userDetailsObject;
             }else{
-                LOGGER.warn("Cannot convert authentication object to User object {}", auth);
+                String message = String.format("Cannot get user information from SecurityContext: cannot convert authentication object to User object %s", auth);
+                throw new UnexpectedException(message);
             }
         }
         return result;

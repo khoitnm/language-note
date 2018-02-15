@@ -1,4 +1,4 @@
-package org.tnmk.ln.infrastructure.security.authserver.config;
+package org.tnmk.ln.infrastructure.security.authserver.config.tokenconverter;
 
 import org.tnmk.common.util.IOUtil;
 

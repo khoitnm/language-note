@@ -1,6 +1,5 @@
 package org.tnmk.ln.infrastructure.security.authserver.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,13 +11,14 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
-import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.tnmk.common.exception.UnexpectedException;
-import org.tnmk.ln.infrastructure.security.authserver.usermanagement.AuthServerUserService;
+import org.tnmk.ln.infrastructure.security.authserver.config.tokenconverter.EnhancedJwtTokenConverter;
+import org.tnmk.ln.infrastructure.security.authserver.config.tokenconverter.SecretKeyProvider;
+import org.tnmk.ln.infrastructure.security.authserver.config.userdetails.UserDetailsAuthenticationService;
 
 import javax.inject.Inject;
 import java.io.IOException;
@@ -118,7 +118,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Bean
     public JwtAccessTokenConverter accessTokenConverter() {
-        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+        JwtAccessTokenConverter converter = new EnhancedJwtTokenConverter();
         try {
             converter.setSigningKey(keyProvider.getKey());
         } catch (URISyntaxException | KeyStoreException | NoSuchAlgorithmException | IOException | UnrecoverableKeyException | CertificateException e) {
@@ -136,4 +136,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         defaultTokenServices.setTokenEnhancer(accessTokenConverter());//Maybe not need
         return defaultTokenServices;
     }
+
+
 }

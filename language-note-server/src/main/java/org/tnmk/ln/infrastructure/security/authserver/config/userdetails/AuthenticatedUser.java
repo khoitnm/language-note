@@ -1,4 +1,4 @@
-package org.tnmk.ln.infrastructure.security.authserver.rest.dto.model;
+package org.tnmk.ln.infrastructure.security.authserver.config.userdetails;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

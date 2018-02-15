@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
-import org.tnmk.ln.infrastructure.security.authserver.rest.dto.model.AuthenticatedUser;
+import org.tnmk.ln.infrastructure.security.authserver.config.userdetails.AuthenticatedUser;
 import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
 
 import javax.servlet.http.HttpServletRequest;
