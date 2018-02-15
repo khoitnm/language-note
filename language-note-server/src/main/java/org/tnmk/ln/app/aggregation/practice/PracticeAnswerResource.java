@@ -8,9 +8,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.tnmk.ln.app.practice.entity.result.AnswerResult;
 import org.tnmk.ln.app.common.constant.UriPrefixConstants;
 import org.tnmk.ln.app.practice.PracticeAnswerService;
+import org.tnmk.ln.infrastructure.security.authserver.config.tokenconverter.AccessTokenUserDetails;
 import org.tnmk.ln.infrastructure.security.resourceserver.helper.SecurityContextHelper;
+import org.tnmk.ln.infrastructure.security.resourceserver.usermanagement.ResourceServerUserService;
 import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
 
+import javax.inject.Inject;
 import java.util.List;
 
 /**
@@ -19,12 +22,20 @@ import java.util.List;
 @RestController
 public class PracticeAnswerResource {
 
+
+    @Inject
+    private SecurityContextHelper securityContextHelper;
+
+    @Inject
+    private ResourceServerUserService resourceServerUserService;
+
     @Autowired
     private PracticeAnswerService practiceAnswerService;
 
     @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/questions/answers", method = RequestMethod.POST)
     public List<AnswerResult> findAllQuestionRecommendation(@RequestBody List<PracticeAnswerRequest> practiceAnswerRequests) {
-        User user = SecurityContextHelper.validateExistAuthenticatedUser();
+        AccessTokenUserDetails accessTokenUserDetails = securityContextHelper.validateExistAuthenticatedUser();
+        User user = resourceServerUserService.findById(accessTokenUserDetails.getUserId());
         List<AnswerResult> result = practiceAnswerService.answerResult(user, practiceAnswerRequests);
         return result;
     }

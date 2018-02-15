@@ -28,4 +28,9 @@ public class ResourceServerUserService {
         User userEntity = userRepository.findOneByUsername(username);
         return userEntity;
     }
+
+    public User findById(Long id) {
+        User userEntity = userRepository.findOne(id);
+        return userEntity;
+    }
 }

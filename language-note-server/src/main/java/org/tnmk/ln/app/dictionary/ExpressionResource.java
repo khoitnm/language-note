@@ -10,8 +10,12 @@ import org.tnmk.ln.app.common.constant.UriPrefixConstants;
 import org.tnmk.ln.app.dictionary.entity.Expression;
 import org.tnmk.ln.app.dictionary.entity.Locale;
 import org.tnmk.ln.app.topic.TopicService;
+import org.tnmk.ln.infrastructure.security.authserver.config.tokenconverter.AccessTokenUserDetails;
+import org.tnmk.ln.infrastructure.security.resourceserver.helper.ResourceServerSecurityContextHelper;
 import org.tnmk.ln.infrastructure.security.resourceserver.helper.SecurityContextHelper;
 import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
+
+import javax.inject.Inject;
 
 /**
  * @author khoi.tran on 3/4/17.
@@ -24,6 +28,9 @@ public class ExpressionResource {
     @Autowired
     TopicDeletionService topicDeletionService;
 
+    @Inject
+    private ResourceServerSecurityContextHelper resourceServerSecurityContextHelper;
+
     @Autowired
     ExpressionService expressionService;
 
@@ -31,7 +38,7 @@ public class ExpressionResource {
     public Expression lookupExpression(
             @RequestParam(value = "lang", required = false, defaultValue = Locale.CODE_EN) String language
             , @RequestParam(value = "text") String text) {
-        User user = SecurityContextHelper.validateExistAuthenticatedUser();
+        User user = resourceServerSecurityContextHelper.validateExistUser();
         return expressionService.findLookUpDetailByText(language, text);
     }
 
@@ -39,7 +46,8 @@ public class ExpressionResource {
     public Expression checkExistingExpressionByText(
             @RequestParam(value = "lang", required = false, defaultValue = Locale.CODE_EN) String language
             , @RequestParam(value = "text") String text) {
-        User user = SecurityContextHelper.validateExistAuthenticatedUser();
+        User user = resourceServerSecurityContextHelper.validateExistUser();
         return expressionService.findOneBriefByText(text);
     }
+
 }

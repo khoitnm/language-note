@@ -59,7 +59,7 @@ public final class ObjectMapperUtil {
             JavaType javaType = objectMapper.getTypeFactory().constructType(type);
             return objectMapper.readValue(jsonString, javaType);
         } catch (Exception e) {
-            String msg = String.format("Cannot json to object:\n\tType:%s\n\tJsonString:\t\n%s", type.getTypeName(), jsonString);
+            String msg = String.format("Cannot json to object:\n\tType:%s\n\tJsonString:\n%s. \n\tRoot cause: %s", type.getTypeName(), jsonString, e.getMessage());
             throw new JsonConverterException(msg, jsonString, e);
         }
     }

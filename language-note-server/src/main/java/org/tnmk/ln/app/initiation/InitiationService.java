@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.tnmk.ln.app.dictionary.ExpressionService;
+import org.tnmk.ln.infrastructure.security.authserver.config.tokenconverter.AccessTokenUserDetails;
+import org.tnmk.ln.infrastructure.security.authserver.usermanagement.AuthServerUser;
 import org.tnmk.ln.infrastructure.security.authserver.usermanagement.AuthServerUserService;
 import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
 import org.tnmk.ln.infrastructure.security.resourceserver.usermanagement.ResourceServerUserService;
@@ -29,10 +31,10 @@ public class InitiationService {
 
     @PostConstruct
     public void initAdminUser() {
-        User user = authServerUserService.findByUsername(ResourceServerUserService.USERNAME_ADMIN);
+        AuthServerUser user = authServerUserService.findByUsername(ResourceServerUserService.USERNAME_ADMIN);
         if (user == null) {
             //TODO Just a temporary code, move it out!
-            user = new User();
+            user = new AuthServerUser();
             user.setUsername(ResourceServerUserService.USERNAME_ADMIN);
             user.setEmail("khoi.tnm@gmail.com");
             user.setPassword("superuser");

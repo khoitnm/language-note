@@ -7,12 +7,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.tnmk.ln.app.aggregation.topic.TopicCompositeService;
-import org.tnmk.ln.app.aggregation.topic.model.TopicComposite;
-import org.tnmk.ln.app.topic.entity.Topic;
 import org.tnmk.ln.app.aggregation.topic.TopicDeletionService;
+import org.tnmk.ln.app.aggregation.topic.model.TopicComposite;
 import org.tnmk.ln.app.common.constant.UriPrefixConstants;
-import org.tnmk.ln.infrastructure.security.resourceserver.helper.SecurityContextHelper;
+import org.tnmk.ln.app.topic.entity.Topic;
+import org.tnmk.ln.infrastructure.security.resourceserver.helper.ResourceServerSecurityContextHelper;
 import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
+
+import javax.inject.Inject;
 
 /**
  * @author khoi.tran on 3/4/17.
@@ -30,6 +32,10 @@ public class TopicResource {
 
     @Autowired
     TopicCompositeService topicCompositeService;
+
+
+    @Inject
+    private ResourceServerSecurityContextHelper resourceServerSecurityContextHelper;
 
     @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/topics/construct", method = RequestMethod.GET)
     public TopicComposite construct() {
@@ -50,25 +56,25 @@ public class TopicResource {
 //    }
     @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/topics/{topicId}/detail", method = RequestMethod.GET)
     public TopicComposite getDetailTopic(@PathVariable String topicId) {
-        User user = SecurityContextHelper.validateExistAuthenticatedUser();
+        User user = resourceServerSecurityContextHelper.validateExistUser();
         return topicCompositeService.findDetailById(user, topicId);
     }
 
     @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/topics/name", method = RequestMethod.PUT)
     public void rename(@RequestBody Topic topic) {
-        User user = SecurityContextHelper.validateExistAuthenticatedUser();
+        User user = resourceServerSecurityContextHelper.validateExistUser();
         topicService.rename(topic);
     }
 
     @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/topics", method = RequestMethod.POST)
     public Topic saveOnlyTopic(@RequestBody Topic topic) {
-        User user = SecurityContextHelper.validateExistAuthenticatedUser();
+        User user = resourceServerSecurityContextHelper.validateExistUser();
         return topicService.saveTopic(user, topic);
     }
 
     @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/topics", method = RequestMethod.DELETE)
     public void delete(@RequestBody RemoveRequest removeRequest) {
-        User user = SecurityContextHelper.validateExistAuthenticatedUser();
+        User user = resourceServerSecurityContextHelper.validateExistUser();
         topicDeletionService.deleteTopicAndRelations(user, removeRequest.id, removeRequest.removeCompositions);
     }
 
@@ -92,4 +98,5 @@ public class TopicResource {
             this.removeCompositions = removeCompositions;
         }
     }
+
 }

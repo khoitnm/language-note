@@ -18,15 +18,25 @@ public class AuthServerUserService {
     @Autowired
     private BeanValidator beanValidator;
 
-    public User registerUser(User user) {
+    @Autowired
+    private UserConverter userConverter;
+
+    public AuthServerUser registerUser(AuthServerUser authServerUser) {
+        User user = userConverter.toEntity(authServerUser);
         beanValidator.validate(user);
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
-        return userRepository.save(user);
+        user = userRepository.save(user);
+        return userConverter.toModel(user);
     }
 
-    public User findByUsername(String username) {
+    public AuthServerUser findByUsername(String username) {
         User userEntity = userRepository.findOneByUsername(username);
-        return userEntity;
+        return userConverter.toModel(userEntity);
+    }
+
+    public AuthServerUser findById(Long id) {
+        User userEntity = userRepository.findOne(id);
+        return userConverter.toModel(userEntity);
     }
 }

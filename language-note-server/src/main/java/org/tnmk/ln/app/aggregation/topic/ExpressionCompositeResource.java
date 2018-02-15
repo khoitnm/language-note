@@ -9,9 +9,12 @@ import org.tnmk.ln.app.aggregation.practice.model.ExpressionComposite;
 import org.tnmk.ln.app.common.constant.UriPrefixConstants;
 import org.tnmk.ln.app.dictionary.ExpressionFactory;
 import org.tnmk.ln.app.dictionary.entity.Locale;
+import org.tnmk.ln.infrastructure.security.authserver.config.tokenconverter.AccessTokenUserDetails;
+import org.tnmk.ln.infrastructure.security.resourceserver.helper.ResourceServerSecurityContextHelper;
 import org.tnmk.ln.infrastructure.security.resourceserver.helper.SecurityContextHelper;
 import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
 
+import javax.inject.Inject;
 import java.util.List;
 
 /**
@@ -22,6 +25,10 @@ public class ExpressionCompositeResource {
     @Autowired
     ExpressionCompositeService expressionCompositeService;
 
+
+    @Inject
+    private ResourceServerSecurityContextHelper resourceServerSecurityContextHelper;
+
     @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/expression-composites/construct", method = RequestMethod.GET)
     public ExpressionComposite construct() {
         return ExpressionFactory.constructSchema();
@@ -29,7 +36,7 @@ public class ExpressionCompositeResource {
 
     @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/expression-composites/detail", method = RequestMethod.GET)
     public List<ExpressionComposite> searchExpressionByText(@RequestParam("q") String keyword, @RequestParam(value = "locale", defaultValue = Locale.DEFAULT_STRING) String locale) {
-        User user = SecurityContextHelper.validateExistAuthenticatedUser();
+        User user = resourceServerSecurityContextHelper.validateExistUser();
         return expressionCompositeService.findByKeyword(user, locale, keyword);
     }
 }

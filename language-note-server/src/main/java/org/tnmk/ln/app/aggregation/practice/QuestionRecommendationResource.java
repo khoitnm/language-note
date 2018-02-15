@@ -8,9 +8,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.tnmk.ln.app.common.constant.UriPrefixConstants;
 import org.tnmk.ln.app.practice.entity.question.QuestionType;
 import org.tnmk.ln.app.practice.model.QuestionWithPracticeResult;
+import org.tnmk.ln.infrastructure.security.authserver.config.tokenconverter.AccessTokenUserDetails;
+import org.tnmk.ln.infrastructure.security.resourceserver.helper.ResourceServerSecurityContextHelper;
 import org.tnmk.ln.infrastructure.security.resourceserver.helper.SecurityContextHelper;
 import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
 
+import javax.inject.Inject;
 import java.util.List;
 
 /**
@@ -19,13 +22,14 @@ import java.util.List;
 @RestController
 public class QuestionRecommendationResource {
 
+    @Inject
+    private ResourceServerSecurityContextHelper resourceServerSecurityContextHelper;
     @Autowired
     private QuestionRecommendationService questionRecommendationService;
 
     @RequestMapping(value = UriPrefixConstants.API_PREFIX + "/questions/recommendation", method = RequestMethod.POST)
     public List<QuestionWithPracticeResult> findAllQuestionRecommendation(@RequestBody QuestionRecommendationRequest questionRecommendationRequest) {
-        User user = SecurityContextHelper.validateExistAuthenticatedUser();
-
+        User user =resourceServerSecurityContextHelper.validateExistUser();
         return questionRecommendationService.loadQuestionsByTopics(user.getId(), questionRecommendationRequest.questionType, questionRecommendationRequest.topicIds);
     }
 
