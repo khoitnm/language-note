@@ -22,10 +22,10 @@ ExpressionsSearchService.prototype.init = function () {
 };
 ExpressionsSearchService.prototype.initData = function (expressionsSearchKeyword) {
     var self = this;
-    var expressionSkeletonGet = self.$http.get(contextPath + '/api/expression-composites/construct');
+    var expressionSkeletonGet = self.$http.get(contextPathResourceServer + '/api/expression-composites/construct');
     var expressionSearchGet;
     if (hasValue(expressionsSearchKeyword)) {
-        expressionSearchGet = self.$http.get(contextPath + '/api/expression-composites/detail?q=' + expressionsSearchKeyword);
+        expressionSearchGet = self.$http.get(contextPathResourceServer + '/api/expression-composites/detail?q=' + expressionsSearchKeyword);
     } else {
         expressionSearchGet = undefined;
     }

@@ -7,23 +7,23 @@ angularApp.config(routeConfig);
 function routeConfig($routeProvider) {
     $routeProvider
         .when('/', {
-            templateUrl: contextPath + '/app/topic/topics.html',
+            templateUrl: contextPathClient + '/app/topic/topics.html',
             controller: 'topicsController'
         })
         .when('/topics', {
-            templateUrl: contextPath + '/app/topic/topics.html',
+            templateUrl: contextPathClient + '/app/topic/topics.html',
             controller: 'topicsController'
         })
         .when('/topic-edit', {
-            templateUrl: contextPath + '/app/topic/topic-edit.html',
+            templateUrl: contextPathClient + '/app/topic/topic-edit.html',
             controller: 'topicEditController'
         })
         .when('/practice', {
-            templateUrl: contextPath + '/app/practice/practice.html',
+            templateUrl: contextPathClient + '/app/practice/practice.html',
             controller: 'practiceController'
         })
         .when('/expressions-search', {
-            templateUrl: contextPath + '/app/expression/expressions-search.html',
+            templateUrl: contextPathClient + '/app/expression/expressions-search.html',
             controller: 'expressionsSearchController'
         })
         //.otherwise({
@@ -32,7 +32,8 @@ function routeConfig($routeProvider) {
     ;
 }
 function rootScope($rootScope, $window) {
-    $rootScope.contextPath = contextPath;
+	$rootScope.contextPathClient = contextPathClient;
+    $rootScope.contextPathResourceServer = contextPathResourceServer;
     $rootScope.searchExpressions = function () {
         var filterParam = '';
         if (isNotBlank($rootScope.searchKeyword)) {

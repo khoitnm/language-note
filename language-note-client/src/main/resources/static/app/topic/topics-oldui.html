@@ -40,7 +40,7 @@
             </div>
             <div class="x_content">
                 <!-- Expression Items Table -->
-                <div class="row" ng-include="contextPath + '/app/topic/topics-paging.html'"></div>
+                <div class="row" ng-include="contextPathClient + '/app/topic/topics-paging.html'"></div>
 
                 <div ng-repeat="topic in service.topicsDataTable.pager.items track by $index"
                      ng-if="$index >= service.topicsDataTable.pager.startIndex && $index <= service.topicsDataTable.startIndex + service.topicsDataTable.pager.pageSize"
@@ -114,7 +114,7 @@
                     </div>
                 </div>
 
-                <div class="row" ng-include="contextPath + '/app/topic/topics-paging.html'"></div>
+                <div class="row" ng-include="contextPathClient + '/app/topic/topics-paging.html'"></div>
 
             </div>
         </div>

@@ -31,8 +31,8 @@
                 <!--</div>-->
 
                 <div class="clearfix"></div>
-                <div class="col-xs-12" ng-include="contextPath + '/app/topic/expression-answers.html'"></div>
-                <div class="col-xs-12" ng-include="contextPath + '/app/topic/expression-favourite.html'"></div>
+                <div class="col-xs-12" ng-include="contextPathClient + '/app/topic/expression-answers.html'"></div>
+                <div class="col-xs-12" ng-include="contextPathClient + '/app/topic/expression-favourite.html'"></div>
             </div>
             <div class="body row">
                 <div class="col-xs-12">
@@ -59,11 +59,11 @@
                                         <div class="col-xs-12 explanation">{{sense.shortExplanation || sense.explanation}}</div>
                                     </div>
                                     <div ng-if="sense.photos.length == 1 && sense.mainPhoto.fileItemId"
-                                         ng-include="contextPath + '/app/topic/topic-edit-expression-teaser-one-photo.html'"
+                                         ng-include="contextPathClient + '/app/topic/topic-edit-expression-teaser-one-photo.html'"
                                          class="image-border row">
                                     </div>
                                     <div ng-if="sense.photos.length > 1"
-                                         ng-include="contextPath + '/app/topic/topic-edit-expression-teaser-many-photos.html'"
+                                         ng-include="contextPathClient + '/app/topic/topic-edit-expression-teaser-many-photos.html'"
                                          class="image-border row">
                                     </div>
                                     <div class="sense-explanation row" ng-show="sense.shortExplanation">

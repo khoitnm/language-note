@@ -1,10 +1,10 @@
 <div class="expression-spatial-white teaser-wrapper masonry-item" ng-repeat="expression in service.topic.expressions track by $index">
     <div class="teaser-content"
          ng-if="service.editingExpression != expression"
-         ng-include="contextPath + '/app/topic/topic-edit-expression-teaser.html'">
+         ng-include="contextPathClient + '/app/topic/topic-edit-expression-teaser.html'">
     </div>
     <div class="row expression-item"
          ng-if="(service.editingExpression && service.editingExpression == expression)"
-         ng-include="contextPath + '/app/topic/topic-edit-expression-editor.html'">
+         ng-include="contextPathClient + '/app/topic/topic-edit-expression-editor.html'">
     </div>
 </div>

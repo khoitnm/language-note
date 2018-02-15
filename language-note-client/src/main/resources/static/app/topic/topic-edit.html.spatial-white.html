@@ -1,7 +1,7 @@
 <!--Back up of topic-edit.html-->
 
 <!-- TOP MENU -->
-<div class="row page-content-top-nav" ng-include="contextPath + '/app/topic/topic-edit-nav.html'"></div>
+<div class="row page-content-top-nav" ng-include="contextPathClient + '/app/topic/topic-edit-nav.html'"></div>
 <!--<div class="ln_solid" style="margin: 10px 0px;"></div>-->
 <!-- Topic Content -->
 <div class="page-section row">
@@ -11,7 +11,7 @@
                placeholder="Topic" class="input-as-text"/>
     </div>
 
-    <div class="col-xs-12 page-section-description" ng-include="contextPath + '/app/topic/topic-edit-description.html'"></div>
+    <div class="col-xs-12 page-section-description" ng-include="contextPathClient + '/app/topic/topic-edit-description.html'"></div>
 
     <!-- Topic Detail -->
     <div class="col-xs-12 text-danger alert alert-danger" ng-show="unexpectedMessage">
@@ -26,11 +26,11 @@
             <div class="expression-spatial-white teaser-float-wrapper teaser-4-cols" ng-repeat="expression in service.topic.expressions track by $index">
                 <div class="teaser-content"
                      ng-if="service.editingExpression != expression"
-                     ng-include="contextPath + '/app/topic/topic-edit-expression-teaser-spatial-white.html'">
+                     ng-include="contextPathClient + '/app/topic/topic-edit-expression-teaser-spatial-white.html'">
                 </div>
                 <div class="row expression-item"
                      ng-if="(service.editingExpression && service.editingExpression == expression)"
-                     ng-include="contextPath + '/app/topic/topic-edit-expression-editor.html'">
+                     ng-include="contextPathClient + '/app/topic/topic-edit-expression-editor.html'">
                 </div>
             </div>
         </div>

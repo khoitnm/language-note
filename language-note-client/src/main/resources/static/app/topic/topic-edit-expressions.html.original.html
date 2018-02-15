@@ -17,7 +17,7 @@
     </div>
 
     <div class="ln_solid"></div>
-    <!--<div class="row" ng-include="contextPath + '/app/topic/topic-edit-expessions-paging.html'"></div>-->
+    <!--<div class="row" ng-include="contextPathClient + '/app/topic/topic-edit-expessions-paging.html'"></div>-->
 
 
     <div class="row">
@@ -29,13 +29,13 @@
             <!--ng-if="$index >= service.expressionsDataTable.pager.startIndex && $index <= service.expressionsDataTable.pager.startIndex + service.expressionsDataTable.pager.pageSize"-->
             <!--ng-class="(service.editingExpression && service.editingExpression == expression) ? 'col-xs-12' : 'col-md-4'">-->
             <div class="row expression-item" ng-if="service.editingExpression != expression"
-                 ng-include="contextPath + '/app/topic/topic-edit-expression-teaser.html'"></div>
+                 ng-include="contextPathClient + '/app/topic/topic-edit-expression-teaser.html'"></div>
             <div ng-if="(service.editingExpression && service.editingExpression == expression)"
                  class="row expression-item"
-                 ng-include="contextPath + '/app/topic/topic-edit-expression-editor.html'">
+                 ng-include="contextPathClient + '/app/topic/topic-edit-expression-editor.html'">
             </div>
         </div>
     </div>
 
-    <!--<div class="row" ng-include="contextPath + '/app/topic/topic-edit-expessions-paging.html'"></div>-->
+    <!--<div class="row" ng-include="contextPathClient + '/app/topic/topic-edit-expessions-paging.html'"></div>-->
 </div>

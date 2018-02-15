@@ -13,7 +13,7 @@ ExpressionBaseService.prototype.stopSound = function (expression) {
 ExpressionBaseService.prototype.initUploader = function (digitalAssetSkeleton) {
     var self = this;
     self.uploader = new self.FileUploader({
-        url: self.$rootScope.contextPath + '/api/files'
+        url: self.$rootScope.contextPathResourceServer + '/api/files'
         , autoUpload: true
     });
     self.uploader.onSuccessItem = function (fileUploadItem, response, status, headers) {
@@ -60,7 +60,7 @@ ExpressionBaseService.prototype.resetEditingExpression = function (expression) {
 };
 ExpressionBaseService.prototype.saveExpressionOnly = function (expression, callback) {
     var self = this;
-    self.$http.post(contextPath + '/api/expression-composites', expression).then(
+    self.$http.post(contextPathResourceServer + '/api/expression-composites', expression).then(
         function (successResponse) {
             expression = $r.copyProperties(successResponse.data, expression);
             if (callback) callback.call(self, expression);
@@ -130,7 +130,7 @@ ExpressionBaseService.prototype.playSoundOfTexts = function (localeString, texts
     audio.play();
 };
 ExpressionBaseService.prototype.getSoundUrlFromText = function (localeString, text) {
-    var url = contextPath + '/api/tts?text=' + text;
+    var url = contextPathResourceServer + '/api/tts?text=' + text;
     if (isNotBlank(localeString)) {
         //TODO should add locale
         //url += '&locale=' + localeString;
@@ -179,7 +179,7 @@ ExpressionBaseService.prototype.favour = function (expression, favourite) {
         expressionId: expression.id
         , favourite: expression.favourite
     };
-    self.$http.post(contextPath + '/api/expression/favourite', favouriteData).then(
+    self.$http.post(contextPathResourceServer + '/api/expression/favourite', favouriteData).then(
         function (successResponse) {
             //self.setLesson(successResponse.data);
         }

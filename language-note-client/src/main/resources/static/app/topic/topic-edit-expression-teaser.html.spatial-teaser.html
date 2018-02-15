@@ -1,6 +1,6 @@
 <div class="teaser-content-section top-tools " ng-mouseover="service.playSoundAutomatically(expression)">
 
-    <!--<div class="pull-left" ng-include="contextPath + '/app/topic/expression-favourite.html'" style=""></div>-->
+    <!--<div class="pull-left" ng-include="contextPathClient + '/app/topic/expression-favourite.html'" style=""></div>-->
 
     <div class="pull-right">
         <div tnmk-dropdown>
@@ -54,11 +54,11 @@
         <div ng-repeat="sense in senseGroup.senses | limitTo: 2" class="sense">
             <div class="sense-explanation">{{sense.shortExplanation || sense.explanation}}</div>
             <div ng-if="sense.photos.length == 1 && sense.mainPhoto.fileItemId"
-                 ng-include="contextPath + '/app/topic/topic-edit-expression-teaser-one-photo.html'"
+                 ng-include="contextPathClient + '/app/topic/topic-edit-expression-teaser-one-photo.html'"
                  class="sense-image static-width-center-container">
             </div>
             <div ng-if="sense.photos.length > 1"
-                 ng-include="contextPath + '/app/topic/topic-edit-expression-teaser-many-photos.html'"
+                 ng-include="contextPathClient + '/app/topic/topic-edit-expression-teaser-many-photos.html'"
                  class="sense-image static-width-center-container">
             </div>
             <div class="sense-video static-width-center-container" ng-if="sense.videos.length > 0">

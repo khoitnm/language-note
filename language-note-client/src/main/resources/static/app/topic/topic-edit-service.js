@@ -26,10 +26,10 @@ TopicEditService.prototype.init = function () {
 
 TopicEditService.prototype.initData = function (topicId) {
     var self = this;
-    var topicSkeletonGet = self.$http.get(contextPath + '/api/topics/construct');
+    var topicSkeletonGet = self.$http.get(contextPathResourceServer + '/api/topics/construct');
     var topicDetailGet;
     if (hasValue(topicId)) {
-        topicDetailGet = self.$http.get(contextPath + '/api/topics/' + topicId + '/detail');
+        topicDetailGet = self.$http.get(contextPathResourceServer + '/api/topics/' + topicId + '/detail');
     } else {
         topicDetailGet = topicSkeletonGet;
     }
@@ -56,7 +56,7 @@ TopicEditService.prototype.initData = function (topicId) {
                     var superProperty = $r.findSuperPropertyFromChildPaths(self.topic, childPaths, 2);
                     var superId = superProperty.propertyValue.id;
                     self.$http({
-                        url: contextPath + "/api/topics/" + superId + "/expressions/" + item.id,
+                        url: contextPathResourceServer + "/api/topics/" + superId + "/expressions/" + item.id,
                         method: 'DELETE',
                         headers: {"Content-Type": "application/json;charset=utf-8"}
                     }).then(function () {
@@ -92,7 +92,7 @@ TopicEditService.prototype.initData = function (topicId) {
                 //    var superProperty = $r.findSuperPropertyFromChildPaths(self.topic, childPaths, 2);
                 //    var superId = superProperty.propertyValue.id;
                 //    self.$http({
-                //        url: contextPath + "/api/expressions/" + superId + "/senseGroups/" + item.id,
+                //        url: contextPathResourceServer + "/api/expressions/" + superId + "/senseGroups/" + item.id,
                 //        method: 'DELETE',
                 //        headers: {"Content-Type": "application/json;charset=utf-8"}
                 //    }).then(function () {
@@ -108,7 +108,7 @@ TopicEditService.prototype.initData = function (topicId) {
                 //    var superProperty = $r.findSuperPropertyFromChildPaths(self.topic, childPaths, 2);
                 //    var superId = superProperty.propertyValue.id;
                 //    self.$http({
-                //        url: contextPath + "/api/senseGroups/" + superId + "/senses/" + item.id,
+                //        url: contextPathResourceServer + "/api/senseGroups/" + superId + "/senses/" + item.id,
                 //        method: 'DELETE',
                 //        headers: {"Content-Type": "application/json;charset=utf-8"}
                 //    }).then(function () {
@@ -125,7 +125,7 @@ TopicEditService.prototype.initData = function (topicId) {
                 //    var superProperty = $r.findSuperPropertyFromChildPaths(self.topic, childPaths, 2);
                 //    var superId = superProperty.propertyValue.id;
                 //    self.$http({
-                //        url: contextPath + "/api/senses/" + superId + "/photos/" + item.id + "/detach",
+                //        url: contextPathResourceServer + "/api/senses/" + superId + "/photos/" + item.id + "/detach",
                 //        method: 'DELETE',
                 //        headers: {"Content-Type": "application/json;charset=utf-8"}
                 //    }).then(function () {
@@ -147,7 +147,7 @@ TopicEditService.prototype.initData = function (topicId) {
                 //    var superProperty = $r.findSuperPropertyFromChildPaths(self.topic, childPaths, 2);
                 //    var superId = superProperty.propertyValue.id;
                 //    self.$http({
-                //        url: contextPath + "/api/senses/" + superId + "/examples/" + item.id,
+                //        url: contextPathResourceServer + "/api/senses/" + superId + "/examples/" + item.id,
                 //        method: 'DELETE',
                 //        headers: {"Content-Type": "application/json;charset=utf-8"}
                 //    }).then(function () {
@@ -178,7 +178,7 @@ TopicEditService.prototype.removeTopic = function (item) {
         , removeCompositions: false
     };
     self.$http({
-        url: contextPath + "/api/topicEdit",
+        url: contextPathResourceServer + "/api/topicEdit",
         method: 'DELETE',
         data: removeRequest,
         headers: {"Content-Type": "application/json;charset=utf-8"}
@@ -186,7 +186,7 @@ TopicEditService.prototype.removeTopic = function (item) {
 };
 TopicEditService.prototype.rename = function (item) {
     var self = this;
-    self.$http.put(contextPath + '/api/topicEdit/name', item).then(
+    self.$http.put(contextPathResourceServer + '/api/topicEdit/name', item).then(
         function (successResponse) {
             //self.setLesson(successResponse.data);
         }
@@ -204,7 +204,7 @@ TopicEditService.prototype.saveTopic = function (callback) {
     self.topic.isSaving = true;
     self.topicCompositionEditor.cleanRecursiveRoot();
     self.topicCompositionEditor.root.expressions.sortByField('text', 1);
-    self.$http.post(contextPath + '/api/topic-composites', self.topic).then(
+    self.$http.post(contextPathResourceServer + '/api/topic-composites', self.topic).then(
         function (successResponse) {
             //Update id of topic and composites fields.
             self.topic = successResponse.data;
@@ -223,7 +223,7 @@ TopicEditService.prototype.saveTopicOnly = function (callback) {
     self.topic.isSaving = true;
     var expressions = self.topicCompositionEditor.root.expressions;
     self.recalculateExpressionIdsForTopic(self.topic);
-    self.$http.post(contextPath + '/api/topics', self.topic).then(
+    self.$http.post(contextPathResourceServer + '/api/topics', self.topic).then(
         function (successResponse) {
             //Update id of topic and composites fields.
             var savedTopic = successResponse.data;
@@ -285,7 +285,7 @@ TopicEditService.prototype.lookUpExpression = function (expression, callback) {
         var skeletonExpression = skeletonExpressions[0];
         $r.copyProperties(angular.copy(skeletonExpression), expression);
     } else {
-        self.$http.get(contextPath + '/api/expressions/detail/lookup?text=' + expressionText).then(function (successRespond) {
+        self.$http.get(contextPathResourceServer + '/api/expressions/detail/lookup?text=' + expressionText).then(function (successRespond) {
             var lookupExpression = successRespond.data;
             if (hasValue(lookupExpression)) {
                 $r.copyProperties(lookupExpression, expression);
@@ -302,7 +302,7 @@ TopicEditService.prototype.validateNotExistExpressionText = function (expression
     if (isBlank(expressionText)) {
         return;
     } else {
-        self.$http.get(contextPath + '/api/expressions/brief/lookup?text=' + expressionText).then(function (successRespond) {
+        self.$http.get(contextPathResourceServer + '/api/expressions/brief/lookup?text=' + expressionText).then(function (successRespond) {
             var lookupExpression = successRespond.data;
             if (hasValue(lookupExpression)) {
                 self.showErrorMessage("The text '" + expressionText + "' was used by another expression.")

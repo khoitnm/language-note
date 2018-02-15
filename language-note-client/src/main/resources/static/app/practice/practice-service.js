@@ -16,8 +16,8 @@ var PracticeService = function ($rootScope, $http, $q, $routeParams, $sce, FileU
 inherit(ExpressionBaseService, PracticeService);
 PracticeService.prototype.init = function () {
     var self = this;
-    var topicsGet = self.$http.get(contextPath + '/api/topic-briefs/mine');
-    var expressionSkeletonGet = self.$http.get(contextPath + '/api/expression-composites/construct');
+    var topicsGet = self.$http.get(contextPathResourceServer + '/api/topic-briefs/mine');
+    var expressionSkeletonGet = self.$http.get(contextPathResourceServer + '/api/expression-composites/construct');
     self.$q.all([topicsGet, expressionSkeletonGet]).then(function (arrayOfResults) {
         var topics = arrayOfResults[0].data;
 
@@ -39,7 +39,7 @@ PracticeService.prototype.filterQuestions = function () {
         questionType: self.questionType
         , topicIds: topicIds
     };
-    self.$http.post(contextPath + "/api/questions/recommendation", filter).then(function (successResponse) {
+    self.$http.post(contextPathResourceServer + "/api/questions/recommendation", filter).then(function (successResponse) {
         self.questionsWithPracticeResult = successResponse.data;
         self.initTestQuestions();
     });
@@ -55,7 +55,7 @@ PracticeService.prototype.submitAnswers = function (test) {
         var askedItem = test.askedItems[i];
         answerRequest.push({'questionId': askedItem.question.id, 'answerPoint': askedItem.answerResult});
     }
-    self.$http.post(contextPath + "/api/questions/answers", answerRequest).then(function (successResponse) {
+    self.$http.post(contextPathResourceServer + "/api/questions/answers", answerRequest).then(function (successResponse) {
         var answerResults = successResponse.data;
         //TODO set to current test.
         for (var i = 0; i < self.questionsWithPracticeResult.length; i++) {

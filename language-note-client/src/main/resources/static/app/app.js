@@ -1,5 +1,6 @@
 //'use strict';
-var contextPath = window.location.origin + '/language-note-client';
+var contextPathClient = window.location.origin + '/language-note-client';
+var contextPathResourceServer ='http://localhost:8080/language-note-server';
 
 var angularApp = angular.module('myApp', [
     'ngSanitize'

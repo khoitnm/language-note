@@ -11,7 +11,7 @@ var TopicsService = function ($http, $q) {
 
 TopicsService.prototype.init = function () {
     var self = this;
-    var url = contextPath + '/api/topic-briefs/mine';
+    var url = contextPathResourceServer + '/api/topic-briefs/mine';
     if (self.keyword) url += '?where=3&keyword=' + self.keyword;
     var topicsGet = self.$http.get(url);
     self.$q.all([topicsGet]).then(function (arrayOfResults) {
@@ -27,7 +27,7 @@ TopicsService.prototype.removeTopic = function (item) {
         , removeCompositions: false
     };
     self.$http({
-        url: contextPath + "/api/topics",
+        url: contextPathResourceServer + "/api/topics",
         method: 'DELETE',
         data: removeRequest,
         headers: {"Content-Type": "application/json;charset=utf-8"}
@@ -36,7 +36,7 @@ TopicsService.prototype.removeTopic = function (item) {
 TopicsService.prototype.rename = function (item) {
     var self = this;
     if (!hasValue(item.id)) return;
-    self.$http.put(contextPath + '/api/topics/name', item).then(
+    self.$http.put(contextPathResourceServer + '/api/topics/name', item).then(
         function (successResponse) {
             //self.setLesson(successResponse.data);
         }

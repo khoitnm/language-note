@@ -39,7 +39,7 @@
                     <a href="" ng-click="service.modeEdit(expression)" class="btn-xs" title="{{$index+1}}"><i class="fa fa-edit"></i></a>
                 </div>
                 <div class="clearfix"></div>
-                <div class="" ng-include="contextPath + '/app/topic/expression-favourite.html'" style=""></div>
+                <div class="" ng-include="contextPathClient + '/app/topic/expression-favourite.html'" style=""></div>
             </div>
 
             <div class="row" ng-if="expression.errorMessage">
@@ -59,11 +59,11 @@
                                         <div class="col-md-12 explanation">{{sense.shortExplanation || sense.explanation}}</div>
                                     </div>
                                     <div ng-if="sense.photos.length == 1 && sense.mainPhoto.fileItemId"
-                                         ng-include="contextPath + '/app/topic/topic-edit-expression-teaser-one-photo.html'"
+                                         ng-include="contextPathClient + '/app/topic/topic-edit-expression-teaser-one-photo.html'"
                                          class="image-border row">
                                     </div>
                                     <div ng-if="sense.photos.length > 1"
-                                         ng-include="contextPath + '/app/topic/topic-edit-expression-teaser-many-photos.html'"
+                                         ng-include="contextPathClient + '/app/topic/topic-edit-expression-teaser-many-photos.html'"
                                          class="image-border row">
                                     </div>
                                     <div class="row" ng-if="sense.videos.length > 0">

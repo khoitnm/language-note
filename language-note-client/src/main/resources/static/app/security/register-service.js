@@ -6,7 +6,7 @@ var RegisterService = function ($http, $q, $routeParams) {
 };
 RegisterService.prototype.register = function () {
     var self = this;
-    self.$http.post(contextPath + '/api/users', self.user).then(
+    self.$http.post(contextPathResourceServer + '/api/users', self.user).then(
         function (successResponse) {
             self.user = successResponse.data;
             self.message = "Registered " + self.user.username;

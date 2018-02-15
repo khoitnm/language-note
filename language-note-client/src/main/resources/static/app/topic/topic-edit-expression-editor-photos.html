@@ -10,7 +10,7 @@
                                    options="{'sense': sense}" multiple=""
                                    class="middle-horizontal dark-theme" style="max-width: 200px;"
                                    ng-if="!sense.mainPhoto.fileItemId"/>
-                            <img ng-if="sense.mainPhoto.fileItemId" class="img-explanation" ng-src="{{contextPath + '/api/files/'+sense.mainPhoto.fileItemId}}"/>
+                            <img ng-if="sense.mainPhoto.fileItemId" class="img-explanation" ng-src="{{contextPathResourceServer + '/api/files/'+sense.mainPhoto.fileItemId}}"/>
                         </div>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                                     <div class="middle-vertical">
                                         <div class="middle-horizontal img-with-close-wrapper">
                                             <span class="img-btn-close btn btn-xs btn-dark" ng-click="service.topicCompositionEditor.removeItemAndAddSkeleton(photo)"><i class="fa fa-trash-o"></i></span>
-                                            <img ng-src="{{contextPath + '/api/files/'+photo.fileItemId}}" ng-click="service.selectMainPhoto(sense, photo)">
+                                            <img ng-src="{{contextPathResourceServer + '/api/files/'+photo.fileItemId}}" ng-click="service.selectMainPhoto(sense, photo)">
                                             <!--<span>Image Name</span>-->
                                         </div>
                                     </div>
