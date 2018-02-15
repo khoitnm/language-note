@@ -72,8 +72,11 @@
 <!--"[[${user.accessToken}]]";-->
 <script th:inline="text">
     var PROFILE = "[[${projectInfo.profiles[0]}]]";
-    var USER_ID = "[[${user.id}]]";//also get from [ [ $ { user.id } ] ]
-    //    var ACCESS_TOKEN = "xxx";
+    var USER_ID = "[[${user.id}]]";
+    var INIT_ACCESS_TOKEN_TYPE = "[[${oAuth2AccessTokenResponse.tokenType}]]";
+    var INIT_ACCESS_TOKEN_VALUE = "[[${oAuth2AccessTokenResponse.accessToken}]]"; 
+    var INIT_ACCESS_TOKEN_REFRESH_TOKEN = "[[${oAuth2AccessTokenResponse.refreshToken}]]";
+    var INIT_ACCESS_TOKEN_EXPIRES_IN = [[${oAuth2AccessTokenResponse.expiresIn}]];
 </script>
 <div th:include="parts/import-scripts"></div>
 <!-- /page content -->

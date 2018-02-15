@@ -47,6 +47,14 @@ angularApp.factory('httpInterceptor', ['$q', '$rootScope', function ($q, $rootSc
 
 angularApp.config(['$httpProvider', function ($httpProvider) {
     $httpProvider.interceptors.push('httpInterceptor');
+//    $httpProvider.interceptors.push(function($q, $cookies) {
+//         return {
+//             'request': function(config) {
+//                 config.headers['Authorization'] = 'Bearer '+$cookies.loginTokenCookie;
+//                 return config;
+//             }
+//         };
+//    });
 }]);
 
 angular.module('exceptionOverwrite', []).factory('$exceptionHandler', ['$rootScope', function ($rootScope) {
