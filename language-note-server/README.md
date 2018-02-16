@@ -90,6 +90,11 @@ Now it's using Username - password authentication. The API only uses session to 
 In the future, it should use OAuth2.
 
 ## III. Database
+We don't need much transaction, and in my vision, UGC data from users may be big. So RDS is not necessary. Besides, NoSQL also provide a flexibility when I want to change my idea quickly.
+We will use 2 NoSQL: MongoDB & Neo4j.
+1. MongoDB will help me to query composite data easily (all related data are put in a composite document, there' no need much JOIN query)
+2. Neo4j: the requirement will require query data in many direction which is quite unpredictable in the beginning (because the requirement is unclear and can be changed quickly).
+So Cassandra is definitely not an appropriate solution.
 
 ## IV. Common code which can be reused for other projects
 ### 1. Neo4j
@@ -108,15 +113,20 @@ So we will use ``@EagerRelationship`` for eager loading children nodes. (not imp
 
 ### 2. Bean Validator
 
+## V. Process
+### TDD 
+<a href="http://www.drdobbs.com/tdd-is-about-design-not-testing/229218691">TDD is about design (80%), not about testing (20%).</a>
+However, I don't using TDD in this project because the requirement could be changed so much that the design would be unstable no matter how good it is. Actually, this is actually the third project about Learning Language.
+I have abandoned two more projects because my ideas changed so much. 
 
-## V. References
+## VI. References
 Some good resource related to language:
 http://blog.mashape.com/list-of-25-natural-language-processing-apis/
 
-## Glossary
-- construct:
-- create: construct and saved into DB
-- initiate: starting a service, including constructing some objects and creating other objects.
+## Naming Convention
+- constructXXX:
+- createXXX: construct and saved into DB
+- initiateXXX: starting a service, including constructing some objects and creating other objects.
 
 - compositions: the entities which form the parent entity. The compositions cannot exist without the parent. E.g. Expression is composed of SenseGroups, Senses, Examples. 
 - relations / related entities: the entities which are related to another entity. E.g. Topic is related to Categories, Expressions, SenseGroups, Senses, Examples, Questions, AnswerResult
@@ -147,5 +157,5 @@ Word[1] -> load synonyms [2, 3] -> load word[2] -> synonyms[1, 3] -> load word[1
 + Indexing and Sort
 + Question: what do we need to sort?
  
-## References
+## UI/UX References
 https://quizlet.com/11272763/barrons-essential-words-for-the-ielts-logging-flash-cards/
