@@ -43,9 +43,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+            //FIXME it doesn't work. The request to /project-info is still protected???
+            .authorizeRequests().antMatchers("/project-info").permitAll()
+            .and()
             .authorizeRequests()
             .anyRequest().authenticated()
-//            .antMatchers("/oauth/token").permitAll()
             .antMatchers(HttpMethod.OPTIONS).permitAll()
 //            .and().logout().permitAll()
             .and().httpBasic().and().csrf().disable();
