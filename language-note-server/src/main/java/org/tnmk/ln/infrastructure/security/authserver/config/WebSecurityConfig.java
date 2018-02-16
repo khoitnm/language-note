@@ -24,7 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
             .anyRequest().authenticated()
             //Should check whether the whitelist request is here or on ResourceServer.
-            //...
+            //[whitelist for AuthenticationServer only, not ResourceServer]
             .antMatchers(HttpMethod.OPTIONS).permitAll()
             .and().httpBasic().and().csrf().disable();
     }

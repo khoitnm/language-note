@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.tnmk.common.exception.UnexpectedException;
 import org.tnmk.ln.infrastructure.dictionary.oxford.entity.LexicalEntry;
@@ -55,9 +56,16 @@ public class OxfordService {
         RestTemplate restTemplate = new RestTemplate();
         String uriString = String.format("https://od-api.oxforddictionaries.com/api/v1/entries/%s/%s", sourceLanguage, word);
         RequestEntity<MultiValueMap<String, Object>> requestEntity = createRequestEntity(uriString);
-        ResponseEntity<OxfordResponse> responseEntity = restTemplate.exchange(requestEntity, OxfordResponse.class);
-        if (responseEntity.getStatusCode().equals(HttpStatus.NOT_FOUND)) {
-            return null;
+        ResponseEntity<OxfordResponse> responseEntity;
+        try {
+            responseEntity = restTemplate.exchange(requestEntity, OxfordResponse.class);
+        }catch (HttpClientErrorException e){
+            if (e.getStatusCode().equals(HttpStatus.NOT_FOUND)) {
+                return null;
+            }else{
+                String msg = String.format("Error when calling API to lookup text: %s\n\t Path: '%s'",e.getMessage(),uriString);
+                throw new UnexpectedException(msg, e);
+            }
         }
         OxfordResponse oxfordResponse = responseEntity.getBody();
         oxfordWords = oxfordResponse.getResults();

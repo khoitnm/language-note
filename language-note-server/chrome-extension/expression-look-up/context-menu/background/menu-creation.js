@@ -26,15 +26,19 @@ ContextMenuItem.prototype.selectionTextInPage = function(info, tab) {
     var pageTitle = tab.title;
     var pageUrl = tab.url;
     var selectionText = info.selectionText;
-//    alert("pageTitle: " + pageTitle + ", selectionText: " + selectionText + ", pageUrl: " + pageUrl);
     getAccessTokenFromWebsite(function(accessToken){
+        var lookupText = selectionText.trim().toLowerCase();
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", "http://" + $API_CONTEXT_ABS_PATH + "/project-info", true);
+        xhr.open("GET", "http://" + $API_CONTEXT_ABS_PATH + "/api/expressions/detail/lookup?text="+lookupText, true);
         xhr.setRequestHeader('Authorization', accessToken.token_type + ' '+accessToken.access_token);
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4) {
-                var resp = JSON.parse(xhr.responseText);
-                alert(xhr.responseText);
+                var responseJson = xhr.responseText;
+                console.log("Response of '"+lookupText+"':\n"+xhr.responseText);
+                alert(responseJson);
+                if (isNotBlank(responseJson)){
+                    var resp = JSON.parse(responseJson);
+                }
             }
         };
         xhr.send();
@@ -51,7 +55,6 @@ findCookieMapByStartingPath = function(domain, path, callback){
     var findingPathLowerCase = "/"+path.toLowerCase()+"/";
     chrome.cookies.getAll({domain: domain}, function (cookies) {
         var cookieMap = {};
-        console.log("Cookie: " + JSON.stringify(cookies));
         for (var i in cookies) {
             var cookie = cookies[i];
             var cookiePath = cookie.path;
