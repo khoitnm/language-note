@@ -130,12 +130,18 @@ ExpressionBaseService.prototype.playSoundOfTexts = function (localeString, texts
     audio.play();
 };
 ExpressionBaseService.prototype.getSoundUrlFromText = function (localeString, text) {
+	var self = this;
 	//FIXME, there's no AccessToken header if we call url directly like this.
     var url = contextPathResourceServer + '/api/tts?text=' + text;
     if (isNotBlank(localeString)) {
         //TODO should add locale
         //url += '&locale=' + localeString;
     }
+//    return self.$http.get(url).then(
+//            function (successResponse) {
+//            	return successResponse;
+//            }
+//    );
     return url;
 };
 /**

@@ -3,7 +3,13 @@
 // found in the LICENSE file.
 
 chrome.cookies.onChanged.addListener(function(info) {
-  console.log("onChanged" + JSON.stringify(info));
+  //console.log("onChanged" + JSON.stringify(info));
+  chrome.cookies.getAll({domain: "localhost"}, function(cookies) {
+      console.log("Total cookies in localhost: "+cookies.length);
+      for(var i=0; i<cookies.length;i++) {
+          console.log("["+i+"] path:" +cookies[i].path+", name:"+cookies[i].name+", value:"+cookies[i].value);
+      }
+  });
 });
 
 function focusOrCreateTab(url) {

@@ -8,7 +8,7 @@ angularApp.config(['$httpProvider', function ($httpProvider) {
         return {
             'request': function (config) {
 //                config.headers['access_token'] = $cookies.loginTokenCookie;
-                config.headers['Authorization'] = $cookies.token_type+' '+$cookies.access_token;
+                config.headers['Authorization'] = $cookies.get('token_type')+' '+$cookies.get('access_token');
                 return config;
             }
         };

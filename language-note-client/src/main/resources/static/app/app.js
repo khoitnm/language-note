@@ -61,10 +61,10 @@ angularApp.factory('api', function ($http, $cookies) {
   return {
       init: function (token) {
           $http.defaults.headers.common['X-Access-Token'] = token || $cookies.token;
-          $cookies.token_type = INIT_ACCESS_TOKEN_TYPE;
-          $cookies.access_token = INIT_ACCESS_TOKEN_VALUE;
-          $cookies.refresh_token = INIT_ACCESS_TOKEN_REFRESH_TOKEN;
-          $cookies.expires_in = INIT_ACCESS_TOKEN_EXPIRES_IN;
+          $cookies.put('token_type',INIT_ACCESS_TOKEN_TYPE);
+          $cookies.put('access_token',INIT_ACCESS_TOKEN_VALUE);
+          $cookies.put('refresh_token',INIT_ACCESS_TOKEN_REFRESH_TOKEN);
+          $cookies.put('expires_in',INIT_ACCESS_TOKEN_EXPIRES_IN);
       }
   };
 });

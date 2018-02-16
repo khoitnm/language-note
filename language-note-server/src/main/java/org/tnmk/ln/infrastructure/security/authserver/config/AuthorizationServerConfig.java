@@ -5,6 +5,7 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.Ordered;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -141,22 +142,32 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         return defaultTokenServices;
     }
 
+    //CORS CONFIG: BEGIN ////////////////////////////////////////////////////////////////////////////////////////////
     /**
      * TODO Should only allow our application.
      * @return
      */
     @Bean
     public FilterRegistrationBean corsFilter() {
+        UrlBasedCorsConfigurationSource source = constructUrlBasedCorsConfigurationSource();
+        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
+        bean.setOrder(Ordered.HIGHEST_PRECEDENCE);//It must be
+        return bean;
+    }
+    
+    private UrlBasedCorsConfigurationSource constructUrlBasedCorsConfigurationSource(){
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", constructAllowAllCorsConfiguration());
+        return source;
+    }
+
+    private CorsConfiguration constructAllowAllCorsConfiguration(){
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
         config.addAllowedOrigin("*");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
-        source.registerCorsConfiguration("/**", config);
-        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
-        bean.setOrder(0);
-        return bean;
+        return config;
     }
-
+    //CORS CONFIG: END ////////////////////////////////////////////////////////////////////////////////////////////
 }
