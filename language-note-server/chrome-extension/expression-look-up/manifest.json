@@ -6,6 +6,7 @@
         "128": "browser-action/images/agenda.png"
     },
     "permissions": [
+        "cookies",
         "sessions",
         "tabs",
         "contextMenus",
@@ -17,6 +18,7 @@
     },
     "background": {
         "scripts": [
+            "common/jscommon.js",
             "context-menu/background/menu-creation.js"
         ]
     },

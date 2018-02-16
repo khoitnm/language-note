@@ -48,6 +48,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .authorizeRequests()
             .anyRequest().authenticated()
+            .antMatchers("/project-info").permitAll()
+            .antMatchers("/api/tts**").permitAll()
             .antMatchers(HttpMethod.OPTIONS).permitAll()
 //            .and().logout().permitAll()
             .and().httpBasic().and().csrf().disable();
