@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.util.WebUtils;
 import org.tnmk.common.infrastructure.projectinfo.ProjectInfoProperties;
 import org.tnmk.common.util.http.RequestUtils;
 import org.tnmk.ln.client.common.constant.UriPrefixConstants;
@@ -22,6 +23,7 @@ public class MainWeb {
     @Autowired
     private ProjectInfoProperties projectInfoProperties;
 
+    //FIXME there's no cookie at the beginning!
     @RequestMapping(UriPrefixConstants.WEB_PREFIX + "/main")
     public String main(Model model, HttpServletRequest request) {
         String accessToken = RequestUtils.getCookieValue(request, "access_token");
