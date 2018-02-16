@@ -5,7 +5,7 @@ package org.tnmk.ln.app.practice.entity.result;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 import org.neo4j.ogm.annotation.Transient;
-import org.thymeleaf.util.ListUtils;
+import org.springframework.util.CollectionUtils;
 import org.tnmk.ln.app.common.entity.BaseNeo4jEntity;
 import org.tnmk.ln.app.common.entity.Cleanable;
 import org.tnmk.ln.app.common.entity.Possession;
@@ -35,7 +35,7 @@ public abstract class BasePracticeResult extends BaseNeo4jEntity implements Poss
     @Transient
     @Override
     public boolean isEmpty() {
-        return ListUtils.isEmpty(answers);
+        return CollectionUtils.isEmpty(answers);
     }
 
     @Override

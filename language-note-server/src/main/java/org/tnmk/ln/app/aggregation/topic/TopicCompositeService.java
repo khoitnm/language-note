@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.thymeleaf.util.ListUtils;
+import org.springframework.util.CollectionUtils;
 import org.tnmk.ln.app.aggregation.topic.model.TopicComposite;
 import org.tnmk.ln.app.aggregation.topic.model.TopicCompositeConverter;
 import org.tnmk.ln.app.practice.QuestionGenerationService;
@@ -111,7 +111,7 @@ public class TopicCompositeService {
     public TopicComposite findDetailById(User user, String topicId) {
         Topic topic = topicService.findDetailById(topicId);
         List<String> expressionIds = topic.getExpressionIds();
-        List<Expression> expressions = !ListUtils.isEmpty(expressionIds) ? expressionService.findByIds(expressionIds) : new ArrayList<>();
+        List<Expression> expressions = !CollectionUtils.isEmpty(expressionIds) ? expressionService.findByIds(expressionIds) : new ArrayList<>();
         TopicComposite topicComposite = topicCompositeConverter.toTopicComposite(user, topic, expressions);
         return topicComposite;
     }

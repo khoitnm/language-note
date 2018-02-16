@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.thymeleaf.util.ListUtils;
+import org.springframework.util.CollectionUtils;
 import org.tnmk.ln.app.practice.entity.question.Question;
 import org.tnmk.ln.app.practice.entity.question.QuestionType;
 import org.tnmk.common.infrastructure.data.query.ClassPathQueryLoader;
@@ -36,7 +36,7 @@ public class QuestionRecommendationRepository {
      */
     public List<Question> findQuestionIdsByRecommendedExpressions(long resultOwnerId, QuestionType questionType, List<Long> topicIds) {
         String queryString;
-        if (ListUtils.isEmpty(topicIds)) {
+        if (CollectionUtils.isEmpty(topicIds)) {
             queryString = ClassPathQueryLoader.loadQuery("/org/tnmk/ln/app/practice/query/load-question-ids-by-recommended-expressions.cql", questionType.getLogicName());
             return IterableUtil.toList(neo4jRepository.findList(Question.class, queryString, resultOwnerId));
         } else {
