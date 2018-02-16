@@ -57,7 +57,10 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 //                .anonymous().disable()
             .authorizeRequests()
             .antMatchers(HttpMethod.OPTIONS).permitAll()
-            .antMatchers("/api/hello").access("hasAnyRole('USER')")
+            .antMatchers("/project-info").permitAll()
+            .antMatchers("/project-info").permitAll()
+            //FIXME At this moment, on JavaScript (client app) I have not found the solution for getting Audio(url) with Authorization header, so I temporary put media link to the whitelist.
+            .antMatchers("/api/tts**").permitAll()
 
             .antMatchers("/api/me").hasAnyRole("USER", "ADMIN")
             .antMatchers("/api/register").hasAuthority("ROLE_REGISTER")
