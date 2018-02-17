@@ -23,10 +23,16 @@ var ContextMenuItem = function (title, context, onClickCallback) {
     this.onclick = onClickCallback;
 };
 ContextMenuItem.prototype.selectionTextInPage = function(info, tab) {
+    //Notify to selecting tab
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, {type: "openModal"});
+    });
+
     var pageTitle = tab.title;
     var pageUrl = tab.url;
     var selectionText = info.selectionText;
     getAccessTokenFromWebsite(function(accessToken){
+        return;
         var lookupText = selectionText.trim().toLowerCase();
         var xhr = new XMLHttpRequest();
         xhr.open("GET", "http://" + $API_CONTEXT_ABS_PATH + "/api/expressions/detail/lookup?text="+lookupText, true);
@@ -35,7 +41,7 @@ ContextMenuItem.prototype.selectionTextInPage = function(info, tab) {
             if (xhr.readyState == 4) {
                 var responseJson = xhr.responseText;
                 console.log("Response of '"+lookupText+"':\n"+xhr.responseText);
-                alert(responseJson);
+//                alert(responseJson);
                 if (isNotBlank(responseJson)){
                     var resp = JSON.parse(responseJson);
                 }
@@ -43,7 +49,6 @@ ContextMenuItem.prototype.selectionTextInPage = function(info, tab) {
         };
         xhr.send();
     });
-
 }
 /**
  * return cookie as map type.
