@@ -26,3 +26,74 @@
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
 }
+/* IMAGE /////////////////////////////////////////////////////////////////////////////// */
+#lnChromeExtExpressionViewer .images-carousel {
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    height: 90px;
+    margin: 5px auto;
+    border-top: 1px solid rgb(79, 99, 120);
+    border-bottom: 1px solid rgb(79, 99, 120);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+
+}
+#lnChromeExtExpressionViewer .images-carousel ul {
+    float: left;
+    margin-right: -999em;
+    white-space: nowrap;
+    list-style: none;
+    padding: 0px;
+}
+
+#lnChromeExtExpressionViewer .images-carousel li {
+    /*margin: 1px 150px 0px 0px;*/
+    text-align: center;
+    float: left;
+    display: inline;
+    height: 90px;
+    padding: 0px 5px 0px 6px;
+}
+
+#lnChromeExtExpressionViewer .images-carousel a {
+    text-decoration: none;
+    /*font-weight: bold;*/
+    /*color: #000;*/
+}
+
+#lnChromeExtExpressionViewer .images-carousel img {
+    display: block;
+    max-width: 400px;
+    max-height: 80px;
+
+}
+
+/* Carousel: Expression Editor */
+#lnChromeExtExpressionViewer .expression-editor .images-carousel li:not(:last-child) {
+    border-right: 1px solid rgb(79, 99, 120);
+    box-shadow: 1px 0 0 rgba(255, 255, 255, 0.15);
+}
+
+/* Carousel: Expression Teaser */
+#lnChromeExtExpressionViewer .expression-teaser .images-carousel {
+    height: 200px;
+    margin: 0px auto;
+    border-top: 0;
+    border-bottom: 0;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+#lnChromeExtExpressionViewer .expression-teaser .images-carousel li {
+    height: 200px;
+    padding: 0px 5px 0px 6px;
+}
+
+#lnChromeExtExpressionViewer .expression-teaser .images-carousel li:not(:last-child) {
+    border-right: 1px solid rgba(0, 0, 0, 0.075);
+    box-shadow: 1px 0 0 rgba(255, 255, 255, 1);
+}
+
+#lnChromeExtExpressionViewer .expression-teaser .images-carousel img {
+    max-width: 800px;
+    max-height: 190px;
+}
