@@ -1,1 +1,0 @@
-This package contains common files which can be reused in all projects!
