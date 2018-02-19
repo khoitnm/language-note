@@ -36,7 +36,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
         $ACCESS_TOKEN_OBJ = request.accessTokenObject;
         $LOOKUP_EXPRESSION_TEXT = request.lookupExpressionText;
         $EXPRESSION = request.expression;
-
+        console.log("openModal: received message..."+$EXPRESSION.text);
         var domMyFrame = $('#lnChromeExtExpressionViewer');
         domMyFrame.show();
         updateExpressionViewDataBinding($EXPRESSION);

@@ -31,10 +31,6 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Autowired
     @Qualifier("tokenServices")
     private DefaultTokenServices tokenServices;
-//    @Autowired
-//    @Qualifier("tokenServices")
-//    private ResourceServerTokenServices tokenServices;
-
 
     /**
      * Reuse the same bean TokenService which was defined in AuthorizationServer
@@ -58,9 +54,10 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
             .authorizeRequests()
             .antMatchers(HttpMethod.OPTIONS).permitAll()
             .antMatchers("/project-info").permitAll()
-            .antMatchers("/project-info").permitAll()
             //FIXME At this moment, on JavaScript (client app) I have not found the solution for getting Audio(url) with Authorization header, so I temporary put media link to the whitelist.
             .antMatchers("/api/tts**").permitAll()
+            //For images/sounds... we allow all!
+            .antMatchers("/api/files/**").permitAll()
 
             .antMatchers("/api/me").hasAnyRole("USER", "ADMIN")
             .antMatchers("/api/register").hasAuthority("ROLE_REGISTER")

@@ -1,4 +1,4 @@
-.fa {
+#lnChromeExtExpressionViewer .fa {
     display: inline-block;
     font: normal normal normal 14px/1 FontAwesome;
     font-size: inherit;
@@ -6,20 +6,17 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
-.fa-remove:before, .fa-close:before, .fa-times:before {
+#lnChromeExtExpressionViewer .fa-remove:before,
+#lnChromeExtExpressionViewer .fa-close:before,
+#lnChromeExtExpressionViewer .fa-times:before {
     content: "\f00d";
 }
-.pull-right {
+#lnChromeExtExpressionViewer .pull-right {
   float: right !important;
 }
-.pull-left {
+#lnChromeExtExpressionViewer .pull-left {
   float: left !important;
 }
-.clearfix:before,
-.clearfix:after{
-  display: table;
-  content: " ";
-}
-.clearfix:after {
+#lnChromeExtExpressionViewer .clearfix:after {
   clear: both;
 }
