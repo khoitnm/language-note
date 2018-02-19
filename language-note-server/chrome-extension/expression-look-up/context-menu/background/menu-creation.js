@@ -23,28 +23,41 @@ var ContextMenuItem = function (title, context, onClickCallback) {
     this.onclick = onClickCallback;
 };
 ContextMenuItem.prototype.selectionTextInPage = function(info, tab) {
-    //Notify to selecting tab
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {type: "openModal"});
-    });
+//
+//    console.log("Info: "+JSON.stringify(info));
+//    console.log("Tab: "+JSON.stringify(tab));
 
     var pageTitle = tab.title;
     var pageUrl = tab.url;
     var selectionText = info.selectionText;
+    var lookupExpressionText = selectionText.trim().toLowerCase();
+
     getAccessTokenFromWebsite(function(accessToken){
-        return;
-        var lookupText = selectionText.trim().toLowerCase();
+//        return;
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", "http://" + $API_CONTEXT_ABS_PATH + "/api/expressions/detail/lookup?text="+lookupText, true);
+        xhr.open("GET", "http://" + $API_CONTEXT_ABS_PATH + "/api/expressions/detail/lookup?text="+lookupExpressionText, true);
         xhr.setRequestHeader('Authorization', accessToken.token_type + ' '+accessToken.access_token);
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4) {
                 var responseJson = xhr.responseText;
-                console.log("Response of '"+lookupText+"':\n"+xhr.responseText);
-//                alert(responseJson);
+                console.log("Response of '"+lookupExpressionText+"':\n"+responseJson);
+                var expression = {text: lookupExpressionText};
                 if (isNotBlank(responseJson)){
-                    var resp = JSON.parse(responseJson);
+                    expression = JSON.parse(responseJson);
                 }
+
+                console.log("Send message to openModal");
+                //Notify to selecting tab
+                chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+                    chrome.tabs.sendMessage(tabs[0].id,
+                        {
+                            type: "openModal",
+                            accessTokenObject: accessToken,
+                            lookupExpressionText: lookupExpressionText,
+                            expression: expression
+                        }
+                    );
+                });
             }
         };
         xhr.send();

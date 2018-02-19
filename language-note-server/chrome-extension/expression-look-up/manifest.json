@@ -3,7 +3,7 @@
     "description": "Quickly adding expression into our topics",
     "version": "0.0",
     "icons": {
-        "128": "context-menu/browser-action/images/agenda.png"
+        "128": "plugin-icon/browser-action/images/agenda.png"
     },
     "permissions": [
         "cookies",
@@ -14,11 +14,12 @@
         "https://*/"
     ],
     "browser_action": {
-        "default_popup": "context-menu/browser-action/popup.html"
+        "default_popup": "plugin-icon/browser-action/popup.html"
     },
     "background": {
         "scripts": [
             "common/jscommon.js",
+            "chromeext-common/chromeext-common.js",
             "context-menu/background/menu-creation.js"
         ],
         "persistence": false
@@ -29,20 +30,40 @@
                 "http://*/*",
                 "https://*/*"
             ],
-            "css":["context-menu/content/context-menu.css"],
+            "css":[
+                "expression-meaning/content/expression-viewer/modal.css"
+            ],
             "js": [
+                "common/jscommon.js",
+                "chromeext-common/chromeext-common.js",
                 "lib/jquery.min.js",
-                "context-menu/content/modal.js",
-                "context-menu/content/context-menu.js"
+                "lib/vue.min.js",
+
+//                "lib/angular.min.js",
+//                "lib/angular-sanitize.min.js",
+//                "lib/angular-resource.min.js",
+
+                "expression-meaning/content/modal-factory.js"
             ],
             "run_at":"document_end"
         }
     ],
     "web_accessible_resources": [
+        "common/jscommon.js",
+        "chromeext-common/chromeext-common.js",
         "lib/jquery.min.js",
-        "context-menu/content/modal.js",
-        "context-menu/content/context-menu.css",
-        "context-menu/content/modal.html"
+        "lib/vue.min.js",
+
+//        "lib/angular.min.js",
+//        "lib/angular-sanitize.min.js",
+//        "lib/angular-resource.min.js",
+
+        "expression-meaning/content/expression-viewer/modal.js",
+        "expression-meaning/content/expression-viewer/modal-app.js",
+        "expression-meaning/content/expression-viewer/modal-service.js",
+
+        "expression-meaning/content/expression-viewer/modal.css",
+        "expression-meaning/content/expression-viewer/modal.html"
     ],
     "manifest_version": 2
 }
