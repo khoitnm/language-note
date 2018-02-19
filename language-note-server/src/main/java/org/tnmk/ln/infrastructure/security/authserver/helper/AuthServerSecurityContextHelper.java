@@ -3,30 +3,20 @@ package org.tnmk.ln.infrastructure.security.authserver.helper;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.collections4.MapUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
-import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
-import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
-import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.stereotype.Component;
-import org.tnmk.common.exception.UnexpectedException;
 import org.tnmk.common.util.ObjectMapperUtil;
-import org.tnmk.common.util.oauth2.jwt.JwtTokenJson;
-import org.tnmk.common.util.oauth2.jwt.JwtTokenUtils;
+import org.tnmk.common.security.oauth2.jwt.JwtTokenJson;
+import org.tnmk.common.security.oauth2.jwt.JwtTokenUtils;
 import org.tnmk.ln.infrastructure.security.authserver.config.tokenconverter.AccessTokenUserDetails;
 import org.tnmk.ln.infrastructure.security.authserver.config.tokenconverter.EnhancedJwtTokenConverter;
-import org.tnmk.ln.infrastructure.security.authserver.config.userdetails.AuthenticatedUser;
 
 import javax.inject.Inject;
-import java.util.Map;
 
 @Component
 public class AuthServerSecurityContextHelper {

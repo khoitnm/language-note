@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.tnmk.common.action.ActionLoopByPage;
+import org.tnmk.common.data.action.ActionLoopByPage;
 import org.tnmk.ln.infrastructure.dictionary.oxford.OxfordAudioRepositories;
 import org.tnmk.ln.infrastructure.dictionary.oxford.OxfordAudioService;
 import org.tnmk.ln.infrastructure.dictionary.oxford.OxfordWordRepositories;
