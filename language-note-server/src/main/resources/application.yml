@@ -1,3 +1,6 @@
+#Default profile = dev
+spring.profiles.active: dev
+
 # Properties valid for every environment
 server:
     servlet-path: /*
