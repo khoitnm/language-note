@@ -55,6 +55,7 @@
 #lnChromeExtExpressionViewer .expression-spatial-white .teaser-content .expression-text {
     padding-left: 2%;
     padding-right: 2%;
+    min-height: 1em;
 
     color: #73879C;
     text-align: left;
@@ -119,7 +120,7 @@
 }
 
 #lnChromeExtExpressionViewer .expression-spatial-white .teaser-content .sense:not(:last-child) {
-    margin-bottom: 15px;
+    margin-bottom: 4px;
 }
 
 #lnChromeExtExpressionViewer .expression-spatial-white .teaser-content .sense:not(:last-child) {
