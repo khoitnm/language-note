@@ -1,4 +1,4 @@
-package org.tnmk.common.util.oauth2.jwt;
+package org.tnmk.common.utils.oauth2.jwt;
 
 public class JwtTokenJson {
     /**

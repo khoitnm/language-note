@@ -2,9 +2,9 @@ package org.tnmk.common.infrastructure.data.query;
 
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
-import org.tnmk.common.util.ArrayUtil;
-import org.tnmk.common.util.IOUtil;
-import org.tnmk.common.util.RegularExpressions;
+import org.tnmk.common.utils.collections.ArrayUtils;
+import org.tnmk.common.utils.io.IOUtils;
+import org.tnmk.common.utils.RegularExpressions;
 
 /**
  * @author khoi.tran on 3/12/17.
@@ -15,10 +15,10 @@ public class ClassPathQueryLoader {
     //    @Override
     @Cacheable("queries")
     public static String loadQuery(String fileFullPathName, Object... params) {
-        String query = IOUtil.loadTextFileInClassPath(fileFullPathName);
+        String query = IOUtils.loadTextFileInClassPath(fileFullPathName);
         query = query.replaceAll(RegularExpressions.BLOCK_COMMENTS, "");
         String filledQuery;
-        if (!ArrayUtil.isEmpty(params)) {
+        if (!ArrayUtils.isEmpty(params)) {
             filledQuery = String.format(query, params);
         } else {
             filledQuery = query;

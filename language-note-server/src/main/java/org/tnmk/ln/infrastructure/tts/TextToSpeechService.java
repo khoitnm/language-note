@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.tnmk.ln.infrastructure.dictionary.oxford.OxfordAudioRepositories;
 import org.tnmk.ln.infrastructure.tts.cache.TtsItemService;
-import org.tnmk.common.util.IterableUtil;
-import org.tnmk.common.util.StringUtil;
+import org.tnmk.common.utils.collections.IterableUtils;
+import org.tnmk.common.utils.datatype.StringUtils;
 import org.tnmk.ln.infrastructure.dictionary.oxford.OxfordAudio;
 import org.tnmk.ln.infrastructure.tts.cache.TtsItem;
 import org.tnmk.ln.infrastructure.tts.voicerss.VoiceRssService;
@@ -48,12 +48,12 @@ public class TextToSpeechService {
     //TODO, if originalText is only one word, lookup in the Oxford Audio (from Oxford Dictionary)
     private TTSResult toSpeechBytes(String locale, String cleanText) {
         TTSResult result = new TTSResult();
-        String[] words = StringUtil.toWords(cleanText);
+        String[] words = StringUtils.toWords(cleanText);
         if (words.length == 1) {
             String[] localParts = locale.split("-");
             String language = localParts[0].toLowerCase();
             List<OxfordAudio> oxfordAudios = oxfordAudioRepositories.findByLanguageAndWord(language, cleanText);
-            OxfordAudio oxfordAudio = IterableUtil.getFirst(oxfordAudios);
+            OxfordAudio oxfordAudio = IterableUtils.getFirst(oxfordAudios);
             if (oxfordAudio != null) {
                 result.data = oxfordAudio.getFileItem().getBytesContent();
             }

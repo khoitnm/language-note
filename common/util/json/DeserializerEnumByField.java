@@ -1,11 +1,11 @@
-package org.tnmk.common.util.json;
+package org.tnmk.common.utils.json;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import org.springframework.beans.BeanUtils;
 import org.tnmk.common.exception.UnexpectedException;
-import org.tnmk.common.util.StringUtil;
+import org.tnmk.common.utils.StringUtil;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;

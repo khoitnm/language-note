@@ -39,7 +39,7 @@ public class QuestionRecommendationTest extends BaseTest {
 //        long topicId = 1070;
         User owner = defaultUser;
 //        List<QuestionWithPracticeResult> questions = questionRecommendationService.loadQuestionsByTopics(owner.getId(), QuestionType.EXPRESSION_RECALL);
-//        LOGGER.info("Questions: \n" + ObjectMapperUtil.toJson(new ObjectMapper(), questions));
+//        LOGGER.info("Questions: \n" + ObjectMapperUtils.toJson(new ObjectMapper(), questions));
 //        Assert.assertTrue(questions.size() > 3);
     }
 

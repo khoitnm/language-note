@@ -15,8 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
-import org.tnmk.common.util.FileUtil;
-import org.tnmk.common.util.MimeTypeUtil;
+import org.tnmk.common.utils.io.FileUtils;
+import org.tnmk.common.utils.http.MimeTypeUtils;
 import org.tnmk.ln.infrastructure.dictionary.oxford.entity.LexicalEntry;
 import org.tnmk.ln.infrastructure.dictionary.oxford.entity.OxfordWord;
 import org.tnmk.ln.infrastructure.dictionary.oxford.entity.Pronunciation;
@@ -88,8 +88,8 @@ public class OxfordAudioService {
         result.setPhoneticSpelling(pronunciation.getPhoneticSpelling());
 
         byte[] fileBinary = downloadFile(fileUrl);
-        String fileExtension = FileUtil.getFileExtension(fileUrl);
-        String fileMimeType = MimeTypeUtil.getMimeTypeFromFileExtension(fileExtension);
+        String fileExtension = FileUtils.getFileExtension(fileUrl);
+        String fileMimeType = MimeTypeUtils.getMimeTypeFromFileExtension(fileExtension);
 
         FileItem fileItem = new FileItem();
         fileItem.setBytesContent(fileBinary);

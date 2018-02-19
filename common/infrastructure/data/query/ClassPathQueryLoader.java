@@ -2,9 +2,9 @@ package org.tnmk.common.infrastructure.data.query;
 
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
-import org.tnmk.common.util.ArrayUtil;
-import org.tnmk.common.util.IOUtil;
-import org.tnmk.common.util.RegularExpressions;
+import org.tnmk.common.utils.ArrayUtil;
+import org.tnmk.common.utils.IOUtil;
+import org.tnmk.common.utils.RegularExpressions;
 
 /**
  * @author khoi.tran on 3/12/17.

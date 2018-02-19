@@ -6,7 +6,7 @@ import opennlp.tools.tokenize.Tokenizer;
 import opennlp.tools.tokenize.TokenizerME;
 import opennlp.tools.tokenize.TokenizerModel;
 import org.tnmk.common.exception.UnexpectedException;
-import org.tnmk.common.util.IOUtil;
+import org.tnmk.common.utils.io.IOUtils;
 import org.tnmk.ln.app.dictionary.entity.Locale;
 
 import java.io.IOException;
@@ -22,7 +22,7 @@ public class OpenNLPLoader {
         if (TOKENIZER != null) {
             return TOKENIZER;
         }
-        InputStream modelIn = IOUtil.loadInputStreamFileInClassPath("/opennlp/en-token.bin");//new FileInputStream("/en-token.bin");
+        InputStream modelIn = IOUtils.loadInputStreamFileInClassPath("/opennlp/en-token.bin");//new FileInputStream("/en-token.bin");
         TokenizerModel model = null;
         try {
             model = new TokenizerModel(modelIn);

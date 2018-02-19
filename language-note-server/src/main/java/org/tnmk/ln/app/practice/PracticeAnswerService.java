@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.tnmk.common.infrastructure.guardian.Guardian;
-import org.tnmk.common.util.ListUtil;
+import org.tnmk.common.utils.collections.ListUtils;
 import org.tnmk.ln.app.aggregation.practice.PracticeAnswerResource;
 import org.tnmk.ln.app.practice.entity.question.Question;
 import org.tnmk.ln.app.practice.entity.result.AnswerResult;
@@ -75,7 +75,7 @@ public class PracticeAnswerService {
             practiceResult.setAnswers(Arrays.asList(answerPoint));
             practiceResult.setQuestion(question);
         } else {
-            ListUtil.addToListWithMaxSize(practiceResult.getAnswers(), answerPoint, MAX_POINTS_STORING);
+            ListUtils.addToListWithMaxSize(practiceResult.getAnswers(), answerPoint, MAX_POINTS_STORING);
         }
         practiceResult.setSumLatestAnswerPoint(PracticeAnswerHelper.totalAnswerPoints(practiceResult.getAnswers(), PracticeAnswerHelper.LATEST_POINTS));
         return questionPracticeResultRepository.save(practiceResult);
@@ -91,7 +91,7 @@ public class PracticeAnswerService {
             practiceResult.setAnswers(Arrays.asList(answerPoint));
             practiceResult.setExpressionId(expressionId);
         } else {
-            ListUtil.addToListWithMaxSize(practiceResult.getAnswers(), answerPoint, MAX_POINTS_STORING);
+            ListUtils.addToListWithMaxSize(practiceResult.getAnswers(), answerPoint, MAX_POINTS_STORING);
         }
         int favourite = practiceFavouriteService.findExpressionFavourite(user.getId(), expressionId);
         practiceResult.setAdditionalPoints(-favourite);

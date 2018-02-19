@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener;
 import org.springframework.data.mongodb.core.mapping.event.BeforeConvertEvent;
 import org.springframework.data.mongodb.core.mapping.event.BeforeSaveEvent;
-import org.tnmk.common.util.ReflectionTraverseUtils;
+import org.tnmk.common.utils.reflection.ReflectionTraverseUtils;
 import org.tnmk.ln.app.common.entity.BaseMongoEntity;
 
 import java.time.Instant;

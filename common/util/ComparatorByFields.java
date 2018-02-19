@@ -1,4 +1,4 @@
-package org.tnmk.common.util;
+package org.tnmk.common.utils;
 
 import org.springframework.expression.EvaluationContext;
 import org.springframework.expression.Expression;

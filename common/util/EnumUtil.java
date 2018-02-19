@@ -1,7 +1,7 @@
-package org.tnmk.common.util;
+package org.tnmk.common.utils;
 
 import org.tnmk.common.exception.BadArgumentException;
-import org.tnmk.common.util.json.DeserializerEnumByField;
+import org.tnmk.common.utils.json.DeserializerEnumByField;
 
 /**
  * @author khoi.tran on 8/31/16.

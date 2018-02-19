@@ -1,4 +1,4 @@
-package org.tnmk.common.util;
+package org.tnmk.common.utils;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -8,7 +8,7 @@ import org.springframework.util.CollectionUtils;
 import org.tnmk.ln.app.practice.entity.question.Question;
 import org.tnmk.ln.app.practice.entity.question.QuestionType;
 import org.tnmk.common.infrastructure.data.query.ClassPathQueryLoader;
-import org.tnmk.common.util.IterableUtil;
+import org.tnmk.common.utils.collections.IterableUtils;
 import org.tnmk.ln.app.topic.TopicDetailRepository;
 import org.tnmk.ln.app.topic.entity.Topic;
 import org.tnmk.ln.infrastructure.data.neo4j.repository.Neo4jRepository;
@@ -38,12 +38,12 @@ public class QuestionRecommendationRepository {
         String queryString;
         if (CollectionUtils.isEmpty(topicIds)) {
             queryString = ClassPathQueryLoader.loadQuery("/org/tnmk/ln/app/practice/query/load-question-ids-by-recommended-expressions.cql", questionType.getLogicName());
-            return IterableUtil.toList(neo4jRepository.findList(Question.class, queryString, resultOwnerId));
+            return IterableUtils.toList(neo4jRepository.findList(Question.class, queryString, resultOwnerId));
         } else {
             List<Topic> topics = topicDetailRepository.findByIdIn(topicIds);
             List<String> expressionIdsInTopics = topics.stream().flatMap(itopic -> itopic.getExpressionIds().stream()).collect(Collectors.toList());
             queryString = ClassPathQueryLoader.loadQuery("/org/tnmk/ln/app/practice/query/load-question-ids-by-recommended-expressions-in-list.cql", questionType.getLogicName());
-            return IterableUtil.toList(neo4jRepository.findList(Question.class, queryString, resultOwnerId, expressionIdsInTopics));
+            return IterableUtils.toList(neo4jRepository.findList(Question.class, queryString, resultOwnerId, expressionIdsInTopics));
         }
     }
 

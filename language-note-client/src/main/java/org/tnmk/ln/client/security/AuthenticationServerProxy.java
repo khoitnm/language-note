@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
-import org.tnmk.common.util.http.RestTemplateHelper;
+import org.tnmk.common.utils.http.RestTemplateHelper;
 import org.tnmk.ln.client.security.model.OAuth2AccessTokenResponse;
 import org.tnmk.ln.client.security.model.User;
 

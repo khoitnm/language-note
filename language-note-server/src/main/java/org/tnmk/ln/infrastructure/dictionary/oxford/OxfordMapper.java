@@ -2,7 +2,7 @@ package org.tnmk.ln.infrastructure.dictionary.oxford;
 
 import org.tnmk.ln.app.vocabulary.entity.WordType;
 import org.tnmk.ln.infrastructure.dictionary.oxford.entity.Sentence;
-import org.tnmk.common.util.StringUtil;
+import org.tnmk.common.utils.datatype.StringUtils;
 import org.tnmk.ln.app.vocabulary.entity.Meaning;
 import org.tnmk.ln.infrastructure.dictionary.oxford.entity.Entry;
 import org.tnmk.ln.infrastructure.dictionary.oxford.entity.LexicalEntry;
@@ -35,7 +35,7 @@ public class OxfordMapper {
         for (Entry entry : lexicalEntry.getEntries()) {
             List<Sense> senses = entry.getSenses();
             for (Sense sense : senses) {
-                String explanation = StringUtil.joinNotBlankStrings(" | ", sense.getDefinitions().toArray(new String[0]));
+                String explanation = StringUtils.joinNotBlankStrings(" | ", sense.getDefinitions().toArray(new String[0]));
                 Meaning meaning = new Meaning();
                 meaning.setWordType(wordType);
                 meaning.setExplanation(explanation);

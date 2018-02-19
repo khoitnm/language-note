@@ -6,10 +6,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 import org.tnmk.common.exception.UnexpectedException;
-import org.tnmk.common.util.ReflectionUtils;
+import org.tnmk.common.utils.reflection.ReflectionUtils;
 import org.tnmk.ln.infrastructure.data.neo4j.Neo4jUtils;
 import org.tnmk.ln.infrastructure.data.neo4j.annotation.CascadeRelationship;
-import org.tnmk.common.util.StringUtil;
+import org.tnmk.common.utils.datatype.StringUtils;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Array;
@@ -171,7 +171,7 @@ public class OgmRepositoryHandler {
             return;
         }
         String label = Neo4jUtils.getLabel(entity);
-        String relationshipsQuery = StringUtil.joinNotBlankStringsWithElementWrapper(" | ", ":`", "`", relationshipTypes);
+        String relationshipsQuery = StringUtils.joinNotBlankStringsWithElementWrapper(" | ", ":`", "`", relationshipTypes);
         String queryString = String.join("",
                 "MATCH (a:", label, ")-[rel", relationshipsQuery, "]-(b) WHERE id(a)={id} DELETE rel");
         LOGGER.debug(queryString);

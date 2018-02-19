@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.tnmk.common.util.ObjectMapperUtil;
+import org.tnmk.common.utils.json.ObjectMapperUtils;
 import org.tnmk.ln.app.topic.TopicDetailRepository;
 import org.tnmk.ln.app.topic.TopicRepository;
 import org.tnmk.ln.app.topic.entity.Topic;
@@ -24,6 +24,6 @@ public class TopicTest extends BaseTest {
     @Test
     public void test() {
         Topic topic = topicAndOwnerRepository.findOneDetailById(150l);
-        LOGGER.info(ObjectMapperUtil.toJson(new ObjectMapper(), topic));
+        LOGGER.info(ObjectMapperUtils.toJson(new ObjectMapper(), topic));
     }
 }

@@ -59,7 +59,7 @@ public class QuestionServiceTest extends BaseTest {
 //        TopicAssert.assertExpressions(topic, owner, 3);
 //
 //        List<Question> questions = questionService.loadQuestionsByTopics(owner, topic.getId());
-//        LOGGER.info("Questions: \n" + ObjectMapperUtil.toStringMultiLineForEachElement(questions));
+//        LOGGER.info("Questions: \n" + ObjectMapperUtils.toStringMultiLineForEachElement(questions));
 //        Assert.assertTrue(questions.size() > 3);
     }
 

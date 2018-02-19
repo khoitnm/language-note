@@ -59,7 +59,7 @@ public class ExpressionItemFilterService {
             result.addAll(expressionItemFilterRepository.filter(userId, expressionFilter, false, true, new PageRequest(0, remainItems, sort)));
         }
 
-//        LOGGER.info("Answered: \n" + ObjectMapperUtil.toStringMultiLineForEachElement(result.stream().map(
+//        LOGGER.info("Answered: \n" + ObjectMapperUtils.toStringMultiLineForEachElement(result.stream().map(
 //                item -> item.getUserPoints().getUserPoint(userId).getFavourite()
 //                        + "\t" + item.getUserPoints().getUserPoint(userId).getLatestAnswers().getCorrectPercentage()
 //                        + "\t" + item.getUserPoints().getUserPoint(userId).getAnswerDateTime()

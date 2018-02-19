@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.tnmk.ln.app.practice.entity.question.QuestionType;
-import org.tnmk.common.util.IterableUtil;
+import org.tnmk.common.utils.collections.IterableUtils;
 import org.tnmk.ln.app.practice.entity.question.Question;
 import org.tnmk.ln.infrastructure.data.neo4j.repository.Neo4jRepository;
 import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
@@ -31,7 +31,7 @@ public class QuestionLoadingRepository {
                 , " OPTIONAL MATCH (e)--(sg:SenseGroup)--(s:Sense)--(ex:Example)"
                 , " RETURN q,e,sg,s,ex"
         );
-        return IterableUtil.toList(neo4jRepository.findList(Question.class, queryString, user.getId(), topicIds));
+        return IterableUtils.toList(neo4jRepository.findList(Question.class, queryString, user.getId(), topicIds));
     }
 
     public Question findOneByQuestionTypeAndFromExpressionIdAndFromSenseId(QuestionType questionType, String expressionId, String senseId) {

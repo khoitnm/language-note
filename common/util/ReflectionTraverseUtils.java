@@ -1,4 +1,4 @@
-package org.tnmk.common.util;
+package org.tnmk.common.utils;
 
 import java.lang.reflect.Field;
 import java.util.List;

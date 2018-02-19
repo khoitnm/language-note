@@ -1,4 +1,4 @@
-package org.tnmk.common.util;
+package org.tnmk.common.utils;
 
 import org.springframework.context.expression.MapAccessor;
 import org.springframework.expression.EvaluationContext;

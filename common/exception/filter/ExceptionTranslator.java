@@ -24,8 +24,8 @@ import org.tnmk.common.exception.constant.ExceptionConstants;
 import org.tnmk.common.exception.model.error.ErrorResult;
 import org.tnmk.common.exception.model.error.FieldError;
 import org.tnmk.common.exception.util.ExceptionUtil;
-import org.tnmk.common.util.JsonUtil;
-import org.tnmk.common.util.ObjectMapperUtil;
+import org.tnmk.common.utils.JsonUtil;
+import org.tnmk.common.utils.ObjectMapperUtil;
 
 import java.sql.SQLException;
 import java.util.List;

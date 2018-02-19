@@ -5,14 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.util.WebUtils;
 import org.tnmk.common.infrastructure.projectinfo.ProjectInfoProperties;
-import org.tnmk.common.util.http.RequestUtils;
+import org.tnmk.common.utils.http.RequestUtils;
 import org.tnmk.ln.client.common.constant.UriPrefixConstants;
 import org.tnmk.ln.client.security.AuthenticationServerProxy;
 import org.tnmk.ln.client.security.model.User;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller

@@ -3,7 +3,7 @@ package org.tnmk.ln.app.aggregation.topic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.tnmk.common.util.NumberUtil;
+import org.tnmk.common.utils.datatype.NumberUtils;
 import org.tnmk.ln.app.security.user.PossessionAuthorization;
 import org.tnmk.ln.app.topic.TopicRepository;
 import org.tnmk.ln.app.topic.entity.Topic;
@@ -55,6 +55,6 @@ public class TopicDeletionService {
             topic = topicService.findOneById(topicId);
         }
         possessionAuthorization.validateCanRemovePossession(user, topic);
-        topicRepository.delete(NumberUtil.toLong(topicId));
+        topicRepository.delete(NumberUtils.toLong(topicId));
     }
 }

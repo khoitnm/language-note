@@ -2,7 +2,7 @@ package org.tnmk.ln.app.practice;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.tnmk.common.util.IterableUtil;
+import org.tnmk.common.utils.collections.IterableUtils;
 import org.tnmk.ln.app.practice.entity.favourite.PracticeFavourite;
 import org.tnmk.ln.infrastructure.data.neo4j.repository.Neo4jRepository;
 
@@ -22,6 +22,6 @@ public class PracticeFavouriteCustomRepository {
                 , " WHERE id(u)={p0}"
                 , " RETURN p"
         );
-        return IterableUtil.getFirst(neo4jRepository.findList(PracticeFavourite.class, queryString, userId, expressionId));
+        return IterableUtils.getFirst(neo4jRepository.findList(PracticeFavourite.class, queryString, userId, expressionId));
     }
 }

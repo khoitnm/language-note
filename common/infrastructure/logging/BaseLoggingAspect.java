@@ -1,7 +1,7 @@
 package org.tnmk.common.infrastructure.logging;
 
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.tnmk.common.util.LogUtil;
+import org.tnmk.common.utils.LogUtil;
 
 import java.time.Instant;
 import java.util.ArrayList;

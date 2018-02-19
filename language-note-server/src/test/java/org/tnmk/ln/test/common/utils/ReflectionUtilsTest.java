@@ -2,7 +2,7 @@ package org.tnmk.ln.test.common.utils;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.tnmk.common.util.ReflectionUtils;
+import org.tnmk.common.utils.reflection.ReflectionUtils;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

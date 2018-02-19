@@ -11,14 +11,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.tnmk.common.util.IterableUtil;
+import org.tnmk.common.utils.collections.IterableUtils;
+import org.tnmk.common.utils.json.ObjectMapperUtils;
 import org.tnmk.ln.app.aggregation.practice.QuestionRecommendationService;
 import org.tnmk.ln.app.practice.QuestionRepository;
 import org.tnmk.ln.app.practice.entity.question.Question;
 import org.tnmk.ln.app.practice.entity.result.AnswerResult;
 import org.tnmk.ln.test.BaseTest;
 import org.tnmk.ln.test.factory.CategoryTestFactory;
-import org.tnmk.common.util.ObjectMapperUtil;
 import org.tnmk.ln.app.practice.PracticeAnswerService;
 import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
 import org.tnmk.ln.test.factory.UserTestFactory;
@@ -53,11 +53,11 @@ public class PracticeAnswerQuestionTest extends BaseTest {
     @Test
     public void answerQuestions() {
         Iterable<Question> questions = questionRepository.findAll(new PageRequest(0, 1), 3);
-        Question question = IterableUtil.getFirst(questions);
+        Question question = IterableUtils.getFirst(questions);
         User owner = defaultUser;
         float point = RandomUtils.nextFloat(0, 1f);
         AnswerResult answerResult = practiceAnswerService.answerResult(owner, question.getId(), point);
-        LOGGER.info("ExpressionPracticeResult: \n" + ObjectMapperUtil.toJson(new ObjectMapper(), answerResult));
+        LOGGER.info("ExpressionPracticeResult: \n" + ObjectMapperUtils.toJson(new ObjectMapper(), answerResult));
         Assert.assertTrue(answerResult.getExpressionPracticeResult().getSumLatestAnswerPoint() > 0);
         Assert.assertTrue(answerResult.getQuestionPracticeResult().getSumLatestAnswerPoint() > 0);
 

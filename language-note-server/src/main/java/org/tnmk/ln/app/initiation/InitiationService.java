@@ -58,6 +58,6 @@ public class InitiationService {
 //        expressionService.updateExpressionDefinition(expression);
 //
 //        expression = expressionService.findById(213);
-//        LOGGER.info(ObjectMapperUtil.toStringMultiLine(expression));
+//        LOGGER.info(ObjectMapperUtils.toStringMultiLine(expression));
 //    }
 }

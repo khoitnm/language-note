@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.tnmk.common.exception.UnexpectedException;
 import org.tnmk.common.infrastructure.guardian.Guardian;
-import org.tnmk.common.util.IterableUtil;
-import org.tnmk.common.util.ReflectionUtils;
+import org.tnmk.common.utils.collections.IterableUtils;
+import org.tnmk.common.utils.reflection.ReflectionUtils;
 import org.tnmk.ln.infrastructure.data.neo4j.Neo4jUtils;
 import org.tnmk.ln.infrastructure.data.neo4j.annotation.DetailLoading;
 import org.tnmk.ln.app.common.entity.BaseNeo4jEntity;
@@ -57,7 +57,7 @@ public class Neo4jRepository {
     public <T> List<T> findList(Class<T> entityClass, String queryString, Object... paramValues) {
         LOGGER.trace("Query:\n {}", queryString);
         Map<String, Object> params = constructParams(paramValues);
-        return IterableUtil.toList(session.query(entityClass, queryString, params));
+        return IterableUtils.toList(session.query(entityClass, queryString, params));
     }
 
     public <T> T findOne(Class<T> resultClass, String queryString, Object... paramValues) {
@@ -116,7 +116,7 @@ public class Neo4jRepository {
         Set<Long> uniqueIds = new HashSet<>();
         uniqueIds.addAll(ids);
         Iterable<T> iterable = session.query(resultClass, sb, constructParams(uniqueIds));
-        return IterableUtil.toList(iterable);
+        return IterableUtils.toList(iterable);
     }
 
     public int removeElementInArraysOfNode(Long nodeId, String propertyName, Object elementValue) {

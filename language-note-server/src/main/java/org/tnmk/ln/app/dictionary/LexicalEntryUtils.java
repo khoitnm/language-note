@@ -1,7 +1,7 @@
 package org.tnmk.ln.app.dictionary;
 
 import org.springframework.util.CollectionUtils;
-import org.tnmk.common.util.StringUtil;
+import org.tnmk.common.utils.datatype.StringUtils;
 import org.tnmk.ln.app.dictionary.entity.LexicalEntry;
 
 import java.util.List;
@@ -15,7 +15,7 @@ public class LexicalEntryUtils {
         String text = null;
         if (!CollectionUtils.isEmpty(lexicalEntries)) {
             String[] lexicalEntriesArray = lexicalEntries.stream().map(lexicalEntry -> lexicalEntry.getText()).collect(Collectors.toList()).toArray(new String[0]);
-            text = StringUtil.joinNotBlankStrings(" ", lexicalEntriesArray);
+            text = StringUtils.joinNotBlankStrings(" ", lexicalEntriesArray);
         }
         return text;
     }

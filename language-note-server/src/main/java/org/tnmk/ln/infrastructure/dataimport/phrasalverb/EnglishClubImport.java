@@ -3,7 +3,7 @@ package org.tnmk.ln.infrastructure.dataimport.phrasalverb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.tnmk.common.exception.UnexpectedException;
-import org.tnmk.common.util.IOUtil;
+import org.tnmk.common.utils.io.IOUtils;
 import org.tnmk.ln.app.vocabulary.entity.ExpressionItem;
 import org.tnmk.ln.app.vocabulary.entity.FillingQuestion;
 import org.tnmk.ln.app.vocabulary.entity.Lesson;
@@ -45,7 +45,7 @@ public class EnglishClubImport {
     private LessonService lessonService;
 
     public Lesson loadWebsiteHtml() throws ParserConfigurationException {
-        String htmlContent = IOUtil.loadTextFileInClassPath("/dataimport/englishclub.html");
+        String htmlContent = IOUtils.loadTextFileInClassPath("/dataimport/englishclub.html");
         Lesson lesson = analyseDocument(htmlContent);
         return lessonService.saveLesson(lesson);
     }

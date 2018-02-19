@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.tnmk.common.util.ListUtil;
+import org.tnmk.common.utils.collections.ListUtils;
 import org.tnmk.ln.app.aggregation.practice.model.QuestionComposite;
 import org.tnmk.ln.app.aggregation.topic.ExpressionCompositeService;
 import org.tnmk.ln.app.dictionary.ExpressionService;
@@ -64,7 +64,7 @@ public class QuestionRecommendationService {
         List<Question> distinctQuestions = filterQuestionsDistintExpression(questions);
         List<QuestionWithPracticeResult> result = distinctQuestions.stream().map(question -> mapToQuestionWithPracticeResult(userId, question)).filter(questionWithPracticeResult -> questionWithPracticeResult != null).collect(Collectors.toList());
         //TODO We have to use this sort because it looks like the CQL is not effective!? Is there any other way which don't need to resort again like this?
-        ListUtil.sortByFields(result, "expressionPracticeResult.sumLatestAnswerPoint", "#expressionPracticeResult != null ? (expressionPracticeResult.answers != null ? expressionPracticeResult.answers.size() : 0) : 0", "expressionPracticeResult.sumTotalAnswerPoint");
+        ListUtils.sortByFields(result, "expressionPracticeResult.sumLatestAnswerPoint", "#expressionPracticeResult != null ? (expressionPracticeResult.answers != null ? expressionPracticeResult.answers.size() : 0) : 0", "expressionPracticeResult.sumTotalAnswerPoint");
         log("After sort", result);
         return result;
     }

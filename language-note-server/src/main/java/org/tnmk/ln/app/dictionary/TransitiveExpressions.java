@@ -1,6 +1,6 @@
 package org.tnmk.ln.app.dictionary;
 
-import org.tnmk.common.util.TransitiveGroup;
+import org.tnmk.common.utils.collections.TransitiveGroup;
 import org.tnmk.ln.app.dictionary.entity.Expression;
 
 /**

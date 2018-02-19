@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import org.tnmk.ln.app.aggregation.topic.model.TopicComposite;
 import org.tnmk.ln.app.practice.QuestionGenerationService;
 import org.tnmk.common.infrastructure.guardian.Guardian;
-import org.tnmk.common.util.IterableUtil;
-import org.tnmk.common.util.ReflectionUtils;
+import org.tnmk.common.utils.collections.IterableUtils;
+import org.tnmk.common.utils.reflection.ReflectionUtils;
 import org.tnmk.ln.app.aggregation.practice.ExpressionCompositeConverter;
 import org.tnmk.ln.app.aggregation.practice.model.ExpressionComposite;
 import org.tnmk.ln.app.dictionary.ExpressionRepository;
@@ -98,7 +98,7 @@ public class ExpressionCompositeService {
             relatedExpressions = new ArrayList<>();
         }
         //Compare by {@link Expression#text} field.
-        BaseExpression itemHasSameFieldValue = IterableUtil.findItemHasSameFieldValue(relatedExpressions, relatedExpression, "text");
+        BaseExpression itemHasSameFieldValue = IterableUtils.findItemHasSameFieldValue(relatedExpressions, relatedExpression, "text");
         BaseExpression addedExpression;
         if (itemHasSameFieldValue == null) {
             addedExpression = new Expression();
@@ -119,7 +119,7 @@ public class ExpressionCompositeService {
             Guardian.validateNotNull(oldExpression, "Not found the old expression with id " + expression.getId());
 
             List<BaseExpression> oldRelatedExpressions = (List<BaseExpression>) ReflectionUtils.readProperty(oldExpression, relationshipPropertyName);
-            List<BaseExpression> removedItems = IterableUtil.findItemsNotInFirstListByField(relatedExpressions, oldRelatedExpressions, "text");
+            List<BaseExpression> removedItems = IterableUtils.findItemsNotInFirstListByField(relatedExpressions, oldRelatedExpressions, "text");
             for (BaseExpression removedItem : removedItems) {
                 removeItemFromRelatedItems(removedItem.getId(), relationshipPropertyName, expression);
             }
@@ -130,7 +130,7 @@ public class ExpressionCompositeService {
         Expression expression = expressionRepository.findOne(expressionId);
         List<BaseExpression> relatedExpressions = (List<BaseExpression>) ReflectionUtils.readProperty(expression, relationshipPropertyName);
         if (!CollectionUtils.isEmpty(relatedExpressions)) {
-            IterableUtil.removeItemsByFieldValue(relatedExpressions, relatedExpression, "text");
+            IterableUtils.removeItemsByFieldValue(relatedExpressions, relatedExpression, "text");
             ReflectionUtils.writeProperty(expression, relationshipPropertyName, relatedExpressions);
         }
         expressionRepository.save(expression);

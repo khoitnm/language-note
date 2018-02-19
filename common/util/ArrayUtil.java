@@ -1,4 +1,4 @@
-package org.tnmk.common.util;
+package org.tnmk.common.utils;
 
 import java.lang.reflect.Array;
 import java.util.Collection;

@@ -5,8 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeansException;
 import org.tnmk.common.exception.UnexpectedException;
-import org.tnmk.common.util.NumberUtil;
-import org.tnmk.common.util.ObjectMapperUtil;
+import org.tnmk.common.utils.datatype.NumberUtils;
+import org.tnmk.common.utils.json.ObjectMapperUtils;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
@@ -77,7 +77,7 @@ public abstract class BaseConverter<E, M> {
         try {
             result = idPropertyDescriptor.getReadMethod().invoke(object);
         } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-            LOGGER.error("Cannot get id from object " + ObjectMapperUtil.toStringMultiLine(object), e);
+            LOGGER.error("Cannot get id from object " + ObjectMapperUtils.toStringMultiLine(object), e);
             result = null;
         }
         return result;
@@ -108,7 +108,7 @@ public abstract class BaseConverter<E, M> {
             return null;
         }
         Object idValue = toId(object, idPropertyDescriptor);
-        return NumberUtil.toIntegerIfPossible(idValue);
+        return NumberUtils.toIntegerIfPossible(idValue);
     }
 
     public Long toLongIdFromObject(Object object) {
@@ -120,12 +120,12 @@ public abstract class BaseConverter<E, M> {
             return null;
         }
         Object idValue = toId(object, idPropertyDescriptor);
-        return NumberUtil.toLongIfPossible(idValue);
+        return NumberUtils.toLongIfPossible(idValue);
     }
 
     public Long toLongId(M model) {
         Object idValue = toId(model);
-        return NumberUtil.toLongIfPossible(idValue);
+        return NumberUtils.toLongIfPossible(idValue);
     }
 
     public M toModel(E source) {

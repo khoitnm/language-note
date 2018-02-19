@@ -6,7 +6,7 @@ import opennlp.tools.util.Span;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.tnmk.common.util.StringUtil;
+import org.tnmk.common.utils.datatype.StringUtils;
 import org.tnmk.ln.app.dictionary.entity.Locale;
 import org.tnmk.ln.infrastructure.nlp.opennlp.OpenNLPLoader;
 
@@ -45,7 +45,7 @@ public class StringTest {
             stemmedWords.add(stemmedWord);
         }
 
-        String merged = StringUtil.newStringWithDelimiter(" ", words);
+        String merged = StringUtils.newStringWithDelimiter(" ", words);
         LOGGER.info("Original Split:\n" + Arrays.toString(words));
         LOGGER.info("Original:\n" + s);
         LOGGER.info("Merged:\n" + merged);

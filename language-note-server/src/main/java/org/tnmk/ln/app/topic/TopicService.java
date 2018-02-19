@@ -3,8 +3,8 @@ package org.tnmk.ln.app.topic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.tnmk.common.util.IterableUtil;
-import org.tnmk.common.util.NumberUtil;
+import org.tnmk.common.utils.collections.IterableUtils;
+import org.tnmk.common.utils.datatype.NumberUtils;
 import org.tnmk.ln.app.practice.QuestionGenerationService;
 import org.tnmk.ln.app.topic.entity.Topic;
 import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
@@ -29,7 +29,7 @@ public class TopicService {
     private CategoryService categoryService;
 
     public Topic findOneById(String topicId) {
-        return topicRepository.findOne(NumberUtil.toLong(topicId));
+        return topicRepository.findOne(NumberUtils.toLong(topicId));
     }
 
     public List<Topic> findByOwnerId(User user) {
@@ -37,7 +37,7 @@ public class TopicService {
     }
 
     public List<Topic> findAll() {
-        return IterableUtil.toList(topicRepository.findAll());
+        return IterableUtils.toList(topicRepository.findAll());
     }
 
     public Topic findOneByTitle(Long userId, String title) {
@@ -45,11 +45,11 @@ public class TopicService {
     }
 
     public Topic findDetailById(String topicId) {
-        return topicRepository.findOne(NumberUtil.toLong(topicId));
+        return topicRepository.findOne(NumberUtils.toLong(topicId));
     }
 
 //    private void limitExpressionInTopics(Topic topic, int maxExpressions) {
-//        Set<Expression> expressions = SetUtil.getTop(topic.getExpressions(), maxExpressions);
+//        Set<Expression> expressions = SetUtils.getTop(topic.getExpressions(), maxExpressions);
 //        topic.setExpressions(expressions);
 //    }
 

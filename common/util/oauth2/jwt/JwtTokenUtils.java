@@ -1,4 +1,4 @@
-package org.tnmk.common.util.oauth2.jwt;
+package org.tnmk.common.utils.oauth2.jwt;
 
 import org.springframework.security.crypto.codec.Base64;
 import org.tnmk.common.exception.UnexpectedException;

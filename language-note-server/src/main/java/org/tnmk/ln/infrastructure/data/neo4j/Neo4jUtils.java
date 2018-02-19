@@ -7,8 +7,8 @@ import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 import org.springframework.beans.BeanUtils;
 import org.tnmk.common.exception.UnexpectedException;
-import org.tnmk.common.util.NumberUtil;
-import org.tnmk.common.util.ReflectionUtils;
+import org.tnmk.common.utils.datatype.NumberUtils;
+import org.tnmk.common.utils.reflection.ReflectionUtils;
 import org.tnmk.ln.infrastructure.data.neo4j.repository.RelationshipDirection;
 
 import java.beans.PropertyDescriptor;
@@ -50,7 +50,7 @@ public class Neo4jUtils {
         Field idField = ReflectionUtils.findFieldByAnnotationType(entity.getClass(), GraphId.class);
         PropertyDescriptor propertyDescriptor = BeanUtils.getPropertyDescriptor(entity.getClass(), idField.getName());
         Object id = ReflectionUtils.readProperty(entity, propertyDescriptor);
-        return NumberUtil.toLongIfPossible(id);
+        return NumberUtils.toLongIfPossible(id);
     }
 
     public static String[] findAllRelationshipsOnAnnotatedFields(Class<?> entityClass, Class<? extends Annotation> annotationClass) {

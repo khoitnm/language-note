@@ -1,4 +1,4 @@
-package org.tnmk.common.util;
+package org.tnmk.common.utils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
