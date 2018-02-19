@@ -1,6 +1,5 @@
-<div id="lnChromeExtExpressionViewer" ng-app="lnChromeExtApp">
-    <div v-if="expression" class="expression-teaser">
-        <div class="body">
+<div id="lnChromeExtExpressionViewer" ng-app="lnChromeExtApp" class="expression-spatial-white teaser-wrapper">
+    <div v-if="expression" class="teaser-content">
             <div class="teaser-content-section top-tools ">
 
                 <div class="pull-left"
@@ -57,10 +56,10 @@
                              <!--ng-include="contextPathClient + '/app/topic/topic-edit-expression-teaser-many-photos.html'"-->
                              <!--class="sense-image-wrapper static-width-center-container">-->
                         <!--</div>-->
-                        <div class="sense-video static-width-center-container" ng-if="sense.videos.length > 0">
-                            <iframe class="" ng-if="sense.videos[0].externalUrl"
+                        <div class="sense-video static-width-center-container" v-if="sense.videos && sense.videos.length > 0">
+                            <iframe class="" v-if="sense.videos[0].externalUrl"
                                     width="100%" height="200"
-                                    ng-src="{{'https://www.youtube.com/embed/'+sense.videos[0].externalUrl}}" frameborder="0"
+                                    :src="'https://www.youtube.com/embed/'+sense.videos[0].externalUrl" frameborder="0"
                                     allowfullscreen>
                             </iframe>
                         </div>
@@ -79,5 +78,4 @@
                 <!--</div>-->
             <!--</div>-->
         </div>
-    </div>
 </div>

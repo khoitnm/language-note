@@ -31,7 +31,8 @@
                 "https://*/*"
             ],
             "css":[
-                "expression-meaning/content/expression-viewer/modal.css"
+                "expression-meaning/content/expression-viewer/teaser.css",
+                "expression-meaning/content/expression-viewer/expression-spatial-white-teaser.css"
             ],
             "js": [
                 "common/jscommon.js",
@@ -62,7 +63,8 @@
         "expression-meaning/content/expression-viewer/modal-app.js",
         "expression-meaning/content/expression-viewer/modal-service.js",
 
-        "expression-meaning/content/expression-viewer/modal.css",
+        "expression-meaning/content/expression-viewer/teaser.css",
+        "expression-meaning/content/expression-viewer/expression-spatial-white-teaser.css",
         "expression-meaning/content/expression-viewer/modal.html"
     ],
     "manifest_version": 2

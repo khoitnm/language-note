@@ -1,0 +1,215 @@
+/* TEASER */
+.expression-spatial-white {
+    font-family: "PT Sans", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+}
+
+.expression-spatial-white, .expression-spatial-white a {
+    color: #b0b3b8;
+}
+
+.expression-spatial-white {
+    padding: 0px 5px 6px 5px;
+}
+
+.expression-spatial-white .teaser-content {
+    background: #ececec;
+    /*#bcc9d7;*/
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.05);
+    text-align: left;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.expression-spatial-white .teaser-content .teaser-content-section {
+    /*padding: 5px 2%;*/
+}
+
+.expression-spatial-white .teaser-content .teaser-content-section:first-child {
+    padding: 6px 2%;
+}
+
+.expression-spatial-white .teaser-content .teaser-content-section:last-child {
+    padding: 6px 2% 7px;
+}
+
+.expression-spatial-white .teaser-content .teaser-content-section.top-tools {
+    padding-right: 6px;
+}
+
+/* RATING */
+.expression-spatial-white .teaser-content .rating-container, .expression-spatial-white .teaser-content .rating-empty-container {
+    line-height: 14px;
+    padding-top: 2px;
+}
+
+.expression-spatial-white .teaser-content .indexing-item {
+    font-size: 12px;
+}
+
+/* EXPRESSION-TEXT ================================================================================= */
+.expression-spatial-white .teaser-content .expression-text {
+    padding-left: 2%;
+    padding-right: 2%;
+
+    color: #73879C;
+    text-align: left;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.expression-spatial-white .teaser-content .expression-text .input-as-text {
+    font-size: 0.9em; /* Same as normal text */
+    margin-top: 6px;
+    border-color: rgba(0, 0, 0, 0.02);
+}
+
+/*noinspection CssInvalidPseudoSelector*/
+.expression-spatial-white .teaser-content .expression-text .input-as-text:placeholder-shown {
+    border-bottom: 1px dotted rgba(0, 0, 0, 0.2);
+}
+
+.expression-spatial-white .teaser-content .expression-text .input-as-text:hover {
+    border-bottom-color: rgba(0, 0, 0, 0.2);
+}
+
+.expression-spatial-white .teaser-content .expression-text .input-as-text:focus {
+    color: #1abb9c;
+    border-bottom-color: #1abb9c;
+    /*#26B99A;*/
+    /*#48c5aa;*/
+    /*#73f9dd;*/
+}
+
+.expression-spatial-white .teaser-content .expression-text .input-as-text::-webkit-input-placeholder {
+    color: #73879C;
+    opacity: 0.3;
+}
+
+/* SENSE GROUP ================================================================================= */
+.expression-spatial-white .teaser-content .sense-group {
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-top: 4px;
+}
+
+.expression-spatial-white .teaser-content .sense-group:first-child {
+    padding-top: 6px;
+}
+
+.expression-spatial-white .teaser-content .sense-group:not(:last-child) {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.expression-spatial-white .teaser-content .lexical-type {
+    text-transform: lowercase;
+    font-size: 0.9em;
+    color: #48c5aa;
+}
+
+/* SENSE - EXPLANATION ================================================================================= */
+.expression-spatial-white .teaser-content .sense {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.expression-spatial-white .teaser-content .sense:not(:last-child) {
+    margin-bottom: 15px;
+}
+
+.expression-spatial-white .teaser-content .sense:not(:last-child) {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.expression-spatial-white .teaser-content .sense-explanation {
+    font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif; /* No 'PT Sans' because we need to support UTF-8 chars. */
+}
+
+.expression-spatial-white .teaser-content .sense-explanation {
+    /*padding-left: 2%;*/
+    font-size: 0.8em;
+    color: #73879C;
+}
+
+/* SENSE - IMAGE ================================================================================= */
+.expression-spatial-white .teaser-content .sense-image-wrapper, .expression-spatial-white .teaser-content .sense-video {
+    border: 1px solid rgba(0, 0, 0, 0.025);
+    background: rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 0px rgba(255, 255, 255, 0.3);
+    /*box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 1px 0px rgba(255, 255, 255, 0.3);*/
+}
+
+/* SENSE - IMAGE-CAROUSEL ================================================================================= */
+.expression-spatial-white .teaser-content .images-carousel {
+    height: 200px;
+    margin: 0px auto;
+    border-top: 0px;
+    border-bottom: 0px;
+    box-shadow: 0 0 0 white;
+}
+
+.expression-spatial-white .teaser-content .images-carousel li {
+    height: auto;
+    padding: 0px;
+}
+
+.expression-spatial-white .teaser-content .images-carousel li:not(:last-child) {
+    padding-right: 5px;
+}
+
+.expression-spatial-white .teaser-content .images-carousel img {
+    display: block;
+    max-width: 800px;
+    max-height: 200px;
+}
+
+.expression-spatial-white .teaser-content .sense-image-wrapper .sense-image {
+    max-width: 100%;
+    max-height: 200px;
+}
+
+/* SENSE - EXAMPLE ================================================================================= */
+.expression-spatial-white .teaser-content .sense-example {
+    font-size: 0.8em;
+    max-width: 100%;
+    max-height: 200px;
+    color: #b0b3b8;
+    opacity: 0.7;
+    padding-top: 5px;
+}
+
+.expression-spatial-white .teaser-content .sense-example:first-letter {
+    text-transform: capitalize;
+}
+
+.expression-spatial-white .teaser-content .body {
+    text-align: left;
+}
+
+.expression-spatial-white .teaser-content .body .description {
+    opacity: 0.7;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    height: 100px;
+}
+
+.expression-spatial-white .teaser-content .body .description p {
+    text-overflow: ellipsis;
+}
+
+.expression-spatial-white a:hover {
+    color: #73879C;
+}
+
+.expression-spatial-white .highlight:hover {
+    color: #1abb9c;
+}
+
+.expression-spatial-white .bottom-tools {
+    margin: 0 auto;
+}
+
+.expression-spatial-white .bottom-tools .teaser-tool {
+    display: inline-block;
+    width: 30px;
+}

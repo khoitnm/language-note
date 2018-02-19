@@ -48,6 +48,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 var lnChromeExtVueAppData = {expression: null};
 var loadModalHtml = function(){
     if ($('#lnChromeExtExpressionViewer').length == 0){
+//        alert('adding... modal');
         $.get(chrome.extension.getURL('expression-meaning/content/expression-viewer/modal.html'), function(htmlContent) {
             var $domModal = $.parseHTML(htmlContent);
             $($domModal).hide();
@@ -62,6 +63,7 @@ var loadModalHtml = function(){
                 el: '#lnChromeExtExpressionViewer',
                 data: lnChromeExtVueAppData
             });
+//            alert('added modal');
         });
     }
 
@@ -81,6 +83,7 @@ updateExpressionViewDataBinding = function(expressionData){
 //    lnChromeExtVueAppData.style = "position: 'absolute'; top: "+$PAGEY+"px; left: "+$PAGEX+"px; min-width: 200px; mix-width: 400px; max-height: 400px";
     //TODO use Vue binding.
     var style = {};
+    style['z-index'] = 2147483648;//with 32bit, max is 2147483647, but nowadays, it's usually 64 bit.
     style.position = 'absolute';
     style.top = $PAGEY+'px';
     style.left = $PAGEX+'px';
