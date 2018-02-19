@@ -19,6 +19,7 @@
     "background": {
         "scripts": [
             "common/jscommon.js",
+            "chromeext-common/chromeext-profile.js",
             "chromeext-common/chromeext-common.js",
             "context-menu/background/menu-creation.js"
         ],
@@ -37,6 +38,7 @@
             ],
             "js": [
                 "common/jscommon.js",
+                "chromeext-common/chromeext-profile.js",
                 "chromeext-common/chromeext-common.js",
                 "lib/jquery.min.js",
                 "lib/vue.min.js",
@@ -54,6 +56,7 @@
         "expression-meaning/content/expression-viewer/fonts/*",
 
         "common/jscommon.js",
+        "chromeext-common/chromeext-profile.js",
         "chromeext-common/chromeext-common.js",
         "lib/jquery.min.js",
         "lib/vue.min.js",

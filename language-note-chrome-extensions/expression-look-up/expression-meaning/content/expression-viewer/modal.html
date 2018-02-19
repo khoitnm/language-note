@@ -1,4 +1,4 @@
-<div  id="lnChromeExtExpressionViewer" ng-app="lnChromeExtApp">
+<div  id="lnChromeExtExpressionViewer">
     <div class="expression-spatial-white teaser-wrapper">
         <div v-if="expression" class="teaser-content" style="max-height: 400px; overflow-y:scroll;">
                 <div class="teaser-content-section top-tools expression-text">
@@ -25,14 +25,29 @@
 
                         <div v-for="sense in senseGroup.senses" class="sense">
                             <div class="sense-explanation">{{sense.shortExplanation || sense.explanation}}</div>
-                            <!--<div v-if="sense.photos.length == 1 && sense.mainPhoto.fileItemId"-->
-                                 <!--ng-include="contextPathClient + '/app/topic/topic-edit-expression-teaser-one-photo.html'"-->
-                                 <!--class="sense-image-wrapper static-width-center-container">-->
-                            <!--</div>-->
-                            <!--<div v-if="sense.photos.length > 1"-->
-                                 <!--ng-include="contextPathClient + '/app/topic/topic-edit-expression-teaser-many-photos.html'"-->
-                                 <!--class="sense-image-wrapper static-width-center-container">-->
-                            <!--</div>-->
+                            <div v-if="sense.photos && sense.photos.length == 1 && sense.mainPhoto.fileItemId"
+                                 class="sense-image-wrapper static-width-center-container">
+                                <img :src="'http://'+contextPathResourceServer + '/api/files/'+sense.mainPhoto.fileItemId"
+                                     class="sense-image image-content"/>
+                            </div>
+                            <div v-if="sense.photos && sense.photos.length > 1"
+                                 class="sense-image-wrapper static-width-center-container">
+                                <div class="images-carousel">
+                                    <ul>
+                                        <li v-for="photo in sense.photos" v-if="photo.fileItemId">
+                                            <a href="">
+                                                <div class="middle-wrapper">
+                                                    <div class="middle-vertical">
+                                                        <div class="middle-horizontal img-with-close-wrapper">
+                                                            <img :src="'http://'+contextPathResourceServer + '/api/files/'+photo.fileItemId">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                             <div class="sense-video static-width-center-container" v-if="sense.videos && sense.videos.length > 0">
                                 <iframe class="" v-if="sense.videos[0].externalUrl"
                                         width="100%" height="200"

@@ -39,13 +39,18 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
         console.log("openModal: received message..."+$EXPRESSION.text);
         var domMyFrame = $('#lnChromeExtExpressionViewer');
         domMyFrame.show();
+        console.log("openModal: added html..."+$EXPRESSION.text);
         updateExpressionViewDataBinding($EXPRESSION);
+        console.log("openModal: updated data..."+$EXPRESSION.text);
     }else  if (request.type == "hideModal"){
         alert("Hide frame");
         $('#lnChromeExtExpressionViewer').hide();
     }
 });
-var lnChromeExtVueAppData = {expression: null};
+var lnChromeExtVueAppData = {
+    contextPathResourceServer: $API_CONTEXT_ABS_PATH,
+    expression: null
+};
 var loadModalHtml = function(){
     if ($('#lnChromeExtExpressionViewer').length == 0){
 //        alert('adding... modal');
