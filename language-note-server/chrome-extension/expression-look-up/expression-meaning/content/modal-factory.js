@@ -63,7 +63,13 @@ var loadModalHtml = function(){
                 el: '#lnChromeExtExpressionViewer',
                 data: lnChromeExtVueAppData
             });
-//            alert('added modal');
+
+            var fa = document.createElement('style');
+                fa.type = 'text/css';
+                fa.textContent = '@font-face { font-family: FontAwesome; src: url("'
+                    + chrome.extension.getURL('expression-meaning/content/expression-viewer/fonts/fontawesome-webfont.woff?v=4.0.3')
+                    + '"); }';
+            document.head.appendChild(fa);
         });
     }
 
