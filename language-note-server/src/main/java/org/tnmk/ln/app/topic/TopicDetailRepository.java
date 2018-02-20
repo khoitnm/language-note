@@ -50,6 +50,11 @@ public class TopicDetailRepository {
         return neo4jRepository.findOne(Topic.class, queryString, title, ownerId);
     }
 
+    public List<Topic> lookupByTitleAndOwner(long ownerId, String title) {
+        String queryString = String.format("MATCH (n:Topic)<-[r:%s]-(u:User) WHERE LOWER(n.`title`)=LOWER({p0}) AND id(u)={p1} RETURN n", Topic.OWN_TOPIC);
+        return neo4jRepository.findList(Topic.class, queryString, title, ownerId);
+    }
+
     /**
      * NOTE: when changing any thing in expression, should recheck the query here.
      * Don't use findOne(id) default method of Neo4j because it can cause StackOverflow when there is an cycling references.

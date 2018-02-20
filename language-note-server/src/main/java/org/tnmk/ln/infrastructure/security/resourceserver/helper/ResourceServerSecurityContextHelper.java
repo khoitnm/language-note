@@ -18,7 +18,9 @@ public class ResourceServerSecurityContextHelper {
 
     @Inject
     private ResourceServerUserService resourceServerUserService;
-
+    public AccessTokenUserDetails getAccessTokenUserDetails() {
+        return securityContextHelper.getUser();
+    }
     public User validateExistUser(){
         AccessTokenUserDetails accessTokenUserDetails = securityContextHelper.validateExistAuthenticatedUser();
         User user = resourceServerUserService.findById(accessTokenUserDetails.getUserId());

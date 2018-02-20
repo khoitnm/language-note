@@ -40,8 +40,23 @@ public class TopicService {
         return IterableUtils.toList(topicRepository.findAll());
     }
 
+    /**
+     * @param userId
+     * @param title
+     * @return This method returns only topic with exactly name (case-sensitive)
+     */
     public Topic findOneByTitle(Long userId, String title) {
         return topicDetailRepository.findOneByTitleAndOwner(userId, title);
+    }
+
+    /**
+     *
+     * @param userId
+     * @param title
+     * @return The topics with same name (case-insensitive would be return)
+     */
+    public List<Topic> lookupByTitleAndOwner(Long userId, String title){
+        return topicDetailRepository.lookupByTitleAndOwner(userId, title.trim());
     }
 
     public Topic findDetailById(String topicId) {
