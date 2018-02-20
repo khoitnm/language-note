@@ -29,16 +29,16 @@ There are some requirement we have to satisfy:
 - Add a Chrome plugin to look-up the vocabularies' meaning. The looked up words will be added in to a topic (the name is the title of web page). When you look up a word, the app will consider it as an failed answer for an expression-recall question. 
 
 ## II. Project modules
-1. language-note-server
+1. <code><strong>language-note-server</strong></code>
 This module provides main business services for client applications.
 
-2. language-note-client
+2. <code><strong>language-note-client</strong></code>
 The web application which provide UI for end users. It will connect with language-note-server via REST API.
 
-3. language-note-chrome-extensions
+3. <code><strong>language-note-chrome-extensions</strong></code>
 The Chrome Extensions which also connect to server to load vocabularies' meaning.
 
-4. language-note-common
+4. <code><strong>language-note-common</strong></code>
 Provide common codes so that other modules (language-note-server & language-note-client) could be reuse.
 
 ## III. Technologies stack
