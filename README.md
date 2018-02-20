@@ -1,15 +1,22 @@
 language-note
 ==============
 An application for learning languages.
-
+> There are already many applications for learning English. But no application can help me to practices only on vocabularies which I'm interested in.<br/>
+> They are all force me to practice on predefined exercises. 
+>
 > This application will help users to memorize their vocabularies, phrases, idioms: users can create different topics which contain their own expressions (vocabularies, phrases, idioms).<p/>
 > When user input an expression, it's definition and examples will be loaded automatically from dictionaries. Then the user can change that definition and examples to make it easier for him to understand.<p/>
 > After that, he can do some test for his expressions. Those testing exercises will be generated automatically based on the examples and definitions of those expressions. There are many kinds of exercises (recall the meaning, or filling blanks, etc.)<p/>
 > The user will get a score for each word, the words with the most failure answers will be more likely to appear in later tests.<p/>
 
 Priorities
-> Business logic: At first, I am only focusing on the English language. And vocabularies learning is the top priority, idioms, synonym, family, etc. will be enhanced later.<p/>
-> Technology: This is just a low priority. Realization the idea is the most important thing. <code><strong>KISS</strong></code> principle is the best here. Security is minimum with a very simple approach at first (username/password with the session). After that, we will consider OAuth2 and JWT<p/>
+> <strong>Business logic:</strong> At first, I am only focusing on the English language. And vocabularies learning is the top priority, idioms, synonym, family, etc. will be enhanced later.<p/>
+> <strong>Technology:</strong> This is just a low priority. Realization the idea is the most important thing. <code><strong>KISS</strong></code> principle is the best here. Security is minimum with a very simple approach at first (username/password with the session). After that, we will consider OAuth2 and JWT<p/>
+
+Far future enhancement
+> - Add automatically reminder for new expressions  
+> - In the future, I can support other languages, not only English. 
+> - A bigger steps, create a game dynamically which users can play on their interesting expressions only.
 
 ## I. Requirement 
 There are some requirement we have to satisfy:
