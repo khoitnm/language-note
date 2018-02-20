@@ -49,7 +49,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 });
 var lnChromeExtVueAppData = {
     contextPathResourceServer: $API_CONTEXT_ABS_PATH,
-    expression: null
+    expression: null,
+    audio: null
 };
 var loadModalHtml = function(){
     if ($('#lnChromeExtExpressionViewer').length == 0){
@@ -63,12 +64,21 @@ var loadModalHtml = function(){
                 "expression-meaning/content/expression-viewer/modal-app.js",
                 "expression-meaning/content/expression-viewer/modal-service.js"
             ]);
-
             var lnChromeExtVueApp = new Vue({
                 el: '#lnChromeExtExpressionViewer',
-                data: lnChromeExtVueAppData
+                data: lnChromeExtVueAppData,
+                methods: {
+                    playSound: function(event){
+                        console.log("Play sound "+this.data);
+                        lnChromeExtVueAppData.audio.play();//I cannot use this.audio or this.data.audio
+                    },
+                    stopSound: function(event){
+                        lnChromeExtVueAppData.audio.stop();
+                    },
+                }
             });
 
+            //Load Awesome fonts.
             var fa = document.createElement('style');
                 fa.type = 'text/css';
                 fa.textContent = '@font-face { font-family: FontAwesome; src: url("'
@@ -87,11 +97,14 @@ window.addEventListener("message", function(event) {
         $("#lnChromeExtExpressionViewer").hide();
     }
 });
-
+//MODAL SERVICE /////////////////////////////////////////////////////////////////////////////
 updateExpressionViewDataBinding = function(expressionData){
     //Create app
     lnChromeExtVueAppData.expression = expressionData;
-//    lnChromeExtVueAppData.style = "position: 'absolute'; top: "+$PAGEY+"px; left: "+$PAGEX+"px; min-width: 200px; mix-width: 400px; max-height: 400px";
+    //Only load audio once, don't reload when click to playSound();
+    var audioUrl = getSoundUrlFromText('', expressionData.text);
+    lnChromeExtVueAppData.audio = new Audio(audioUrl);
+
     //TODO use Vue binding.
     var style = {};
     style['z-index'] = 2147483648;//with 32bit, max is 2147483647, but nowadays, it's usually 64 bit.
@@ -101,4 +114,21 @@ updateExpressionViewDataBinding = function(expressionData){
     style['min-width'] = '200px';
     style['max-width'] = '400px';
     $('#lnChromeExtExpressionViewer').css(style);
+
+
+
+//    lnChromeExtVueAppData.playSound = function(){
+//        lnChromeExtVueAppData.audio.play();
+//    };
+//     lnChromeExtVueAppData.stopSound = function(){
+//        lnChromeExtVueAppData.audio.stop();
+//     };
+};
+getSoundUrlFromText = function (localeString, text) {
+    var url = 'http://'+ $API_CONTEXT_ABS_PATH + '/api/tts?text=' + text;
+    if (isNotBlank(localeString)) {
+        //TODO should add locale
+        url += '&locale=' + localeString;
+    }
+    return url;
 };

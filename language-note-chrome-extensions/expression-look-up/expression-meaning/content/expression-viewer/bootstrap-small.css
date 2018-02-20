@@ -1,3 +1,4 @@
+/*FA Font ///////////////////////////////////////////////////// */
 #lnChromeExtExpressionViewer .fa {
     display: inline-block;
     font: normal normal normal 14px/1 FontAwesome;
@@ -11,6 +12,16 @@
 #lnChromeExtExpressionViewer .fa-times:before {
     content: "\f00d";
 }
+#lnChromeExtExpressionViewer .fa-volume-off:before {
+  content: "\f026";
+}
+#lnChromeExtExpressionViewer .fa-volume-down:before {
+  content: "\f027";
+}
+#lnChromeExtExpressionViewer .fa-volume-up:before {
+  content: "\f028";
+}
+/*BOOTSTRAP ///////////////////////////////////////////////////// */
 #lnChromeExtExpressionViewer .pull-right {
   float: right !important;
 }

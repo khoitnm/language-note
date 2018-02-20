@@ -14,6 +14,8 @@
 }
 
 #lnChromeExtExpressionViewer .teaser-content {
+    max-height: 400px;
+    overflow-y: scroll;
     border-radius: 8px;
 }
 

@@ -1,6 +1,6 @@
 <div  id="lnChromeExtExpressionViewer">
     <div class="expression-spatial-white teaser-wrapper">
-        <div v-if="expression" class="teaser-content" style="max-height: 400px; overflow-y:scroll;">
+        <div v-if="expression" class="teaser-content">
                 <div class="teaser-content-section top-tools expression-text">
 
                     <div class="pull-left">
@@ -8,6 +8,9 @@
                     </div>
                     <div class="pull-right">
                         <a onclick="hideModal(event)" class="btn-xs"><i class="fa fa-close"></i></a>
+                    </div>
+                    <div class="pull-right">
+                        <a v-on:click="playSound" class="btn-xs"><i class="fa fa-volume-up"></i></a>
                     </div>
                     <div class="clearfix"></div>
                 </div>
