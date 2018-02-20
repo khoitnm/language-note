@@ -56,7 +56,7 @@ public class TopicService {
      * @return The topics with same name (case-insensitive would be return)
      */
     public List<Topic> lookupByTitleAndOwner(Long userId, String title){
-        return topicDetailRepository.lookupByTitleAndOwner(userId, title.trim());
+        return topicDetailRepository.lookupByTitleAndOwner(userId, title.trim().toLowerCase());
     }
 
     public Topic findDetailById(String topicId) {

@@ -1,7 +1,10 @@
-This project use AngularJS 1. Why?
-Because I only want to focus on business model of this project. So all I want is to establish the program as soon as possible with my current knowledge. Waiting a few days for learning new technologies is too long. I don't want my passion for this project is cooled down just because of any technologies choice distraction. 
+## FrontEnd Technologies
+### Thymeleaf + Bootstrap + AngularJS 1. Why?<br/>
+<p>Because I only want to focus on business model of this project. So all I want is to establish the program as soon as possible with my current knowledge.</p> 
+<p>I don't want my passion and ideas for this project is cooled down because of some delay times for technologies concerns.</p> 
 
-Security:
-OAuth2 + JWT token with Password flow. Why?
-We need to separated the client and server because in the future, we also need a mobile or a Chrome/Firefox extension.
-And the server will provide API for client applications. So we choose OAuth2 as the security protocol. 
+## Security
+### OAuth2 + JWT token with Password flow. Why?
+We need to separated the client and server because in the future, we also need a mobile or a Chrome/Firefox extension.<p/>
+And the server will provide API for client applications. So we choose OAuth2 as the security protocol.
+ 

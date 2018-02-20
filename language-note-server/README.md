@@ -1,5 +1,12 @@
 language-note
 ==============
+## Technologies Overview
+- Spring Boot
+- OAuth2 + JWT: this server plays both Authorization Server and Resource Server roles
+- MongoDB (DocumentDB)
+- Neo4j (GraphDB)
+- 
+
 ## I. Run project
 ### MongoDB
 #### Start MongoDB:
@@ -57,6 +64,11 @@ Change password to: password
 You should install NodeJs first, then also install bower
 ```
 npm install -g bower
+```
+
+Go to '\language-note-client\src\main\resources\static', download all related frontend libraries with command line:
+```
+npm install
 ```
 
 ### Application

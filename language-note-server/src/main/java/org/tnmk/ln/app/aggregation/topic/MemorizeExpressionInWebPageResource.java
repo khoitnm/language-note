@@ -72,6 +72,9 @@ public class MemorizeExpressionInWebPageResource {
 
     private Expression memorizeExpressionForAuthenticatedUser(Long userId, MemorizeExpressionInWebPageRequest memorizeExpressionInWebPageRequest){
         Expression expression = lookupExpression(memorizeExpressionInWebPageRequest);
+        if (expression == null) {
+            return null;
+        }
         //Save expression
         User user = resourceServerUserService.findById(userId);
         expression.setOwner(user);

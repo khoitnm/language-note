@@ -19,4 +19,20 @@ There are some requirement we have to satisfy:
 - I will _answer_ **Questions** inside a **Topic**, and I will _have_ an **Answer Result** for each question. The **Practice Result** _of a_ **Topic** will be aggregate from the **Practice Result** of each **Question** in the **Practice Session**. 
 - I can _practice_ with the new **Expressions** first.
 - The next time I _practice_, it must show either **Expressions** I have never tried or **Expressions** I didn't get max points in **last 2 Practice Results**.
-- Add a Chrome plugin to look-up new words. The looked up words will be added in to a topic (the name is the title of web page). When you look up a word, the app will consider it as an failed answer for an expression-recall question. 
+- Add a Chrome plugin to look-up the vocabularies' meaning. The looked up words will be added in to a topic (the name is the title of web page). When you look up a word, the app will consider it as an failed answer for an expression-recall question. 
+
+## II. Project modules
+1. language-note-server
+This module provides main business services for client applications.
+
+2. language-note-client
+The web application which provide UI for end users. It will connect with language-note-server via REST API.
+
+3. language-note-chrome-extensions
+The Chrome Extensions which also connect to server to load vocabularies' meaning.
+
+4. language-note-common
+Provide common codes so that other modules (language-note-server & language-note-client) could be reuse.
+
+## III. Technologies stack
+The used technologies of each module will be described in each module's README.md 

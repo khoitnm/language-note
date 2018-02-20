@@ -7,3 +7,6 @@ Chrome plugin for language-note
 <pre>
 This is the first time I work with Chrome Extension, so the code still be a mess, but it should work! :)
 </pre>
+
+## Technologies
+For experiment, I just try to apply some VueJS + jQuery. The code is still a mess to be honest :)
