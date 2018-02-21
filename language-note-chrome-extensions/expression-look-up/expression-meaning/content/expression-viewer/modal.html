@@ -23,14 +23,14 @@
                         <span class="error-message">{{expression.errorMessage}}</span>
                     </div>
                 </div>
-                <div class="teaser-content-section">
+                <div class="teaser-content-section" v-if="!expression.errorMessage">
                     <div v-for="(senseGroup, index) in expression.senseGroups"
                          class="sense-group">
                         <div class="lexical-type" v-if="senseGroup.lexicalType">
                             {{senseGroup.lexicalType}}
                         </div>
 
-                        <div v-for="sense in senseGroup.senses" class="sense">
+                        <div v-for="sense in senseGroup.senses" class="sense" v-if="sense">
                             <div class="sense-explanation">{{sense.shortExplanation || sense.explanation}}</div>
                             <div v-if="sense.photos && sense.photos.length == 1 && sense.mainPhoto.fileItemId"
                                  class="sense-image-wrapper static-width-center-container">

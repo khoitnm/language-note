@@ -1,12 +1,5 @@
 //https://stackoverflow.com/questions/33736233/how-to-show-a-modal-popup-from-the-context-menu
 //https://stackoverflow.com/questions/9515704/insert-code-into-the-page-context-using-a-content-script
-loadScriptsToPage([
-    "common/jscommon.js",
-    "chromeext-common/chromeext-common.js",
-    "lib/vue.min.js",
-]);
-
-
 var $PAGEX = null;
 var $PAGEY = null;
 $(document).ready(function(){
@@ -23,9 +16,11 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
         var accessTokenObject = request.accessTokenObject;
         var lookupRequest = request.lookupRequest;
         lookupExpressionInTopic(accessTokenObject, lookupRequest, function(data){
-            var expression = {text: lookupRequest.expression};
+            var expression;
             if (hasValue(data)){
-              expression = data;
+                expression = data;
+            }else{
+                expression  = initExpressionWhenNotFound(lookupRequest.expression);
             }
             var domMyFrame = $('#lnChromeExtExpressionViewer');
             updateExpressionViewDataBinding(expression);
@@ -38,7 +33,14 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
         $('#lnChromeExtExpressionViewer').hide();
     }
 });
+var initExpressionWhenNotFound = function(expressionText){
+    return {
+        text: expressionText,
+        errorMessage: "Not found the definition of this expression."
+    };
+}
 var lookupExpressionInTopic=function(accessTokenObject, lookupRequest, callback){
+    customizePageTitle(lookupRequest);
     $.ajax({
         url: "http://" + $API_CONTEXT_ABS_PATH + "/api/expression-in-page:memorize",
         headers: {
@@ -50,9 +52,37 @@ var lookupExpressionInTopic=function(accessTokenObject, lookupRequest, callback)
         data: JSON.stringify(lookupRequest),
         success: function(responseData){
             callback.call(this, responseData);
+        },
+        error: function(responseData){
+            //Note: if result is null, the response won't go to success callback, so we have to handle it here.
+            if (responseData.status == 200){
+                callback.call(this, null);
+            }
         }
     });
-}
+};
+var customizePageTitle=function(lookupRequest){
+    var pageUrl = lookupRequest.pageUrl;
+    if (isYouTubeUrl(pageUrl)){
+        var $pageTitleDom = $('html h1');
+        var pageTitle = $pageTitleDom.text();
+        console.log("original page title '"+lookupRequest.pageTitle+"'");
+        console.log("page title '"+pageTitle+"'");
+        lookupRequest.pageTitle = pageTitle;
+    }
+};
+/**
+ * https://stackoverflow.com/questions/28735459/how-to-validate-youtube-url-in-client-side-in-text-box
+*/
+var isYouTubeUrl = function(url){
+    var result = false;
+    if (isNotBlank(url)) {
+        var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
+        var match = url.match(regExp);
+        result = match && match[2].length == 11;//length of the second parentheses match should always be 11 characters. As youtube urls have 11 character code for the videos and it will remain 11 characters always like this- v=oB1CUxX1JJE
+    }
+    return result;
+};
 var lnChromeExtVueAppData = {
     contextPathResourceServer: $API_CONTEXT_ABS_PATH,
     expression: null,
@@ -65,9 +95,10 @@ var loadModalHtml = function(){
             $($domModal).hide();
             $($domModal).appendTo('body');
             loadScriptsToPage([
+                "common/jscommon.js",
+                //Somehow, we don't need vuejs to be loaded into the webpage in order to binding Web UI to data model, we only need to load it in the Chrome extension!!! But somehow, I cannot do that for the file modal.js
+//                "lib/vue.min.js",
                 "expression-meaning/content/expression-viewer/modal.js",
-                "expression-meaning/content/expression-viewer/modal-app.js",
-                "expression-meaning/content/expression-viewer/modal-service.js"
             ]);
             loadFont('FontAwesome','expression-meaning/content/expression-viewer/fonts/fontawesome-webfont.woff?v=4.0.3');
 
@@ -76,7 +107,7 @@ var loadModalHtml = function(){
                 data: lnChromeExtVueAppData,
                 methods: {
                     playSound: function(event){
-                        console.log("Play sound "+this.data);
+                        console.log("Play sound...");
                         lnChromeExtVueAppData.audio.play();//I cannot use this.audio or this.data.audio
                     },
                     stopSound: function(event){
@@ -92,12 +123,6 @@ var loadModalHtml = function(){
 };
 loadModalHtml();
 
-window.addEventListener("message", function(event) {
-    event.preventDefault();
-    if (event.data.type == "hideModal") {
-        $("#lnChromeExtExpressionViewer").hide();
-    }
-});
 //MODAL SERVICE /////////////////////////////////////////////////////////////////////////////
 updateExpressionViewDataBinding = function(expressionData){
     //Create app
@@ -124,3 +149,9 @@ getSoundUrlFromText = function (localeString, text) {
     }
     return url;
 };
+
+window.addEventListener("message", function(event) {
+    if (event.data.type == "hideModal") {
+        $("#lnChromeExtExpressionViewer").hide();
+    }
+});
