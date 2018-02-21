@@ -15,3 +15,13 @@ function loadScriptToPage(scriptPath){
     };
     (document.head || document.documentElement).appendChild(s);
 }
+/**
+ * @param fontName example: 'FontAwesome'
+ * @param fontPath example: 'expression-meaning/content/expression-viewer/fonts/fontawesome-webfont.woff?v=4.0.3'
+ */
+function loadFont(fontName, fontPath){
+    var font = document.createElement('style');
+    font.type = 'text/css';
+    font.textContent = '@font-face { font-family: '+fontName+'; src: url("' + chrome.extension.getURL(fontPath) + '"); }';
+    document.head.appendChild(font);
+}

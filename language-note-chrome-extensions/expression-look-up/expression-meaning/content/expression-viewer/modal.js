@@ -1,4 +1,5 @@
 //alert("Hello");
-function hideModal(){
+function hideModal(event){
+    event.preventDefault();
     window.parent.postMessage({ type: "hideModal" }, "*");
 }

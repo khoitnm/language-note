@@ -3,28 +3,15 @@
 loadScriptsToPage([
     "common/jscommon.js",
     "chromeext-common/chromeext-common.js",
-//    "lib/jquery.min.js",
     "lib/vue.min.js",
-
-//    "lib/angular.min.js",
-//    "lib/angular-sanitize.min.js",
-//    "lib/angular-resource.min.js",
-
-//    "expression-meaning/content/expression-viewer/modal.js",
-//    "expression-meaning/content/expression-viewer/modal-app.js",
-//    "expression-meaning/content/expression-viewer/modal-service.js"
 ]);
 
 
-var $ACCESS_TOKEN_OBJ = null;
-var $LOOKUP_EXPRESSION_TEXT = null;
-var $EXPRESSION = null;
 var $PAGEX = null;
 var $PAGEY = null;
 $(document).ready(function(){
     $(document).mousemove(function(e){
         $('html').click(function(e) {
-            console.log("" + e.pageX + ", " + e.pageY);
             $PAGEX = e.pageX;
             $PAGEY = e.pageY;
         });
@@ -33,20 +20,39 @@ $(document).ready(function(){
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
     if (request.type == "openModal"){
-        $ACCESS_TOKEN_OBJ = request.accessTokenObject;
-        $LOOKUP_EXPRESSION_TEXT = request.lookupExpressionText;
-        $EXPRESSION = request.expression;
-        console.log("openModal: received message..."+$EXPRESSION.text);
-        var domMyFrame = $('#lnChromeExtExpressionViewer');
-        domMyFrame.show();
-        console.log("openModal: added html..."+$EXPRESSION.text);
-        updateExpressionViewDataBinding($EXPRESSION);
-        console.log("openModal: updated data..."+$EXPRESSION.text);
+        var accessTokenObject = request.accessTokenObject;
+        var lookupRequest = request.lookupRequest;
+        lookupExpressionInTopic(accessTokenObject, lookupRequest, function(data){
+            var expression = {text: lookupRequest.expression};
+            if (hasValue(data)){
+              expression = data;
+            }
+            var domMyFrame = $('#lnChromeExtExpressionViewer');
+            updateExpressionViewDataBinding(expression);
+            domMyFrame.show();
+
+            console.log("openModal: finished! "+expression.text);
+        });
     }else  if (request.type == "hideModal"){
         alert("Hide frame");
         $('#lnChromeExtExpressionViewer').hide();
     }
 });
+var lookupExpressionInTopic=function(accessTokenObject, lookupRequest, callback){
+    $.ajax({
+        url: "http://" + $API_CONTEXT_ABS_PATH + "/api/expression-in-page:memorize",
+        headers: {
+            'Authorization':accessTokenObject.token_type + ' '+accessTokenObject.access_token,
+            'Content-Type':'application/json'
+        },
+        method: 'POST',
+        dataType: 'json',
+        data: JSON.stringify(lookupRequest),
+        success: function(responseData){
+            callback.call(this, responseData);
+        }
+    });
+}
 var lnChromeExtVueAppData = {
     contextPathResourceServer: $API_CONTEXT_ABS_PATH,
     expression: null,
@@ -54,7 +60,6 @@ var lnChromeExtVueAppData = {
 };
 var loadModalHtml = function(){
     if ($('#lnChromeExtExpressionViewer').length == 0){
-//        alert('adding... modal');
         $.get(chrome.extension.getURL('expression-meaning/content/expression-viewer/modal.html'), function(htmlContent) {
             var $domModal = $.parseHTML(htmlContent);
             $($domModal).hide();
@@ -64,6 +69,8 @@ var loadModalHtml = function(){
                 "expression-meaning/content/expression-viewer/modal-app.js",
                 "expression-meaning/content/expression-viewer/modal-service.js"
             ]);
+            loadFont('FontAwesome','expression-meaning/content/expression-viewer/fonts/fontawesome-webfont.woff?v=4.0.3');
+
             var lnChromeExtVueApp = new Vue({
                 el: '#lnChromeExtExpressionViewer',
                 data: lnChromeExtVueAppData,
@@ -78,13 +85,7 @@ var loadModalHtml = function(){
                 }
             });
 
-            //Load Awesome fonts.
-            var fa = document.createElement('style');
-                fa.type = 'text/css';
-                fa.textContent = '@font-face { font-family: FontAwesome; src: url("'
-                    + chrome.extension.getURL('expression-meaning/content/expression-viewer/fonts/fontawesome-webfont.woff?v=4.0.3')
-                    + '"); }';
-            document.head.appendChild(fa);
+
         });
     }
 
@@ -114,15 +115,6 @@ updateExpressionViewDataBinding = function(expressionData){
     style['min-width'] = '200px';
     style['max-width'] = '400px';
     $('#lnChromeExtExpressionViewer .expression-spatial-white').css(style);
-
-
-
-//    lnChromeExtVueAppData.playSound = function(){
-//        lnChromeExtVueAppData.audio.play();
-//    };
-//     lnChromeExtVueAppData.stopSound = function(){
-//        lnChromeExtVueAppData.audio.stop();
-//     };
 };
 getSoundUrlFromText = function (localeString, text) {
     var url = 'http://'+ $API_CONTEXT_ABS_PATH + '/api/tts?text=' + text;
