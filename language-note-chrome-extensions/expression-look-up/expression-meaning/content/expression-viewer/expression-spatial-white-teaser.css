@@ -1,4 +1,9 @@
 /* TEASER */
+#lnChromeExtExpressionViewer {
+    width: 100%;
+    height: 100%;
+    background: #444;
+}
 #lnChromeExtExpressionViewer .expression-spatial-white {
     font-family: "PT Sans", "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
     line-height: 1em;
@@ -43,8 +48,8 @@
     padding-top: 2px;
 }
 
-#lnChromeExtExpressionViewer .expression-spatial-white .teaser-content .indexing-item {
-    font-size: 12px;
+#lnChromeExtExpressionViewer .expression-spatial-white .teaser-content {
+    font-size: 12px !important;
 }
 #lnChromeExtExpressionViewer .expression-spatial-white .btn-xs{
     padding: 0px 0px 0px 10px;
@@ -61,12 +66,12 @@
 
     color: #73879C;
     text-align: left;
-    font-size: 1em;
+    font-size: 1.05em;
     font-weight: bold;
 }
 
 #lnChromeExtExpressionViewer .expression-spatial-white .teaser-content .expression-text .input-as-text {
-    font-size: 0.9em; /* Same as normal text */
+    font-size: 0.95em; /* Same as normal text */
     margin-top: 6px;
     border-color: rgba(0, 0, 0, 0.02);
 }
@@ -111,7 +116,7 @@
 
 #lnChromeExtExpressionViewer .expression-spatial-white .teaser-content .lexical-type {
     text-transform: lowercase;
-    font-size: 0.9em;
+    font-size: 1em;
     color: #48c5aa;
 }
 
@@ -136,7 +141,7 @@
 
 #lnChromeExtExpressionViewer .expression-spatial-white .teaser-content .sense-explanation {
     /*padding-left: 2%;*/
-    font-size: 0.8em;
+    font-size: 0.95em;
     color: #73879C;
 }
 
@@ -183,7 +188,7 @@
     margin-left: 1.3em;
     list-style-type: circle;
 
-    font-size: 0.8em;
+    font-size: 0.95em;
     max-width: 100%;
     max-height: 200px;
     color: #b0b3b8;

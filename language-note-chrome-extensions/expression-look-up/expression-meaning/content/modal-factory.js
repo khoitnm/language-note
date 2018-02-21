@@ -113,7 +113,7 @@ updateExpressionViewDataBinding = function(expressionData){
     style.left = $PAGEX+'px';
     style['min-width'] = '200px';
     style['max-width'] = '400px';
-    $('#lnChromeExtExpressionViewer').css(style);
+    $('#lnChromeExtExpressionViewer .expression-spatial-white').css(style);
 
 
 

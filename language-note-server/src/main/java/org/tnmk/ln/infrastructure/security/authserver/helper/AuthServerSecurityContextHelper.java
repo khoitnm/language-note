@@ -31,7 +31,7 @@ public class AuthServerSecurityContextHelper {
     public AccessTokenUserDetails getUser() {
         AccessTokenUserDetails result = null;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null) {
+        if (auth != null && auth instanceof OAuth2Authentication) {
             OAuth2Authentication oauth2Authentication = (OAuth2Authentication) auth;
             OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) oauth2Authentication.getDetails();
             String tokenValue = details.getTokenValue();

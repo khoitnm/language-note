@@ -54,6 +54,10 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
             .authorizeRequests()
             .antMatchers(HttpMethod.OPTIONS).permitAll()
             .antMatchers("/project-info").permitAll()
+
+            //This is the API for looking up vocabularies meaning, so we don't need an authenticated user permission.
+            .antMatchers("/api/expression-in-page:memorize**").permitAll()
+
             //FIXME At this moment, on JavaScript (client app) I have not found the solution for getting Audio(url) with Authorization header, so I temporary put media link to the whitelist.
             .antMatchers("/api/tts**").permitAll()
             //For images/sounds... we allow all!

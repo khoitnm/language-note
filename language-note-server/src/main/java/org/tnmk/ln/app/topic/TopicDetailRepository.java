@@ -51,7 +51,7 @@ public class TopicDetailRepository {
     }
 
     public List<Topic> lookupByTitleAndOwner(long ownerId, String title) {
-        String queryString = String.format("MATCH (n:Topic)<-[r:%s]-(u:User) WHERE LOWER(n.`title`)=LOWER({p0}) AND id(u)={p1} RETURN n", Topic.OWN_TOPIC);
+        String queryString = String.format("MATCH (n:Topic)<-[r:%s]-(u:User) WHERE LOWER(n.`title`) CONTAINS LOWER({p0}) AND id(u)={p1} RETURN n", Topic.OWN_TOPIC);
         return neo4jRepository.findList(Topic.class, queryString, title, ownerId);
     }
 
