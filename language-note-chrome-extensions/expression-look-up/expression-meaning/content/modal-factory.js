@@ -69,6 +69,8 @@ var customizePageTitle=function(lookupRequest){
         console.log("original page title '"+lookupRequest.pageTitle+"'");
         console.log("page title '"+pageTitle+"'");
         lookupRequest.pageTitle = pageTitle;
+    } else if (isGoogleSearchPage(lookupRequest.pageTitle)){
+        lookupRequest.pageTitle = "Google Search";
     }
 };
 /**
@@ -83,6 +85,10 @@ var isYouTubeUrl = function(url){
     }
     return result;
 };
+var isGoogleSearchPage = function(pageTitle){
+    return pageTitle.toLowerCase().endsWith("google search");
+}
+
 var lnChromeExtVueAppData = {
     contextPathResourceServer: $API_CONTEXT_ABS_PATH,
     expression: null,
