@@ -42,7 +42,7 @@ db.Expressions.createIndex( { text: "text" } )
 #### Backup
 
 ```
-mongodump --host localhost --port 27117 --username languagenoteadmin --password password --db languagenote --archive=languagenotearchive
+mongodump --host localhost --port 27017 --username languagenoteadmin --password password --db languagenote --archive=languagenotearchive_2018-02-23
 ```
 
 #### Restore

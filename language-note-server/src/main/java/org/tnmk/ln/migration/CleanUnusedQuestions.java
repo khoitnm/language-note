@@ -15,7 +15,7 @@ import javax.annotation.PostConstruct;
  * @author khoi.tran on 4/28/17.
  * @deprecated Not finished yet.
  */
-@Service
+//@Service
 @Deprecated
 public class CleanUnusedQuestions {
     public static final Logger LOGGER = LoggerFactory.getLogger(CleanUnusedQuestions.class);

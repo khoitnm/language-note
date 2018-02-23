@@ -32,7 +32,7 @@ public class ExpressionMapper {
     }
 
     //TODO need to migrate the pronunciation to old expression
-    private static List<SenseGroup> toSenseGroups(List<LexicalEntry> oxfordLexicalEntries) {
+    public static List<SenseGroup> toSenseGroups(List<LexicalEntry> oxfordLexicalEntries) {
         List<SenseGroup> senseGroups = new ArrayList<>();
         if (oxfordLexicalEntries == null) return senseGroups;
         for (LexicalEntry oxfordLexicalEntry : oxfordLexicalEntries) {
@@ -45,13 +45,13 @@ public class ExpressionMapper {
         return senseGroups;
     }
 
-    private static List<org.tnmk.ln.app.dictionary.entity.Pronunciation> toPronunciations(List<Pronunciation> pronunciations) {
+    public static List<org.tnmk.ln.app.dictionary.entity.Pronunciation> toPronunciations(List<Pronunciation> pronunciations) {
         return pronunciations.stream()
             .map(pronunciation -> toPronunciation(pronunciation))
             .filter(pronunciation -> pronunciation != null)
             .collect(Collectors.toList());
     }
-    private static org.tnmk.ln.app.dictionary.entity.Pronunciation toPronunciation(Pronunciation pronunciation) {
+    public static org.tnmk.ln.app.dictionary.entity.Pronunciation toPronunciation(Pronunciation pronunciation) {
         if (pronunciation == null) {
             return null;
         }
@@ -111,7 +111,7 @@ public class ExpressionMapper {
         return example;
     }
 
-    private static LexicalType toLexicalType(String lexicalCategory) {
+    public static LexicalType toLexicalType(String lexicalCategory) {
         LexicalType lexicalType = null;
         if (lexicalCategory.equalsIgnoreCase("noun")) {
             return LexicalType.NOUN;

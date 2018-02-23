@@ -21,10 +21,10 @@ import java.util.stream.Collectors;
  * @author khoi.tran on 4/28/17.
  * @deprecated Already migrated successfully, don't need to migrate anymore. Just keep it here as a backup file.
  */
-@Service
+//@Service
 @Deprecated
-public class MigrateWordPronunciationToText {
-    public static final Logger LOGGER = LoggerFactory.getLogger(MigrateWordPronunciationToText.class);
+public class MigrateWordPronunciationSoundToText {
+    public static final Logger LOGGER = LoggerFactory.getLogger(MigrateWordPronunciationSoundToText.class);
 
     @Autowired
     private OxfordAudioRepositories oxfordAudioRepositories;
