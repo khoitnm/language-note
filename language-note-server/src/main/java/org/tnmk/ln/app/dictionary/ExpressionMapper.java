@@ -8,6 +8,7 @@ import org.tnmk.ln.app.dictionary.entity.LexicalType;
 import org.tnmk.ln.app.dictionary.entity.Locale;
 import org.tnmk.ln.infrastructure.dictionary.oxford.entity.Entry;
 import org.tnmk.ln.infrastructure.dictionary.oxford.entity.LexicalEntry;
+import org.tnmk.ln.infrastructure.dictionary.oxford.entity.Pronunciation;
 import org.tnmk.ln.infrastructure.dictionary.oxford.entity.Sentence;
 import org.tnmk.ln.app.dictionary.entity.SenseGroup;
 import org.tnmk.ln.infrastructure.dictionary.oxford.entity.OxfordWord;
@@ -30,11 +31,13 @@ public class ExpressionMapper {
         return expression;
     }
 
+    //TODO need to migrate the pronunciation to old expression
     private static List<SenseGroup> toSenseGroups(List<LexicalEntry> oxfordLexicalEntries) {
         List<SenseGroup> senseGroups = new ArrayList<>();
         if (oxfordLexicalEntries == null) return senseGroups;
         for (LexicalEntry oxfordLexicalEntry : oxfordLexicalEntries) {
             SenseGroup senseGroup = new SenseGroup();
+            senseGroup.setPronunciations(toPronunciations(oxfordLexicalEntry.getPronunciations()));
             senseGroup.setLexicalType(toLexicalType(oxfordLexicalEntry.getLexicalCategory()));
             senseGroup.setSenses(toSenses(oxfordLexicalEntry, oxfordLexicalEntry.getEntries()));
             senseGroups.add(senseGroup);
@@ -42,6 +45,23 @@ public class ExpressionMapper {
         return senseGroups;
     }
 
+    private static List<org.tnmk.ln.app.dictionary.entity.Pronunciation> toPronunciations(List<Pronunciation> pronunciations) {
+        return pronunciations.stream()
+            .map(pronunciation -> toPronunciation(pronunciation))
+            .filter(pronunciation -> pronunciation != null)
+            .collect(Collectors.toList());
+    }
+    private static org.tnmk.ln.app.dictionary.entity.Pronunciation toPronunciation(Pronunciation pronunciation) {
+        if (pronunciation == null) {
+            return null;
+        }
+        org.tnmk.ln.app.dictionary.entity.Pronunciation result = new org.tnmk.ln.app.dictionary.entity.Pronunciation();
+        result.setAudioFile(pronunciation.getAudioFile());
+        result.setDialects(pronunciation.getDialects());
+        result.setPhoneticNotation(pronunciation.getPhoneticNotation());
+        result.setPhoneticSpelling(pronunciation.getPhoneticSpelling());
+        return result;
+    }
     private static List<org.tnmk.ln.app.dictionary.entity.Sense> toSenses(LexicalEntry oxfordLexicalEntry, List<Entry> entries) {
         List<org.tnmk.ln.app.dictionary.entity.Sense> senses = new ArrayList<>();
         if (entries == null) return senses;

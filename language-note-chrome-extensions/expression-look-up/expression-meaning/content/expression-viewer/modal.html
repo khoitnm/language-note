@@ -26,8 +26,9 @@
                 <div class="teaser-content-section" v-if="!expression.errorMessage">
                     <div v-for="(senseGroup, index) in expression.senseGroups"
                          class="sense-group">
-                        <div class="lexical-type" v-if="senseGroup.lexicalType">
-                            {{senseGroup.lexicalType}}
+                        <div>
+                            <span class="lexical-type" v-if="senseGroup.lexicalType">{{senseGroup.lexicalType}}</span>
+                            <span class="pronunciation" v-for="pronunciation in senseGroup.pronunciations">/{{pronunciation.phoneticSpelling}}/</span>
                         </div>
 
                         <div v-for="sense in senseGroup.senses" class="sense" v-if="sense">

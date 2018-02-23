@@ -20,6 +20,8 @@ public class SenseGroup extends BaseMongoEntity implements Cleanable {
 
     private LexicalType lexicalType;
 
+    private List<Pronunciation> pronunciations;
+
     @DetailLoading
     @Relationship(type = HAS_SENSES, direction = Relationship.OUTGOING)
     private List<Sense> senses;
@@ -48,5 +50,13 @@ public class SenseGroup extends BaseMongoEntity implements Cleanable {
 
     public void setSenses(List<Sense> senses) {
         this.senses = senses;
+    }
+
+    public List<Pronunciation> getPronunciations() {
+        return pronunciations;
+    }
+
+    public void setPronunciations(List<Pronunciation> pronunciations) {
+        this.pronunciations = pronunciations;
     }
 }

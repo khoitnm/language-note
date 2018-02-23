@@ -59,6 +59,14 @@
     height: 1em;
 }
 /* EXPRESSION-TEXT ================================================================================= */
+#lnChromeExtExpressionViewer .expression-spatial-white .teaser-content .pronunciation{
+    font-size: 0.9em;
+    margin: 0px 5px;
+    padding: 1px 5px;
+    background-color: #f2f2f2;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
 #lnChromeExtExpressionViewer .expression-spatial-white .teaser-content .expression-text {
     padding-left: 2%;
     padding-right: 2%;
