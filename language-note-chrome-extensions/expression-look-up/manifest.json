@@ -43,10 +43,6 @@
                 "lib/jquery.min.js",
                 "lib/vue.min.js",
 
-//                "lib/angular.min.js",
-//                "lib/angular-sanitize.min.js",
-//                "lib/angular-resource.min.js",
-
                 "expression-meaning/content/modal-factory.js"
             ],
             "run_at":"document_end"
@@ -56,18 +52,9 @@
         "expression-meaning/content/expression-viewer/fonts/*",
 
         "common/jscommon.js",
-        "chromeext-common/chromeext-profile.js",
-        "chromeext-common/chromeext-common.js",
-        "lib/jquery.min.js",
-        "lib/vue.min.js",
-
-//        "lib/angular.min.js",
-//        "lib/angular-sanitize.min.js",
-//        "lib/angular-resource.min.js",
+//        "lib/vue.min.js",
 
         "expression-meaning/content/expression-viewer/modal.js",
-        "expression-meaning/content/expression-viewer/modal-app.js",
-        "expression-meaning/content/expression-viewer/modal-service.js",
 
         "expression-meaning/content/expression-viewer/bootstrap-small.css",
         "expression-meaning/content/expression-viewer/teaser.css",
