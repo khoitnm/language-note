@@ -119,6 +119,12 @@ var loadModalHtml = function(){
                     stopSound: function(event){
                         lnChromeExtVueAppData.audio.stop();
                     },
+                    show: function(){
+                        lnChromeExtVueAppData.visible = true;
+                    },
+                    hide: function(){
+                        lnChromeExtVueAppData.visible = false;
+                    }
                 }
             });
 

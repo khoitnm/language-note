@@ -62,7 +62,7 @@
                                         allowfullscreen>
                                 </iframe>
                             </div>
-                            <div v-for="example in sense.examples"
+                            <div v-for="example in sense.examples.slice(0,2)"
                                  class="sense-example">
                                 {{example.text}}
                             </div>
