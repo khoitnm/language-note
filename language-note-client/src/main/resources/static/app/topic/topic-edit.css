@@ -413,11 +413,34 @@ datalist option {
 	color: #d0d0d0;
 	font-weight: lighter;
 }
-
-.expression-editor .sense .sense-photos {
-	margin-top: 10px;
+.expression-editor .sense .sense-section-label{
+	text-align: left;
+	font-weight: bold;
+	cursor: pointer;
+	color: #b2c7db;
 }
-
+.expression-editor .sense .sense-section-label:hover{
+	color: #def;
+}
+.expression-editor .sense .sense-photos {
+	margin-left: 10px;
+    background: #5f7388;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    border: 1px solid rgba(255,255,255,0.2);
+    box-shadow: inset 0px 0px 2px #464e56;
+    border-radius: 5px;
+}
+.expression-editor .sense .sense-videos{
+    padding: 10px;
+    border: 1px solid rgba(255,255,255,0.2);
+    box-shadow: inset 0px 0px 2px #464e56;
+    border-radius: 5px;
+    background: #5f7388;
+}
+.expression-editor .sense .sense-videos:last-child{
+	margin-bottom: 10px;
+}
 .expression-editor .sense .example .input-as-text {
 	color: #169F85;
 	font-style: italic;
@@ -580,14 +603,14 @@ a .fa.dark-theme:hover {
 
 .file-upload-drop-zone-hover {
 	/*border: 1px solid #aaa;*/
-	
+	background: #4f6378;
 }
 
 .main-photo {
 	/*border-top: 1px solid #4f6378;*/
-	box-shadow: inset 0px 0px 2px #464e56;
-	background: #4f6378;
-	padding: 5px;
+	/*box-shadow: inset 0px 0px 2px #464e56;*/
+	/*background: #4f6378;*/
+	/*padding: 5px;*/
 }
 
 .images-carousel {

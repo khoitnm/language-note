@@ -184,7 +184,19 @@
                                                             <div class="clearfix"></div>
                                                         </div>
                                                     </div>
+                                                    
+                                                    <div class="row">
+												        <div class="col-xs-12 sense-section-label" ng-click="service.topicCompositionEditor.changeItem(sense)">
+												            Videos
+												        </div>
+												    </div>
                                                     <div class="row" ng-include="contextPathClient + '/app/topic/topic-edit-expression-editor-videos.html'"></div>
+                                                    
+                                                    <div class="row">
+												        <div class="col-xs-12 sense-section-label" ng-click="service.topicCompositionEditor.changeItem(sense)">
+												            Examples
+												        </div>
+												    </div>
                                                     <div ng-repeat="example in sense.examples" class="row">
                                                         <div class="col-xs-12">
                                                             <div class="example row">

@@ -35,6 +35,7 @@ CompositeEditor.prototype.copyMissingSkeleton = function (item) {
     var addingSiblingResult = self.addEmptySiblingItemIfNecessary(item);
     var itemSkeleton = addingSiblingResult.itemSkeleton;
 
+    //TODO This method only copy missing properties for one level item. 
     //Add an init children object to ichild
     $r.copyMissingProperties(angular.copy(itemSkeleton), item);
     return addingSiblingResult;

@@ -149,6 +149,9 @@ var $r = (function (module) {
                 if (isEmpty(destFieldValue) || isBlank(destFieldValue) || destFieldValue === 0) {
                     dest[field] = source[field];
                 }
+//                else if (module.isObject(destFieldValue)) {
+//                	module.copyMissingProperties(source[field], destFieldValue);
+//                }
             }
             return dest;
         };
