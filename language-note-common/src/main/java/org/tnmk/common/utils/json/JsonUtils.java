@@ -23,8 +23,11 @@ import java.util.List;
  * The converting to json will be helpful when working with messaging (e.g. SQS, SNS).
  */
 public final class JsonUtils {
-    private static final Logger LOG = LoggerFactory.getLogger(JsonUtils.class);
-
+    public static final Logger LOGGER = LoggerFactory.getLogger(JsonUtils.class);
+    /**
+     * This is the default object mapper, you may want to use another objectMapper based on your Spring context.
+     */
+    public static final ObjectMapper OBJECT_MAPPER = configureDefaultObjectMapper();
     private JsonUtils() {
         //Utils
     }

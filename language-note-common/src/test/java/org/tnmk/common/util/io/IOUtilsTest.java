@@ -1,7 +1,6 @@
-package org.tnmk.common.util;
+package org.tnmk.common.util.io;
 
 import org.tnmk.common.exception.FileIOException;
-import org.tnmk.common.exception.UnexpectedException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;

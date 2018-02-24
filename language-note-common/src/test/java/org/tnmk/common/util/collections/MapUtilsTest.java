@@ -1,4 +1,4 @@
-package org.tnmk.common.util;
+package org.tnmk.common.util.collections;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.tnmk.common.util.testmodel.Person;
@@ -40,7 +40,7 @@ public class MapUtilsTest {
         map2.put("fieldB", "b");
 
         MapUtils.putAllIfAbsent(map, map2);
-        Assert.assertEquals(map2.get("fieldA"), "a");
+        Assert.assertEquals("a", map2.get("fieldA"));
     }
 
     @Test
@@ -49,11 +49,11 @@ public class MapUtilsTest {
         final SimplePerson simplePerson = SimplePersonFactory.createJasonBourne();
         object.getProperties().put("child", simplePerson);
         Map<String, String> flatMap = MapUtils.toFlatMap(OBJECT_MAPPER, object);
-        Assert.assertEquals(flatMap.get("properties.drug"), "Efferalgan");
+        Assert.assertEquals("Efferalgan", flatMap.get("properties.drug"));
 
         final Map<String, Object> map = MapUtils.toMap(OBJECT_MAPPER, object);
         flatMap = MapUtils.toFlatMap(OBJECT_MAPPER, map);
-        Assert.assertEquals(flatMap.get("properties.child.age"), "30.5");
+        Assert.assertEquals("30.5", flatMap.get("properties.child.age"));
     }
 
 }

@@ -1,4 +1,4 @@
-package org.tnmk.common.util;
+package org.tnmk.common.util.json;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.tnmk.common.util.testmodel.Person;
