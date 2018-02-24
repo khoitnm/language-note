@@ -5,7 +5,11 @@ import org.springframework.core.NestedRuntimeException;
 /**
  * @author khoi.tran on 12/8/16.
  */
-public class ExceptionUtils {
+public final class ExceptionUtils {
+    private ExceptionUtils(){
+        //Utils
+    }
+
     public static String getDataExceptionRoot(Exception exception) {
         if (exception instanceof NestedRuntimeException) {
             NestedRuntimeException nestedRuntimeException = (NestedRuntimeException) exception;

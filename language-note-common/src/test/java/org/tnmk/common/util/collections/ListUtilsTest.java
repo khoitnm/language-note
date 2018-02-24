@@ -46,13 +46,12 @@ public class ListUtilsTest {
     }
 
     @Test
-    public void remove_noMoreItem() {
+    public void remove_hasNoMoreItem() {
         final List<Person> originalList = Arrays.asList(PersonFactory.BATMAN);
         List<Person> removingList = Arrays.asList(PersonFactory.SUPERMAN, PersonFactory.BATMAN);
 
         List<Person> result = ListUtils.removeAll(originalList, removingList, new ComparatorByFields<>(new String[] {"name"}));
         Assert.assertEquals(0, result.size());
-        Assert.assertFalse(result.contains(PersonFactory.BATMAN));
     }
 
 
