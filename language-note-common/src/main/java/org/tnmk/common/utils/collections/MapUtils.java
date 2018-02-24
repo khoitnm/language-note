@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.ValueNode;
 import org.tnmk.common.exception.UnexpectedException;
 import org.tnmk.common.utils.json.JsonUtils;
-import org.tnmk.common.utils.json.ObjectMapperUtils;
 import org.tnmk.common.utils.reflection.ReflectionUtils;
 
 import java.io.IOException;
@@ -92,7 +91,7 @@ public class MapUtils {
      * @return
      */
     public static Map<String, String> toFlatMap(final ObjectMapper objectMapper, final Object bean) {
-        final String json = ObjectMapperUtils.toJson(objectMapper, bean);
+        final String json = JsonUtils.toJson(objectMapper, bean);
         try {
             final Map<String, String> map = new HashMap<>();
             setPropertiesToMap("", objectMapper.readTree(json), map);

@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.tnmk.common.utils.collections.IterableUtils;
-import org.tnmk.common.utils.json.ObjectMapperUtils;
+import org.tnmk.common.utils.json.JsonUtils;
 import org.tnmk.ln.app.aggregation.practice.QuestionRecommendationService;
 import org.tnmk.ln.app.practice.QuestionRepository;
 import org.tnmk.ln.app.practice.entity.question.Question;
@@ -57,7 +57,7 @@ public class PracticeAnswerQuestionTest extends BaseTest {
         User owner = defaultUser;
         float point = RandomUtils.nextFloat(0, 1f);
         AnswerResult answerResult = practiceAnswerService.answerResult(owner, question.getId(), point);
-        LOGGER.info("ExpressionPracticeResult: \n" + ObjectMapperUtils.toJson(new ObjectMapper(), answerResult));
+        LOGGER.info("ExpressionPracticeResult: \n" + JsonUtils.toJson(new ObjectMapper(), answerResult));
         Assert.assertTrue(answerResult.getExpressionPracticeResult().getSumLatestAnswerPoint() > 0);
         Assert.assertTrue(answerResult.getQuestionPracticeResult().getSumLatestAnswerPoint() > 0);
 

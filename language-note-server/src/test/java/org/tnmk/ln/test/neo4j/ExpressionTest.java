@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.tnmk.common.utils.json.ObjectMapperUtils;
+import org.tnmk.common.utils.json.JsonUtils;
 import org.tnmk.ln.app.dictionary.ExpressionService;
 import org.tnmk.ln.app.dictionary.entity.Example;
 import org.tnmk.ln.app.dictionary.entity.Expression;
@@ -63,7 +63,7 @@ public class ExpressionTest extends BaseTest {
         expression.setOwner(account);
         expression.setText("test_" + System.currentTimeMillis());
         expression = expressionService.createExpression(account, expression);
-        LOGGER.info(ObjectMapperUtils.toStringMultiLine(expression));
+        LOGGER.info(JsonUtils.toStringMultiLine(expression));
     }
 
     @Test
@@ -123,7 +123,7 @@ public class ExpressionTest extends BaseTest {
     @Test
     public void select() {
         Expression expression = expressionService.findById(MAIN_EXPRESSION_ID);
-        LOGGER.info(ObjectMapperUtils.toStringMultiLine(expression));
+        LOGGER.info(JsonUtils.toStringMultiLine(expression));
     }
 
 //    @Test

@@ -24,7 +24,6 @@ import org.tnmk.common.exception.model.error.ErrorResult;
 import org.tnmk.common.exception.model.error.FieldError;
 import org.tnmk.common.exception.util.ExceptionUtils;
 import org.tnmk.common.utils.json.JsonUtils;
-import org.tnmk.common.utils.json.ObjectMapperUtils;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -130,9 +129,9 @@ public class ExceptionTranslator {
         String errorMessage = String.format("Error code: %s%nUser message: %s.%nDeveloper message: %s", error.getCode(), error.getUserMessage(), error.getDeveloperMessage());
         String errorDetailString;
         try {
-            errorDetailString = ObjectMapperUtils.toJson(JsonUtils.mapper, error);
+            errorDetailString = JsonUtils.toJson(JsonUtils.OBJECT_MAPPER, error);
         } catch (Exception toStringEx) {
-            errorDetailString = ObjectMapperUtils.toStringMultiLine(error);
+            errorDetailString = JsonUtils.toStringMultiLine(error);
             LOGGER.warn("Error when convert Error object to String:" + error + "%n" + toStringEx.getMessage(), toStringEx);
         }
         errorMessage += "%n" + errorDetailString;

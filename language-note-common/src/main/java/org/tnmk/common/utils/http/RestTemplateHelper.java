@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.tnmk.common.utils.json.ObjectMapperUtils;
+import org.tnmk.common.utils.json.JsonUtils;
 
 import java.nio.charset.Charset;
 
@@ -50,6 +50,6 @@ public class RestTemplateHelper {
      */
     public <T> T convertJsonResponseEntity(ResponseEntity<String> responseEntity, Class<T> clazz){
         String responseJson = responseEntity.getBody();
-        return ObjectMapperUtils.toObject(objectMapper, responseJson, clazz);
+        return JsonUtils.toObject(objectMapper, responseJson, clazz);
     }
 }

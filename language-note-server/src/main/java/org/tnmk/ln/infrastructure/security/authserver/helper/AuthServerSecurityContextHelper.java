@@ -10,7 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.stereotype.Component;
-import org.tnmk.common.utils.json.ObjectMapperUtils;
+import org.tnmk.common.utils.json.JsonUtils;
 import org.tnmk.common.security.oauth2.jwt.JwtTokenJson;
 import org.tnmk.common.security.oauth2.jwt.JwtTokenUtils;
 import org.tnmk.ln.infrastructure.security.authserver.config.tokenconverter.AccessTokenUserDetails;
@@ -39,7 +39,7 @@ public class AuthServerSecurityContextHelper {
             String jwtTokenJsonBody = jwtTokenJson.getJwtBody();
 //            Map<String, Object> jwtTokenBodyMap = objectMapper.convertValue(jwtTokenJsonBody, Map.class);
 //            Map<String, Object> additionalInfo = (Map)jwtTokenBodyMap.get(EnhancedJwtTokenConverter.ADDINFO_KEY_ACCESS_TOKEN_USER_DETAILS);
-            AccessTokenUserDetailsWrapper accessTokenUserDetailsWrapper = ObjectMapperUtils.toObject(objectMapper, jwtTokenJsonBody, AccessTokenUserDetailsWrapper.class);
+            AccessTokenUserDetailsWrapper accessTokenUserDetailsWrapper = JsonUtils.toObject(objectMapper, jwtTokenJsonBody, AccessTokenUserDetailsWrapper.class);
             result = accessTokenUserDetailsWrapper.accessTokenUserDetails;
 //
 //            OAuth2AccessToken oAuth2AccessToken = tokenServices.readAccessToken(tokenValue);
