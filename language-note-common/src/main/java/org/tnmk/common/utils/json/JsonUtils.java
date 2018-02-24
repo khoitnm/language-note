@@ -16,17 +16,16 @@ import org.tnmk.common.exception.JsonConverterException;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.lang.reflect.Type;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
  * Provides functionality for reading and writing object to Json, String.
  * The converting to json will be helpful when working with messaging (e.g. SQS, SNS).
  */
-public final class ObjectMapperUtils {
-    private static final Logger LOG = LoggerFactory.getLogger(ObjectMapperUtils.class);
+public final class JsonUtils {
+    private static final Logger LOG = LoggerFactory.getLogger(JsonUtils.class);
 
-    private ObjectMapperUtils() {
+    private JsonUtils() {
         //Utils
     }
 
