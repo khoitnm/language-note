@@ -1,7 +1,6 @@
 package org.tnmk.common.util.testmodel;
 
 import org.junit.Ignore;
-import org.springframework.util.CollectionUtils;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -20,9 +19,9 @@ public final class PersonFactory {
     public static final Person BATMAN = PersonFactory.createPerson("Batman");
     public static final Person SUPERMAN = PersonFactory.createPerson("Superman");
     public static final Person WONDER_WOMAN = PersonFactory.createPerson("WonderWoman");
-    public static final Person CAT_GIRL = PersonFactory.createPerson("CatGirl");
+    public static final Person CAT_WOMAN = PersonFactory.createPerson("CatWoman");
     public static final List<Person> SUPER_HEROES = Collections.unmodifiableList(Arrays.asList(
-        BATMAN, SUPERMAN, WONDER_WOMAN, CAT_GIRL
+        BATMAN, SUPERMAN, WONDER_WOMAN, CAT_WOMAN
     ));
 
     private PersonFactory() {

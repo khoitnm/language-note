@@ -41,11 +41,11 @@ public final class ListUtils {
         return result;
     }
 
-    public static <T> void addToListWithMaxSize(Collection<T> list, T newItem, int maxSize) {
-        list.add(newItem);
-        int removeItems = list.size() - maxSize;
+    public static <T> void addToListWithMaxSize(Collection<T> collection, T newItem, int maxSize) {
+        collection.add(newItem);
+        int removeItems = collection.size() - maxSize;
         if (removeItems > 0) {
-            IterableUtils.removeFirstItems(list, removeItems);
+            IterableUtils.removeFirstItems(collection, removeItems);
         }
     }
 

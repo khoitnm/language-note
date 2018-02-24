@@ -53,7 +53,7 @@ public final class IterableUtils {
     public static <T> void removeFirstItems(Iterable<T> iterable, int removedItems) {
         Iterator<T> iterator = iterable.iterator();
         int i = 0;
-        if (iterator.hasNext() && i < removedItems) {
+        while (iterator.hasNext() && i < removedItems) {
             iterator.next();
             iterator.remove();
             i++;
