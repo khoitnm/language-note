@@ -1,12 +1,14 @@
 package org.tnmk.common.utils;
 
+import java.util.Comparator;
+
 /**
  * @author khoi.tran on 4/28/17.
  */
 public class ComparatorUtils {
     /**
-     * If one of them is null, return compare result. Otherwise, return null;
-     *
+     * If one of them is null, return compare result. Otherwise, return null;<br/>
+     * <bold>Note:</bold> This method may not necessary anymore, you can use {@link java.util.Comparator#nullsFirst(Comparator)}
      * @param valA
      * @param valB
      * @param nullHigher

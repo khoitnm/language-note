@@ -1,10 +1,12 @@
 package org.tnmk.common.util.testmodel;
 
 import org.junit.Ignore;
+import org.springframework.util.CollectionUtils;
 
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +17,14 @@ import java.util.stream.Collectors;
  */
 @Ignore
 public final class PersonFactory {
+    public static final Person BATMAN = PersonFactory.createPerson("Batman");
+    public static final Person SUPERMAN = PersonFactory.createPerson("Superman");
+    public static final Person WONDER_WOMAN = PersonFactory.createPerson("WonderWoman");
+    public static final Person CAT_GIRL = PersonFactory.createPerson("CatGirl");
+    public static final List<Person> SUPER_HEROES = Collections.unmodifiableList(Arrays.asList(
+        BATMAN, SUPERMAN, WONDER_WOMAN, CAT_GIRL
+    ));
+
     private PersonFactory() {
     }
     public static List<Person> createPersons(String... names) {

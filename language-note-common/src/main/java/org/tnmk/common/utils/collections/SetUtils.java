@@ -11,7 +11,10 @@ import java.util.stream.Stream;
 /**
  * @author khoi.tran on 3/4/17.
  */
-public class SetUtils {
+public final class SetUtils {
+    private SetUtils(){
+        //Utils
+    }
     public static <E> Set<E> constructSet(E... elements) {
         Set<E> result = new HashSet<>();
         for (E element : elements) {

@@ -44,7 +44,7 @@ public class MapUtilsTest {
     }
 
     @Test
-    public void success_flatternMap() {
+    public void success_flattenMap() {
         final Person object = PersonFactory.createJasonBourne();
         final SimplePerson simplePerson = SimplePersonFactory.createJasonBourne();
         object.getProperties().put("child", simplePerson);

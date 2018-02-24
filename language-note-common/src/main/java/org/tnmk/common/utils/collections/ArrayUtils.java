@@ -1,6 +1,11 @@
 package org.tnmk.common.utils.collections;
 
+import org.tnmk.common.utils.reflection.ReflectionUtils;
+import sun.reflect.generics.reflectiveObjects.TypeVariableImpl;
+
 import java.lang.reflect.Array;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.Collection;
 
 public final class ArrayUtils {
@@ -9,12 +14,5 @@ public final class ArrayUtils {
 
     public static boolean isEmpty(Object... objects) {
         return objects == null || objects.length == 0;
-    }
-
-    public static <T> T[] toArray(Collection<T> list) {
-        if (list.isEmpty()) return (T[]) new Object[0];
-        Class<T> componentType = (Class<T>) list.getClass().getComponentType();
-        T[] array = (T[]) Array.newInstance(componentType, list.size());
-        return list.toArray(array);
     }
 }

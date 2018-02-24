@@ -85,4 +85,52 @@
 
     </dependencies>
 
+    <build>
+        <!-- SONAR PLUGIN: BEGIN http://www.mojohaus.org/sonar-maven-plugin/plugin-info.html -->
+        <!-- Commandline: mvn sonar:sonar -Dsonar.issuesreport.html.enable=true -->
+        <!-- To run that commandline, you must open Sonar server -->
+        <!-- To define the plugin version in your parent POM -->
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>sonar-maven-plugin</artifactId>
+                    <version>2.7.1</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <!-- To use the plugin goals in your POM or parent POM -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>2.7.1</version>
+            </plugin>
+            <!-- SONAR PLUGIN: END -->
+
+            <!-- JACOBO REPORT: When you don't have Sonar server on your local machine, the Jacobo report will be better than Sonar Plugin -->
+            <!-- http://www.baeldung.com/jacoco -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+
+
+    </build>
 </project>
