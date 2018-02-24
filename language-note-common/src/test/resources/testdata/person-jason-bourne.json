@@ -1,0 +1,15 @@
+{
+    "age": 30.5,
+    "name": "Jason Bourne",
+    "properties": {
+        "weapons": [
+            {
+                "value": "hand"
+            },
+            "pencil",
+            "knife",
+            "gun"
+        ],
+        "drug": "Efferalgan"
+    }
+}

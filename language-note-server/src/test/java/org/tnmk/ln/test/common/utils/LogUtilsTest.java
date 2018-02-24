@@ -1,7 +1,7 @@
 package org.tnmk.ln.test.common.utils;
 
 import org.junit.Test;
-import org.tnmk.common.utils.LogUtils;
+import org.tnmk.common.utils.http.LogUtils;
 import org.tnmk.ln.test.PureTest;
 
 /**

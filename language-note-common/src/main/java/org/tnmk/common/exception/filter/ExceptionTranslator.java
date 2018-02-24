@@ -22,7 +22,7 @@ import org.tnmk.common.exception.BeanValidationException;
 import org.tnmk.common.exception.constant.ExceptionConstants;
 import org.tnmk.common.exception.model.error.ErrorResult;
 import org.tnmk.common.exception.model.error.FieldError;
-import org.tnmk.common.exception.util.ExceptionUtil;
+import org.tnmk.common.exception.util.ExceptionUtils;
 import org.tnmk.common.utils.json.JsonUtils;
 import org.tnmk.common.utils.json.ObjectMapperUtils;
 
@@ -106,11 +106,11 @@ public class ExceptionTranslator {
         if (exception instanceof BeanValidationException) {
             result = this.beanValidationExceptionTranslator.toErrorDTO((BeanValidationException) exception);
         } else if (exception instanceof SQLException) {
-            result = new ErrorResult(ExceptionConstants.General.UnexpectedError, "SQL Query error. " + ExceptionUtil.getDataExceptionRoot(exception), "SQL Query error " + exception.getMessage());
+            result = new ErrorResult(ExceptionConstants.General.UnexpectedError, "SQL Query error. " + ExceptionUtils.getDataExceptionRoot(exception), "SQL Query error " + exception.getMessage());
         } else {
             String message = exception.getMessage();
             if (exception instanceof NullPointerException) {
-                message += ". " + ExceptionUtil.getNullPointerExceptionRoot(exception);
+                message += ". " + ExceptionUtils.getNullPointerExceptionRoot(exception);
             }
             result = new ErrorResult(ExceptionConstants.General.UnexpectedError, message, message);
         }

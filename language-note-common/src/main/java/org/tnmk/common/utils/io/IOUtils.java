@@ -24,15 +24,12 @@ public final class IOUtils {
      *             So if you don't want to use the current package, include a slash like this: "/SomeTextFile.txt"
      * @return
      */
-    public static String loadTextFileInClassPath(String path) {
+    public static String loadTextFileInClassPath(final String path) {
         try {
-            InputStream inputStream = IOUtils.class.getResourceAsStream(path);
-            if (inputStream == null) {
-                throw new FileIOException(String.format("Cannot load String from '%s'", path));
-            }
+            final InputStream inputStream = validateExistInputStreamFromClassPath(path);
             return org.apache.commons.io.IOUtils.toString(inputStream, Charset.forName("UTF-8"));
-        } catch (IOException e) {
-            String msg = String.format("Cannot load String from '%s'", path);
+        } catch (final IOException e) {
+            final String msg = String.format("Cannot load String from '%s'", path);
             throw new FileIOException(msg, e);
         }
     }
@@ -58,13 +55,22 @@ public final class IOUtils {
      *             So if you don't want to use the current package, include a slash like this: "/SomeTextFile.txt"
      * @return
      */
-    public static byte[] loadBinaryFileInClassPath(String path) {
+    public static byte[] loadBinaryFileInClassPath(final String path) {
         try {
-            return org.apache.commons.io.IOUtils.toByteArray(IOUtils.class.getResourceAsStream(path));
-        } catch (IOException e) {
-            String msg = String.format("Cannot load String from '%s'", path);
+            final InputStream inputStream = validateExistInputStreamFromClassPath(path);
+            return org.apache.commons.io.IOUtils.toByteArray(inputStream);
+        } catch (final IOException e) {
+            final String msg = String.format("Cannot load String from '%s'", path);
             throw new FileIOException(msg, e);
         }
+    }
+
+    private static InputStream validateExistInputStreamFromClassPath(final String path) {
+        final InputStream inputStream = loadInputStreamFileInClassPath(path);
+        if (inputStream == null) {
+            throw new FileIOException(String.format("Not found file from '%s'", path));
+        }
+        return inputStream;
     }
 
     /**
