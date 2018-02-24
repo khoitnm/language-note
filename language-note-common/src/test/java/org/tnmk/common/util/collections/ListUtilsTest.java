@@ -9,7 +9,6 @@ import org.tnmk.common.util.testmodel.PersonFactory;
 import org.tnmk.common.utils.collections.ListUtils;
 import org.tnmk.common.utils.reflection.expression.ComparatorByFields;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,7 +32,7 @@ public class ListUtilsTest {
 
     @Test
     public void remove_hasRemainItems() {
-        final List<Person> originalList = cloneTestList();
+        final List<Person> originalList = PersonFactory.list5SuperHeroes();
         int originalSize = originalList.size();
         List<Person> removingList = Arrays.asList(originalList.get(1), originalList.get(2), PersonFactory.createJasonBourne());
 
@@ -47,7 +46,7 @@ public class ListUtilsTest {
     @Test
     public void remove_hasNoMoreItem() {
         final List<Person> originalList = Arrays.asList(PersonFactory.BATMAN, PersonFactory.SUPERMAN);
-        List<Person> removingList = Arrays.asList(PersonFactory.CAT_WOMAN,PersonFactory.SUPERMAN, PersonFactory.BATMAN);
+        List<Person> removingList = Arrays.asList(PersonFactory.CATWOMAN,PersonFactory.SUPERMAN, PersonFactory.BATMAN);
 
         List<Person> result = ListUtils.removeAll(originalList, removingList, new ComparatorByFields<>(new String[] {"name"}));
         Assert.assertEquals(0, result.size());
@@ -55,7 +54,7 @@ public class ListUtilsTest {
 
     @Test
     public void addWithMaxSize_underCurrentSize() {
-        final List<Person> originalList = Arrays.asList(PersonFactory.CAT_WOMAN,PersonFactory.SUPERMAN, PersonFactory.BATMAN);
+        final List<Person> originalList = Arrays.asList(PersonFactory.CATWOMAN,PersonFactory.SUPERMAN, PersonFactory.BATMAN);
         List<Person> addedListWith2Items = originalList.stream().collect(Collectors.toList());
         ListUtils.addToListWithMaxSize(addedListWith2Items, PersonFactory.WONDER_WOMAN, 2);
         Assert.assertEquals(2, addedListWith2Items.size());
@@ -64,11 +63,11 @@ public class ListUtilsTest {
     }
     @Test
     public void addWithMaxSize_overCurrentSize() {
-        final List<Person> originalList = Arrays.asList(PersonFactory.CAT_WOMAN,PersonFactory.SUPERMAN, PersonFactory.BATMAN);
+        final List<Person> originalList = Arrays.asList(PersonFactory.CATWOMAN,PersonFactory.SUPERMAN, PersonFactory.BATMAN);
         List<Person> addedListWith2Items = originalList.stream().collect(Collectors.toList());
         ListUtils.addToListWithMaxSize(addedListWith2Items, PersonFactory.WONDER_WOMAN, 10);
         Assert.assertEquals(4, addedListWith2Items.size());
-        Assert.assertEquals(PersonFactory.CAT_WOMAN, addedListWith2Items.get(0));
+        Assert.assertEquals(PersonFactory.CATWOMAN, addedListWith2Items.get(0));
         Assert.assertEquals(PersonFactory.SUPERMAN, addedListWith2Items.get(1));
         Assert.assertEquals(PersonFactory.BATMAN, addedListWith2Items.get(2));
         Assert.assertEquals(PersonFactory.WONDER_WOMAN, addedListWith2Items.get(3));
@@ -76,22 +75,18 @@ public class ListUtilsTest {
 
     @Test
     public void getTop_underCurrentSize() {
-        final List<Person> originalList = Arrays.asList(PersonFactory.CAT_WOMAN,PersonFactory.SUPERMAN, PersonFactory.BATMAN);
+        final List<Person> originalList = Arrays.asList(PersonFactory.CATWOMAN,PersonFactory.SUPERMAN, PersonFactory.BATMAN);
         List<Person> result = ListUtils.getTop(originalList, 2);
         Assert.assertEquals(2, result.size());
-        Assert.assertEquals(PersonFactory.CAT_WOMAN, result.get(0));
+        Assert.assertEquals(PersonFactory.CATWOMAN, result.get(0));
         Assert.assertEquals(PersonFactory.SUPERMAN, result.get(1));
     }
 
     @Test
     public void getTop_overCurrentSize() {
-        final List<Person> originalList = Arrays.asList(PersonFactory.CAT_WOMAN,PersonFactory.SUPERMAN, PersonFactory.BATMAN);
+        final List<Person> originalList = Arrays.asList(PersonFactory.CATWOMAN,PersonFactory.SUPERMAN, PersonFactory.BATMAN);
         List<Person> result = ListUtils.getTop(originalList, 10);
         Assert.assertEquals(originalList.size(), result.size());
     }
-    private List<Person> cloneTestList(){
-        List<Person> personList = new ArrayList<>();
-        personList.addAll(PersonFactory.SUPER_HEROES);
-        return personList;
-    }
+
 }

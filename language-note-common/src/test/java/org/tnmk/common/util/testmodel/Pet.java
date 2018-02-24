@@ -11,7 +11,7 @@ import java.util.Map;
  * @author khoi.tran on 6/5/17.
  */
 @Ignore
-public class SimplePerson {
+public class Pet {
     private float age;
     private String name;
     private Date dob;

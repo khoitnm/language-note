@@ -14,6 +14,12 @@ public final class IterableUtils {
     private IterableUtils() {
     }
 
+    /**
+     * @deprecated You can use {@link org.apache.commons.collections4.IterableUtils#size(Iterable)}
+     * @param iterable
+     * @return
+     */
+    @Deprecated
     public static Integer count(Iterable<?> iterable) {
         if (iterable == null) {
             return null;
@@ -30,6 +36,13 @@ public final class IterableUtils {
         return count;
     }
 
+    /**
+     * @deprecated Use {@link org.apache.commons.collections4.IterableUtils#toList(Iterable)}
+     * @param iterable
+     * @param <T>
+     * @return
+     */
+    @Deprecated
     public static <T> List<T> toList(Iterable<T> iterable) {
         if (iterable instanceof List) {
             return (List<T>) iterable;
@@ -60,6 +73,7 @@ public final class IterableUtils {
         }
     }
 
+    @Deprecated
     public static <T> Set<T> toSet(Iterable<T> iterable) {
         if (iterable instanceof Set) {
             return (Set<T>) iterable;
@@ -72,17 +86,9 @@ public final class IterableUtils {
         }
     }
 
-    //TODO should reflection with comparator
     public static <T> boolean containsByField(Iterable<T> items, T findingItem, String byPropertyName) {
-        Iterator<T> iterator = items.iterator();
-        while (iterator.hasNext()) {
-            T iItem = iterator.next();
-            if (iItem == null) continue;
-            if (isEqualsByFieldValueExcludeNull(iItem, findingItem, byPropertyName)) {
-                return true;
-            }
-        }
-        return false;
+        T foundItem = findItemHasSameFieldValue(items, findingItem, byPropertyName);
+        return (foundItem != null);
     }
 
     public static <T> T findItemHasSameFieldValue(Iterable<T> items, T findingItem, String byPropertyName) {
