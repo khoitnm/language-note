@@ -2,8 +2,11 @@ package org.tnmk.ln.app.aggregation.topic;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.tnmk.common.exception.UnexpectedException;
 import org.tnmk.ln.app.aggregation.topic.model.TopicComposite;
 import org.tnmk.ln.app.practice.QuestionGenerationService;
 import org.tnmk.common.infrastructure.guardian.Guardian;
@@ -17,8 +20,11 @@ import org.tnmk.ln.app.dictionary.entity.BaseExpression;
 import org.tnmk.ln.app.dictionary.entity.Expression;
 import org.tnmk.ln.app.dictionary.entity.Locale;
 import org.tnmk.ln.app.practice.PracticeFavouriteService;
+import org.tnmk.ln.infrastructure.nlp.LemmaFindingService;
+import org.tnmk.ln.infrastructure.nlp.LemmaSpan;
 import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +33,7 @@ import java.util.List;
  */
 @Service
 public class ExpressionCompositeService {
+    public static final Logger LOGGER = LoggerFactory.getLogger(ExpressionCompositeService.class);
     @Autowired
     private ExpressionService expressionService;
 
@@ -42,11 +49,30 @@ public class ExpressionCompositeService {
     @Autowired
     private QuestionGenerationService questionService;
 
+    @Inject
+    private LemmaFindingService lemmaFindingService;
+
     public ExpressionComposite findById(Long userId, String expressionId) {
         Expression expression = expressionService.findById(expressionId);
         return expressionCompositeConverter.toExpressionComposite(userId, expression);
     }
 
+
+    public Expression findLookUpLemmaDetailByText(String sourceLanguage, String text) {
+        Expression expression = expressionService.findLookUpDetailByText(sourceLanguage, text);
+        if (expression == null){
+            //steam word first
+            List<LemmaSpan> lemmaSpans = lemmaFindingService.analyzeLemmas(sourceLanguage, text);
+            LOGGER.debug("[{}] Lemma spans of '{}' are:\n {}", sourceLanguage, text, lemmaSpans);
+            if (lemmaSpans.isEmpty()){
+                String msg = String.format("Cannot analyze lemma for text '%s' with language '%s'", text, sourceLanguage);
+                throw new UnexpectedException(msg);
+            }
+            LemmaSpan lemmaSpan = lemmaSpans.get(0);
+            expression = expressionService.findLookUpDetailByText(sourceLanguage, lemmaSpan.getLemma());
+        }
+        return expression;
+    }
     /**
      * The logic is similar to {@link TopicCompositeService#saveTopicAndRelations(User, TopicComposite)}. The only difference is that method optimized for saving many expressions at the same time.
      *

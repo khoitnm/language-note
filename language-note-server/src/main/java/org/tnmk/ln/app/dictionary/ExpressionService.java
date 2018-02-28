@@ -69,6 +69,8 @@ public class ExpressionService {
 //        return expressionDetailNeo4jRepository.findOneDetailByText(text);
     }
 
+
+
     public Expression findLookUpDetailByText(String sourceLanguage, String text) {
         String trimmedText = text.trim().toLowerCase();
         Expression expression = findOneDetailByText(trimmedText);

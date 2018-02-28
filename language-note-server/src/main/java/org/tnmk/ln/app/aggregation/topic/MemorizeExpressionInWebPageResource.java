@@ -20,8 +20,6 @@ import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -34,6 +32,9 @@ public class MemorizeExpressionInWebPageResource {
 
     @Inject
     private TopicCompositeResource topicCompositeResource;
+
+    @Inject
+    private ExpressionCompositeService expressionCompositeService;
 
     @Inject
     private ExpressionResource expressionResource;
@@ -63,7 +64,7 @@ public class MemorizeExpressionInWebPageResource {
         if (org.apache.commons.lang3.StringUtils.isBlank(locale)) {
             locale = Locale.CODE_EN;
         }
-        return expressionResource.lookupExpression(locale, memorizeExpressionInWebPageRequest.getExpression());
+        return expressionCompositeService.findLookUpLemmaDetailByText(locale, memorizeExpressionInWebPageRequest.getExpression());
     }
 
     private Expression memorizeExpressionForAnonymous(MemorizeExpressionInWebPageRequest memorizeExpressionInWebPageRequest){

@@ -34,19 +34,19 @@
 	    <dependency>
 	        <groupId>org.springframework.boot</groupId>
 	        <artifactId>spring-boot-starter-web</artifactId>
-	        <exclusions>
-	            <exclusion>
-	                <groupId>org.springframework.boot</groupId>
-	                <artifactId>spring-boot-starter-tomcat</artifactId>
-	            </exclusion>
-	        </exclusions>
+	        <!--<exclusions>-->
+	            <!--<exclusion>-->
+	                <!--<groupId>org.springframework.boot</groupId>-->
+	                <!--<artifactId>spring-boot-starter-tomcat</artifactId>-->
+	            <!--</exclusion>-->
+	        <!--</exclusions>-->
 	    </dependency>
 	    <!-- Add Tomcat only if I want to run directly as an stand-alone application. -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-tomcat</artifactId>
-			<scope>provided</scope>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.boot</groupId>-->
+			<!--<artifactId>spring-boot-starter-tomcat</artifactId>-->
+			<!--<scope>provided</scope>-->
+		<!--</dependency>-->
 		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

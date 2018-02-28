@@ -23,6 +23,12 @@ public class LemmaFindingService {
 
     private StandfordNLPService standfordNLPService = new StandfordNLPService();
 
+    /**
+     * @param language en, sp, vi...
+     * @param findingExpression
+     * @param text
+     * @return
+     */
     public List<LemmaSpan> findByLemma(String language, String findingExpression, String text) {
         List<LemmaSpan> result = new ArrayList<>();
         //TODO an expression can be a word, or a phrasal verb (verb + preposition)...
@@ -42,4 +48,12 @@ public class LemmaFindingService {
         return result;
     }
 
+    /**
+     * @param language en, sp, de...
+     * @param text
+     * @return
+     */
+    public List<LemmaSpan> analyzeLemmas(String language, String text){
+        return standfordNLPService.analyzeLemmas(language, text);
+    }
 }
