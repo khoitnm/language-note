@@ -1,4 +1,4 @@
-package org.tnmk.common.util.testmodel;
+package org.tnmk.common.testingmodel;
 
 import org.apache.commons.lang3.RandomUtils;
 import org.junit.Ignore;

@@ -1,7 +1,7 @@
 package org.tnmk.common.util.json;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.tnmk.common.util.testmodel.Person;
+import org.tnmk.common.testingmodel.Person;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;

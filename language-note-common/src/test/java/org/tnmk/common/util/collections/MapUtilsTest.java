@@ -1,10 +1,10 @@
 package org.tnmk.common.util.collections;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.tnmk.common.util.testmodel.Person;
-import org.tnmk.common.util.testmodel.PersonFactory;
-import org.tnmk.common.util.testmodel.Pet;
-import org.tnmk.common.util.testmodel.PetFactory;
+import org.tnmk.common.testingmodel.Person;
+import org.tnmk.common.testingmodel.PersonFactory;
+import org.tnmk.common.testingmodel.Pet;
+import org.tnmk.common.testingmodel.PetFactory;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;

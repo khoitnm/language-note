@@ -1,4 +1,4 @@
-package org.tnmk.common.util.testmodel;
+package org.tnmk.common.testingmodel;
 
 import org.junit.Ignore;
 
@@ -23,15 +23,15 @@ public final class PetFactory {
     }
 
     public static Pet createDog() {
-        final Pet testingPerson = new Pet();
-        testingPerson.setAge(DEFAULT_AGE);
-        testingPerson.setName(DEFAULT_NAME);
-        testingPerson.setDob(new Date());
+        final Pet pet = new Pet();
+        pet.setAge(DEFAULT_AGE);
+        pet.setName(DEFAULT_NAME);
+        pet.setDob(new Date());
         final Map<Object, Object> properties = new HashMap<>();
         properties.put(PROP_KEY_DEFAULT_WEAPONS, new Object[] {PROP_VAL_DEFAULT_WEAPON});
         properties.put(PROP_KEY_DEFAULT_FOOD, PROP_VAL_DEFAULT_FOOD);
-        testingPerson.setProperties(properties);
-        return testingPerson;
+        pet.setProperties(properties);
+        return pet;
     }
 
 }

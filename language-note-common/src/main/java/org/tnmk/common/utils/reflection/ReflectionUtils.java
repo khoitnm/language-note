@@ -77,6 +77,11 @@ public final class ReflectionUtils {
         return fieldsWithAnnotation;
     }
 
+    /**
+     * @param clazz
+     * @param fieldName
+     * @return It will also find PropertyDescriptor in super classes.
+     */
     public static PropertyDescriptor getPropertyDescriptor(Class<?> clazz, String fieldName) {
         PropertyDescriptor propertyDescriptor;
         try {
@@ -140,8 +145,8 @@ public final class ReflectionUtils {
 
     public static boolean isWrapperClass(Class<?> entityClass) {
         boolean result = (isIterable(entityClass)
-                || isMap(entityClass)
-                || isArray(entityClass));
+            || isMap(entityClass)
+            || isArray(entityClass));
         return result;
     }
 

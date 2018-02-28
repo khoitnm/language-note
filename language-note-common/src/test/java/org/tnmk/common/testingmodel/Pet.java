@@ -1,9 +1,8 @@
-package org.tnmk.common.util.testmodel;
+package org.tnmk.common.testingmodel;
 
 import org.junit.Ignore;
 
-import java.time.Instant;
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -12,29 +11,20 @@ import java.util.Map;
  * @author khoi.tran on 6/5/17.
  */
 @Ignore
-public class Person {
+public class Pet extends Creature{
     private float age;
     private String name;
-    private LocalDate dob;
-    private Instant initiatedAt;
+    private Date dob;
     /**
      * Demo for map
      */
     private Map<Object, Object> properties;
 
-    public Instant getInitiatedAt() {
-        return initiatedAt;
-    }
-
-    public void setInitiatedAt(final Instant initiatedAt) {
-        this.initiatedAt = initiatedAt;
-    }
-
-    public LocalDate getDob() {
+    public Date getDob() {
         return dob;
     }
 
-    public void setDob(final LocalDate dob) {
+    public void setDob(Date dob) {
         this.dob = dob;
     }
 

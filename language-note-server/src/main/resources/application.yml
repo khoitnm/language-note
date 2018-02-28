@@ -1,5 +1,4 @@
-#Default profile = dev
-spring.profiles.active: dev
+
 
 # Properties valid for every environment
 server:
@@ -7,6 +6,8 @@ server:
     contextPath: /language-note-server
     port : 8080
 spring:
+    #Default profile = dev
+    profiles.active: dev
     mvc:
         favicon:
             enabled: false
@@ -14,7 +15,12 @@ spring:
         cache: false
     template:
         cache: false
-
+    http:
+        multipart:
+            enabled: true
+            location: language-note/upload-tmp
+            max-file-size: 20Mb
+            max-request-size: 20Mb
 # Spring boot properties (do not change the keys)
 #spring.cache.type=none
 #spring.thymeleaf.cache=false
@@ -24,9 +30,9 @@ spring:
 #spring.mvc.view.suffix=.jsp
 #multipart.max-file-size=20Mb
 #multipart.max-request-size=20Mb
-multipart:
-    max-file-size: 20Mb
-    max-request-size: 20Mb
+#multipart:
+#    max-file-size: 20Mb
+#    max-request-size: 20Mb
 
 security:
   oauth2:

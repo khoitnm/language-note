@@ -1,8 +1,8 @@
 package org.tnmk.common.util;
 
 
-import org.tnmk.common.util.testmodel.Person;
-import org.tnmk.common.util.testmodel.PersonFactory;
+import org.tnmk.common.testingmodel.Person;
+import org.tnmk.common.testingmodel.PersonFactory;
 import org.junit.Assert;
 import org.junit.Test;
 import org.tnmk.common.utils.ToStringUtils;

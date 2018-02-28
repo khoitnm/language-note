@@ -4,8 +4,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.tnmk.common.util.testmodel.Person;
-import org.tnmk.common.util.testmodel.PersonFactory;
+import org.tnmk.common.testingmodel.Person;
+import org.tnmk.common.testingmodel.PersonFactory;
 import org.tnmk.common.utils.collections.ArrayUtils;
 
 /**
