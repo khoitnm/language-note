@@ -69,6 +69,9 @@ public class ExpressionCompositeService {
                 throw new UnexpectedException(msg);
             }
             LemmaSpan lemmaSpan = lemmaSpans.get(0);
+            if (lemmaSpan.getLemma().equals(text)){
+                return null;//Don't need to look up anymore if the steamed word and the original word are the same.
+            }
             expression = expressionService.findLookUpDetailByText(sourceLanguage, lemmaSpan.getLemma());
         }
         return expression;
