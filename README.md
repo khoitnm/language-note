@@ -42,4 +42,7 @@ The Chrome Extensions which also connect to server to load vocabularies' meaning
 Provide common codes so that other modules (language-note-server & language-note-client) could be reuse.
 
 ## III. Technologies stack
-The used technologies of each module will be described in each module's README.md 
+The used technologies of each module will be described in each module's README.md
+
+## Quick note for future ideas
+<b>Speaking practice</b>: Recognize voice, use it to control games. 

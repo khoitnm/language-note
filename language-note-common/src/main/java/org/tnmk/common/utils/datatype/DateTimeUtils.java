@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 
@@ -38,5 +39,10 @@ public class DateTimeUtils {
 
     public static String formatLocalDateTimeForFilePath() {
         return formatLocalDateTime(LocalDateTime.now(), PATTERN_FILEPATH);
+    }
+
+    public static String formatInstant(Instant instance, String pattern){
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(instance, ZoneId.of(ZoneOffset.UTC.getId()));
+        return formatLocalDateTime(localDateTime, pattern);
     }
 }
