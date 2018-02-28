@@ -46,6 +46,9 @@ public class ExpressionMapper {
     }
 
     public static List<org.tnmk.ln.app.dictionary.entity.Pronunciation> toPronunciations(List<Pronunciation> pronunciations) {
+        if (pronunciations == null) {
+            return null;
+        }
         return pronunciations.stream()
             .map(pronunciation -> toPronunciation(pronunciation))
             .filter(pronunciation -> pronunciation != null)
