@@ -36,9 +36,15 @@ public final class ReflectionUtils {
 //        return BeanUtils.getPropertyDescriptor(clazz, fieldName);
 //    }
 
+    /**
+     * @param clazz
+     * @param annotationClass
+     * @param <A>
+     * @return also look up in super classes.
+     */
     public static <A extends Annotation> List<PropertyDescriptor> findPropertyDescriptorsByAnnotationType(Class<?> clazz, Class<A> annotationClass) {
         List<PropertyDescriptor> result = new ArrayList<>();
-        Field[] fields = clazz.getDeclaredFields();
+        List<Field> fields = getDeclaredFieldsIncludeSuperClasses(clazz);
         for (Field field : fields) {
             A annotation = field.getAnnotation(annotationClass);
             if (annotation != null) {
@@ -55,23 +61,11 @@ public final class ReflectionUtils {
 
     public static <A extends Annotation> List<Field> findFieldsByAnnotationType(Class<?> clazz, Class<A> annotationClass) {
         List<Field> fieldsWithAnnotation = new ArrayList<>();
-        Field[] fields = clazz.getDeclaredFields();
+        List<Field> fields = getDeclaredFieldsIncludeSuperClasses(clazz);
         for (Field field : fields) {
             A annotation = field.getAnnotation(annotationClass);
             if (annotation != null) {
                 fieldsWithAnnotation.add(field);
-            }
-        }
-        return fieldsWithAnnotation;
-    }
-
-    public static <A extends Annotation> List<A> findAnnotationsByAnnotationType(Class<?> clazz, Class<A> annotationClass) {
-        List<A> fieldsWithAnnotation = new ArrayList<>();
-        Field[] fields = clazz.getDeclaredFields();
-        for (Field field : fields) {
-            A annotation = field.getAnnotation(annotationClass);
-            if (annotation != null) {
-                fieldsWithAnnotation.add(annotation);
             }
         }
         return fieldsWithAnnotation;
@@ -120,6 +114,10 @@ public final class ReflectionUtils {
             return;
         }
         PropertyDescriptor propertyDescriptor = getPropertyDescriptor(object.getClass(), propertyName);
+        if (propertyDescriptor == null){
+            String msg = String.format("Cannot set value into the property '%s' of the object %s: the field doesn't exist.", propertyName, object);
+            throw new UnexpectedException(msg);
+        }
         writeProperty(object, propertyDescriptor, propertyValue);
     }
 

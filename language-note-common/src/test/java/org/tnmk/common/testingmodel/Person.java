@@ -1,19 +1,24 @@
 package org.tnmk.common.testingmodel;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.junit.Ignore;
+import org.tnmk.common.util.reflection.ReflectionUtilsTest;
 
+import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Map;
 
 /**
  * This class is used for testing converting to Map, Json...
- *
+ * Note: don't change the extension to Creature class. It's used for testing in {@link ReflectionUtilsTest#findPropertyDescriptorsByAnnotationType()}
  * @author khoi.tran on 6/5/17.
  */
 @Ignore
 public class Person extends Creature{
     private float age;
+    @NotBlank
+    @NotNull
     private String name;
     private LocalDate dob;
     private Instant initiatedAt;
