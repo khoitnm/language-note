@@ -56,16 +56,9 @@ public class OxfordService {
         RestTemplate restTemplate = new RestTemplate();
         String uriString = String.format("https://od-api.oxforddictionaries.com/api/v1/entries/%s/%s", sourceLanguage, word);
         RequestEntity<MultiValueMap<String, Object>> requestEntity = createRequestEntity(uriString);
-        ResponseEntity<OxfordResponse> responseEntity;
-        try {
-            responseEntity = restTemplate.exchange(requestEntity, OxfordResponse.class);
-        }catch (HttpClientErrorException e){
-            if (e.getStatusCode().equals(HttpStatus.NOT_FOUND)) {
-                return null;
-            }else{
-                String msg = String.format("Error when calling API to lookup text: %s\n\t Path: '%s'",e.getMessage(),uriString);
-                throw new UnexpectedException(msg, e);
-            }
+        ResponseEntity<OxfordResponse> responseEntity=exchange(restTemplate, requestEntity, OxfordResponse.class);
+        if (responseEntity == null){
+            return null;
         }
         OxfordResponse oxfordResponse = responseEntity.getBody();
         oxfordWords = oxfordResponse.getResults();
@@ -104,8 +97,8 @@ public class OxfordService {
         RestTemplate restTemplate = new RestTemplate();
         String uriString = String.format("https://od-api.oxforddictionaries.com/api/v1/entries/%s/%s/sentences", sourceLanguage, wordId);
         RequestEntity<MultiValueMap<String, Object>> requestEntity = createRequestEntity(uriString);
-        ResponseEntity<OxfordResponse> responseEntity = restTemplate.exchange(requestEntity, OxfordResponse.class);
-        if (responseEntity.getStatusCode().equals(HttpStatus.NOT_FOUND)) {
+        ResponseEntity<OxfordResponse> responseEntity = exchange(restTemplate, requestEntity,  OxfordResponse.class);
+        if (responseEntity == null) {
             return null;
         }
         OxfordResponse oxfordResponse = responseEntity.getBody();
@@ -136,4 +129,25 @@ public class OxfordService {
         return requestEntity;
     }
 
+    /**
+     * When using {@link RestTemplate}, if the result is 404 (NOT FOUND), it will not return null.
+     * It will throw an exception instead. And I find that behaviour is very annoying.
+     * So this method will help you to avoid that Exception. If not found, the result is null.
+     * @param restTemplate
+     * @param requestEntity
+     * @param responseClass
+     * @param <R>
+     * @return
+     */
+    public static <R> ResponseEntity<R> exchange(RestTemplate restTemplate,RequestEntity<MultiValueMap<String, Object>> requestEntity, Class<R> responseClass){
+        try {
+            return restTemplate.exchange(requestEntity, responseClass);
+        }catch (HttpClientErrorException ex){
+            if (ex.getStatusCode().equals(HttpStatus.NOT_FOUND)) {
+                return null;
+            }else{
+                throw new UnexpectedException("Cannot call API to OxfordService: "+ex.getMessage(), ex);
+            }
+        }
+    }
 }
