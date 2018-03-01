@@ -17,6 +17,7 @@ public final class ToStringUtils {
     public static final Logger LOGGER = LoggerFactory.getLogger(ToStringUtils.class);
 
     private ToStringUtils() {
+        //Utils
     }
 
     public static String toString(final Object object) {

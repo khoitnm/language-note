@@ -13,8 +13,8 @@ import java.util.stream.Collectors;
 /**
  * @author khoi.tran on 8/29/16.
  */
-public class LogUtils {
-    public static final Logger LOGGER = LoggerFactory.getLogger(LogUtils.class);
+public class LogRequestUtils {
+    public static final Logger LOGGER = LoggerFactory.getLogger(LogRequestUtils.class);
     private static final int MAX_ELEMENTS_IN_AN_ARRAY = 7;
 
     public static Instant logRuntime(Instant startTime, String msg) {
@@ -59,7 +59,7 @@ public class LogUtils {
         return String.format("%s %s", request.getMethod(), request.getRequestURL());
     }
 
-    public static String toString(Object object) {
+    public static String toSimpleString(Object object) {
         if (object == null) {
             return null;
         }
@@ -72,6 +72,7 @@ public class LogUtils {
         }
     }
 
+    //TODO consider moving to {@link ToStringUtils}
     private static String toStringOfArray(Object[] arr) {
         StringBuilder result = new StringBuilder("[");
         int i = 0;
@@ -83,7 +84,7 @@ public class LogUtils {
                 result.append("...");
                 break;
             }
-            result.append(toString(element));
+            result.append(toSimpleString(element));
             i++;
         }
         result.append("]");

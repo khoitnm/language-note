@@ -5,6 +5,10 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.util.List;
 
+/**
+ * @deprecated Duplicated to {@link ToStringUtils}?
+ */
+@Deprecated
 public final class LogUtils {
     private LogUtils(){
         //Utils

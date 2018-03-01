@@ -1,7 +1,7 @@
 package org.tnmk.ln.test.common.utils;
 
 import org.junit.Test;
-import org.tnmk.common.utils.http.LogUtils;
+import org.tnmk.common.utils.http.LogRequestUtils;
 import org.tnmk.ln.test.PureTest;
 
 /**
@@ -13,7 +13,7 @@ public class LogUtilsTest extends PureTest {
         Object[] arr = new Object[] { 2, "a", 5l, new Long(3), new Long[] { 2l, 3l } };
 //        Long arr = new Long(3);
 //        Long[] arr=new Long[] {2l, 3l};
-        String result = LogUtils.toString(arr);
+        String result = LogRequestUtils.toSimpleString(arr);
         LOGGER.debug(result);
     }
 }
