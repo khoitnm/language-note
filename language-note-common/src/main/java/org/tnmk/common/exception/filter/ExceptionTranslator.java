@@ -23,7 +23,7 @@ import org.tnmk.common.exception.constant.ExceptionConstants;
 import org.tnmk.common.exception.model.error.ErrorResult;
 import org.tnmk.common.exception.model.error.FieldError;
 import org.tnmk.common.exception.util.ExceptionUtils;
-import org.tnmk.common.utils.LogUtils;
+import org.tnmk.common.utils.ToStringUtils;
 import org.tnmk.common.utils.json.JsonUtils;
 
 import java.sql.SQLException;
@@ -40,16 +40,18 @@ public class ExceptionTranslator {
     private final BeanValidationExceptionTranslator beanValidationExceptionTranslator;
 
     @Autowired
-    public ExceptionTranslator(BeanValidationExceptionTranslator beanValidationExceptionTranslator) {this.beanValidationExceptionTranslator = beanValidationExceptionTranslator;}
+    public ExceptionTranslator(BeanValidationExceptionTranslator beanValidationExceptionTranslator) {
+        this.beanValidationExceptionTranslator = beanValidationExceptionTranslator;
+    }
 
-    @ExceptionHandler({ AuthenticationException.class })
+    @ExceptionHandler({AuthenticationException.class})
     @ResponseBody
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public ErrorResult processUnauthenticationException(final AuthenticationException exception) {
         return processInternalException(exception);
     }
 
-    @ExceptionHandler({ MissingServletRequestParameterException.class, UnsatisfiedServletRequestParameterException.class, HttpRequestMethodNotSupportedException.class, ServletRequestBindingException.class, TypeMismatchException.class, HttpMessageNotReadableException.class })
+    @ExceptionHandler({MissingServletRequestParameterException.class, UnsatisfiedServletRequestParameterException.class, HttpRequestMethodNotSupportedException.class, ServletRequestBindingException.class, TypeMismatchException.class, HttpMessageNotReadableException.class})
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResult processBadRequestException(final Exception exception) {
@@ -57,6 +59,7 @@ public class ExceptionTranslator {
         this.loggingMessage(result, exception);
         return result;
     }
+
     /**
      * In the beautiful life of client team, they don't want a lot of if-else statements.
      * So they don't want to use {@link HttpStatus#BAD_REQUEST} to handle this exception and {@link HttpStatus#}
@@ -121,7 +124,7 @@ public class ExceptionTranslator {
     private String toPrettyMessageString(List<FieldError> fieldErrors) {
         StringBuilder sb = new StringBuilder("The object has some invalid fields: ");
         String listFieldNames = fieldErrors.stream().map(
-                fieldError1 -> fieldError1.getField()
+            fieldError1 -> fieldError1.getField()
         ).collect(Collectors.joining(", "));
         return sb.append(listFieldNames).toString();
     }
@@ -132,7 +135,7 @@ public class ExceptionTranslator {
         try {
             errorDetailString = JsonUtils.toJson(JsonUtils.OBJECT_MAPPER, error);
         } catch (Exception toStringEx) {
-            errorDetailString = LogUtils.toStringMultiLine(error);
+            errorDetailString = ToStringUtils.toStringMultiLine(error);
             LOGGER.warn("Error when convert Error object to String:" + error + "%n" + toStringEx.getMessage(), toStringEx);
         }
         errorMessage += "%n" + errorDetailString;

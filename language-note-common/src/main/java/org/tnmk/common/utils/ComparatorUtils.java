@@ -16,7 +16,7 @@ public final class ComparatorUtils {
      *
      * @param valA
      * @param valB
-     * @param nullHigher
+     * @param nullHigher how much do you want a not-null value is highe a null value.
      * @return
      */
     public static Integer compareIfNull(Object valA, Object valB, int nullHigher) {

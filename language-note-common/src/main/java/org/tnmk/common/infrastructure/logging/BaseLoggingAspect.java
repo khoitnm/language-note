@@ -1,6 +1,7 @@
 package org.tnmk.common.infrastructure.logging;
 
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.tnmk.common.utils.ToStringUtils;
 import org.tnmk.common.utils.http.LogRequestUtils;
 
 import java.time.Instant;
@@ -26,7 +27,7 @@ public class BaseLoggingAspect {
         Object[] args = proceedingJoinPoint.getArgs();
         int i = 0;
         for (Object arg : args) {
-            params.add("param[" + i + "] " + LogRequestUtils.toSimpleString(arg));
+            params.add("param[" + i + "] " + ToStringUtils.toSimpleString(arg));
             i++;
         }
         String methodParameters = params.stream().collect(Collectors.joining("\n"));

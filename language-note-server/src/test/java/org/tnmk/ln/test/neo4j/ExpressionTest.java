@@ -10,17 +10,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.tnmk.common.utils.LogUtils;
+import org.tnmk.common.utils.ToStringUtils;
 import org.tnmk.ln.app.dictionary.ExpressionService;
 import org.tnmk.ln.app.dictionary.entity.Example;
 import org.tnmk.ln.app.dictionary.entity.Expression;
 import org.tnmk.ln.app.dictionary.entity.LexicalType;
+import org.tnmk.ln.app.dictionary.entity.Sense;
 import org.tnmk.ln.app.dictionary.entity.SenseGroup;
 import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.UserRepository;
 import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.Contributor;
-import org.tnmk.ln.test.BaseTest;
-import org.tnmk.ln.app.dictionary.entity.Sense;
 import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
+import org.tnmk.ln.test.BaseTest;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -63,7 +63,7 @@ public class ExpressionTest extends BaseTest {
         expression.setOwner(account);
         expression.setText("test_" + System.currentTimeMillis());
         expression = expressionService.createExpression(account, expression);
-        LOGGER.info(LogUtils.toStringMultiLine(expression));
+        LOGGER.info(ToStringUtils.toStringMultiLine(expression));
     }
 
     @Test
@@ -123,7 +123,7 @@ public class ExpressionTest extends BaseTest {
     @Test
     public void select() {
         Expression expression = expressionService.findById(MAIN_EXPRESSION_ID);
-        LOGGER.info(LogUtils.toStringMultiLine(expression));
+        LOGGER.info(ToStringUtils.toStringMultiLine(expression));
     }
 
 //    @Test

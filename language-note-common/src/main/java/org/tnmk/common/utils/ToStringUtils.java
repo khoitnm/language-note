@@ -15,6 +15,7 @@ import java.util.List;
 public final class ToStringUtils {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(ToStringUtils.class);
+    private static final int MAX_LOGGING_ELEMENTS_IN_AN_ARRAY = 7;
 
     private ToStringUtils() {
         //Utils
@@ -66,6 +67,44 @@ public final class ToStringUtils {
             result.append(", \n");
         }
         result.append("\n]");
+        return result.toString();
+    }
+
+    /**
+     * This method is usually used for print the simple data (String, Number, Array, List, Map).
+     * If you want to print a custom object, please consider using other methods.
+     * @param object
+     * @return
+     */
+    public static String toSimpleString(Object object) {
+        if (object == null) {
+            return null;
+        }
+        if (object instanceof String) {
+            return (String) object;
+        } else if (object.getClass().isArray()) {
+            return toStringOfArray((Object[]) object);
+        } else {
+            return String.valueOf(object);
+        }
+    }
+
+    //TODO consider moving to {@link ToStringUtils}
+    private static String toStringOfArray(Object[] arr) {
+        StringBuilder result = new StringBuilder("[");
+        int i = 0;
+        for (Object element : arr) {
+            if (result.length() > 1) {
+                result.append(",");
+            }
+            if (i >= MAX_LOGGING_ELEMENTS_IN_AN_ARRAY) {
+                result.append("...");
+                break;
+            }
+            result.append(toSimpleString(element));
+            i++;
+        }
+        result.append("]");
         return result.toString();
     }
 }

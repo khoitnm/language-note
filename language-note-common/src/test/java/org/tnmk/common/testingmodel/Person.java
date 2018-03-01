@@ -29,6 +29,11 @@ public class Person extends Creature{
      */
     private Map<Object, Object> properties;
 
+    @Override
+    public String toString(){
+        return String.format("Person{name:'%s',kind:'%s'}",this.name,this.getCreatureKind());
+    }
+
     public Instant getInitiatedAt() {
         return initiatedAt;
     }

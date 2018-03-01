@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
  */
 public class LogRequestUtils {
     public static final Logger LOGGER = LoggerFactory.getLogger(LogRequestUtils.class);
-    private static final int MAX_ELEMENTS_IN_AN_ARRAY = 7;
 
     public static Instant logRuntime(Instant startTime, String msg) {
         Instant now = Instant.now();
@@ -59,35 +58,4 @@ public class LogRequestUtils {
         return String.format("%s %s", request.getMethod(), request.getRequestURL());
     }
 
-    public static String toSimpleString(Object object) {
-        if (object == null) {
-            return null;
-        }
-        if (object instanceof String) {
-            return (String) object;
-        } else if (object.getClass().isArray()) {
-            return toStringOfArray((Object[]) object);
-        } else {
-            return String.valueOf(object);
-        }
-    }
-
-    //TODO consider moving to {@link ToStringUtils}
-    private static String toStringOfArray(Object[] arr) {
-        StringBuilder result = new StringBuilder("[");
-        int i = 0;
-        for (Object element : arr) {
-            if (result.length() > 1) {
-                result.append(",");
-            }
-            if (i >= MAX_ELEMENTS_IN_AN_ARRAY) {
-                result.append("...");
-                break;
-            }
-            result.append(toSimpleString(element));
-            i++;
-        }
-        result.append("]");
-        return result.toString();
-    }
 }

@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.ser.DefaultSerializerProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tnmk.common.exception.JsonConverterException;
-import org.tnmk.common.utils.LogUtils;
+import org.tnmk.common.utils.ToStringUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -52,7 +52,7 @@ public final class JsonUtils {
             }
             return objectMapper.writeValueAsString(object);
         } catch (JsonProcessingException e) {
-            String msg = "Cannot convert object to json: " + LogUtils.toString(object);
+            String msg = "Cannot convert object to json: " + ToStringUtils.toString(object);
             throw new JsonConverterException(msg, object, e);
         }
     }
@@ -65,7 +65,7 @@ public final class JsonUtils {
             byte[] bytes = objectMapper.writeValueAsBytes(object);
             return new ByteArrayInputStream(bytes);
         } catch (JsonProcessingException e) {
-            String msg = "Cannot convert object to json: " + LogUtils.toString(object);
+            String msg = "Cannot convert object to json: " + ToStringUtils.toString(object);
             throw new JsonConverterException(msg, object, e);
         }
     }

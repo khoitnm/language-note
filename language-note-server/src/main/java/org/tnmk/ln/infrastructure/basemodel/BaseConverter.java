@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeansException;
 import org.tnmk.common.exception.UnexpectedException;
-import org.tnmk.common.utils.LogUtils;
+import org.tnmk.common.utils.ToStringUtils;
 import org.tnmk.common.utils.datatype.NumberUtils;
 
 import java.beans.PropertyDescriptor;
@@ -77,7 +77,7 @@ public abstract class BaseConverter<E, M> {
         try {
             result = idPropertyDescriptor.getReadMethod().invoke(object);
         } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-            LOGGER.error("Cannot get id from object " + LogUtils.toStringMultiLine(object), e);
+            LOGGER.error("Cannot get id from object " + ToStringUtils.toStringMultiLine(object), e);
             result = null;
         }
         return result;
@@ -138,8 +138,8 @@ public abstract class BaseConverter<E, M> {
             return target;
         } catch (InstantiationException | IllegalAccessException e) {
             throw new UnexpectedException(
-                    "Error when convert entity to model, cannot create new instance of class<"
-                            + modelClass.getSimpleName() + ">, please check the default constructor of that class.", e);
+                "Error when convert entity to model, cannot create new instance of class<"
+                    + modelClass.getSimpleName() + ">, please check the default constructor of that class.", e);
         }
     }
 
@@ -153,8 +153,8 @@ public abstract class BaseConverter<E, M> {
             return target;
         } catch (InstantiationException | IllegalAccessException e) {
             throw new UnexpectedException(
-                    "Error when convert model to entity, cannot create new instance of class<"
-                            + entityClass.getSimpleName() + ">, please check the default constructor of that class.", e);
+                "Error when convert model to entity, cannot create new instance of class<"
+                    + entityClass.getSimpleName() + ">, please check the default constructor of that class.", e);
         }
 
     }

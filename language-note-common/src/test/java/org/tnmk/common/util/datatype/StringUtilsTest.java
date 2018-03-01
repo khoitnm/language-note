@@ -40,8 +40,7 @@ public class StringUtilsTest {
         Assert.assertEquals(null,StringUtils.toString(nullObj));
 
         Object person = PersonFactory.createJasonBourne();
-        String personString = StringUtils.toString(person);
-        Assert.assertTrue(personString.contains(Person.class.getCanonicalName()+"@"));
+        Assert.assertNotNull(StringUtils.toString(person));
 
         Assert.assertEquals("1.5f",StringUtils.toString("1.5f"));
         Assert.assertEquals("1.5",StringUtils.toString(1.5f));

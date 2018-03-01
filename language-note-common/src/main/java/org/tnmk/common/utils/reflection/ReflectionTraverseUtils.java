@@ -10,6 +10,7 @@ import java.util.function.Function;
  */
 public final class ReflectionTraverseUtils {
     private ReflectionTraverseUtils() {
+        //Utils
     }
 
     public static void traverseEntity(Object entity, Function<ActionStatus, Boolean> action) {
