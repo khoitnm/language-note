@@ -13,16 +13,11 @@ import java.util.stream.Collectors;
 /**
  * @author khoi.tran on 8/29/16.
  */
-public class LogRequestUtils {
+public final class LogRequestUtils {
     public static final Logger LOGGER = LoggerFactory.getLogger(LogRequestUtils.class);
 
-    public static Instant logRuntime(Instant startTime, String msg) {
-        Instant now = Instant.now();
-        long runTimeMilli = now.toEpochMilli() - startTime.toEpochMilli();
-        double runTimeSeconds = (double) runTimeMilli / 1000;
-        //TODO should change to debug
-        LOGGER.trace(String.format("\n%s\n\tStart time: %s, End time: %s\n\tRuntime: %s ms ~ %.2f s", msg, startTime, now, runTimeMilli, runTimeSeconds));
-        return now;
+    private LogRequestUtils(){
+        //Utils
     }
 
     public static Instant logRequestStarting(HttpServletRequest request) {

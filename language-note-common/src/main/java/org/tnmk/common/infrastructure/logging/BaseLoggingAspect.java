@@ -1,8 +1,8 @@
 package org.tnmk.common.infrastructure.logging;
 
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.tnmk.common.utils.log.LogUtils;
 import org.tnmk.common.utils.ToStringUtils;
-import org.tnmk.common.utils.http.LogRequestUtils;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -43,10 +43,10 @@ public class BaseLoggingAspect {
         Instant startTime = Instant.now();
         try {
             Object result = proceedingJoinPoint.proceed(proceedingJoinPoint.getArgs());
-            LogRequestUtils.logRuntime(startTime, methodInvoker);
+            LogUtils.logRuntime(startTime, methodInvoker);
             return result;
         } catch (Throwable ex) {
-            LogRequestUtils.logRuntime(startTime, methodInvoker + "\nError: " + ex.getMessage());
+            LogUtils.logRuntime(startTime, methodInvoker + "\nError: " + ex.getMessage());
             throw ex;
         }
     }
