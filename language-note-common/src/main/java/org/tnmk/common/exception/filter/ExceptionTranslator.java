@@ -48,7 +48,7 @@ public class ExceptionTranslator {
     @ResponseBody
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public ErrorResult processUnauthenticationException(final AuthenticationException exception) {
-        return processInternalException(exception);
+        return processInternalBaseException(exception);
     }
 
     @ExceptionHandler({MissingServletRequestParameterException.class, UnsatisfiedServletRequestParameterException.class, HttpRequestMethodNotSupportedException.class, ServletRequestBindingException.class, TypeMismatchException.class, HttpMessageNotReadableException.class})
@@ -93,7 +93,7 @@ public class ExceptionTranslator {
     @ExceptionHandler(BaseException.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorResult processInternalException(final BaseException exception) {
+    public ErrorResult processInternalBaseException(final BaseException exception) {
         final ErrorResult result = new ErrorResult(exception.getErrorCode(), exception.getMessage(), exception.getMessage());
         result.setDetails(exception.getDetails());
         result.setDetailsType(exception.getDetailsType());
@@ -106,9 +106,7 @@ public class ExceptionTranslator {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResult processUnknownInternalException(final Exception exception) {
         ErrorResult result;
-        if (exception instanceof BeanValidationException) {
-            result = this.beanValidationExceptionTranslator.toErrorDTO((BeanValidationException) exception);
-        } else if (exception instanceof SQLException) {
+        if (exception instanceof SQLException) {
             result = new ErrorResult(ExceptionConstants.General.UnexpectedError, "SQL Query error. " + ExceptionUtils.getDataExceptionRoot(exception), "SQL Query error " + exception.getMessage());
         } else {
             String message = exception.getMessage();
