@@ -6,8 +6,10 @@ import java.util.List;
 /**
  * @author khoi.tran on 8/2/16.
  */
-public class StringUtils {
-
+public final class StringUtils {
+    private StringUtils(){
+        //Utils
+    }
     /**
      * This is a convenient method to convert any object into String (usually used in reflection).
      *
@@ -34,7 +36,7 @@ public class StringUtils {
         return result;
     }
 
-    public static String newString(Object... strs) {
+    public static String joinString(Object... strs) {
         StringBuilder sb = new StringBuilder();
         for (Object string : strs) {
             sb.append(string);
@@ -42,13 +44,16 @@ public class StringUtils {
         return sb.toString();
     }
 
-    public static String newStringWithDelimiter(String delimiter, Object... strs) {
+    public static String joinStringWithDelimiter(String delimiter, Object... objects) {
+        if (org.apache.commons.lang3.StringUtils.isBlank(delimiter)) {
+            return joinString(objects);
+        }
         StringBuilder sb = new StringBuilder();
-        for (Object string : strs) {
+        for (Object object : objects) {
             if (sb.length() > 0) {
                 sb.append(delimiter);
             }
-            sb.append(string);
+            sb.append(object);
         }
         return sb.toString();
     }
@@ -84,7 +89,7 @@ public class StringUtils {
      * @return The masked card number
      */
     public static String maskString(String string, int numShownPrefixChars, int numShownSuffixChars) {
-        if (org.apache.commons.lang3.StringUtils.isBlank(string)) {
+        if (string == null) {
             return string;
         }
         StringBuilder maskedString = new StringBuilder();
@@ -104,14 +109,19 @@ public class StringUtils {
      * This method is usually used in writing log.
      * We usually dont' want to write email information into logs files (because of security). So this method will help you to put some mask characters.
      *
-     * @param email The original email, e.g. "myemail@axa.com"
+     * @param email The original email, e.g. "myemail@gmail.com"
      * @return masked email, e.g. "mye********om"
      */
     public static String maskEmail(String email) {
         return maskString(email, 3, 2);
     }
 
+    /**
+     * @param text for example: "  Now,   only Trần understand  this cliché!!! "
+     * @return an array which includes words ["Now","only", "Trần", "understand", "this", "cliché"]
+     */
     public static String[] toWords(String text) {
-        return text.split("\\w+");
+        String trimmed = text.trim();
+        return trimmed.split("\\P{L}+");//Don't use "\\W+", it doesn't work with Unicode characters.
     }
 }

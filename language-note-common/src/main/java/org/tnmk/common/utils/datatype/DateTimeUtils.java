@@ -12,7 +12,11 @@ import java.time.format.DateTimeFormatter;
 /**
  * @author khoi.tran on 8/17/16.
  */
-public class DateTimeUtils {
+public final class DateTimeUtils {
+    private DateTimeUtils() {
+        //Utils
+    }
+
     public static final String PATTERN_FILEPATH = "yyyyMMdd_HHmmss";
 
     public static Instant toInstant(LocalDate localDate) {
@@ -41,7 +45,7 @@ public class DateTimeUtils {
         return formatLocalDateTime(LocalDateTime.now(), PATTERN_FILEPATH);
     }
 
-    public static String formatInstant(Instant instance, String pattern){
+    public static String formatInstant(Instant instance, String pattern) {
         LocalDateTime localDateTime = LocalDateTime.ofInstant(instance, ZoneId.of(ZoneOffset.UTC.getId()));
         return formatLocalDateTime(localDateTime, pattern);
     }

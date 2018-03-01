@@ -45,7 +45,7 @@ public class StringTest {
             stemmedWords.add(stemmedWord);
         }
 
-        String merged = StringUtils.newStringWithDelimiter(" ", words);
+        String merged = StringUtils.joinStringWithDelimiter(" ", words);
         LOGGER.info("Original Split:\n" + Arrays.toString(words));
         LOGGER.info("Original:\n" + s);
         LOGGER.info("Merged:\n" + merged);

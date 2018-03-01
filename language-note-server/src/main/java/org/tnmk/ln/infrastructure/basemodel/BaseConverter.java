@@ -108,7 +108,7 @@ public abstract class BaseConverter<E, M> {
             return null;
         }
         Object idValue = toId(object, idPropertyDescriptor);
-        return NumberUtils.toIntegerIfPossible(idValue);
+        return NumberUtils.toInteger(idValue);
     }
 
     public Long toLongIdFromObject(Object object) {
@@ -120,12 +120,12 @@ public abstract class BaseConverter<E, M> {
             return null;
         }
         Object idValue = toId(object, idPropertyDescriptor);
-        return NumberUtils.toLongIfPossible(idValue);
+        return NumberUtils.toLong(idValue);
     }
 
     public Long toLongId(M model) {
         Object idValue = toId(model);
-        return NumberUtils.toLongIfPossible(idValue);
+        return NumberUtils.toLong(idValue);
     }
 
     public M toModel(E source) {

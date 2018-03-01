@@ -6,7 +6,10 @@ import org.tnmk.common.utils.json.DeserializerEnumByField;
 /**
  * @author khoi.tran on 8/31/16.
  */
-public class EnumUtils {
+public final class EnumUtils {
+    private EnumUtils(){
+        //Utils
+    }
     public static <T extends Enum<T>> T validateExistEnum(Class<T> enumClass, String enumName) {
         try {
             return Enum.valueOf(enumClass, enumName);

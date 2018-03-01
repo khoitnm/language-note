@@ -50,7 +50,7 @@ public class Neo4jUtils {
         Field idField = ReflectionUtils.findFieldByAnnotationType(entity.getClass(), GraphId.class);
         PropertyDescriptor propertyDescriptor = BeanUtils.getPropertyDescriptor(entity.getClass(), idField.getName());
         Object id = ReflectionUtils.readProperty(entity, propertyDescriptor);
-        return NumberUtils.toLongIfPossible(id);
+        return NumberUtils.toLongOrNull(id);
     }
 
     public static String[] findAllRelationshipsOnAnnotatedFields(Class<?> entityClass, Class<? extends Annotation> annotationClass) {
