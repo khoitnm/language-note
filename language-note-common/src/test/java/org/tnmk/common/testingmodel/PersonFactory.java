@@ -2,6 +2,7 @@ package org.tnmk.common.testingmodel;
 
 import org.apache.commons.lang3.RandomUtils;
 import org.junit.Ignore;
+import org.tnmk.common.testingmodel.constants.CreatureKind;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -60,6 +61,7 @@ public final class PersonFactory {
         testingPerson.setAge(RandomUtils.nextFloat(0.0f, 100.0f));
         testingPerson.setName(name);
         testingPerson.setDob(LocalDate.of(1971, 4, 15));
+        testingPerson.setCreatureKind(CreatureKind.MUGGLE);
         testingPerson.setInitiatedAt(Instant.now());
         final Map<Object, Object> properties = new HashMap<>();
         final Person.InstinctWeapon instinctWeapon = new Person.InstinctWeapon();

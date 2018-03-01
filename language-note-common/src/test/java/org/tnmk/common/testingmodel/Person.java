@@ -2,6 +2,8 @@ package org.tnmk.common.testingmodel;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.junit.Ignore;
+import org.tnmk.common.testingmodel.constants.CreatureKind;
+import org.tnmk.common.util.json.JsonUtilsTest;
 import org.tnmk.common.util.reflection.ReflectionUtilsTest;
 
 import javax.validation.constraints.NotNull;
@@ -42,6 +44,7 @@ public class Person extends Creature{
     public void setDob(final LocalDate dob) {
         this.dob = dob;
     }
+
 
     /**
      * Demo static class

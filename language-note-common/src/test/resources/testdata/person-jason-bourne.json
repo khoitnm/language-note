@@ -1,6 +1,7 @@
 {
     "age": 30.5,
     "name": "Jason Bourne",
+    "creatureKind":"Muggle",
     "properties": {
         "weapons": [
             {
