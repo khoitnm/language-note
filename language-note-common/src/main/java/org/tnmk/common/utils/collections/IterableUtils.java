@@ -17,7 +17,7 @@ public final class IterableUtils {
     /**
      * @deprecated You can use {@link org.apache.commons.collections4.IterableUtils#size(Iterable)}
      * @param iterable
-     * @return
+     * @return null if the input is null.
      */
     @Deprecated
     public static Integer count(Iterable<?> iterable) {
