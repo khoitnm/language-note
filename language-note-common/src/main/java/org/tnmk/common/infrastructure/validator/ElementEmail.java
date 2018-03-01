@@ -16,8 +16,11 @@ import java.lang.annotation.Target;
 @Target({ ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ElementEmail {
-    String message() default "Elements in the collections must be email";
+    String message() default "The element[{0}] in the collections must be email";
 
+    /**
+     * Necessary for using with {@link Constraint}
+     */
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};

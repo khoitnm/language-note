@@ -8,6 +8,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.PARAMETER;
+
 /**
  * @author khoi.tran on 7/25/16.
  */
@@ -16,7 +20,7 @@ import java.lang.annotation.Target;
 @Target({ ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ElementNotBlank {
-    String message() default "Elements in the collection must be not blank";
+    String message() default "The element[{0}] in the collection must be not blank";
 
     Class<?>[] groups() default {};
 

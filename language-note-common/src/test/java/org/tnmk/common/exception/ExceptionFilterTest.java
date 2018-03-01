@@ -11,6 +11,7 @@ import org.tnmk.common.infrastructure.validator.BeanValidator;
 import org.tnmk.common.testingmodel.Person;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 
 public class ExceptionFilterTest {
     public static final Logger LOGGER = LoggerFactory.getLogger(ExceptionFilterTest.class);
@@ -23,6 +24,7 @@ public class ExceptionFilterTest {
             Person person = new Person();
             person.setDob(LocalDate.of(2001,01,01));
             person.setComingOfAgeDate(LocalDate.of(2000,01,01));
+            person.setEmails(Arrays.asList("aaa@gmail.com","",null,"xyz","bbb@gmail.com"));
             beanValidator.validate(person);
         }catch (BeanValidationException ex){
             ErrorResult errorResult = exceptionTranslator.processValidationError(ex);

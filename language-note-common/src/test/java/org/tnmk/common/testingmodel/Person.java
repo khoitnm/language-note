@@ -3,6 +3,8 @@ package org.tnmk.common.testingmodel;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.ScriptAssert;
 import org.junit.Ignore;
+import org.tnmk.common.infrastructure.validator.ElementEmail;
+import org.tnmk.common.infrastructure.validator.ElementNotBlank;
 import org.tnmk.common.testingmodel.constants.CreatureKind;
 import org.tnmk.common.util.json.JsonUtilsTest;
 import org.tnmk.common.util.reflection.ReflectionUtilsTest;
@@ -10,6 +12,7 @@ import org.tnmk.common.util.reflection.ReflectionUtilsTest;
 import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,6 +32,11 @@ public class Person extends Creature {
     @NotBlank
     @NotNull
     private String name;
+
+    @ElementEmail(message = "The item[{0}] must have email format.")
+    @ElementNotBlank(message = "The item[{0}] must be not blank.")
+    private List<String> emails;
+
     private LocalDate dob;
     /**
      * It is held in order to congratulate and encourage all those who have reached the age of majority (20 years old) over the past year, and to help them realize that they have become adults.
@@ -67,6 +75,14 @@ public class Person extends Creature {
 
     public void setComingOfAgeDate(LocalDate comingOfAgeDate) {
         this.comingOfAgeDate = comingOfAgeDate;
+    }
+
+    public List<String> getEmails() {
+        return emails;
+    }
+
+    public void setEmails(List<String> emails) {
+        this.emails = emails;
     }
 
 

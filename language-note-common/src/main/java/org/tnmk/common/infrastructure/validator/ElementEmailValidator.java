@@ -2,6 +2,7 @@ package org.tnmk.common.infrastructure.validator;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.internal.constraintvalidators.hv.EmailValidator;
+import org.hibernate.validator.internal.engine.constraintvalidation.ConstraintValidatorContextImpl;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -19,14 +20,29 @@ public class ElementEmailValidator implements ConstraintValidator<ElementEmail, 
 
     @Override
     public boolean isValid(List values, ConstraintValidatorContext context) {
-        if (values == null || values.isEmpty()) return true;
+        ConstraintValidatorContextImpl constraintValidatorContext = (ConstraintValidatorContextImpl)context;
+        constraintValidatorContext.getConstraintViolationCreationContexts();
+        String messageTemplate = (String)constraintValidatorContext.getConstraintDescriptor().getAttributes().get("message");
+        if (values == null || values.isEmpty()) {
+            return true;
+        }
 
+        boolean isValid = true;
+        int i = 0;
         for (Object value : values) {
             if (!isElementValid(value, context)) {
-                return false;
+                isValid = false;
+                break;
             }
+            i++;
         }
-        return true;
+        if (!isValid){
+            String message = messageTemplate.replaceAll("\\{0\\}",""+i);
+            constraintValidatorContext.disableDefaultConstraintViolation();
+            constraintValidatorContext.buildConstraintViolationWithTemplate(message)
+                .addConstraintViolation();
+        }
+        return isValid;
     }
 
     private boolean isElementValid(Object value, ConstraintValidatorContext context) {
