@@ -1,0 +1,5 @@
+{
+    "_comment":"/*Note: in Java class, field 'creatureId' is a string, but that's OK!*/",
+    "creatureId": 30.5,
+    "noexistingfield_xxx": ["a","b"]
+}

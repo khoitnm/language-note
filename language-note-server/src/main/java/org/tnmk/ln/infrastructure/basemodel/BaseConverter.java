@@ -5,8 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeansException;
 import org.tnmk.common.exception.UnexpectedException;
+import org.tnmk.common.utils.LogUtils;
 import org.tnmk.common.utils.datatype.NumberUtils;
-import org.tnmk.common.utils.json.JsonUtils;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
@@ -77,7 +77,7 @@ public abstract class BaseConverter<E, M> {
         try {
             result = idPropertyDescriptor.getReadMethod().invoke(object);
         } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-            LOGGER.error("Cannot get id from object " + JsonUtils.toStringMultiLine(object), e);
+            LOGGER.error("Cannot get id from object " + LogUtils.toStringMultiLine(object), e);
             result = null;
         }
         return result;

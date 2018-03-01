@@ -1,6 +1,7 @@
 package org.tnmk.common.util.json;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.tnmk.common.testingmodel.DragonIgnoreUnknownJson;
 import org.tnmk.common.testingmodel.Person;
 import org.junit.Assert;
 import org.junit.Test;
@@ -19,6 +20,7 @@ public class JsonUtilsTest {
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     private final String personJson = IOUtils.loadTextFileInClassPath("/testdata/person-jason-bourne.json");
+    private final String dragonJson = IOUtils.loadTextFileInClassPath("/testdata/creature-with-not-existing-fields.json");
 
     @Test
     public void success_toJson_Null() {
@@ -44,11 +46,16 @@ public class JsonUtilsTest {
 
     @Test
     public void success_toObject() {
-        final Person person = (Person) JsonUtils.toObject(OBJECT_MAPPER, personJson, Person.class);
+        final Person person = JsonUtils.toObject(OBJECT_MAPPER, personJson, Person.class);
         Assert.assertNotNull(person);
         Assert.assertEquals(30.5f, person.getAge(), 0.01);
     }
 
+    @Test
+    public void success_toObject_ignoreUnknownField() {
+        final DragonIgnoreUnknownJson dragonIgnoreUnknownJson = JsonUtils.toObject(OBJECT_MAPPER, dragonJson, DragonIgnoreUnknownJson.class);
+        Assert.assertNotNull(dragonIgnoreUnknownJson.getCreatureId());
+    }
     @Test
     public void success_toInputStream() {
         final InputStream inputStream = JsonUtils.toJsonInputStream(OBJECT_MAPPER, personJson);
@@ -57,8 +64,7 @@ public class JsonUtilsTest {
 
     @Test
     public void success_toInputStream_null() {
-        final String personJson = null;
-        final InputStream inputStream = JsonUtils.toJsonInputStream(OBJECT_MAPPER, personJson);
+        final InputStream inputStream = JsonUtils.toJsonInputStream(OBJECT_MAPPER, null);
         Assert.assertNull(inputStream);
     }
 }

@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.tnmk.common.utils.json.JsonUtils;
+import org.tnmk.common.utils.LogUtils;
 
 @Configuration
 public class ProjectInfoConfiguration {
@@ -18,7 +18,7 @@ public class ProjectInfoConfiguration {
     public ProjectInfoProperties projectInfoProperties() {
         LOGGER.debug("Load Project Info");
         ProjectInfoProperties projectInfoProperties = projectInfoService.loadProjectInfoProperties();
-        LOGGER.debug("Loaded project info: \n" + JsonUtils.toStringMultiLine(projectInfoProperties));
+        LOGGER.debug("Loaded project info: \n" + LogUtils.toStringMultiLine(projectInfoProperties));
         return projectInfoProperties;
     }
 }

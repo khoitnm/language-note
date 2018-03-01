@@ -1,7 +1,7 @@
 package org.tnmk.ln.test.common.utils;
 
 import org.junit.Test;
-import org.tnmk.common.utils.json.JsonUtils;
+import org.tnmk.common.utils.LogUtils;
 import org.tnmk.ln.app.topic.entity.Topic;
 import org.tnmk.ln.infrastructure.data.neo4j.repository.Neo4jRepository;
 import org.tnmk.ln.test.PureTest;
@@ -14,6 +14,6 @@ public class Neo4jRepositoryTest extends PureTest {
     @Test
     public void test() {
         DetailLoadingRelationship result = Neo4jRepository.getRelationshipTypesWithDetailLoadingMultiLevels(Topic.class);
-        LOGGER.info(JsonUtils.toStringMultiLine(result));
+        LOGGER.info(LogUtils.toStringMultiLine(result));
     }
 }

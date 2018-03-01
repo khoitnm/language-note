@@ -7,16 +7,14 @@ import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.ser.DefaultSerializerProvider;
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tnmk.common.exception.JsonConverterException;
+import org.tnmk.common.utils.LogUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.lang.reflect.Type;
-import java.util.List;
 
 /**
  * Provides functionality for reading and writing object to Json, String.
@@ -54,7 +52,7 @@ public final class JsonUtils {
             }
             return objectMapper.writeValueAsString(object);
         } catch (JsonProcessingException e) {
-            String msg = "Cannot convert object to json: " + toString(object);
+            String msg = "Cannot convert object to json: " + LogUtils.toString(object);
             throw new JsonConverterException(msg, object, e);
         }
     }
@@ -67,7 +65,7 @@ public final class JsonUtils {
             byte[] bytes = objectMapper.writeValueAsBytes(object);
             return new ByteArrayInputStream(bytes);
         } catch (JsonProcessingException e) {
-            String msg = "Cannot convert object to json: " + toString(object);
+            String msg = "Cannot convert object to json: " + LogUtils.toString(object);
             throw new JsonConverterException(msg, object, e);
         }
     }
@@ -80,47 +78,5 @@ public final class JsonUtils {
             String msg = String.format("Cannot json to object:\n\tType:%s\n\tJsonString:\t\n%s", type.getTypeName(), jsonString);
             throw new JsonConverterException(msg, jsonString, e);
         }
-    }
-
-    public static String toString(Object object) {
-        if (object == null) {
-            return null;
-        }
-        return ReflectionToStringBuilder.toString(object, ToStringStyle.DEFAULT_STYLE);
-    }
-
-    /**
-     * This method is usually for logging only.
-     *
-     * @param object
-     * @return
-     */
-    public static String toStringMultiLine(Object object) {
-        if (object == null) {
-            return null;
-        }
-        if (object instanceof String) {
-            return (String) object;
-        }
-        return ReflectionToStringBuilder.toString(object, ToStringStyle.MULTI_LINE_STYLE);
-    }
-
-    /**
-     * This method is usually for logging only.
-     *
-     * @param list
-     * @return
-     */
-    public static String toStringMultiLineForEachElement(List<?> list) {
-        if (list == null) {
-            return null;
-        }
-        StringBuilder result = new StringBuilder("[\n");
-        for (Object element : list) {
-            result.append(toStringMultiLine(element));
-            result.append(", \n");
-        }
-        result.append("\n]");
-        return result.toString();
     }
 }
