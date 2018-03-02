@@ -16,9 +16,16 @@ import java.util.Map;
  * @author khoi.tran on 4/28/17.
  */
 public class RestTemplateUtil {
+    /**
+     * TODO This is currently the example how to call request to download a file. We need to refactor to make it a real utilities.
+     * @param url
+     * @param headersProperties
+     * @return
+     */
     public static HttpEntity<String> getDownloadRequest(String url, Map<String, String> headersProperties) {
         List<HttpMessageConverter<?>> messageConverters = new ArrayList<HttpMessageConverter<?>>();
         messageConverters.add(new ByteArrayHttpMessageConverter());
+        //TODO, need to check the existing of the old ByteArrayHttpMessageConverter. And we only add the new one if it's not existed yet.
         RestTemplate restTemplate = new RestTemplate(messageConverters);
 
         HttpHeaders headers = new HttpHeaders();

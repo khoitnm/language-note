@@ -17,11 +17,23 @@ import java.util.stream.Collectors;
  * @author khoi.tran on 2/9/17.
  */
 public class BaseLoggingAspect {
+    /**
+     * This method will write log with runtime information.
+     * @param proceedingJoinPoint
+     * @return
+     * @throws Throwable
+     */
     public Object aroundRuntime(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         String methodInvoker = String.format("%s.%s(..)", proceedingJoinPoint.getSignature().getDeclaringTypeName(), proceedingJoinPoint.getSignature().getName());
         return around(methodInvoker, proceedingJoinPoint);
     }
 
+    /**
+     * This method will write log with input (parameters values) information, and also the running time.
+     * @param proceedingJoinPoint
+     * @return
+     * @throws Throwable
+     */
     public Object aroundInput(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         List<String> params = new ArrayList<>();
         Object[] args = proceedingJoinPoint.getArgs();
@@ -39,13 +51,14 @@ public class BaseLoggingAspect {
         return around(methodInvoker, proceedingJoinPoint);
     }
 
-    public Object around(String methodInvoker, ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+    protected Object around(String methodInvoker, ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         Instant startTime = Instant.now();
         try {
             Object result = proceedingJoinPoint.proceed(proceedingJoinPoint.getArgs());
             LogUtils.logRuntime(startTime, methodInvoker);
             return result;
         } catch (Throwable ex) {
+            //Just catch for calculating runtime.
             LogUtils.logRuntime(startTime, methodInvoker + "\nError: " + ex.getMessage());
             throw ex;
         }

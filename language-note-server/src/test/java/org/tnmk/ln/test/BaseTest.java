@@ -1,5 +1,6 @@
 package org.tnmk.ln.test;
 
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,7 @@ import org.tnmk.ln.MainApplication;
 @SpringBootTest(classes = MainApplication.class)
 @ActiveProfiles("dev")
 @WebAppConfiguration
+@Ignore
 public class BaseTest {
     public static final Logger LOGGER = LoggerFactory.getLogger(BaseTest.class);
 }

@@ -12,7 +12,12 @@ import org.tnmk.common.utils.RegularExpressionConstants;
 @Component
 public class ClassPathQueryLoader {
 
-    //    @Override
+    /**
+     *
+     * @param fileFullPathName the path from classpath. For example: "/abc/def.xyz"
+     * @param params the parameters values will be put into the query statement.
+     * @return the query statement which was excluded comment blocks.
+     */
     @Cacheable("queries")
     public static String loadQuery(String fileFullPathName, Object... params) {
         String query = IOUtils.loadTextFileInClassPath(fileFullPathName);

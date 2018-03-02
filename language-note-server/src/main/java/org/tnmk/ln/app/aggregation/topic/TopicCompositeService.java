@@ -83,11 +83,11 @@ public class TopicCompositeService {
 
         if (expressions != null) {
             expressions.stream().forEach(expression -> expressionCompositeService.prepareForSavingExpression(user, expression));
+            expressions = expressionRepository.save(expressions);
+            practiceFavouriteService.saveExpressionFavourites(user, expressions);
+            List<String> expressionIds = expressions.stream().map(iexpression -> iexpression.getId()).collect(Collectors.toList());
+            topicComposite.setExpressionIds(expressionIds);
         }
-        expressions = expressionRepository.save(expressions);
-        practiceFavouriteService.saveExpressionFavourites(user, expressions);
-        List<String> expressionIds = expressions.stream().map(iexpression -> iexpression.getId()).collect(Collectors.toList());
-        topicComposite.setExpressionIds(expressionIds);
 
         Topic topic = topicCompositeConverter.toEntity(topicComposite);
         topic = topicRepository.save(topic);

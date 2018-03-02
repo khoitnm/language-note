@@ -1,4 +1,4 @@
-package org.tnmk.common.util;
+package org.tnmk.common.exception;
 
 import org.junit.Assert;
 import org.junit.Test;

@@ -36,8 +36,10 @@ import java.util.ListIterator;
 import java.util.stream.Collectors;
 
 /**
+ * @deprecated Don't use it anymore. Just let it here for storing some methods which could be reused???!
  * @author khoi.tran on 2/4/17.
  */
+@Deprecated
 @Service
 public class EnglishClubImport {
 
