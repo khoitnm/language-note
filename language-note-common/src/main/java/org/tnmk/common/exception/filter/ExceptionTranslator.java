@@ -107,7 +107,7 @@ public class ExceptionTranslator {
     public ErrorResult processUnknownInternalException(final Exception exception) {
         ErrorResult result;
         if (exception instanceof SQLException) {
-            result = new ErrorResult(ExceptionConstants.General.UnexpectedError, "SQL Query error. " + ExceptionUtils.getDataExceptionRoot(exception), "SQL Query error " + exception.getMessage());
+            result = new ErrorResult(ExceptionConstants.General.UnexpectedError, "SQL Query error. " + ExceptionUtils.getExceptionRoot(exception), "SQL Query error " + exception.getMessage());
         } else {
             String message = exception.getMessage();
             if (exception instanceof NullPointerException) {
