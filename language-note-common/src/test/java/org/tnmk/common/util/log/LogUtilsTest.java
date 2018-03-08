@@ -25,7 +25,7 @@ public class LogUtilsTest {
         Instant startTime = Instant.now();
         doSomething();
         Instant endTime = LogUtils.logRuntime(startTime, "doSomething");
-        Assert.assertTrue(endTime.isAfter(startTime));
+        Assert.assertFalse(endTime.isBefore(startTime));//EndTime >= startTime
     }
     private void doSomething(){
         String s="";

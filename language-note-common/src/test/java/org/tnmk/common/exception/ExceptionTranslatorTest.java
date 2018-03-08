@@ -4,17 +4,25 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.MethodParameter;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.MapBindingResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.tnmk.common.exception.filter.BeanValidationExceptionTranslator;
 import org.tnmk.common.exception.filter.ExceptionTranslator;
 import org.tnmk.common.exception.model.error.ErrorResult;
 import org.tnmk.common.infrastructure.validator.BeanValidator;
 import org.tnmk.common.testingmodel.Person;
+import org.tnmk.common.testingmodel.service.MockBusinessLogic;
 
+import java.lang.reflect.Method;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
-public class ExceptionFilterTest {
-    public static final Logger LOGGER = LoggerFactory.getLogger(ExceptionFilterTest.class);
+public class ExceptionTranslatorTest {
+    public static final Logger LOGGER = LoggerFactory.getLogger(ExceptionTranslatorTest.class);
     private ExceptionTranslator exceptionTranslator = new ExceptionTranslator(new BeanValidationExceptionTranslator());
 
     @Test
@@ -38,6 +46,26 @@ public class ExceptionFilterTest {
             Assert.assertNotNull(errorResult.getCode());
         }
     }
+
+    @Test
+    public void methodArgumentNotValidException(){
+        try {
+            //Mock BindingResult with Total 2 errors
+            MapBindingResult bindingResult = new MapBindingResult(new HashMap<>(), "targetObjectName");
+            bindingResult.rejectValue("field1","errorCode1");
+            bindingResult.reject("errorCode2",new Object[]{"errorArg2.1",2.2},"defaultMessage2");
+
+            Method method = MockBusinessLogic.class.getMethods()[0];
+            MethodParameter methodParameter = new MethodParameter(method, 0, 1);
+            throw new MethodArgumentNotValidException(methodParameter, bindingResult);
+        }catch (MethodArgumentNotValidException ex){
+            ErrorResult errorResult = exceptionTranslator.processValidationError(ex);
+            Assert.assertNotNull(errorResult.getCode());
+            Assert.assertNotNull(errorResult.getFieldErrors().get(0).getField());
+            Assert.assertEquals(2, errorResult.getFieldErrors().size());
+        }
+    }
+
     @Test
     public void unexpectedException(){
         try {

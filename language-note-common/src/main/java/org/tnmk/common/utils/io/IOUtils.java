@@ -60,7 +60,7 @@ public final class IOUtils {
             final InputStream inputStream = validateExistInputStreamFromClassPath(path);
             return org.apache.commons.io.IOUtils.toByteArray(inputStream);
         } catch (final IOException e) {
-            final String msg = String.format("Cannot load String from '%s'", path);
+            final String msg = String.format("Cannot load bytes from '%s'", path);
             throw new FileIOException(msg, e);
         }
     }
