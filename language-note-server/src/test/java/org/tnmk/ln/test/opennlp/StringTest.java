@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.tnmk.common.utils.datatype.StringUtils;
 import org.tnmk.ln.app.dictionary.entity.Locale;
 import org.tnmk.ln.infrastructure.nlp.opennlp.OpenNLPLoader;
+import org.tnmk.ln.test.PureTest;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -18,8 +19,7 @@ import java.util.List;
 /**
  * @author khoi.tran on 3/4/17.
  */
-public class StringTest {
-    public static final Logger LOGGER = LoggerFactory.getLogger(StringTest.class);
+public class StringTest extends PureTest{
     private static String s = "Mortals rule the desert <nation> of Miraji, but mythical(s) beasts still roam the wild and remote areas, and rumor has it that somewhere, djinn still perform their magic.  For humans, it’s an unforgiving place, especially if you’re poor. [1]abc "
             + "orphaned, "
             + "or female.";

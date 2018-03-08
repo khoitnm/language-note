@@ -7,7 +7,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.tnmk.ln.app.practice.QuestionFillBlankGenerator;
 import org.tnmk.ln.app.dictionary.entity.Locale;
 import org.tnmk.ln.app.practice.entity.question.QuestionPart;
+import org.tnmk.ln.infrastructure.nlp.LemmaFindingService;
 import org.tnmk.ln.test.BaseTest;
+import org.tnmk.ln.test.PureTest;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,10 +17,8 @@ import java.util.List;
 /**
  * @author khoi.tran on 3/11/17.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-public class QuestionGeneratorTest extends BaseTest {
-    @Autowired
-    QuestionFillBlankGenerator questionFillBlankGenerator;
+public class QuestionGeneratorTest extends PureTest {
+    private QuestionFillBlankGenerator questionFillBlankGenerator = new QuestionFillBlankGenerator(new LemmaFindingService());
 
     @Test
     public void test() {

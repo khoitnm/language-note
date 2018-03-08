@@ -46,3 +46,12 @@ The used technologies of each module will be described in each module's README.m
 
 ## Quick note for future ideas
 <b>Speaking practice</b>: Recognize voice, use it to control games. 
+
+## Project structure:
+I try to separate packages as the business domain (features), not by layers. It this way, those components might be separated into smaller microservices if necessary.
+You can read more in here: https://8thlight.com/blog/uncle-bob/2011/09/30/Screaming-Architecture.html
+Some more specific explaination: http://www.javapractices.com/topic/TopicAction.do?Id=205
+https://stackoverflow.com/questions/46884449/uncle-bobs-clean-architecture-approach-what-is-recommended-package-structure
+https://plainionist.github.io/Implementing-Clean-Architecture/
+However, I don't totally follow the clean architecture which leverages the interface/abstract layers for business logic.
+

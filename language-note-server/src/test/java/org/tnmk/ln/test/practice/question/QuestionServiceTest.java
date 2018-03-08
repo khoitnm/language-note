@@ -48,7 +48,7 @@ public class QuestionServiceTest extends BaseTest {
 
     @Before
     public void initUser() {
-        defaultUser = userTestFactory.initDefaultUser();
+        defaultUser = userTestFactory.getDefaultUser();
     }
 
     @Test

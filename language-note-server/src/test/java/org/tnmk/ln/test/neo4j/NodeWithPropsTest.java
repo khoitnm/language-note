@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * This test has nothing to do with the project logic. It's just used for some experiment with Neo4j.
  * @author khoi.tran on 2/26/17.
  */
 @RunWith(SpringJUnit4ClassRunner.class)

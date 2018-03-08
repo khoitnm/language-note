@@ -14,11 +14,7 @@ import org.tnmk.ln.infrastructure.translate.yandex.YandexTranslationService;
 /**
  * @author khoi.tran on 2/1/17.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = MainApplication.class)
-@ActiveProfiles("dev")
-@WebAppConfiguration
-public class TranslateServiceTest {
+public class TranslateServiceTest extends BaseTest{
     @Autowired
     private YandexTranslationService translateService;
 

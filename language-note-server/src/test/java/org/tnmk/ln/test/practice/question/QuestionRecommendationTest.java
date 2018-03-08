@@ -31,7 +31,7 @@ public class QuestionRecommendationTest extends BaseTest {
 
     @Before
     public void initUser() {
-        defaultUser = userTestFactory.initDefaultUser();
+        defaultUser = userTestFactory.getDefaultUser();
     }
 
     @Test

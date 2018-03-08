@@ -2,6 +2,7 @@ package org.tnmk.ln.test.factory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.tnmk.common.exception.UnexpectedException;
 import org.tnmk.ln.infrastructure.security.authserver.usermanagement.AuthServerUser;
 import org.tnmk.ln.infrastructure.security.authserver.usermanagement.AuthServerUserService;
 import org.tnmk.ln.infrastructure.security.authserver.usermanagement.UserConverter;
@@ -22,18 +23,14 @@ public class UserTestFactory {
     @Autowired
     private AuthServerUserService authServerUserService;
 
-    //FIXME create blank user
     /**
-     * @deprecated has bug if there's not default user.
      * @return
      */
-    @Deprecated
-    public User initDefaultUser() {
+    public User getDefaultUser() {
         String username = ResourceServerUserService.USERNAME_ADMIN;
         User user = resourceServerUserService.findByUsername(username);
         if (user == null) {
-            AuthServerUser authServerUser = new AuthServerUser();
-            authServerUserService.registerUser(authServerUser);
+            throw new UnexpectedException("Not found default user! "+username);
         }
         return user;
     }

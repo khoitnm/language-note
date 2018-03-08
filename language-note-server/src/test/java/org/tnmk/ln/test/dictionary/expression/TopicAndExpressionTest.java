@@ -1,6 +1,7 @@
 package org.tnmk.ln.test.dictionary.expression;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,10 @@ import org.tnmk.ln.test.factory.CategoryTestFactory;
 import org.tnmk.ln.test.factory.UserTestFactory;
 
 /**
+ * @ignore This is just used for specific manual test cases.
  * @author khoi.tran on 3/5/17.
  */
+@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional(propagation = Propagation.SUPPORTS)
 public class TopicAndExpressionTest extends BaseTest {
@@ -40,6 +43,7 @@ public class TopicAndExpressionTest extends BaseTest {
     @Autowired
     TopicTestFactory topicTestFactory;
 
+    //FIXME this is for specific (manual) testing
     private static final User USER = UserTestFactory.constructUser(1l);
 
     @Test
@@ -51,7 +55,7 @@ public class TopicAndExpressionTest extends BaseTest {
 
     @Test
     public void addExpressionToTopic() {
-        User user = userTestFactory.initDefaultUser();
+        User user = userTestFactory.getDefaultUser();
         Topic topic = topicTestFactory.initTopic(user, "test_" + System.currentTimeMillis(), "category" + System.currentTimeMillis(), "category" + System.currentTimeMillis());
         Expression expression = ExpressionTestFactory.constructWord("expression_" + System.currentTimeMillis());
 //        topicCompositeService.addExpressionToTopic(user, topic.getId(), expression);

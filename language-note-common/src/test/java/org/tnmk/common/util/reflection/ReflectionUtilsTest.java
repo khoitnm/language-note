@@ -10,6 +10,7 @@ import org.springframework.data.annotation.Id;
 import org.tnmk.common.exception.UnexpectedException;
 import org.tnmk.common.testingmodel.Person;
 import org.tnmk.common.testingmodel.PersonFactory;
+import org.tnmk.common.testingmodel.Pet;
 import org.tnmk.common.utils.collections.IterableUtils;
 import org.tnmk.common.utils.collections.ListUtils;
 import org.tnmk.common.utils.reflection.ReflectionTraverseUtils;
@@ -101,6 +102,14 @@ public class ReflectionUtilsTest {
 
         Assert.assertFalse(ReflectionUtils.isSimpleType(Person.class));
         Assert.assertFalse(ReflectionUtils.isSimpleType(Collection.class));
+    }
+
+    @Test
+    public void getParameterClasses() throws NoSuchFieldException {
+        Field petsField = ReflectionUtils.findFieldByName(Person.class, "pets");
+        List<Class<?>> parameterClasses = ReflectionUtils.getParameterClasses(petsField);
+        Assert.assertEquals(Pet.class,parameterClasses.get(0));
+        Assert.assertEquals(1,parameterClasses.size());
     }
 
     private void assertContainsPropertyDescriptor(List<PropertyDescriptor> propertyDescriptors, String propertyName, boolean expectResult){

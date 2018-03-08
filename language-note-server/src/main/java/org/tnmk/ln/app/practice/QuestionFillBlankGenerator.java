@@ -16,8 +16,12 @@ import java.util.List;
 @Service
 public class QuestionFillBlankGenerator {
 
+    private final LemmaFindingService lemmaFindingService;
+
     @Autowired
-    private LemmaFindingService lemmaFindingService;
+    public QuestionFillBlankGenerator(LemmaFindingService lemmaFindingService) {
+        this.lemmaFindingService = lemmaFindingService;
+    }
 
     public List<QuestionPart> analyzeToQuestionParts(String language, String findingExpression, String text) {
         List<QuestionPart> rs = new ArrayList<>();

@@ -16,10 +16,9 @@ import org.tnmk.ln.test.BaseTest;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 public class TopicTest extends BaseTest {
+
     @Autowired
-    TopicRepository topicRepository;
-    @Autowired
-    TopicDetailRepository topicAndOwnerRepository;
+    private TopicDetailRepository topicAndOwnerRepository;
 
     @Test
     public void test() {

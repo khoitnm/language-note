@@ -1,6 +1,7 @@
 package org.tnmk.ln.test.neo4j;
 
 import org.junit.After;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.neo4j.ogm.session.Session;
@@ -27,8 +28,10 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * @ignore This is just used for specific manual test cases.
  * @author khoi.tran on 2/26/17.
  */
+@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 //@EnableTransactionManagement
 /**
@@ -36,11 +39,11 @@ import java.util.List;
  * If we don't use this, the Testing context will rollback the transaction.
  */
 @Transactional(propagation = Propagation.SUPPORTS)
-public class ExpressionTest extends BaseTest {
+public class ExpressionTest {//extends BaseTest {
     public static Logger LOGGER = LoggerFactory.getLogger(ExpressionTest.class);
 
     @Autowired
-    Session session;
+    private Session session;
 
     @Autowired
     private UserRepository accountRepository;

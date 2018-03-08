@@ -19,6 +19,10 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 /**
  * @author khoi.tran on 2/28/17.
@@ -32,9 +36,37 @@ public final class ReflectionUtils {
         return org.springframework.data.util.ReflectionUtils.findField(clazz, annotationFieldFilter);
     }
 
-//    public PropertyDescriptor getPropertyDescriptor(Class<?> clazz, String fieldName) {
-//        return BeanUtils.getPropertyDescriptor(clazz, fieldName);
-//    }
+    public static <A extends Annotation> List<Field> findFieldsByAnnotationType(Class<?> clazz, Class<A> annotationClass) {
+        List<Field> fieldsWithAnnotation = new ArrayList<>();
+        List<Field> fields = getDeclaredFieldsIncludeSuperClasses(clazz);
+        for (Field field : fields) {
+            A annotation = field.getAnnotation(annotationClass);
+            if (annotation != null) {
+                fieldsWithAnnotation.add(field);
+            }
+        }
+        return fieldsWithAnnotation;
+    }
+
+    public static Field findFieldByName(Class<?> clazz, String fieldName){
+        return org.springframework.util.ReflectionUtils.findField(clazz, fieldName);
+    }
+
+    /**
+     * @param clazz
+     * @param fieldName
+     * @return It will also find PropertyDescriptor in super classes.
+     */
+    public static PropertyDescriptor getPropertyDescriptor(Class<?> clazz, String fieldName) {
+        PropertyDescriptor propertyDescriptor;
+        try {
+            propertyDescriptor = BeanUtils.getPropertyDescriptor(clazz, fieldName);
+        } catch (BeansException ex) {
+            String msg = String.format("Cannot find property '%s' in class %s: %s", fieldName, clazz, ex.getMessage());
+            throw new UnexpectedException(msg, ex);
+        }
+        return propertyDescriptor;
+    }
 
     /**
      * @param clazz
@@ -59,32 +91,7 @@ public final class ReflectionUtils {
         return result;
     }
 
-    public static <A extends Annotation> List<Field> findFieldsByAnnotationType(Class<?> clazz, Class<A> annotationClass) {
-        List<Field> fieldsWithAnnotation = new ArrayList<>();
-        List<Field> fields = getDeclaredFieldsIncludeSuperClasses(clazz);
-        for (Field field : fields) {
-            A annotation = field.getAnnotation(annotationClass);
-            if (annotation != null) {
-                fieldsWithAnnotation.add(field);
-            }
-        }
-        return fieldsWithAnnotation;
-    }
 
-    /**
-     * @param clazz
-     * @param fieldName
-     * @return It will also find PropertyDescriptor in super classes.
-     */
-    public static PropertyDescriptor getPropertyDescriptor(Class<?> clazz, String fieldName) {
-        PropertyDescriptor propertyDescriptor;
-        try {
-            propertyDescriptor = BeanUtils.getPropertyDescriptor(clazz, fieldName);
-        } catch (BeansException ex) {
-            propertyDescriptor = null;
-        }
-        return propertyDescriptor;
-    }
 
     /**
      * This method doesn't check Map, Array or Collection types

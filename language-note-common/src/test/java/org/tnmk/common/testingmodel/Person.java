@@ -43,6 +43,11 @@ public class Person extends Creature {
      */
     private LocalDate comingOfAgeDate;
     private Instant initiatedAt;
+
+    /**
+     * Don't change this field, it's used for testing in {@link ReflectionUtilsTest#getParameterClasses()}
+     */
+    private List<Pet> pets;
     /**
      * Demo for map
      */
@@ -83,6 +88,14 @@ public class Person extends Creature {
 
     public void setEmails(List<String> emails) {
         this.emails = emails;
+    }
+
+    public List<Pet> getPets() {
+        return pets;
+    }
+
+    public void setPets(List<Pet> pets) {
+        this.pets = pets;
     }
 
 

@@ -21,11 +21,7 @@ import java.util.List;
 /**
  * @author khoi.tran on 1/31/17.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = MainApplication.class)
-@ActiveProfiles("dev")
-@WebAppConfiguration
-public class ExpressionItemServiceTest {
+public class ExpressionItemServiceTest extends BaseTest{
 
     @Autowired
     LessonService lessonService;

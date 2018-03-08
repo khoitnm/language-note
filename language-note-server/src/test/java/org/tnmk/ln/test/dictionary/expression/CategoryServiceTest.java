@@ -2,6 +2,7 @@ package org.tnmk.ln.test.dictionary.expression;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,10 @@ import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
 import org.tnmk.ln.test.factory.UserTestFactory;
 
 /**
+ * @ignore This is just used for specific manual test cases.
  * @author khoi.tran on 3/5/17.
  */
+@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional(propagation = Propagation.SUPPORTS)
 public class CategoryServiceTest extends BaseTest {
@@ -39,7 +42,7 @@ public class CategoryServiceTest extends BaseTest {
 
     @Before
     public void initUser() {
-        defaultUser = userTestFactory.initDefaultUser();
+        defaultUser = userTestFactory.getDefaultUser();
     }
 
     @Test

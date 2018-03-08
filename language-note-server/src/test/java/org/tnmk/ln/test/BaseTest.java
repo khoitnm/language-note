@@ -11,6 +11,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.tnmk.ln.MainApplication;
 
 /**
+ * This base class is used for testing functions which need to be run in a Spring context.
  * @author khoi.tran on 2/26/17.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
