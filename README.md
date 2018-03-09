@@ -49,9 +49,12 @@ The used technologies of each module will be described in each module's README.m
 
 ## Project structure:
 I try to separate packages as the business domain (features), not by layers. It this way, those components might be separated into smaller microservices if necessary.
-You can read more in here: https://8thlight.com/blog/uncle-bob/2011/09/30/Screaming-Architecture.html
-Some more specific explaination: http://www.javapractices.com/topic/TopicAction.do?Id=205
-https://stackoverflow.com/questions/46884449/uncle-bobs-clean-architecture-approach-what-is-recommended-package-structure
-https://plainionist.github.io/Implementing-Clean-Architecture/
-However, I don't totally follow the clean architecture which leverages the interface/abstract layers for business logic.
+You can read more in here: <a href="https://8thlight.com/blog/uncle-bob/2011/09/30/Screaming-Architecture.html">Screaming-Architecture</a><br/>
+Some more specific explanation: 
+- http://www.javapractices.com/topic/TopicAction.do?Id=205
+- https://stackoverflow.com/questions/46884449/uncle-bobs-clean-architecture-approach-what-is-recommended-package-structure
+- https://plainionist.github.io/Implementing-Clean-Architecture/
+
+However, I do <b>not</b> totally follow the clean architecture which was described in <a href="https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html">The Clean Architecture</a>.
+That architecture is very good for decouple the main business logic from technologies, and it needs some abstraction, interfaces... to do that. However, in my case, even the business logic is unclear and they could be changed very quickly (Note: I'm going to change the current main business logic in the near future). So with KISS, YAGNI principle, it keep it simple at this moment.
 

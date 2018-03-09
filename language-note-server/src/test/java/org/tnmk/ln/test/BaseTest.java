@@ -12,6 +12,8 @@ import org.tnmk.ln.MainApplication;
 
 /**
  * This base class is used for testing functions which need to be run in a Spring context.
+ * <br/>
+ * However, according to this <a href="https://www.sitepoint.com/javascript-testing-unit-functional-integration/">link</a>. I/O, DB, URL... testing should be integration test, not Unit test. So I should thinking about it.
  * @author khoi.tran on 2/26/17.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
