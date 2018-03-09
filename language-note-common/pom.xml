@@ -8,7 +8,7 @@
 
     <!-- When changing from 'jar' to 'war', you must have the ServletInitializer java file. Otherwise, I cannot load '/resources/static/' files. -->
 	<packaging>jar</packaging>
-	<name>Language Note Client</name>
+	<name>Language Note Common</name>
 	<version>1.0-SNAPSHOT</version>
 
 	<parent>

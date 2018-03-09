@@ -4,7 +4,7 @@
     <artifactId>language-note-server</artifactId>
     <groupId>tnmk</groupId>
     <packaging>war</packaging>
-    <name>language-note-server</name>
+    <name>Language Note Server</name>
     <description>language-note-server</description>
     <version>1.0-SNAPSHOT</version>
 
