@@ -10,7 +10,7 @@ import org.tnmk.ln.app.vocabulary.entity.ExpressionType;
 /**
  * @author khoi.tran on 2/8/17.
  */
-public class JsonServiceTest extends PureTest{
+public class JsonServiceTest extends UnitBaseTest {
     @Test
     public void parseJson() {
         ObjectMapper objectMapper = new ObjectMapper();

@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.tnmk.ln.app.datastructure.NodeWithProps;
 import org.tnmk.ln.app.datastructure.NodeWithPropsRepositories;
-import org.tnmk.ln.test.BaseTest;
+import org.tnmk.ln.test.IntegrationBaseTest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.List;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional(propagation = Propagation.SUPPORTS)
-public class NodeWithPropsTest extends BaseTest {
+public class NodeWithPropsTest extends IntegrationBaseTest {
     public static Logger LOGGER = LoggerFactory.getLogger(NodeWithPropsTest.class);
 
     @Autowired

@@ -5,14 +5,14 @@ import org.junit.Test;
 import org.tnmk.ln.app.dictionary.entity.Locale;
 import org.tnmk.ln.infrastructure.nlp.LemmaFindingService;
 import org.tnmk.ln.infrastructure.nlp.LemmaSpan;
-import org.tnmk.ln.test.PureTest;
+import org.tnmk.ln.test.UnitBaseTest;
 
 import java.util.List;
 
 /**
  * @author khoi.tran on 3/10/17.
  */
-public class StemmingTest extends PureTest {
+public class StemmingTest extends UnitBaseTest {
     LemmaFindingService wordStemmingService = new LemmaFindingService();
     private static String string = "Once upon a time there were 2 twin brothers who were not alike at all. Their names where Tim, and Tom. The twin brothers lived right across a candy shop.";
 

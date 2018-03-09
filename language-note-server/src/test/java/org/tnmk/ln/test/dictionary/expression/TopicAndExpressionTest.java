@@ -16,7 +16,7 @@ import org.tnmk.ln.app.dictionary.entity.Expression;
 import org.tnmk.ln.app.topic.TopicService;
 import org.tnmk.ln.app.topic.entity.Topic;
 import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
-import org.tnmk.ln.test.BaseTest;
+import org.tnmk.ln.test.IntegrationBaseTest;
 import org.tnmk.ln.test.factory.CategoryTestFactory;
 import org.tnmk.ln.test.factory.UserTestFactory;
 
@@ -27,7 +27,7 @@ import org.tnmk.ln.test.factory.UserTestFactory;
 @Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional(propagation = Propagation.SUPPORTS)
-public class TopicAndExpressionTest extends BaseTest {
+public class TopicAndExpressionTest extends IntegrationBaseTest {
     @Autowired
     TopicService topicService;
 

@@ -1,7 +1,7 @@
 package org.tnmk.ln.test.algorithm.graph;
 
 import org.junit.Test;
-import org.tnmk.ln.test.PureTest;
+import org.tnmk.ln.test.UnitBaseTest;
 import org.tnmk.ln.test.algorithm.graph.exercise.FindHighestRelatedMovies;
 import org.tnmk.ln.test.algorithm.graph.exercise.Movie;
 
@@ -10,7 +10,7 @@ import java.util.Set;
 /**
  * @author khoi.tran on 3/29/17.
  */
-public class MovieTesting extends PureTest{
+public class MovieTesting extends UnitBaseTest {
 
     @Test
     public void testTopRatedMovie() {

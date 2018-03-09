@@ -1,13 +1,7 @@
 package org.tnmk.ln.test;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.tnmk.ln.MainApplication;
 import org.tnmk.ln.app.vocabulary.entity.ExpressionItem;
 import org.tnmk.ln.app.vocabulary.entity.Lesson;
 import org.tnmk.ln.app.vocabulary.entity.Meaning;
@@ -21,7 +15,7 @@ import java.util.List;
 /**
  * @author khoi.tran on 1/31/17.
  */
-public class ExpressionItemServiceTest extends BaseTest{
+public class ExpressionItemServiceTest extends IntegrationBaseTest {
 
     @Autowired
     LessonService lessonService;

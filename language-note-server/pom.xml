@@ -236,6 +236,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
 
+
             <!-- Generate Front-End source from NodeJs -->
             <!--<plugin>-->
                 <!--<groupId>org.codehaus.mojo</groupId>-->
@@ -311,4 +312,42 @@
             <!-- EXPORT PROJECT INFORMATION TO PROPERTIES: END -->
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>unit-test</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <!-- By default, only run UnitTest, don't run Integration Test -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.19.1</version>
+                        <configuration>
+                            <groups>org.tnmk.common.test.UnitTest</groups>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>integration-test</id>
+            <build>
+                <plugins>
+                    <!-- By default, only run UnitTest, don't run Integration Test -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.19.1</version>
+                        <configuration>
+                            <groups>org.tnmk.common.test.IntegrationTest</groups>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

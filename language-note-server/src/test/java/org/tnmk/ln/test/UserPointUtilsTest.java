@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * @author khoi.tran on 1/31/17.
  */
-public class UserPointUtilsTest extends PureTest{
+public class UserPointUtilsTest extends UnitBaseTest {
     @Test
     public void test_Calculation_null_or_empty() {
         AnswerCalculation answerCalculation = UserPointUtils.calculateCorrectAnswersForLastElements(Collections.emptyList(), 5);

@@ -17,7 +17,7 @@ import org.tnmk.ln.app.aggregation.practice.QuestionRecommendationService;
 import org.tnmk.ln.app.practice.QuestionRepository;
 import org.tnmk.ln.app.practice.entity.question.Question;
 import org.tnmk.ln.app.practice.entity.result.AnswerResult;
-import org.tnmk.ln.test.BaseTest;
+import org.tnmk.ln.test.IntegrationBaseTest;
 import org.tnmk.ln.test.factory.CategoryTestFactory;
 import org.tnmk.ln.app.practice.PracticeAnswerService;
 import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
@@ -28,7 +28,7 @@ import org.tnmk.ln.test.factory.UserTestFactory;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional(propagation = Propagation.SUPPORTS)
-public class PracticeAnswerQuestionTest extends BaseTest {
+public class PracticeAnswerQuestionTest extends IntegrationBaseTest {
     @Autowired
     UserTestFactory userTestFactory;
 

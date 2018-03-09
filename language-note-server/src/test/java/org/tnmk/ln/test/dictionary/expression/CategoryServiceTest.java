@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.tnmk.ln.app.topic.CategoryAndOwnerRepository;
 import org.tnmk.ln.app.topic.CategoryService;
 import org.tnmk.ln.app.topic.entity.Category;
-import org.tnmk.ln.test.BaseTest;
+import org.tnmk.ln.test.IntegrationBaseTest;
 import org.tnmk.ln.app.topic.TopicService;
 import org.tnmk.ln.app.topic.CategoryRepository;
 import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
@@ -25,7 +25,7 @@ import org.tnmk.ln.test.factory.UserTestFactory;
 @Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional(propagation = Propagation.SUPPORTS)
-public class CategoryServiceTest extends BaseTest {
+public class CategoryServiceTest extends IntegrationBaseTest {
     @Autowired
     TopicService topicService;
 

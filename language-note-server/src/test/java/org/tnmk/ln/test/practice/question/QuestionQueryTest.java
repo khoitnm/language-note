@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.tnmk.ln.app.practice.QuestionLoadingRepository;
 import org.tnmk.ln.app.practice.QuestionRepository;
-import org.tnmk.ln.test.BaseTest;
+import org.tnmk.ln.test.IntegrationBaseTest;
 
 /**
  * @author khoi.tran on 3/11/17.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-public class QuestionQueryTest extends BaseTest {
+public class QuestionQueryTest extends IntegrationBaseTest {
     @Autowired
     QuestionLoadingRepository questionLoadingRepository;
 

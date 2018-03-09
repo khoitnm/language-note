@@ -21,7 +21,6 @@ import org.tnmk.ln.app.dictionary.entity.SenseGroup;
 import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.UserRepository;
 import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.Contributor;
 import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
-import org.tnmk.ln.test.BaseTest;
 
 import java.util.ArrayList;
 import java.util.Arrays;

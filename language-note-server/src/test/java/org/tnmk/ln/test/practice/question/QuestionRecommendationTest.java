@@ -8,7 +8,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.tnmk.ln.app.aggregation.practice.QuestionRecommendationService;
-import org.tnmk.ln.test.BaseTest;
+import org.tnmk.ln.test.IntegrationBaseTest;
 import org.tnmk.ln.test.factory.CategoryTestFactory;
 import org.tnmk.ln.test.factory.UserTestFactory;
 import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
@@ -18,7 +18,7 @@ import org.tnmk.ln.infrastructure.security.usersmanagement.neo4j.entity.User;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional(propagation = Propagation.SUPPORTS)
-public class QuestionRecommendationTest extends BaseTest {
+public class QuestionRecommendationTest extends IntegrationBaseTest {
     @Autowired
     UserTestFactory userTestFactory;
 
