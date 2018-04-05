@@ -55,7 +55,7 @@
         </div>
 
         <div ng-repeat="sense in senseGroup.senses | limitTo: 2" class="sense">
-            <div class="sense-explanation">{{sense.shortExplanation || sense.explanation}}</div>
+            <div class="sense-explanation" title="{{sense.explanation}}">{{sense.shortExplanation || sense.explanation}}</div>
             <div ng-if="sense.photos.length == 1 && sense.mainPhoto.fileItemId"
                  ng-include="contextPathClient + '/app/topic/topic-edit-expression-teaser-one-photo.html'"
                  class="sense-image-wrapper static-width-center-container">

@@ -58,3 +58,7 @@ Some more specific explanation:
 However, I do <b>not</b> totally follow the clean architecture which was described in <a href="https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html">The Clean Architecture</a>.
 That architecture is very good for decouple the main business logic from technologies, and it needs some abstraction, interfaces... to do that. However, in my case, even the business logic is unclear and they could be changed very quickly (Note: I'm going to change the current main business logic in the near future). So with KISS, YAGNI principle, it keep it simple at this moment.
 
+## Note:
+This project would be replaced by microservice architecture.
+The future project will be implemented with the motivation from this article:
+https://dzone.com/articles/microservice-architecture-with-spring-cloud-and-do (with an proof-of-concept code)

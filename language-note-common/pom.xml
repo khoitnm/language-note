@@ -68,6 +68,29 @@
             <version>3.4</version>
         </dependency>
 
+
+        <!-- COMPRESSION -->
+        <!-- Support *.RAR -->
+        <dependency>
+            <groupId>com.github.junrar</groupId>
+            <artifactId>junrar</artifactId>
+            <version>0.7</version>
+        </dependency>
+
+        <!-- //A facade of common-compress libraries (support *.zip, *.7z, *.tar...). -->
+        <dependency>
+            <groupId>org.rauschig</groupId>
+            <artifactId>jarchivelib</artifactId>
+            <version>0.7.1</version>
+        </dependency>
+        <!-- //This dependencies is necessary for 7z compression/extraction (which use XZ compression algorithm) -->
+        <dependency>
+            <groupId>org.tukaani</groupId>
+            <artifactId>xz</artifactId>
+            <version>1.5</version>
+        </dependency>
+
+
         <!-- JSON: convert DateTime types in Java 8 -->
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
@@ -87,6 +110,7 @@
             <artifactId>spring-test</artifactId>
             <scope>test</scope>
         </dependency>
+
 
     </dependencies>
 
