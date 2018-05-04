@@ -1,0 +1,9 @@
+version: '2'
+services:
+  mongodb:
+    image: mongo:3.7
+    container_name: 'mongo_dev'
+    volumes: 
+      - /data/mongo:/data/db
+    ports:
+      - "27017:27017"

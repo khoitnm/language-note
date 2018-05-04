@@ -34,6 +34,24 @@ db.createUser(
 });
 ```
 
+
+If you use docker:
+```
+docker exec -it mongo_dev mongo admin
+
+db.createUser({ user: 'languagenoteadmin', pwd: 'password', roles: [ { role: "userAdminAnyDatabase", db: "admin" } ] });
+```
+
+Exit mongo query
+```
+exit
+```
+
+Exit docker container
+```
+Ctrl+Q (or Ctrl+P)
+```
+
 #### Full-text Search Index
 ```
 db.Expressions.createIndex( { text: "text" } )
