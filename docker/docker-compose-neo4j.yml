@@ -2,6 +2,7 @@ version: '2'
 services:
   neo4j:
     image: neo4j:3.3.5
+    restart: always
     volumes:
       - /data/mysql:/data/mysql
       - /data/pgsql:/data/postgresql

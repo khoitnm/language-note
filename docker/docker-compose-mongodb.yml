@@ -2,6 +2,7 @@ version: '2'
 services:
   mongodb:
     image: mongo:3.7
+    restart: always
     container_name: 'mongo_dev'
     volumes: 
       - /data/mongo:/data/db
