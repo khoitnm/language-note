@@ -1,6 +1,7 @@
 language-note
 ==============
 ## Technologies Overview
+- Java 8 (not compatible with Java 10, I have not investigated the root cause yet)
 - Spring Boot
 - OAuth2 + JWT: this server plays both Authorization Server and Resource Server roles
 - MongoDB (DocumentDB)

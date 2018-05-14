@@ -7,9 +7,9 @@ spring:
             username: languagenoteadmin
             password: password
         neo4j:
-            uri: http://localhost:7474/
+            uri: bolt://localhost:7687/
             username: neo4j
-            password: password
+            password: admin
 google:
     api:
         key: AIzaSyA6yFgxn-ZedxCghH1X4xwuLLcltaUlK3c
