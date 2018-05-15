@@ -2,5 +2,5 @@ FROM openjdk:8-jdk-alpine
 VOLUME /tmp
 #ARG JAR_FILE
 #COPY ${JAR_FILE} app.jar
-COPY target/*.war /language-note-server.war
+COPY *.war /language-note-server.war
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/language-note-server.war"]

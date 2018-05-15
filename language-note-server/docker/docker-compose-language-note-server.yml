@@ -1,0 +1,7 @@
+version: '2'
+services:
+  language-note-server:
+    image: tnmk/language-note-server:latest
+    container_name: 'language-note-server'
+    ports:
+      - "8080:8080"
