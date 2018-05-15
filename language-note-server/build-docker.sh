@@ -1,0 +1,1 @@
+docker build -t tnmk/language-note-server:latest ,
