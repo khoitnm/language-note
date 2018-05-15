@@ -5,6 +5,11 @@ services:
     container_name: 'language-note-server'
     ports:
       - "8080:8080"
+  language-note-client:
+    image: tnmk/language-note-client:latest
+    container_name: 'language-note-client'
+    ports:
+      - "8081:8081"
   neo4j:
     image: neo4j:3.3.5
     restart: always
