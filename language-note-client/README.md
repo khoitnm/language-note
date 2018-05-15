@@ -10,6 +10,16 @@ And the server will provide API for client applications. So we choose OAuth2 as 
  
 ## Install Project
 ### Install JS libraries
+Install NodeJS
+```
+sudo apt-get install -y nodejs
+```
+
+Install Bower
+```
+npm install -g bower 
+```
+
 Download client application by using following command line
 ```
 cd src/main/resources/static

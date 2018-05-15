@@ -6,7 +6,7 @@ language-note-data
 **/*.idea
 **/*.classpath
 **/target
-
+**/build
 **/*.tern-project
 build.properties
 *.log
@@ -21,6 +21,7 @@ build.properties
 !/src/main/resources/static/node_modules/gentelella/
 !/src/main/resources/static/node_modules/gentelella/build/
 !/src/main/resources/static/node_modules/gentelella/build/*
+/src/main/resources/static/node_modules/gentelella/vendors
 /src/main/resources/static/node_modules/gentelella/documentation
 /src/main/resources/static/node_modules/gentelella/src
 
