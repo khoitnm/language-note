@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>language-note-server</artifactId>
     <groupId>tnmk</groupId>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>Language Note Server</name>
     <description>language-note-server</description>
     <version>1.0-SNAPSHOT</version>
@@ -244,9 +244,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-
-
-
 
             <!-- EXPORT PROJECT INFORMATION TO PROPERTIES: BEGIN -->
             <!-- Export information into properties file -->
