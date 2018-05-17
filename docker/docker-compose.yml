@@ -1,15 +1,5 @@
 version: '2'
 services:
-  language-note-server:
-    image: tnmk/language-note-server:latest
-    container_name: 'language-note-server'
-    ports:
-      - "8080:8080"
-  language-note-client:
-    image: tnmk/language-note-client:latest
-    container_name: 'language-note-client'
-    ports:
-      - "8081:8081"
   neo4j:
     image: neo4j:3.3.5
     restart: always
@@ -34,3 +24,23 @@ services:
       - /data/mongo:/data/db
     ports:
       - "27017:27017"
+  language-note-client:
+    image: tnmk/language-note-client:latest
+    container_name: 'language-note-client'
+    ports:
+      - "8081:8081"
+    depends_on:
+      - language-note-server
+    environment:
+      LANGUAGE_NOTE_SERVER_ENDPOINT: ${LANGUAGE_NOTE_SERVER_ENDPOINT}
+  language-note-server:
+    image: tnmk/language-note-server:latest
+    container_name: 'language-note-server'
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongodb
+      - neo4j
+    environment:
+      MONGO_HOST: ${MONGO_HOST}
+      NEO4J_HOST: ${NEO4J_HOST}

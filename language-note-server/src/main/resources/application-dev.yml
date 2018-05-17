@@ -1,13 +1,13 @@
 spring:
     data:
         mongodb:
-            host: localhost
+            host: ${MONGO_HOST:localhost}
             port: 27017
             database: languagenote
             username: languagenoteadmin
             password: password
         neo4j:
-            uri: bolt://localhost:7687/
+            uri: bolt://${NEO4J_HOST:localhost}:7687/
             username: neo4j
             password: admin
 google:

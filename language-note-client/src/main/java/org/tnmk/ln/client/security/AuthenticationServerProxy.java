@@ -1,6 +1,7 @@
 package org.tnmk.ln.client.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -21,10 +22,14 @@ public class AuthenticationServerProxy {
     private static final String GRANT_TYPE_PASSWORD = "password";
     private static final String GRANT_TYPE_REFRESH_TOKEN = "refresh_token";
 
+    @Value("${language-note-server.endpoint}")
+    private String languageNoteServerEndpoint;
 
     //    private String urlOauth2Token = "http://localhost:8080/language-note-server/oauth/token";
-    private String urlOauth2Token = "http://localhost:8080/language-note-server/oauth/token";
-    private String urlUserInfo = "http://localhost:8080/language-note-server/me";
+    @Value("${language-note-server.endpoint}/oauth/token")
+    private String urlOauth2Token;
+    @Value("${language-note-server.endpoint}/me")
+    private String urlUserInfo;
 
     private RestTemplate restTemplate = new RestTemplate();
 

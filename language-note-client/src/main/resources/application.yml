@@ -4,6 +4,8 @@ server:
     contextPath: /language-note-client
     port : 8081
 # Spring boot properties (do not change the keys)
+language-note-server:
+    endpoint: ${LANGUE_NOTE_SERVER_ENDPOINT:http://localhost:8080/language-note-server}
 spring:
     mvc:
         favicon:
