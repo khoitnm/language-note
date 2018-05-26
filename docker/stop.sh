@@ -8,4 +8,4 @@ echo "MONGO_HOST ${MONGO_HOST}"
 echo "NEO4J_HOST ${NEO4J_HOST}"
 echo "LANGUAGE_NOTE_SERVER_ENDPOINT ${LANGUAGE_NOTE_SERVER_ENDPOINT}"
 
-docker-compose -f docker-compose-language-note-server.yml -f docker-compose-language-note-client.yml stop
+docker-compose stop
