@@ -1,9 +1,9 @@
 language-note
 ==============
 An application for learning languages.
-> There are already many applications for learning English. But no application can help me to practices only on vocabularies which I'm interested in.<br/>
-> They are all force me to practice on predefined exercises. 
+> There are already many applications for learning English. But most applications force me to practice on predefined vocabularies, phrase, idioms, exercises. Some applications allow me to define my own vocabularies and other expressions, but I have to write the meaning of those vocabularies by myself, so exhausting, and most of them don't allow me to put images or video into the expressions' description.
 >
+> This applications try to avoid those issues.
 > This application will help users to memorize their vocabularies, phrases, idioms: users can create different topics which contain their own expressions (vocabularies, phrases, idioms).<p/>
 > When user input an expression, it's definition and examples will be loaded automatically from dictionaries. Then the user can change that definition and examples to make it easier for him to understand.<p/>
 > After that, he can do some test for his expressions. Those testing exercises will be generated automatically based on the examples and definitions of those expressions. There are many kinds of exercises (recall the meaning, or filling blanks, etc.)<p/>
